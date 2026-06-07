@@ -22,6 +22,7 @@ import { Fragment } from "react/jsx-runtime";
 import { useDraggable } from "@dnd-kit/react";
 import { toast } from "react-toastify";
 import { formatDate } from "../../utils";
+import { socket } from "../../lib/socket";
 
 type TaskCardProps = {
   task: TaskProjectType;
@@ -66,8 +67,10 @@ const TaskCard = ({ task, canEdit }: TaskCardProps) => {
   const { mutate } = useMutation({
     mutationFn: deleteTask,
     onSuccess: (data) => {
-      toast.success(data);
+      toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+
+      socket.emit("taskDeleted", { message: `Tarea eliminada en proyecto ${data.project.projectName}`, project: data.project });
     },
     onError: (error) => toast.error(error.message),
   });

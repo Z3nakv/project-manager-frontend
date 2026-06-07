@@ -51,7 +51,17 @@ const AppLayout = () => {
     socket.on("member_removed_notification", (data) => {   
       toast.info(data.message)
       queryClient.invalidateQueries({ queryKey: ['projects']})
+    });
+
+    socket.on("taskCreatedMessage", (data) => {
+      toast.info(data.message);
+      queryClient.invalidateQueries({ queryKey: ["project", data.project._id] });
     })
+
+    socket.on("taskDeletedMessage", (data) => {
+      toast.info(data.message);
+      queryClient.invalidateQueries({ queryKey: ["project", data.project._id] });
+    });
 
     return () => {
       socket.off("new_notification") 
@@ -59,6 +69,8 @@ const AppLayout = () => {
       socket.off("receive_message");
       socket.off("receive_project_deleted");
       socket.off("member_removed_notification")
+      socket.off("taskCreatedMessage")
+      socket.off("taskDeletedMessage")
     };
   }, [queryClient]);
 

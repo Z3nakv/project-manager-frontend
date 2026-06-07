@@ -8,12 +8,13 @@ import { Fragment } from "react/jsx-runtime";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import TaskForm from "./TaskForm";
 import { toast } from "react-toastify";
+import { socket } from "../../lib/socket";
 
 export default function AddTaskModal() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const newTask = searchParams.get("newTask") === "true";
-
+  
   const params = useParams();
   const projectID = params.projectID!;
 
@@ -28,10 +29,12 @@ export default function AddTaskModal() {
   const { mutate } = useMutation({
     mutationFn: createTask,
     onSuccess: (data) => {
-      toast.success(data)
+      toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["project", projectID] });
       reset();
       navigate(location.pathname, { replace: true })
+
+      socket.emit("taskCreated", { message: `Tarea creada en proyecto ${data.project.projectName}`, project: data.project });
     },
     onError: (error) => toast.error(error.message),
   });

@@ -20,10 +20,7 @@ type CreateTaskdataProps = {
 }
 export const createTask = async ({formData, projectID} : CreateTaskdataProps) => {
     const url = `/projects/${projectID}/tasks`
-    const { data } = await api.post<string>(url, formData);
-    
-    console.log(data);
-    
+    const { data } = await api.post(url, formData);
     return data;
 }
 
@@ -46,7 +43,7 @@ type DeleteTaskProps = {
 
 export const deleteTask = async ({projectID, taskID}: DeleteTaskProps) => {
     const url = `/projects/${projectID}/tasks/${taskID}`
-    const { data } = await api.delete<string>(url);
+    const { data } = await api.delete(url);
     return data
 }
 
