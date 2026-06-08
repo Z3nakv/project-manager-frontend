@@ -32,10 +32,9 @@ const AppLayout = () => {
       queryClient.invalidateQueries({queryKey: ["notifications"]});
     });
 
-    socket.on("receive_message", (data) => {
-      toast.info(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", data.projectID] });
-      queryClient.invalidateQueries({ queryKey: ["notifications"] }); // ✅ agrega esto
+    socket.on("project_updated_notification", (message) => {
+      toast.info(message);
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
     });
 
     socket.on("receive_project_deleted", (data) => {
@@ -58,6 +57,12 @@ const AppLayout = () => {
       queryClient.invalidateQueries({ queryKey: ["project", data.project._id] });
     })
 
+    socket.on("task_status_updated_notification", (data) => {
+      toast.info(data.message);
+      queryClient.invalidateQueries({ queryKey: ["project", data.projectID] });
+      queryClient.invalidateQueries({ queryKey: ["notifications"] }); // ✅ agrega esto
+    });
+
     socket.on("taskDeletedMessage", (data) => {
       toast.info(data.message);
       queryClient.invalidateQueries({ queryKey: ["project", data.project._id] });
@@ -68,15 +73,18 @@ const AppLayout = () => {
       queryClient.invalidateQueries({ queryKey: ["project", data.project._id] });
     });
 
+    
+
     return () => {
       socket.off("new_notification") 
       socket.off("member_added_notification")
-      socket.off("receive_message");
+      socket.off("task_status_updated_notification");
       socket.off("receive_project_deleted");
       socket.off("member_removed_notification")
       socket.off("taskCreatedMessage")
       socket.off("taskDeletedMessage")
       socket.off("taskUpdatedMessage")
+      socket.off("project_updated_notification")
     };
   }, [queryClient]);
 

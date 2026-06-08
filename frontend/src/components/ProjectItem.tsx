@@ -35,7 +35,7 @@ const ProjectItem = ({ project, user }: ProjectItemProps) => {
       socket.emit("project_deleted", {
             message: `${user?.name} ha eliminado el proyecto ${project.projectName}`,
             projectID: project._id,
-            team: [...new Set([...project.team.map(m => m), project.manager._id])]
+            team: project.team.map(memberID => memberID._id)
         })
         queryClient.invalidateQueries({ queryKey: ["projects"] })
       toast.success(data);
