@@ -4,6 +4,7 @@ import type { TaskFormType } from "../../types";
 type TaskFormProps = {
   register: UseFormRegister<TaskFormType>;
   errors: FieldErrors<TaskFormType>;
+  date?: string;
 };
 
 const inputBase =
@@ -15,6 +16,7 @@ const labelBase =
 const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
 
 const TaskForm = ({ register, errors }: TaskFormProps) => {
+  
   return (
     <div className="space-y-5">
       {/* Nombre */}
@@ -86,7 +88,9 @@ const TaskForm = ({ register, errors }: TaskFormProps) => {
           Fecha límite
         </label>
         <input
+          id="deadline"
           type="date"
+          /* defaultValue={'2026-12-31'} */
           className="w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150"
           {...register("deadline")}
         />

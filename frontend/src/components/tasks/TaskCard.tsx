@@ -75,7 +75,7 @@ const TaskCard = ({ task, canEdit }: TaskCardProps) => {
     onError: (error) => toast.error(error.message),
   });
 
-  const deadlineStatus = getDeadlineStatus(task.deadline);
+  const deadlineStatus = getDeadlineStatus(task.deadline!);
 
   return (
     <li

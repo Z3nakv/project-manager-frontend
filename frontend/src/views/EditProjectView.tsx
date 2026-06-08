@@ -20,7 +20,7 @@ const EditProjectView = () => {
   //MOSTRAR ERROR EN EL LINK A 404
   if (isError) return <Navigate to={'/404'}/>
 
-  return <EditProjectForm project={data} />;
+  if(data) return <EditProjectForm project={data} />;
 };
 
 export default EditProjectView;

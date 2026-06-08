@@ -63,6 +63,11 @@ const AppLayout = () => {
       queryClient.invalidateQueries({ queryKey: ["project", data.project._id] });
     });
 
+    socket.on("taskUpdatedMessage", (data) => {
+      toast.info(data.message);
+      queryClient.invalidateQueries({ queryKey: ["project", data.project._id] });
+    });
+
     return () => {
       socket.off("new_notification") 
       socket.off("member_added_notification")
@@ -71,6 +76,7 @@ const AppLayout = () => {
       socket.off("member_removed_notification")
       socket.off("taskCreatedMessage")
       socket.off("taskDeletedMessage")
+      socket.off("taskUpdatedMessage")
     };
   }, [queryClient]);
 
@@ -96,6 +102,7 @@ const AppLayout = () => {
           </div>
 
           <NotificationCenter />
+          
         </header>
 
         {/* ── Main content ───────────────────────────────────── */}

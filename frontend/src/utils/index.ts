@@ -3,7 +3,8 @@ export function formatDate(isoString: string) : string {
     const formatter = new Intl.DateTimeFormat('es-ES', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
+        timeZone: 'UTC'
     })
     return formatter.format(date);
 }

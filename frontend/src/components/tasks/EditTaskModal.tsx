@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateTask } from "../../services/taskServices";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { toast } from "react-toastify";
+import { socket } from "../../lib/socket";
 
 type EditTaskModalProps = {
   data: TaskProjectType;
@@ -18,14 +20,21 @@ const EditTaskModal = ({ data, taskID }: EditTaskModalProps) => {
   const params = useParams();
   const projectID = params.projectID!;
   const queryClient = useQueryClient();
-
+  
+  const deadlineDate = data.deadline ? data.deadline.slice(0, 10) : undefined;
+  
   const { register, handleSubmit, formState: { errors } } = useForm<TaskFormType>({
-    defaultValues: { name: data.name, description: data.description },
+    defaultValues: { name: data.name, description: data.description, deadline: deadlineDate || undefined },
   });
 
   const { mutate } = useMutation({
     mutationFn: updateTask,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      toast.success(data.message);
+      socket.emit("taskUpdated", { 
+        message: `Tarea "${data.task.name}" actualizada`, 
+        project: data.project 
+      }); // Emitir evento de actualización
       queryClient.invalidateQueries({ queryKey: ["task", taskID] });
       queryClient.invalidateQueries({ queryKey: ["project", projectID] }); 
       navigate(location.pathname, { replace: true });
@@ -33,8 +42,7 @@ const EditTaskModal = ({ data, taskID }: EditTaskModalProps) => {
     onError: (error) => console.log(error.message),
   });
 
-  const handleEditTask = (formData: TaskFormType) =>
-    mutate({ taskID, projectID, formData });
+  const handleEditTask = (formData: TaskFormType) => mutate({ taskID, projectID, formData });
 
   const handleClose = () => navigate(location.pathname, { replace: true });
 

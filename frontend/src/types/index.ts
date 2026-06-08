@@ -45,7 +45,7 @@ export const taskSchema = object({
     notes: array(noteSchema),
     createdAt: string(),
     updatedAt: string(),
-    deadline: string().optional()
+    deadline: string().optional().nullable()
 });
 
 export const taskProjectSchema = taskSchema.pick({
@@ -71,7 +71,7 @@ export const projectItemSchemaDetails = object({
     description: string(),
     tasks: array(taskSchema),
     manager: userSchema.pick({_id: true}),
-    team: array(string()),
+    team: array(userSchema.pick({_id: true})),
 });
 
 export const projectItemSchemaDetailsByID = object({
@@ -159,7 +159,7 @@ export type NoteFormData = Pick<Note, 'content'>;
 export type Task = z.infer<typeof taskSchema>
 export type TaskStatus = z.infer<typeof taskStatusSchema>
 export type TaskProjectType = z.infer<typeof taskProjectSchema>
-export type TaskFormType = Pick<TaskProjectType, 'name' | 'description'> & { deadline?: string};
+export type TaskFormType = Pick<TaskProjectType, 'name' | 'description' | 'deadline'> ;
 export type ProjectItemSchemaDetailsType = z.infer<typeof projectItemSchemaDetails>
 export type ProjectItemType = z.infer<typeof projectItemSchema>
 export type ProjectFormDataType = Pick<ProjectItemType, 'projectName' | 'clientName' | 'description'>
