@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import type { UserRegistrationForm } from "../../types";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import ErrorMessage from "../../components/ErrorMessage";
 import { createAccount } from "../../services/authService";
 import { Link } from "react-router";
 
@@ -26,11 +25,13 @@ export default function RegisterView() {
     },
     onError: (error) => toast.error(error.message),
   });
-
+ 
   const handleRegister = (formData: UserRegistrationForm) => mutate(formData);
 
   const inputClass = "w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-600 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150";
-
+  const labelBase = "text-xs font-semibold text-slate-500 uppercase tracking-wide";
+  const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
+  
   return (
     <div className="bg-[#1e2330] border border-[#2d3348] rounded-2xl shadow-[0_24px_48px_rgba(0,0,0,0.4)] p-8">
 
@@ -44,7 +45,7 @@ export default function RegisterView() {
       <form onSubmit={handleSubmit(handleRegister)} className="space-y-5" noValidate>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide" htmlFor="name">
+          <label className={labelBase} htmlFor="name">
             Nombre
           </label>
           <input
@@ -54,11 +55,19 @@ export default function RegisterView() {
             className={inputClass}
             {...register("name", { required: "El nombre es obligatorio" })}
           />
-          {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+          {errors.name && (
+          <p className={errorMsg}>
+            <svg className="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1-9a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z" clipRule="evenodd" />
+            </svg>
+            {errors.name.message}
+          </p>
+        )}
+          {/* {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>} */}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide" htmlFor="email">
+          <label className={labelBase} htmlFor="email">
             Email
           </label>
           <input
@@ -71,11 +80,19 @@ export default function RegisterView() {
               pattern: { value: /\S+@\S+\.\S+/, message: "Email no válido" },
             })}
           />
-          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+          {errors.email && (
+          <p className={errorMsg}>
+            <svg className="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1-9a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z" clipRule="evenodd" />
+            </svg>
+            {errors.email.message}
+          </p>
+        )}
+          {/* {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>} */}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide" htmlFor="password">
+          <label className={labelBase} htmlFor="password">
             Password
           </label>
           <input
@@ -88,11 +105,19 @@ export default function RegisterView() {
               minLength: { value: 8, message: "Mínimo 8 caracteres" },
             })}
           />
-          {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+          {errors.password && (
+          <p className={errorMsg}>
+            <svg className="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1-9a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z" clipRule="evenodd" />
+            </svg>
+            {errors.password.message}
+          </p>
+        )}
+          {/* {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>} */}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide" htmlFor="password_confirmation">
+          <label className={labelBase} htmlFor="password_confirmation">
             Repetir Password
           </label>
           <input
@@ -105,7 +130,14 @@ export default function RegisterView() {
               validate: (value) => value === password || "Los passwords no coinciden",
             })}
           />
-          {errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>}
+          {errors.password_confirmation && (
+          <p className={errorMsg}>
+            <svg className="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1-9a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z" clipRule="evenodd" />
+            </svg>
+            {errors.password_confirmation.message}
+          </p>
+        )}
         </div>
 
         <div className="pt-2">

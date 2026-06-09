@@ -28,7 +28,7 @@ const AppLayout = () => {
 
   useEffect(() => {
 
-    socket.on("new_notification", () => {      
+    socket.on("new_notification", () => {    
       queryClient.invalidateQueries({queryKey: ["notifications"]});
     });
 

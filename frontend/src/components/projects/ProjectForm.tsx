@@ -9,9 +9,8 @@ type ProjectFormProps = {
 const inputBase =
   "w-full bg-[#151921] border border-[#2d3348] text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors duration-150";
 
-const labelBase = "block text-xs font-semibold uppercase tracking-widest text-slate-400";
-
-const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
+const labelBase = "text-xs font-semibold text-slate-500 uppercase tracking-wide";
+  const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
 
 const ProjectForm = ({ register, errors }: ProjectFormProps) => {
   return (

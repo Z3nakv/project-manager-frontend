@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
   ProjectItemSchemaDetailsType,
   TaskProjectType,
-  TaskStatus
+  TaskStatus,
 } from "../../types";
 import DropTask from "./DropTask";
 import TaskCard from "./TaskCard";
@@ -12,12 +12,14 @@ import { updateStatus } from "../../services/taskServices";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
 import { socket } from "../../lib/socket";
-
+import { useIsMobile } from "../../hooks/useIsMobile";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 
 type TaskListProps = {
   tasks: TaskProjectType[];
   canEdit: boolean;
-  team: string[]
+  team: string[];
 };
 
 type GroupedTasks = {
@@ -44,11 +46,12 @@ const statusConfig: Record<
 };
 
 const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
-  
   const { data: user } = useAuth();
   const params = useParams();
   const projectID = params.projectID!;
   const queryClient = useQueryClient();
+  const { scrollRef, scroll, canScrollLeft, canScrollRight } = useHorizontalScroll()
+
 
   const { mutate } = useMutation({
     mutationFn: updateStatus,
@@ -60,8 +63,12 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
     },
   });
 
+  const isMobile = useIsMobile();
 
   const handleDragEnd = (e: DragEndEvent) => {
+
+    if(isMobile) return;
+
     const status = e.operation.target?.id as TaskStatus;
     const taskID = e.operation.source?.id.toString();
 
@@ -93,8 +100,8 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
         taskID,
         status,
         projectID,
-        team: team.map(member => member),
-        triggeredBy: user?._id
+        team: team.map((member) => member),
+        triggeredBy: user?._id,
       });
     }
   };
@@ -105,14 +112,35 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
     return { ...acc, [task.status]: currentGroup };
   }, initialStatusGroups);
 
+
   return (
     <div className="mt-6">
       <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
         Tareas
       </h2>
 
+      <div className="flex justify-between items-center mb-3 md:hidden">
+                {canScrollLeft && (
+                  <button
+                    onClick={() => scroll('left')}
+                    className="cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                >
+                    <ChevronLeftIcon className="h-5 w-5" />
+                  </button>
+                )}
+                <span className="text-xs text-slate-500">Desliza para ver más</span>
+                {canScrollRight && (
+                  <button
+                    onClick={() => scroll('right')}
+                    className="cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                >
+                    <ChevronRightIcon className="h-5 w-5" />
+                </button>)}
+            </div>
+
       <div
-        className="flex gap-4 pb-4
+        ref={scrollRef}
+        className="overflow-x-auto -mx-6 px-6
           [&::-webkit-scrollbar]:h-1.5
           [&::-webkit-scrollbar-track]:bg-transparent
           [&::-webkit-scrollbar-thumb]:bg-[#2d3348]
@@ -120,54 +148,56 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
           [&::-webkit-scrollbar-thumb:hover]:bg-[#3d4663]"
       >
         <DragDropProvider onDragEnd={handleDragEnd}>
-          {Object.entries(groupedTasks).map(([status, tasks]) => {
-            const config = statusConfig[status];
+          <div className="flex gap-4 pb-4" style={{ minWidth: "max-content" }}>
+            {Object.entries(groupedTasks).map(([status, tasks]) => {
+              const config = statusConfig[status];
 
-            return (
-              <div
-                key={status}
-                className="min-w-72 2xl:min-w-0 2xl:flex-1 flex flex-col"
-              >
-                {/* Column header */}
-                <div className="flex items-center gap-2 mb-3 px-1">
-                  <span
-                    style={{ color: config.color }}
-                    className="text-base leading-none"
-                  >
-                    {config.icon}
-                  </span>
-                  <h3 className="text-sm font-semibold text-slate-300">
-                    {config.label}
-                    <span className="ml-2 text-slate-500 font-normal">
-                      ({tasks.length})
-                    </span>
-                  </h3>
-                </div>
-
-                {/* Color bar */}
+              return (
                 <div
-                  className="h-0.5 rounded-full mb-4"
-                  style={{ background: config.color }}
-                />
+                  key={status}
+                  className="w-[85vw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0"
+                >
+                  {/* Column header */}
+                  <div className="flex items-center gap-2 mb-3 px-1">
+                    <span
+                      style={{ color: config.color }}
+                      className="text-base leading-none"
+                    >
+                      {config.icon}
+                    </span>
+                    <h3 className="text-sm font-semibold text-slate-300">
+                      {config.label}
+                      <span className="ml-2 text-slate-500 font-normal">
+                        ({tasks.length})
+                      </span>
+                    </h3>
+                  </div>
 
-                {/* Drop zone */}
-                <DropTask status={status} />
+                  {/* Color bar */}
+                  <div
+                    className="h-0.5 rounded-full mb-4"
+                    style={{ background: config.color }}
+                  />
 
-                {/* Cards */}
-                <ul className="flex flex-col gap-3 mb-3 mt-3">
-                  {tasks.map((task) => (
-                    <TaskCard key={task._id} task={task} canEdit={canEdit} />
-                  ))}
+                  {/* Drop zone */}
+                  <DropTask status={status} />
 
-                  {tasks.length === 0 && (
-                    <li className="text-center text-slate-600 text-xs py-6 border border-dashed border-[#2d3348] rounded-xl">
-                      Sin tareas
-                    </li>
-                  )}
-                </ul>
-              </div>
-            );
-          })}
+                  {/* Cards */}
+                  <ul className="flex flex-col gap-3 mb-3 mt-3">
+                    {tasks.map((task) => (
+                      <TaskCard key={task._id} task={task} canEdit={canEdit} isMobile={isMobile} />
+                    ))}
+
+                    {tasks.length === 0 && (
+                      <li className="text-center text-slate-600 text-xs py-6 border border-dashed border-[#2d3348] rounded-xl">
+                        Sin tareas
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
         </DragDropProvider>
       </div>
     </div>

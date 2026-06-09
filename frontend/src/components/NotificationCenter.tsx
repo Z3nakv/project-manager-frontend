@@ -45,20 +45,8 @@ const NotificationCenter = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // refetch cuando llega notificación por socket
-  /* useEffect(() => {
-    socket.off("receive_message"); // evitar múltiples listeners
-    socket.on("receive_message", () => {
-      queryClient.invalidateQueries({ queryKey: ["project", notifications[0]?.project._id] });
-      queryClient.invalidateQueries({ queryKey: ["notifications"] });
-    });
-    return () => {
-      socket.off("receive_message");
-    };
-  }, [queryClient, notifications]); */
-
   const unread = notifications.filter((n: Notification) => !n.read).length;
-
+ 
   return (
     <div className="absolute right-5 top-21" ref={ref}>
       {/* Icono */}
@@ -104,7 +92,7 @@ const NotificationCenter = () => {
                 key={n._id}
                 onClick={() => {
                   readMutate(n._id);
-                  navigate(`/projects/${n.project}`);
+                  navigate(`${n.project ? `/projects/${n.project._id}` : "/"}`);
                   setOpen(false);
                 }}
                 className={`px-4 py-3 cursor-pointer hover:bg-[#252d3d] transition-colors ${!n.read ? "border-l-2 border-indigo-500" : ""}`}

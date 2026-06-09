@@ -27,6 +27,7 @@ import { socket } from "../../lib/socket";
 type TaskCardProps = {
   task: TaskProjectType;
   canEdit: boolean;
+  isMobile: boolean;
 };
 
 const getDeadlineStatus = (deadline?: string) => {
@@ -56,8 +57,8 @@ const getDeadlineStatus = (deadline?: string) => {
   };
 };
 
-const TaskCard = ({ task, canEdit }: TaskCardProps) => {
-  const { ref } = useDraggable({ id: task._id });
+const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
+  const { ref } = useDraggable({ id: task._id, disabled: isMobile });
 
   const navigate = useNavigate();
   const params = useParams();

@@ -121,7 +121,7 @@ const notificationTypeSchema = z.enum([
 export const notificationSchema = object({
 content: string(),
 createdAt: string(),
-project: projectItemSchemaDetails.pick({_id:true}),
+project: projectItemSchemaDetails.pick({_id:true}).nullable(),
 read: boolean(),
 task: taskProjectSchema.pick({_id:true}).nullable(),
 triggeredBy: userSchema,
