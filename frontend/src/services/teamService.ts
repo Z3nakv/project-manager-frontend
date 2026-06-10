@@ -1,8 +1,9 @@
 import { isAxiosError } from "axios";
 import { api } from "../lib/axios";
 import { teamMemberSchema, TeamMembersSchema, type ProjectFormType, type TeamMember, type TeamMemberForm } from "../types";
+import throttle from "lodash/throttle";
 
-export const findUserByEmail = async ({projectID, formData} : {projectID: ProjectFormType['_id'], formData: TeamMemberForm}) => {
+export const findUserByEmail = throttle(async ({projectID, formData} : {projectID: ProjectFormType['_id'], formData: TeamMemberForm}) => {
 
   try {
     const url = `/projects/${projectID}/team/find`;
@@ -14,9 +15,9 @@ export const findUserByEmail = async ({projectID, formData} : {projectID: Projec
       throw new Error(error.response.data.error,{cause:error});
     }
   }
-}
+},3000)
 
-export const addUserToProject = async ({projectID, _id} : {projectID: ProjectFormType['_id'], _id: TeamMember['_id']}) => {
+export const addUserToProject = throttle(async ({projectID, _id} : {projectID: ProjectFormType['_id'], _id: TeamMember['_id']}) => {
     
   try {
     const url = `/projects/${projectID}/team`;
@@ -27,7 +28,7 @@ export const addUserToProject = async ({projectID, _id} : {projectID: ProjectFor
       throw new Error(error.response.data.error,{cause:error});
     }
   }
-}
+},3000)
 
 export const getProjectTeam = async (projectID: ProjectFormType['_id']) => {
     

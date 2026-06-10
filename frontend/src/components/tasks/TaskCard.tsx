@@ -58,6 +58,7 @@ const getDeadlineStatus = (deadline?: string) => {
 };
 
 const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
+  
   const { ref } = useDraggable({ id: task._id, disabled: isMobile });
 
   const navigate = useNavigate();

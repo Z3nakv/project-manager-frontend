@@ -43,7 +43,7 @@ const SearchResult = ({ user, reset } : SearchResultProps) => {
             projectID,
             _id: user._id
         }
-        mutate(data)
+        mutate(data);
     }
     
     

@@ -13,8 +13,9 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
 import { socket } from "../../lib/socket";
 import { useIsMobile } from "../../hooks/useIsMobile";
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
+import HorizontalScroller from "../ui/HorizontalScroller";
+import { initialStatusGroups, statusConfig } from "./taskList.config";
+
 
 type TaskListProps = {
   tasks: TaskProjectType[];
@@ -22,37 +23,12 @@ type TaskListProps = {
   team: string[];
 };
 
-type GroupedTasks = {
-  [key: string]: TaskProjectType[];
-};
-
-const initialStatusGroups: GroupedTasks = {
-  pending: [],
-  inProgress: [],
-  onHold: [],
-  underReview: [],
-  completed: [],
-};
-
-const statusConfig: Record<
-  string,
-  { label: string; color: string; icon: string }
-> = {
-  pending: { label: "Pendiente", color: "#6366f1", icon: "◎" },
-  inProgress: { label: "En progreso", color: "#f59e0b", icon: "⟳" },
-  onHold: { label: "En pausa", color: "#ef4444", icon: "⚠" },
-  underReview: { label: "En revisión", color: "#0ea5e9", icon: "⊙" },
-  completed: { label: "Completado", color: "#10b981", icon: "✓" },
-};
-
 const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
   const { data: user } = useAuth();
   const params = useParams();
   const projectID = params.projectID!;
   const queryClient = useQueryClient();
-  const { scrollRef, scroll, canScrollLeft, canScrollRight } = useHorizontalScroll()
-
-
+  const isMobile = useIsMobile();
   const { mutate } = useMutation({
     mutationFn: updateStatus,
     onError: (error) => {
@@ -62,8 +38,6 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
       toast.success(data.message);
     },
   });
-
-  const isMobile = useIsMobile();
 
   const handleDragEnd = (e: DragEndEvent) => {
 
@@ -119,34 +93,7 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
         Tareas
       </h2>
 
-      <div className="flex justify-between items-center mb-3 md:hidden">
-                {canScrollLeft && (
-                  <button
-                    onClick={() => scroll('left')}
-                    className="cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
-                >
-                    <ChevronLeftIcon className="h-5 w-5" />
-                  </button>
-                )}
-                <span className="text-xs text-slate-500">Desliza para ver más</span>
-                {canScrollRight && (
-                  <button
-                    onClick={() => scroll('right')}
-                    className="cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
-                >
-                    <ChevronRightIcon className="h-5 w-5" />
-                </button>)}
-            </div>
-
-      <div
-        ref={scrollRef}
-        className="overflow-x-auto -mx-6 px-6
-          [&::-webkit-scrollbar]:h-1.5
-          [&::-webkit-scrollbar-track]:bg-transparent
-          [&::-webkit-scrollbar-thumb]:bg-[#2d3348]
-          [&::-webkit-scrollbar-thumb]:rounded-full
-          [&::-webkit-scrollbar-thumb:hover]:bg-[#3d4663]"
-      >
+      <HorizontalScroller>
         <DragDropProvider onDragEnd={handleDragEnd}>
           <div className="flex gap-4 pb-4" style={{ minWidth: "max-content" }}>
             {Object.entries(groupedTasks).map(([status, tasks]) => {
@@ -199,7 +146,7 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
             })}
           </div>
         </DragDropProvider>
-      </div>
+      </HorizontalScroller>
     </div>
   );
 };
