@@ -30,12 +30,11 @@ type UpdateTaskProps = {
 }
 
 export const updateTask = async ({projectID, taskID, formData} : UpdateTaskProps) => {
-    console.log({projectID, taskID, formData});
     
     const url = `/projects/${projectID}/tasks/${taskID}`
     const { data } = await api.put(url, formData);
     return data;
-} 
+}
 
 type DeleteTaskProps = {
     projectID: ProjectItemType['_id'] 

@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { getProjectTeam, removeUserFromProject } from "../services/teamService";
 import AddMemberModal from "../components/team/AddMemberModal";
 import { socket } from "../lib/socket";
+import ProjectTeamSkeleton from "../components/ui/ProjectTeamSkeleton";
 
 const ProjectTeamView = () => {
   const navigate = useNavigate();
@@ -51,12 +52,12 @@ const ProjectTeamView = () => {
     mutate({ projectID, userID: memberID });
   };
 
-  if (isLoading)
-    return (
+  if(isLoading) return <ProjectTeamSkeleton />
+    /* return (
       <div className="flex items-center justify-center py-20">
         <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
       </div>
-    );
+    ); */
 
   if (isError) return <Navigate to="/404" />;
 

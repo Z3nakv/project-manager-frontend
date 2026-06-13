@@ -6,6 +6,7 @@ import { deleteNote } from "../../../services/NoteService";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { toast } from "react-toastify";
 import { formatDate } from "../../../utils";
+import { useRef } from "react";
 
 type NoteDetailProps = {
   note: Note;
@@ -19,21 +20,27 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
   const taskID = queryParams.get("viewTask")!;
 
   const queryClient = useQueryClient();
+  const isSubmitting = useRef(false);
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: deleteNote,
     onSuccess: (data) => {
+      isSubmitting.current = false;
       toast.success(data)
       queryClient.invalidateQueries({ queryKey: ["task", taskID] });
     },
     onError: (error) => {
+      isSubmitting.current = false;
       toast.error(error.message);
     },
   });
 
   const handleDeleteNote = () => {
+    if(isSubmitting.current) return;
+    isSubmitting.current = true;
     mutate({ projectID, taskID, noteID: note._id });
   };
+  console.log(note);
   
   return (
     <div className="flex justify-between items-start p-3.5 rounded-xl bg-[#252d3d] border border-[#2d3348]">
@@ -48,6 +55,7 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
       <button
         onClick={handleDeleteNote}
         className="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors duration-150 cursor-pointer"
+        disabled={isPending}
       >
         <TrashIcon className="h-4 w-4" />
       </button>

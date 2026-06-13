@@ -19,8 +19,12 @@ type CreateProjectType = {
 }
 
 export const createProject = async ({formData} : CreateProjectType) => {
-    const {data} = await api.post<string>('/projects/create-project', formData);
-    return data;
+    try {
+        const {data} = await api.post<string>('/projects/create-project', formData);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 type dataTypes = {

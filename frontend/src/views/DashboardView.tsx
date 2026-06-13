@@ -3,6 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../services/ProjectService";
 import { Link } from "react-router";
+import DashboardSkeleton from "../components/ui/DashboardSkeleton";
 
 const DashboardView = () => {
 
@@ -13,7 +14,7 @@ const DashboardView = () => {
     queryFn: getAllProjects,
   });
   
-  if (isLoading && authLoading) return <p>Cargando...</p>;
+  if (isLoading || authLoading) return <DashboardSkeleton />;
   if (isError) return <p>Hubo un error</p>;
 
   if (data && user)
@@ -55,7 +56,10 @@ const DashboardView = () => {
 
       {/* ── Grid o empty state ─────────────────────────────── */}
       {data?.length ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <ul 
+        /* className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" */
+        className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"
+        >
           {data.map((project) => (
             <ProjectItem key={project._id} project={project} user={user} />
           ))}

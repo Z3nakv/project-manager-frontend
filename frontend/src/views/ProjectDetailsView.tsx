@@ -10,6 +10,7 @@ import { useMemo } from "react";
 import { useAuth } from "../hooks/useAuth";
 import RemovedFromProjectModal from "../components/RemoveFromProjectModal";
 import { useForbidden } from "../hooks/useForbidden";
+import ProjectDetailsSkeleton from "../components/ui/ProjectDetailsSkeleton";
 
 const ProjectDetailsView = () => {
   const { data: user, isLoading: authLoading } = useAuth();
@@ -30,7 +31,7 @@ const ProjectDetailsView = () => {
 
   const { isForbidden } = useForbidden();
 
-  if (isLoading && authLoading) return <p>Cargando...</p>;
+  if (isLoading || authLoading) return <ProjectDetailsSkeleton />;
   if (isError) return <Navigate to={"/404"} />;
   
   if (data)

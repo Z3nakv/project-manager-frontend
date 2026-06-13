@@ -1,3 +1,4 @@
+
 import { Link, useNavigate, useParams } from "react-router";
 import type { ProjectFormDataType, ProjectItemType } from "../../types";
 import { useForm } from "react-hook-form";
@@ -7,6 +8,7 @@ import { updateProject } from "../../services/ProjectService";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { toast } from "react-toastify";
 import { socket } from "../../lib/socket";
+import { useRef } from "react";
 
 type EditProjectFormProps = {
   project: ProjectItemType;
@@ -31,9 +33,12 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
     },
   });
 
-  const { mutate } = useMutation({
+  const isSubmitting = useRef(false);
+
+  const { mutate, isPending } = useMutation({
     mutationFn: updateProject,
     onSuccess: (data) => {
+      isSubmitting.current = false;
       toast.success(data);
 
       queryClient.invalidateQueries({queryKey: ['projects']})
@@ -45,13 +50,18 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
       });
       navigate("/");
     },
-    onError: (error) => toast.error(error.message),
+    onError: (error) => {
+      isSubmitting.current = false;
+      toast.error(error.message)
+    },
   });
 
   const handleForm = (formData: ProjectFormDataType) => {
+    /* if(isSubmitting.current) return; */
+    /* isSubmitting.current = true; */
     mutate({ projectID, formData });
   };
-
+  
   return (
     <div className="max-w-2xl mx-auto">
 
@@ -87,8 +97,9 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
         <div className="pt-2">
           <input
             type="submit"
-            value="Guardar Cambios"
+            value={isPending ? 'Guardando Cambios...' : 'Guardar Cambios'}
             className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold py-2.5 rounded-xl cursor-pointer transition-colors duration-150 shadow-md"
+            disabled={isPending}
           />
         </div>
       </form>

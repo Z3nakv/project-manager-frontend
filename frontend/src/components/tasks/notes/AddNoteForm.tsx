@@ -7,6 +7,7 @@ import { createNote } from "../../../services/NoteService";
 import { toast } from "react-toastify";
 
 const AddNoteForm = () => {
+
   const params = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -18,27 +19,25 @@ const AddNoteForm = () => {
     content: "",
   };
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
+  const { register, handleSubmit, resetField, formState: { errors } } = useForm({ defaultValues: initialValues });
+
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createNote,
     onSuccess: (data) => {
       toast.success(data)
       queryClient.invalidateQueries({ queryKey: ["task", taskID] });
-      reset();
+      resetField('content')
     },
     onError: (error) => {
       toast.error(error.message);
     },
   });
 
-  const handleAddNote = (formData: NoteFormData) => {
-    
-    mutate({ projectID, taskID, formData });
-  };
-
+  const handleAddNote = (formData: NoteFormData) => mutate({ projectID, taskID, formData });
+  
   const inputClass = `
     w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-500
     bg-[#252d3d] border border-[#2d3348]
@@ -70,8 +69,9 @@ const AddNoteForm = () => {
       <button
         type="submit"
         className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer"
+        disabled={isPending}
       >
-        Crear nota
+        {isPending ? 'Guardando Nota...' : 'Crear Nota'}
       </button>
     </form>
   );

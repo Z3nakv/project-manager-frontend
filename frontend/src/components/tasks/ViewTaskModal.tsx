@@ -119,7 +119,7 @@ const ViewTaskModal = () => {
                     onClick={handleClose}
                     className="ml-4 p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 shrink-0"
                   >
-                    <XMarkIcon className="h-5 w-5" />
+                    <XMarkIcon className="cursor-pointer h-5 w-5" />
                   </button>
                 </div>
 
@@ -155,10 +155,15 @@ const ViewTaskModal = () => {
                           Historial de cambios
                         </p>
 
-                        <ul className="relative border-l-2 border-slate-300">
+                        <ul className="relative border-l-2 border-slate-300 max-h-48 overflow-y-auto
+                                      [&::-webkit-scrollbar]:w-1.5
+                                      [&::-webkit-scrollbar-track]:bg-transparent
+                                      [&::-webkit-scrollbar-thumb]:bg-[#2d3348]
+                                      [&::-webkit-scrollbar-thumb]:rounded-full
+                                      [&::-webkit-scrollbar-thumb:hover]:bg-[#3d4663]">
                           {data.completedBy.map((activityLog, index) => (
-                            <li key={activityLog._id} className="mb-6 ml-6">
-                              <div className="absolute -left-3 w-6 h-6 bg-slate-500 rounded-full border-4 border-white flex items-center justify-center">
+                            <li key={activityLog._id} className="mb-6 ml-13">
+                              <div className="absolute left-3 w-6 h-6 bg-slate-500 rounded-full border-4 border-white flex items-center justify-center">
                                 <span className="text-xs text-white">
                                   {index + 1}
                                 </span>
