@@ -12,6 +12,7 @@ const DashboardView = () => {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: getAllProjects,
+    staleTime: 1000 * 60 * 5 // 5 minutos
   });
   
   if (isLoading || authLoading) return <DashboardSkeleton />;

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ErrorMessage from "../ErrorMessage";
 import type { TeamMemberForm } from "../../types";
 import { findUserByEmail } from "../../services/teamService";
@@ -13,10 +13,15 @@ export default function AddMemberForm() {
     const params = useParams();
     const projectID = params.projectID!;
 
+    const queryClient = useQueryClient();
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 
     const mutation = useMutation({
-        mutationFn: findUserByEmail
+        mutationFn: findUserByEmail,
+        onSuccess: (data) => {
+            queryClient.setQueryData(['user', data?.email], data)
+        }
     })
 
     const handleSearchUser = async (formData: TeamMemberForm) => {
@@ -53,6 +58,7 @@ export default function AddMemberForm() {
                 <button
                     type="submit"
                     className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-indigo-500/20"
+                    disabled={mutation.isPending}
                 >
                     Buscar usuario
                 </button>

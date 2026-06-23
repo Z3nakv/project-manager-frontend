@@ -16,13 +16,18 @@ import ForgotPasswordView from "./views/auth/ForgotPasswordView";
 import NewPasswordView from "./views/auth/NewPasswordView";
 import NotFound from "./views/404/NotFound";
 import ProjectTeamView from "./views/ProjectTeamView";
+import LandingView from "./views/LandingView";
 
 const router = createBrowserRouter([
+    {
+        path: '/',
+        Component: LandingView
+    },
     {
         Component: AppLayout,
         children: [
             {
-                path: '/',
+                path: '/dashboard',
                 Component: DashboardView,
                 index: true,
             },

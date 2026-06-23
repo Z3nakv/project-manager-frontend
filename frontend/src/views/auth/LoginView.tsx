@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { authenticateUser } from "../../services/authService";
+import { useQueryClient } from "@tanstack/react-query"
 
 export default function LoginView() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const initialValues: UserLoginForm = { email: "", password: "" };
 
@@ -14,7 +16,10 @@ export default function LoginView() {
 
   const { mutate } = useMutation({
     mutationFn: authenticateUser,
-    onSuccess: () => navigate("/"),
+    onSuccess: async () => {
+            queryClient.removeQueries({ queryKey: ['user'] })
+            navigate("/dashboard")
+        },
     onError: (error) => toast.error(error.message),
   });
 

@@ -92,7 +92,7 @@ const NotificationCenter = () => {
                 key={n._id}
                 onClick={() => {
                   readMutate(n._id);
-                  navigate(`${n.project ? `/projects/${n.project._id}` : "/"}`);
+                  navigate(`${n.project ? `/projects/${n.project._id}` : "/dashboard"}`);
                   setOpen(false);
                 }}
                 className={`px-4 py-3 cursor-pointer hover:bg-[#252d3d] transition-colors ${!n.read ? "border-l-2 border-indigo-500" : ""}`}

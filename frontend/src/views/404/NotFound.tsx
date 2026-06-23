@@ -8,7 +8,7 @@ const NotFound = () => {
             Talvez quieras volver a {' '}
             <Link
             className='text-fuchsia-500'
-            to={'/'}>
+            to={'/dashboard'}>
                 Proyectos
             </Link>
         </p>

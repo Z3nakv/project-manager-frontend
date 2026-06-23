@@ -39,7 +39,7 @@ const ProjectItem = ({ project, user }: ProjectItemProps) => {
         })
         queryClient.invalidateQueries({ queryKey: ["projects"] })
       toast.success(data);
-      navigate("/");
+      navigate("/dashboard");
     },
     onError: (error) => toast.error(error.message),
   });

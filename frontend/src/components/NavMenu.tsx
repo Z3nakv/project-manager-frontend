@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, UserCircleIcon, FolderIcon, ArrowRightStartOnRectangleIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "../types";
 
@@ -11,11 +11,13 @@ type NavMenuProps = {
 
 export default function NavMenu({name} : NavMenuProps) {
 
+  const navigate = useNavigate();
   
   const queryClient = useQueryClient()
   const logout = () => {
     localStorage.removeItem('AUTH_TOKEN_JWT')
-    queryClient.invalidateQueries({queryKey: ['user']})
+    queryClient.invalidateQueries({ queryKey: ['user'] })
+    navigate('/')
   }
  
 
@@ -54,7 +56,7 @@ export default function NavMenu({name} : NavMenuProps) {
                 </Link>
 
                 <Link
-                  to="/"
+                  to="/dashboard"
                   onClick={() => close()}  // 👈
                   className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-[#2d3a4f] transition-colors duration-100"
                 >

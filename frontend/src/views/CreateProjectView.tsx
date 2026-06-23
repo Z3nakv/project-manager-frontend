@@ -2,13 +2,15 @@ import { useForm } from "react-hook-form";
 import type { ProjectFormDataType } from "../types";
 import { Link, useNavigate } from "react-router";
 import ProjectForm from "../components/projects/ProjectForm";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProject } from "../services/ProjectService";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { toast } from "react-toastify";
 
 const CreateProjectView = () => {
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
 
   const initialValues: ProjectFormDataType = {
     projectName: "",
@@ -25,8 +27,9 @@ const CreateProjectView = () => {
   const { mutate } = useMutation({
     mutationFn: createProject,
     onSuccess: (data) => {
-      toast.success(data)
-      navigate("/")
+      toast.success(data);
+      queryClient.invalidateQueries({queryKey: ['projects']});
+      navigate("/dashboard");
     },
     onError: (error) => toast.error(error.message),
   });
@@ -50,7 +53,7 @@ const CreateProjectView = () => {
         </div>
 
         <Link
-          to="/"
+          to="/dashboard"
           className="flex items-center gap-2 bg-[#1e2330] hover:bg-[#252d3d] border border-[#2d3348] text-slate-300 hover:text-slate-100 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors duration-150 shadow-md shrink-0"
         >
           <ArrowLeftIcon className="h-4 w-4" />

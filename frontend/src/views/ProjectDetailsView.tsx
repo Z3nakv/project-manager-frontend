@@ -39,7 +39,7 @@ const ProjectDetailsView = () => {
       <div className="min-h-screen bg-[#151921]">
         {/* ── Back link ──────────────────────────────────────── */}
         <Link
-          to="/"
+          to="/dashboard"
           className="inline-flex items-center gap-2 bg-[#1e2330] hover:bg-[#252d3d] border border-[#2d3348] text-slate-300 hover:text-slate-100 text-sm font-semibold px-4 py-2 rounded-xl transition-colors duration-150 shadow-md mb-6"
         >
           <ArrowLeftIcon className="h-4 w-4" />

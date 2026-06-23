@@ -13,6 +13,7 @@ const EditProjectView = () => {
   const { data, isError, isLoading } = useQuery({
     queryKey: ["editProject", projectID],
     queryFn: () => getProjectByID(projectID),
+    staleTime: 1000 * 60 * 5,
     retry: false
   });
   

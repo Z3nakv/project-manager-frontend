@@ -21,7 +21,7 @@ const RemovedFromProjectModal = ({ show }: Props) => {
                     Has sido eliminado como colaborador de este proyecto. Ya no tienes acceso a su contenido.
                 </p>
                 <button
-                    onClick={() => navigate('/')}
+                    onClick={() => navigate('/dashboard')}
                     className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-xl transition-colors cursor-pointer"
                 >
                     Aceptar

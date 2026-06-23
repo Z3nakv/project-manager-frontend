@@ -3,12 +3,12 @@ import { getUser } from "../services/authService";
 
 
 export const useAuth = () => {
-    const { data, isError, isLoading } = useQuery({
+    const { data, isError, isLoading, error } = useQuery({
         queryKey: ['user'],
         queryFn: getUser,
         retry: 1,
         refetchOnWindowFocus: false
     })
 
-    return { data, isError, isLoading };
+    return { data, isError, isLoading, error };
 }

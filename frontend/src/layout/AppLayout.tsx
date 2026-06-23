@@ -10,10 +10,10 @@ import NotificationCenter from "../components/NotificationCenter";
 import "react-toastify/dist/ReactToastify.css";
 
 const AppLayout = () => {
-  const { data: user, isError, isLoading } = useAuth();
+  const { data: user, isError, isLoading, error } = useAuth();
   const queryClient = useQueryClient();
 
-  useEffect(() => {
+useEffect(() => {
     if (user?._id) {
       socket.emit("join_user", user._id);
 
@@ -89,9 +89,9 @@ const AppLayout = () => {
   }, [queryClient]);
 
   if (isLoading) return "Cargando...";
-
+console.log(error)
   if (isError) {
-    return <Navigate to="/auth/login" />;
+    return <Navigate to="/" />;
   }
 
   if (user)
@@ -101,7 +101,7 @@ const AppLayout = () => {
         <header className="bg-[#1e2330] border-b border-[#2d3348] sticky top-0 z-20 shadow-[0_2px_16px_rgba(0,0,0,0.4)]">
           <div className="max-w-screen-2xl mx-auto px-6 py-4 flex flex-col lg:flex-row justify-between items-center gap-4">
             <div className="w-52">
-              <Link to="/">
+              <Link to={"/dashboard"} className="cursor-pointer">
                 <Logo />
               </Link>
             </div>

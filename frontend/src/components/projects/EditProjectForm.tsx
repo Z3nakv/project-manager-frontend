@@ -48,7 +48,7 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
         message: `El proyecto "${project.projectName}" ha sido actualizado`,
         team: project.team.map(memberID => memberID._id)
       });
-      navigate("/");
+      navigate("/dashboard");
     },
     onError: (error) => {
       isSubmitting.current = false;
@@ -78,7 +78,7 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
         </div>
 
         <Link
-          to="/"
+          to="/dashboard"
           className="flex items-center gap-2 bg-[#1e2330] hover:bg-[#252d3d] border border-[#2d3348] text-slate-300 hover:text-slate-100 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors duration-150 shadow-md shrink-0"
         >
           <ArrowLeftIcon className="h-4 w-4" />
