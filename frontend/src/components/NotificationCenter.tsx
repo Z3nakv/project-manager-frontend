@@ -21,7 +21,7 @@ const NotificationCenter = () => {
     queryKey: ["notifications"],
     queryFn: getNotifications,
   });
-  
+
   const { mutate: readMutate } = useMutation({
     mutationFn: markAsRead,
     onSuccess: () =>
@@ -46,7 +46,18 @@ const NotificationCenter = () => {
   }, []);
 
   const unread = notifications.filter((n: Notification) => !n.read).length;
- 
+  
+  const getColor = (id: string) => {
+    const colors = [
+        'bg-indigo-500/20 text-indigo-300',
+        'bg-emerald-500/20 text-emerald-300',
+        'bg-amber-500/20 text-amber-300',
+        'bg-red-500/20 text-red-300',
+    ]
+    const index = id.charCodeAt(0) % colors.length
+    return colors[index]
+}
+  
   return (
     <div className="absolute right-5 top-21" ref={ref}>
       {/* Icono */}
@@ -64,7 +75,7 @@ const NotificationCenter = () => {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 mt-2 w-80 bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-2xl z-50">
+        <div className="overflow-hidden absolute right-0 mt-2 w-80 bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-2xl z-50">
           {/* Header */}
           <div className="flex justify-between items-center px-4 py-3 border-b border-[#2d3348]">
             <h3 className="text-slate-200 font-semibold text-sm">
@@ -92,17 +103,28 @@ const NotificationCenter = () => {
                 key={n._id}
                 onClick={() => {
                   readMutate(n._id);
-                  navigate(`${n.project ? `/projects/${n.project._id}` : "/dashboard"}`);
+                  navigate(
+                    `${n.project ? `/projects/${n.project._id}` : "/dashboard"}`,
+                  );
                   setOpen(false);
                 }}
                 className={`px-4 py-3 cursor-pointer hover:bg-[#252d3d] transition-colors ${!n.read ? "border-l-2 border-indigo-500" : ""}`}
               >
-                <p className="text-sm text-slate-300 leading-snug">
-                  {n.content}
-                </p>
-                <p className="text-xs text-slate-500 mt-1">
-                  {new Date(n.createdAt).toLocaleString()}
-                </p>
+                <div className="flex items-center gap-5">
+                  <div
+                    className={`w-12 h-12 rounded-lg flex items-center justify-center text-md font-bold shrink-0 ${getColor(n._id)}`}
+                  >
+                    { n.triggeredBy.name.split(' ').map(w => w[0]).join('').toUpperCase() }
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-300 leading-snug">
+                      {n.content}
+                    </p>
+                    <p className="text-xs text-slate-500 mt-1">
+                      {new Date(n.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>

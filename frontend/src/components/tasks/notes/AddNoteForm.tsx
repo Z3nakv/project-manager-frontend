@@ -29,6 +29,7 @@ const AddNoteForm = () => {
     onSuccess: (data) => {
       toast.success(data)
       queryClient.invalidateQueries({ queryKey: ["task", taskID] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
       resetField('content')
     },
     onError: (error) => {

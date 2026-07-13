@@ -29,6 +29,7 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
   const projectID = params.projectID!;
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
+  
   const { mutate } = useMutation({
     mutationFn: updateStatus,
     onError: (error) => {

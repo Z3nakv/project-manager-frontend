@@ -28,6 +28,7 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
       isSubmitting.current = false;
       toast.success(data)
       queryClient.invalidateQueries({ queryKey: ["task", taskID] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
     },
     onError: (error) => {
       isSubmitting.current = false;
