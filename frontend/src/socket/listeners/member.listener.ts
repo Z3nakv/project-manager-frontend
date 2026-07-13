@@ -7,7 +7,7 @@ export function registerMemberListeners(
     socket: Socket,
     queryClient: QueryClient
 ) {
-    const onMemberAdded = (data) => {
+    const onMemberAdded = (data : {message: string}) => {
 
     toast.info(data.message);
 
@@ -17,7 +17,7 @@ export function registerMemberListeners(
 
   };
 
-  const onMemberRemoved = (data) => {
+  const onMemberRemoved = (data : {message: string}) => {
 
     toast.info(data.message);
 

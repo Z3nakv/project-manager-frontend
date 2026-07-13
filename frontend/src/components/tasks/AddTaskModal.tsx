@@ -34,7 +34,7 @@ export default function AddTaskModal() {
       reset();
       navigate(location.pathname, { replace: true })
 
-      socket.emit("taskCreated", { message: `Tarea creada en proyecto ${data.project.projectName}`, project: data.project });
+      socket.emit("task_created", { message: `Tarea creada en proyecto ${data.project.projectName}`, project: data.project });
     },
     onError: (error) => toast.error(error.message),
   });

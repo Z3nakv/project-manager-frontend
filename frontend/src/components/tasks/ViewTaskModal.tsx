@@ -59,7 +59,7 @@ const ViewTaskModal = () => {
       queryClient.invalidateQueries({queryKey: ['project', projectID]});
       queryClient.invalidateQueries({ queryKey: ["task", taskID] });
 
-      socket.emit("send_message", {
+      socket.emit("task_status_update", {
               message: `${user?.name} ha actualizado la tarea "${data.task?.name}"`,
               taskID,
               status,

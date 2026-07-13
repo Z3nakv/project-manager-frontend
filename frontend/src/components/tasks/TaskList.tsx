@@ -70,7 +70,7 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
       );
 
       const task = tasks.find((task) => task._id === taskID);
-      socket.emit("send_message", {
+      socket.emit("task_status_update", {
         message: `${user?.name} ha actualizado la tarea "${task?.name}"`,
         taskID,
         status,

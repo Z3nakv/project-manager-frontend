@@ -18,7 +18,7 @@ export function registerProjectListeners(
 
   };
 
-  const onProjectDeleted = (data: any) => {
+  const onProjectDeleted = (data : {message: string}) => {
 
     toast.info(data.message);
 
