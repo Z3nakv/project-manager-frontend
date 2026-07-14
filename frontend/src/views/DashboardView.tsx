@@ -1,4 +1,4 @@
-import ProjectItem from "../components/ProjectItem";
+import ProjectItem from "../components/projects/ProjectItem";
 import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../services/ProjectService";

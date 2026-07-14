@@ -5,6 +5,7 @@ import { SocketEvents } from "../events";
 
 interface NoteNotificationPayload {
   message: string;
+  projectID: string
 }
 
 export function registerNoteListener(
@@ -13,19 +14,25 @@ export function registerNoteListener(
 ) {
     const onNoteAdded = (payload : NoteNotificationPayload) => {
         
-        
         toast.info(payload.message)
 
         queryClient.invalidateQueries({
             queryKey: ["notifications"],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["project", payload.projectID]
+        })
     }
 
     const onNoteDeleted = (payload: NoteNotificationPayload) => {
+      
         toast.info(payload.message)
 
         queryClient.invalidateQueries({
             queryKey: ["notifications"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["project", payload.projectID]
         });
     }
 

@@ -11,12 +11,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProjectTaskByID, updateStatus } from "../../services/taskServices";
 import type { TaskStatus } from "../../types";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import NotesPanel from "./notes/NotesPanel";
 import { formatDate } from "../../utils";
 import { toast } from "react-toastify";
 import { socket } from "../../lib/socket";
 import { useAuth } from "../../hooks/useAuth";
 import { type projectItemDetailsType } from "../../types";
+import NotesPanel from "../notes/NotesPanel";
 
 const statusTranslations: { [key: string]: string } = {
   pending:     "Pendiente",

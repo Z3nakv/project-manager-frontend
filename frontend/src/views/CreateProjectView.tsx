@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import type { ProjectFormDataType } from "../types";
 import { Link, useNavigate } from "react-router";
-import ProjectForm from "../components/projects/ProjectForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProject } from "../services/ProjectService";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { toast } from "react-toastify";
+import CreateProjectViewForm from "../components/projects/CreateProjectViewForm";
 
 const CreateProjectView = () => {
   const navigate = useNavigate();
@@ -62,21 +62,12 @@ const CreateProjectView = () => {
       </div>
 
       {/* ── Form card ──────────────────────────────────────── */}
-      <form
-        onSubmit={handleSubmit(handleForm)}
-        noValidate
-        className="bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.4)] p-8 space-y-6"
-      >
-        <ProjectForm register={register} errors={errors} />
-
-        <div className="pt-2">
-          <input
-            type="submit"
-            value="Crear Proyecto"
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold py-2.5 rounded-xl cursor-pointer transition-colors duration-150 shadow-md"
-          />
-        </div>
-      </form>
+      <CreateProjectViewForm 
+      handleSubmit={handleSubmit} 
+      handleForm={handleForm} 
+      register={register} 
+      errors={errors} 
+      />
 
     </div>
   );

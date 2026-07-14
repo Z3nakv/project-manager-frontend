@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
-import type { ProjectItemType, User } from "../types";
+import type { ProjectItemType, User } from "../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteProject } from "../services/ProjectService";
+import { deleteProject } from "../../services/ProjectService";
 import {
   EllipsisVerticalIcon,
   EyeIcon,
@@ -17,8 +17,8 @@ import {
 } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
 import { toast } from "react-toastify";
-import { isManager } from "../utils/policies";
-import { socket } from "../lib/socket";
+import { isManager } from "../../utils/policies";
+import { socket } from "../../lib/socket";
 
 export type ProjectItemProps = {
   project: ProjectItemType;

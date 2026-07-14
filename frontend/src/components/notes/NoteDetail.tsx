@@ -1,12 +1,12 @@
 // NoteDetail.tsx
 import { useLocation, useParams } from "react-router";
-import type { Note } from "../../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteNote } from "../../../services/NoteService";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { toast } from "react-toastify";
-import { formatDate } from "../../../utils";
 import { useRef } from "react";
+import type { Note } from "../../types";
+import { deleteNote } from "../../services/NoteService";
+import { formatDate } from "../../utils";
 
 type NoteDetailProps = {
   note: Note;

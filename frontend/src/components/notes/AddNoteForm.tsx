@@ -2,9 +2,9 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router";
-import type { NoteFormData } from "../../../types";
-import { createNote } from "../../../services/NoteService";
 import { toast } from "react-toastify";
+import type { NoteFormData } from "../../types";
+import { createNote } from "../../services/NoteService";
 
 const AddNoteForm = () => {
 

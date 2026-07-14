@@ -37,6 +37,7 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      queryClient.invalidateQueries({queryKey: ["project", projectID]})
     },
   });
 
