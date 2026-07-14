@@ -7,9 +7,9 @@ export function registerMemberListeners(
     socket: Socket,
     queryClient: QueryClient
 ) {
-    const onMemberAdded = (data : {message: string}) => {
-
-    toast.info(data.message);
+    const onMemberAdded = (message: string) => {
+      
+    toast.info(message);
 
     queryClient.invalidateQueries({
       queryKey: ["projects"],
@@ -17,9 +17,9 @@ export function registerMemberListeners(
 
   };
 
-  const onMemberRemoved = (data : {message: string}) => {
+  const onMemberRemoved = (message: string) => {
 
-    toast.info(data.message);
+    toast.info(message);
 
     queryClient.invalidateQueries({
       queryKey: ["projects"],

@@ -8,6 +8,7 @@ export function registerNotificationListeners(
 ) {
 
   const onNewNotification = () => {
+
     queryClient.invalidateQueries({
       queryKey: ["notifications"],
     });

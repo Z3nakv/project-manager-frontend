@@ -38,7 +38,7 @@ export function registerTaskListeners (
   };
 
   const onTaskStatusUpdated = (data : {message:string, projectID: string}) => {
-
+  
     toast.info(data.message);
 
     queryClient.invalidateQueries({

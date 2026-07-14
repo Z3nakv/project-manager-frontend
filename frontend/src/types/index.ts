@@ -115,7 +115,8 @@ const notificationTypeSchema = z.enum([
     'project_deleted',
     'member_added',
     'member_removed',
-    'note_added'
+    'note_added',
+    'note_deleted'
 ]);
 
 export const notificationSchema = object({

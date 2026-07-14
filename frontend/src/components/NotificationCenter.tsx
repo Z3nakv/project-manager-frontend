@@ -21,7 +21,7 @@ const NotificationCenter = () => {
     queryKey: ["notifications"],
     queryFn: getNotifications,
   });
-
+  
   const { mutate: readMutate } = useMutation({
     mutationFn: markAsRead,
     onSuccess: () =>

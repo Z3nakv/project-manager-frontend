@@ -38,7 +38,6 @@ const ProjectTeamView = () => {
       
       socket.emit("member_removed", {
         message: `${data?.manager} te elimino como colaborador del proyecto`,
-        projectID,
         userID: data?.colaborador,
       });
       toast.success(data?.message);

@@ -28,8 +28,8 @@ const AddNoteForm = () => {
     mutationFn: createNote,
     onSuccess: (data) => {
       toast.success(data)
-      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
       queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
       resetField('content')
     },
     onError: (error) => {

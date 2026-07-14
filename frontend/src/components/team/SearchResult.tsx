@@ -24,7 +24,6 @@ const SearchResult = ({ user, reset } : SearchResultProps) => {
 
             socket.emit('member_added',{
                 message: `${user?.name} te agregó como colaborador al proyecto`,
-                projectID,
                 userID: user._id
             });
 

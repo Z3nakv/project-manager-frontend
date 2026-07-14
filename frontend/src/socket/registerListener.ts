@@ -4,6 +4,7 @@ import { registerNotificationListeners } from "./listeners/notification.listener
 import { registerProjectListeners } from "./listeners/project.listener";
 import { registerTaskListeners } from "./listeners/task.listener";
 import { registerMemberListeners } from "./listeners/member.listener";
+import { registerNoteListener } from "./listeners/note.listener";
 
 export function registerListeners(
   socket: Socket,
@@ -14,6 +15,7 @@ export function registerListeners(
     registerProjectListeners(socket, queryClient),
     registerTaskListeners(socket, queryClient),
     registerMemberListeners(socket, queryClient),
+    registerNoteListener(socket, queryClient)
   ];
 
   return () => {

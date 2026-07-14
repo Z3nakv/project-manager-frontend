@@ -29,6 +29,7 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
       toast.success(data)
       queryClient.invalidateQueries({ queryKey: ["task", taskID] });
       queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: (error) => {
       isSubmitting.current = false;
@@ -41,7 +42,6 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
     isSubmitting.current = true;
     mutate({ projectID, taskID, noteID: note._id });
   };
-  console.log(note);
   
   return (
     <div className="flex justify-between items-start p-3.5 rounded-xl bg-[#252d3d] border border-[#2d3348]">

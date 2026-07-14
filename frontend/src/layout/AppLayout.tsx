@@ -9,7 +9,7 @@ import SocketProvider from "../socket/SocketProvider";
 
 const AppLayout = () => {
   const { data: user, isError, isLoading } = useAuth();
-  
+
   if (isLoading) return "Cargando...";
 
   if (isError) {

@@ -22,6 +22,10 @@ export const SocketEvents = {
   TASK_DELETED: "task_deleted_notification",
   TASK_STATUS_UPDATED: "task_status_updated_notification",
 
+  //Notes
+  NOTE_ADDED: "note_added",
+  NOTE_DELETED: "note_deleted",
+
   // Client -> Server
   SEND_MESSAGE: "send_message",
 

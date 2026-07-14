@@ -79,7 +79,7 @@ const ViewTaskModal = () => {
   const handleClose = () => navigate(location.pathname, { replace: true });
 
   if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
-
+  
   if (data) return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-30" onClose={handleClose}>

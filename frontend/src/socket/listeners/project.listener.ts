@@ -9,7 +9,7 @@ export function registerProjectListeners(
 ) {
 
   const onProjectUpdated = (message: string) => {
-
+    
     toast.info(message);
 
     queryClient.invalidateQueries({
@@ -18,9 +18,9 @@ export function registerProjectListeners(
 
   };
 
-  const onProjectDeleted = (data : {message: string}) => {
-
-    toast.info(data.message);
+  const onProjectDeleted = (message : string) => {
+    
+    toast.info(message);
 
     queryClient.invalidateQueries({
       queryKey: ["projects"],
