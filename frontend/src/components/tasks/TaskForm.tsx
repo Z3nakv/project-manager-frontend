@@ -1,10 +1,13 @@
-import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import type { TaskFormType } from "../../../types";
+import  { type Control, type FieldErrors, type UseFormRegister, Controller } from "react-hook-form";
+import type { TaskFormType } from "../../types";
+import LabelPicker from "./LabelPicker";
 
 type TaskFormProps = {
   register: UseFormRegister<TaskFormType>;
   errors: FieldErrors<TaskFormType>;
   date?: string;
+  labels?: { text: string; color: string }[];
+  control: Control<TaskFormType>
 };
 
 const inputBase =
@@ -15,7 +18,7 @@ const labelBase =
 
 const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
 
-const TaskForm = ({ register, errors }: TaskFormProps) => {
+const TaskForm = ({ register, errors, control }: TaskFormProps) => {
   
   return (
     <div className="space-y-5">
@@ -95,6 +98,19 @@ const TaskForm = ({ register, errors }: TaskFormProps) => {
           {...register("deadline")}
         />
       </div>
+
+      <Controller
+        name="labels"
+        control={control}
+        defaultValue={[]}
+        render={({ field }) => (
+          <LabelPicker
+            selectedLabels={field.value ?? []}
+            onChange={field.onChange}
+          />
+        )}
+      />
+
     </div>
   );
 };

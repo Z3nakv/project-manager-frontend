@@ -58,7 +58,8 @@ export const taskProjectSchema = taskSchema.pick({
     status: true,
     notes: true,
     deadline: true,
-    createdAt: true
+    createdAt: true,
+    labels: true
 })
 
 export const teamMemberSchema = userSchema.pick({
@@ -163,7 +164,7 @@ export type NoteFormData = Pick<Note, 'content'>;
 export type Task = z.infer<typeof taskSchema>
 export type TaskStatus = z.infer<typeof taskStatusSchema>
 export type TaskProjectType = z.infer<typeof taskProjectSchema>
-export type TaskFormType = Pick<TaskProjectType, 'name' | 'description' | 'deadline'> ;
+export type TaskFormType = Pick<TaskProjectType, 'name' | 'description' | 'deadline' | 'labels'> ;
 export type ProjectItemSchemaDetailsType = z.infer<typeof projectItemSchemaDetails>
 export type ProjectItemType = z.infer<typeof projectItemSchema>
 export type ProjectFormDataType = Pick<ProjectItemType, 'projectName' | 'clientName' | 'description'>

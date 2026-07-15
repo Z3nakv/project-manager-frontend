@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router";
-import TaskForm from "./TaskForm";
+import TaskForm from "../TaskForm";
 import type { TaskFormType, TaskProjectType } from "../../../types";
 import { useForm } from "react-hook-form";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -20,7 +20,7 @@ const EditTaskModal = ({ taskData, taskID }: EditTaskModalProps) => {
   
   const deadlineDate = taskData.deadline ? taskData.deadline.slice(0, 10) : undefined;
   
-  const { register, handleSubmit, formState: { errors } } = useForm<TaskFormType>({
+  const { register, handleSubmit, formState: { errors }, control } = useForm<TaskFormType>({
     defaultValues: { name: taskData.name, description: taskData.description, deadline: deadlineDate || undefined },
   });
 
@@ -84,7 +84,7 @@ const EditTaskModal = ({ taskData, taskID }: EditTaskModalProps) => {
                   onSubmit={handleSubmit(handleEditTask)}
                   noValidate
                 >
-                  <TaskForm errors={errors} register={register} />
+                  <TaskForm errors={errors} register={register} control={control}/>
 
                   <input
                     type="submit"

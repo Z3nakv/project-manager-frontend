@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import TaskForm from "./EditTaskData/TaskForm";
+import TaskForm from "./TaskForm";
 import { useCreateTaskMutation } from "../../hooks/mutations/useTaskMutatios";
 
 export default function AddTaskModal() {
@@ -18,7 +18,7 @@ export default function AddTaskModal() {
   
   const initialValues: TaskFormType = { name: "", description: ""};
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({
     defaultValues: initialValues,
   });
 
@@ -86,7 +86,7 @@ export default function AddTaskModal() {
 
                 {/* Form */}
                 <form noValidate onSubmit={handleSubmit(handleCreateTask)} className="space-y-6">
-                  <TaskForm errors={errors} register={register} />
+                  <TaskForm errors={errors} register={register} control={control} />
 
                   <input
                     type="submit"
