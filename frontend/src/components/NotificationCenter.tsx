@@ -1,38 +1,21 @@
 // components/NotificationCenter.tsx
 import { useState, useRef, useEffect } from "react";
 import { BellIcon } from "@heroicons/react/20/solid";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-/* import { socket } from "../lib/socket"; */
-import {
-  clearAll,
-  getNotifications,
-  markAsRead,
-} from "../services/notificationService";
 import type { Notification } from "../types";
+import { useClearAllMutation, useMarkAsReadMutation } from "../hooks/mutations/useNotificationMutation";
+import { useGetNotificationsQuery } from "../hooks/queries/useNotificationQueries";
 
 const NotificationCenter = () => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: notifications = [] } = useQuery({
-    queryKey: ["notifications"],
-    queryFn: getNotifications,
-  });
+  const { data: notifications = [] } = useGetNotificationsQuery();
   
-  const { mutate: readMutate } = useMutation({
-    mutationFn: markAsRead,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["notifications"] }),
-  });
+  const { mutate: readMutate } = useMarkAsReadMutation();
 
-  const { mutate: clearMutate } = useMutation({
-    mutationFn: clearAll,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["notifications"] }),
-  });
+  const { mutate: clearMutate } = useClearAllMutation();
 
   // cerrar al clickear fuera
   useEffect(() => {

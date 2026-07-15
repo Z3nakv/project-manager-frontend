@@ -1,10 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { TeamMember } from "../../types";
-import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router";
-import { addUserToProject } from "../../services/teamService";
+import { useParams } from "react-router";
 import { UserPlusIcon } from "@heroicons/react/20/solid";
-import { socket } from "../../lib/socket";
+import { useAddUserToProjectMutation } from "../../hooks/mutations/useTeamMembersMutation";
 
 type SearchResultProps = {
     user: TeamMember
@@ -13,29 +10,10 @@ type SearchResultProps = {
 
 const SearchResult = ({ user, reset } : SearchResultProps) => {
 
-    const navigate = useNavigate();
     const params = useParams();
     const projectID = params.projectID!;
-    const queryClient = useQueryClient();
 
-    const { mutate } = useMutation({
-        mutationFn: addUserToProject,
-        onSuccess: (data) => {
-
-            socket.emit('member_added',{
-                message: `${user?.name} te agregó como colaborador al proyecto`,
-                userID: user._id
-            });
-
-            toast.success(data);
-            reset()
-            navigate(location.pathname, {replace: true});
-            queryClient.invalidateQueries({queryKey:['projectTeam', projectID]});
-        },
-        onError: (error) => {
-            toast.error(error.message);
-        }
-    });
+    const { mutate } = useAddUserToProjectMutation({ user, reset, projectID });
 
     const handleAddUserToProject = () => {
         const data = {
@@ -44,7 +22,6 @@ const SearchResult = ({ user, reset } : SearchResultProps) => {
         }
         mutate(data);
     }
-    
     
     return (
         <div className="border-t border-[#2d3348] pt-4">

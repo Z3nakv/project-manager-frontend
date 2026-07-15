@@ -1,7 +1,6 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router";
-import TaskList from "../components/tasks/TaskList";
-import ViewTaskModal from "../components/tasks/ViewTaskModal";
-import EditTaskData from "../components/tasks/EditTaskData";
+import TaskList from "../components/tasks/TaskList/TaskList";
+import ViewTaskModal from "../components/tasks/ViewTaskModal/ViewTaskModal";
 import AddTaskModal from "../components/tasks/AddTaskModal";
 import { PlusIcon, UsersIcon, ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { getProjectByID } from "../services/ProjectService";
@@ -11,6 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 import RemovedFromProjectModal from "../components/RemoveFromProjectModal";
 import { useForbidden } from "../hooks/useForbidden";
 import ProjectDetailsSkeleton from "../components/ui/ProjectDetailsSkeleton";
+import EditTaskData from "../components/tasks/EditTaskData/EditTaskData";
 
 const ProjectDetailsView = () => {
   const { data: user, isLoading: authLoading } = useAuth();

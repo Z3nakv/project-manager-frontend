@@ -2,8 +2,6 @@ import z, { array, boolean, email, object, string } from "zod";
 
 export const taskStatusSchema = z.enum(["pending", "onHold", "inProgress", "underReview", "completed"]);
 
-
-
 //Auth users
 
 const authSchema = object({
@@ -42,6 +40,11 @@ export const taskSchema = object({
         user: userSchema,
         status: taskStatusSchema
     })),
+    labels: array(object({text:string(), color:string()})).optional(),
+    project: object({
+        team: array(object({_id: string()})),
+        manager: object({_id: string()})
+        }),
     notes: array(noteSchema),
     createdAt: string(),
     updatedAt: string(),

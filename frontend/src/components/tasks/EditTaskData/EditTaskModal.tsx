@@ -2,45 +2,29 @@ import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router";
 import TaskForm from "./TaskForm";
-import type { TaskFormType, TaskProjectType } from "../../types";
+import type { TaskFormType, TaskProjectType } from "../../../types";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTask } from "../../services/taskServices";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { toast } from "react-toastify";
-import { socket } from "../../lib/socket";
+import { useUpdateTaskMutation } from "../../../hooks/mutations/useTaskMutatios";
 
 type EditTaskModalProps = {
-  data: TaskProjectType;
+  taskData: TaskProjectType;
   taskID: TaskProjectType["_id"];
 };
 
-const EditTaskModal = ({ data, taskID }: EditTaskModalProps) => {
+const EditTaskModal = ({ taskData, taskID }: EditTaskModalProps) => {
   const navigate = useNavigate();
   const params = useParams();
   const projectID = params.projectID!;
-  const queryClient = useQueryClient();
   
-  const deadlineDate = data.deadline ? data.deadline.slice(0, 10) : undefined;
+  
+  const deadlineDate = taskData.deadline ? taskData.deadline.slice(0, 10) : undefined;
   
   const { register, handleSubmit, formState: { errors } } = useForm<TaskFormType>({
-    defaultValues: { name: data.name, description: data.description, deadline: deadlineDate || undefined },
+    defaultValues: { name: taskData.name, description: taskData.description, deadline: deadlineDate || undefined },
   });
 
-  const { mutate } = useMutation({
-    mutationFn: updateTask,
-    onSuccess: (data) => {
-      toast.success(data.message);
-      socket.emit("taskUpdated", { 
-        message: `Tarea "${data.task.name}" actualizada`, 
-        project: data.project 
-      }); // Emitir evento de actualización
-      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] }); 
-      navigate(location.pathname, { replace: true });
-    },
-    onError: (error) => console.log(error.message),
-  });
+  const { mutate } = useUpdateTaskMutation({ taskID, projectID })
 
   const handleEditTask = (formData: TaskFormType) => mutate({ taskID, projectID, formData });
 
@@ -79,7 +63,7 @@ const EditTaskModal = ({ data, taskID }: EditTaskModalProps) => {
                     </DialogTitle>
                     <p className="text-sm text-slate-400 mt-1">
                       Realiza cambios a{" "}
-                      <span className="text-indigo-400 font-medium">{data.name}</span>
+                      <span className="text-indigo-400 font-medium">{taskData.name}</span>
                     </p>
                   </div>
 

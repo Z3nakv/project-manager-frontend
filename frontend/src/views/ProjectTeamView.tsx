@@ -1,44 +1,22 @@
-
 import {
   UserGroupIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
 import { Link, Navigate, useNavigate, useParams } from "react-router";
-
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { getProjectTeam, removeUserFromProject } from "../services/teamService";
 import AddMemberModal from "../components/team/AddMemberModal";
-import { socket } from "../lib/socket";
 import ProjectTeamSkeleton from "../components/ui/ProjectTeamSkeleton";
 import TeamMembersList from "../components/team/TeamMembersList";
+import { useRemoveUserFromProjectMutation } from "../hooks/mutations/useTeamMembersMutation";
+import { useGetProjectTeam } from "../hooks/queries/useTeamMembersQueries";
 
 const ProjectTeamView = () => {
   const navigate = useNavigate();
   const params = useParams();
   const projectID = params.projectID!;
-  const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["projectTeam", projectID],
-    queryFn: () => getProjectTeam(projectID),
-    retry: false,
-  });
+  const { data, isLoading, isError } = useGetProjectTeam({ projectID })
 
-  const { mutate } = useMutation({
-    mutationFn: removeUserFromProject,
-    onSuccess: (data) => {
-      
-      socket.emit("member_removed", {
-        message: `${data?.manager} te elimino como colaborador del proyecto`,
-        userID: data?.colaborador,
-      });
-      toast.success(data?.message);
-      queryClient.invalidateQueries({ queryKey: ["projectTeam", projectID] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
-    },
-    onError: (error) => toast.error(error.message),
-  });
+  const { mutate } = useRemoveUserFromProjectMutation({ projectID })
 
   const handleRemoveUserFromProject = (memberID: string) => {
     mutate({ projectID, userID: memberID });

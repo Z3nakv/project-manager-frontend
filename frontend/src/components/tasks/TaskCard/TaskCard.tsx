@@ -1,7 +1,5 @@
 import { useNavigate, useParams } from "react-router";
-import type { TaskProjectType } from "../../types";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { deleteTask } from "../../services/taskServices";
+import type { TaskProjectType } from "../../../types";
 import {
   EllipsisVerticalIcon,
   EyeIcon,
@@ -20,9 +18,9 @@ import {
 } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
 import { useDraggable } from "@dnd-kit/react";
-import { toast } from "react-toastify";
-import { formatDate } from "../../utils";
-import { socket } from "../../lib/socket";
+import { formatDate } from "../../../utils";
+import { useDeleteTaskMutation } from "../../../hooks/mutations/useTaskMutatios";
+import { getDeadlineStatus } from "./taskCard.config";
 
 type TaskCardProps = {
   task: TaskProjectType;
@@ -30,32 +28,7 @@ type TaskCardProps = {
   isMobile: boolean;
 };
 
-const getDeadlineStatus = (deadline?: string) => {
-  if (!deadline) return null;
-  const today = new Date();
-  const due = new Date(deadline);
-  const diffDays = Math.ceil(
-    (due.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
-  );
 
-  if (diffDays < 0)
-    return {
-      label: "Vencida",
-      color: "text-red-400",
-      bg: "bg-red-500/10 border-red-500/25",
-    };
-  if (diffDays <= 2)
-    return {
-      label: "Vence pronto",
-      color: "text-amber-400",
-      bg: "bg-amber-500/10 border-amber-500/25",
-    };
-  return {
-    label: "A tiempo",
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/10 border-emerald-500/25",
-  };
-};
 
 const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
   
@@ -64,18 +37,8 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
   const navigate = useNavigate();
   const params = useParams();
   const projectID = params.projectID!;
-  const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
-    mutationFn: deleteTask,
-    onSuccess: (data) => {
-      toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
-
-      socket.emit("taskDeleted", { message: `Tarea eliminada en proyecto ${data.project.projectName}`, project: data.project });
-    },
-    onError: (error) => toast.error(error.message),
-  });
+  const { mutate } = useDeleteTaskMutation({ projectID })
 
   const deadlineStatus = getDeadlineStatus(task.deadline!);
 

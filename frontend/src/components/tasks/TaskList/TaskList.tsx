@@ -1,20 +1,18 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import type {
   ProjectItemSchemaDetailsType,
   TaskProjectType,
   TaskStatus,
-} from "../../types";
-import DropTask from "./DropTask";
-import TaskCard from "./TaskCard";
+} from "../../../types";
+import DropTask from "../DropTask";
+import TaskCard from "../TaskCard/TaskCard";
 import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
 import { useParams } from "react-router";
-import { updateStatus } from "../../services/taskServices";
-import { toast } from "react-toastify";
-import { useAuth } from "../../hooks/useAuth";
-import { socket } from "../../lib/socket";
-import { useIsMobile } from "../../hooks/useIsMobile";
-import HorizontalScroller from "../ui/HorizontalScroller";
+import { useIsMobile } from "../../../hooks/useIsMobile";
+import HorizontalScroller from "../../ui/HorizontalScroller";
+import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
 import { initialStatusGroups, statusConfig } from "./taskList.config";
+
 
 
 type TaskListProps = {
@@ -24,22 +22,12 @@ type TaskListProps = {
 };
 
 const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
-  const { data: user } = useAuth();
   const params = useParams();
   const projectID = params.projectID!;
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
   
-  const { mutate } = useMutation({
-    mutationFn: updateStatus,
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    onSuccess: (data) => {
-      toast.success(data.message);
-      queryClient.invalidateQueries({queryKey: ["project", projectID]})
-    },
-  });
+  const { mutate } = useUpdateTaskStatusMutation({projectID , team});
 
   const handleDragEnd = (e: DragEndEvent) => {
 
@@ -69,16 +57,6 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
           };
         },
       );
-
-      const task = tasks.find((task) => task._id === taskID);
-      socket.emit("task_status_update", {
-        message: `${user?.name} ha actualizado la tarea "${task?.name}"`,
-        taskID,
-        status,
-        projectID,
-        team: team.map((member) => member),
-        triggeredBy: user?._id,
-      });
     }
   };
 

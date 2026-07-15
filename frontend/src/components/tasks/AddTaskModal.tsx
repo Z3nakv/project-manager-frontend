@@ -1,24 +1,20 @@
 import { useNavigate, useParams, useSearchParams } from "react-router";
 import type { TaskFormType } from "../../types";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTask } from "../../services/taskServices";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import TaskForm from "./TaskForm";
-import { toast } from "react-toastify";
-import { socket } from "../../lib/socket";
+import TaskForm from "./EditTaskData/TaskForm";
+import { useCreateTaskMutation } from "../../hooks/mutations/useTaskMutatios";
 
 export default function AddTaskModal() {
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const newTask = searchParams.get("newTask") === "true";
   
   const params = useParams();
   const projectID = params.projectID!;
-
-  const queryClient = useQueryClient();
   
   const initialValues: TaskFormType = { name: "", description: ""};
 
@@ -26,18 +22,7 @@ export default function AddTaskModal() {
     defaultValues: initialValues,
   });
 
-  const { mutate } = useMutation({
-    mutationFn: createTask,
-    onSuccess: (data) => {
-      toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
-      reset();
-      navigate(location.pathname, { replace: true })
-
-      socket.emit("task_created", { message: `Tarea creada en proyecto ${data.project.projectName}`, project: data.project });
-    },
-    onError: (error) => toast.error(error.message),
-  });
+  const { mutate } = useCreateTaskMutation({reset, projectID})
 
   const handleCreateTask = (formData: TaskFormType) => mutate({ formData, projectID });
 

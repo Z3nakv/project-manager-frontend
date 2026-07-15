@@ -1,10 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import type { ForgotPasswordForm } from "../../types";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { forgotPassword } from "../../services/authService";
 import ErrorMessage from "../../components/ErrorMessage";
+import { useForgotPasswordMutation } from "../../hooks/mutations/useAuthMutation";
 
 
 export default function ForgotPasswordView() {
@@ -14,22 +12,12 @@ export default function ForgotPasswordView() {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-  const { mutate } = useMutation({
-    mutationFn: forgotPassword,
-    onSuccess: (data) => {
-      toast.success(data)
-      reset();
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    }
-  })
+  const { mutate } = useForgotPasswordMutation({ reset })
   
   const handleForgotPassword = (formData: ForgotPasswordForm) => mutate(formData)
 
   return (
     <>
-
         <h1 className="text-5xl font-black text-white">Reestablecer password</h1>
         <p className="text-2xl font-light text-white mt-5">
             Olvidaste tu password? Coloca tu email {''}

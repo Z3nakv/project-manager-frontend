@@ -3,12 +3,8 @@ import { Link, useNavigate, useParams } from "react-router";
 import type { ProjectFormDataType, ProjectItemType } from "../../types";
 import { useForm } from "react-hook-form";
 import ProjectForm from "./ProjectForm";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateProject } from "../../services/ProjectService";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { toast } from "react-toastify";
-import { socket } from "../../lib/socket";
-import { useRef } from "react";
+import { useUpdateProjectMutation } from "../../hooks/mutations/useProjectMutations";
 
 type EditProjectFormProps = {
   project: ProjectItemType;
@@ -18,8 +14,6 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
   const params = useParams();
   const projectID = params.projectID!;
   const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
 
   const {
     register,
@@ -33,32 +27,9 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
     },
   });
 
-  const isSubmitting = useRef(false);
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: updateProject,
-    onSuccess: (data) => {
-      isSubmitting.current = false;
-      toast.success(data);
-
-      queryClient.invalidateQueries({queryKey: ['projects']})
-      queryClient.invalidateQueries({queryKey: ['editProject', projectID]})
-
-      socket.emit("project_updated", {
-        message: `El proyecto "${project.projectName}" ha sido actualizado`,
-        team: project.team.map(memberID => memberID._id)
-      });
-      navigate("/dashboard");
-    },
-    onError: (error) => {
-      isSubmitting.current = false;
-      toast.error(error.message)
-    },
-  });
+  const { mutate, isPending } = useUpdateProjectMutation({ projectID, project, navigate });
 
   const handleForm = (formData: ProjectFormDataType) => {
-    /* if(isSubmitting.current) return; */
-    /* isSubmitting.current = true; */
     mutate({ projectID, formData });
   };
   

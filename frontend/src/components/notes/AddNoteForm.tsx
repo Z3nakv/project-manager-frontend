@@ -1,10 +1,8 @@
 // AddNoteForm.tsx
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router";
-import { toast } from "react-toastify";
 import type { NoteFormData } from "../../types";
-import { createNote } from "../../services/NoteService";
+import { useCreateNoteMutation } from "../../hooks/mutations/useNotesMutation";
 
 const AddNoteForm = () => {
 
@@ -21,21 +19,7 @@ const AddNoteForm = () => {
 
   const { register, handleSubmit, resetField, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-
-  const queryClient = useQueryClient();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: createNote,
-    onSuccess: (data) => {
-      toast.success(data)
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
-      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
-      resetField('content')
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { mutate, isPending } = useCreateNoteMutation({ resetField, projectID, taskID })
 
   const handleAddNote = (formData: NoteFormData) => mutate({ projectID, taskID, formData });
   

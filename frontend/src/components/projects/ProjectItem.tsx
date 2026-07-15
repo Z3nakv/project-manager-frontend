@@ -1,7 +1,5 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import type { ProjectItemType, User } from "../../types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteProject } from "../../services/ProjectService";
 import {
   EllipsisVerticalIcon,
   EyeIcon,
@@ -16,9 +14,8 @@ import {
   Transition,
 } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
-import { toast } from "react-toastify";
 import { isManager } from "../../utils/policies";
-import { socket } from "../../lib/socket";
+import { useDeleteProjectMutation } from "../../hooks/mutations/useProjectMutations";
 
 export type ProjectItemProps = {
   project: ProjectItemType;
@@ -26,23 +23,8 @@ export type ProjectItemProps = {
 };
 
 const ProjectItem = ({ project, user }: ProjectItemProps) => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
-    mutationFn: deleteProject,
-    onSuccess: (data) => {
-      socket.emit("project_deleted", {
-            message: `${user?.name} ha eliminado el proyecto ${project.projectName}`,
-            projectID: project._id,
-            team: project.team.map(memberID => memberID._id)
-        })
-        queryClient.invalidateQueries({ queryKey: ["projects"] })
-      toast.success(data);
-      navigate("/dashboard");
-    },
-    onError: (error) => toast.error(error.message),
-  });
+  const { mutate } = useDeleteProjectMutation({ project, user })
 
   return (
     <li className="bg-[#1e2330] rounded-xl p-4 border border-[#2d3348] shadow-md hover:-translate-y-1 transition-transform duration-150 cursor-pointer flex flex-col gap-3">

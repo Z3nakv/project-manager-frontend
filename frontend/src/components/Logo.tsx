@@ -1,8 +1,8 @@
-import { Link } from "react-router";
+
 
 const Logo = () => {
   return (
-    <Link to={"/dashboard"} className="flex items-center gap-3 cursor-pointer">
+    <div  className="flex items-center gap-3 cursor-pointer">
       {/* Icon */}
       <div className="flex items-center justify-center w-9 h-9 bg-indigo-600 rounded-lg shadow-md shrink-0">
         <svg
@@ -23,7 +23,7 @@ const Logo = () => {
       <span className="text-lg font-extrabold tracking-tight text-slate-100 whitespace-nowrap">
         Project <span className="text-indigo-400">Manager</span>
       </span>
-    </Link>
+    </div>
   );
 };
 

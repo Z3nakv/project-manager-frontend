@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 import type { UserRegistrationForm } from "../../types";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { createAccount } from "../../services/authService";
 import { Link } from "react-router";
+import { useCreateAccountMutation } from "../../hooks/mutations/useAuthMutation";
 
 export default function RegisterView() {
   const initialValues: UserRegistrationForm = {
@@ -17,14 +15,7 @@ export default function RegisterView() {
 
   const password = watch("password");
 
-  const { mutate } = useMutation({
-    mutationFn: createAccount,
-    onSuccess: (data) => {
-      toast.success(data);
-      reset();
-    },
-    onError: (error) => toast.error(error.message),
-  });
+  const { mutate } = useCreateAccountMutation({ reset })
  
   const handleRegister = (formData: UserRegistrationForm) => mutate(formData);
 

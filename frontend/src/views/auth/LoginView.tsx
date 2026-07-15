@@ -1,27 +1,16 @@
 import { useForm } from "react-hook-form";
 import type { UserLoginForm } from "../../types";
-import { Link, useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { authenticateUser } from "../../services/authService";
-import { useQueryClient } from "@tanstack/react-query"
+import { Link } from "react-router";
+import { useAuthenticateUserMutation } from "../../hooks/mutations/useAuthMutation";
 
 export default function LoginView() {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  
 
   const initialValues: UserLoginForm = { email: "", password: "" };
 
   const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-  const { mutate } = useMutation({
-    mutationFn: authenticateUser,
-    onSuccess: async () => {
-            queryClient.removeQueries({ queryKey: ['user'] })
-            navigate("/dashboard")
-        },
-    onError: (error) => toast.error(error.message),
-  });
+  const { mutate } = useAuthenticateUserMutation()
 
   const handleLogin = (formData: UserLoginForm) => mutate(formData);
 

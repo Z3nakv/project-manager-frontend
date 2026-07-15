@@ -1,5 +1,5 @@
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import type { TaskFormType } from "../../types";
+import type { TaskFormType } from "../../../types";
 
 type TaskFormProps = {
   register: UseFormRegister<TaskFormType>;

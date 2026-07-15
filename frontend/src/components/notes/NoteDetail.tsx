@@ -1,12 +1,10 @@
 // NoteDetail.tsx
 import { useLocation, useParams } from "react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TrashIcon } from "@heroicons/react/20/solid";
-import { toast } from "react-toastify";
-import { useRef } from "react";
 import type { Note } from "../../types";
-import { deleteNote } from "../../services/NoteService";
+
 import { formatDate } from "../../utils";
+import { useDeleteNoteMutation } from "../../hooks/mutations/useNotesMutation";
 
 type NoteDetailProps = {
   note: Note;
@@ -18,31 +16,9 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
   const queryParams = new URLSearchParams(location.search);
   const projectID = params.projectID!;
   const taskID = queryParams.get("viewTask")!;
-
-  const queryClient = useQueryClient();
-  const isSubmitting = useRef(false);
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: deleteNote,
-    onSuccess: (data) => {
-      isSubmitting.current = false;
-      toast.success(data)
-      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
-      queryClient.invalidateQueries({ queryKey: ["notifications"] });
-    },
-    onError: (error) => {
-      isSubmitting.current = false;
-      toast.error(error.message);
-    },
-  });
-
-  const handleDeleteNote = () => {
-    if(isSubmitting.current) return;
-    isSubmitting.current = true;
-    mutate({ projectID, taskID, noteID: note._id });
-  };
   
+  const { isPending, handleDeleteNote } = useDeleteNoteMutation({ taskID, projectID, note })
+
   return (
     <div className="flex justify-between items-start p-3.5 rounded-xl bg-[#252d3d] border border-[#2d3348]">
       <div className="flex flex-col gap-1">

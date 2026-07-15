@@ -1,16 +1,11 @@
 import { useForm } from "react-hook-form";
 import type { ProjectFormDataType } from "../types";
-import { Link, useNavigate } from "react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProject } from "../services/ProjectService";
+import { Link } from "react-router";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { toast } from "react-toastify";
 import CreateProjectViewForm from "../components/projects/CreateProjectViewForm";
+import { useCreateProjectMutation } from "../hooks/mutations/useProjectMutations";
 
 const CreateProjectView = () => {
-  const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
 
   const initialValues: ProjectFormDataType = {
     projectName: "",
@@ -24,15 +19,7 @@ const CreateProjectView = () => {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
-  const { mutate } = useMutation({
-    mutationFn: createProject,
-    onSuccess: (data) => {
-      toast.success(data);
-      queryClient.invalidateQueries({queryKey: ['projects']});
-      navigate("/dashboard");
-    },
-    onError: (error) => toast.error(error.message),
-  });
+  const { mutate } = useCreateProjectMutation()
 
   const handleForm = (formData: ProjectFormDataType) => mutate({ formData });
 
