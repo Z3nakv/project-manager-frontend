@@ -1,12 +1,12 @@
 import  { type Control, type FieldErrors, type UseFormRegister, Controller } from "react-hook-form";
-import type { TaskFormType } from "../../types";
-import LabelPicker from "./LabelPicker";
+import type { Label, TaskFormType } from "../../types";
+import LabelPicker from "./LabelPicker/LabelPicker";
 
 type TaskFormProps = {
   register: UseFormRegister<TaskFormType>;
   errors: FieldErrors<TaskFormType>;
   date?: string;
-  labels?: { text: string; color: string }[];
+  labels?: Label[];
   control: Control<TaskFormType>
 };
 
@@ -68,7 +68,8 @@ const TaskForm = ({ register, errors, control }: TaskFormProps) => {
             required: "La descripción de la tarea es obligatoria",
           })}
         />
-        {errors.description && (
+        {
+        errors.description && (
           <p className={errorMsg}>
             <svg
               className="w-3.5 h-3.5 shrink-0"
@@ -93,7 +94,6 @@ const TaskForm = ({ register, errors, control }: TaskFormProps) => {
         <input
           id="deadline"
           type="date"
-          /* defaultValue={'2026-12-31'} */
           className="w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150"
           {...register("deadline")}
         />

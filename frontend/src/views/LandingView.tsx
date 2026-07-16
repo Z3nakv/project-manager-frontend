@@ -1,6 +1,12 @@
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 const LandingView = () => {
+
+  const { data: user, isLoading } = useAuth();
+  if (isLoading) return "Cargando...";
+  if (user) return <Navigate to="/dashboard" />;
+
   return (
     <div className="min-h-screen bg-[#0a0e17] text-slate-200">
       {/* Nav */}

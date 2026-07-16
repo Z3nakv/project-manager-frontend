@@ -4,20 +4,16 @@ import NavMenu from "../components/NavMenu";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import NotificationCenter from "../components/NotificationCenter";
-import "react-toastify/dist/ReactToastify.css";
 import SocketProvider from "../socket/SocketProvider";
+import "react-toastify/dist/ReactToastify.css";
 
 const AppLayout = () => {
+
   const { data: user, isError, isLoading } = useAuth();
-
   if (isLoading) return "Cargando...";
-
-  if (isError) {
-    return <Navigate to="/" />;
-  }
-
-  if (user)
-    return (
+  if (isError) return <Navigate to="/" />;
+  
+  if (user) return (
   <SocketProvider user={user}>
       <div className="min-h-screen bg-[#151921] flex flex-col">
         {/* ── Header ─────────────────────────────────────────── */}

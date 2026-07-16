@@ -12,14 +12,12 @@ type NavMenuProps = {
 export default function NavMenu({name} : NavMenuProps) {
 
   const navigate = useNavigate();
-  
   const queryClient = useQueryClient()
   const logout = () => {
     localStorage.removeItem('AUTH_TOKEN_JWT')
-    queryClient.invalidateQueries({ queryKey: ['user'] })
+    queryClient.removeQueries({ queryKey: ['user'] })
     navigate('/')
   }
- 
 
   return (
     <Popover className="relative">

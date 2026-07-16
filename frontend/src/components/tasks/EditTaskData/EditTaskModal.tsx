@@ -13,15 +13,15 @@ type EditTaskModalProps = {
 };
 
 const EditTaskModal = ({ taskData, taskID }: EditTaskModalProps) => {
+
   const navigate = useNavigate();
   const params = useParams();
   const projectID = params.projectID!;
   
-  
   const deadlineDate = taskData.deadline ? taskData.deadline.slice(0, 10) : undefined;
-  
+  const labels = taskData.labels
   const { register, handleSubmit, formState: { errors }, control } = useForm<TaskFormType>({
-    defaultValues: { name: taskData.name, description: taskData.description, deadline: deadlineDate || undefined },
+    defaultValues: { name: taskData.name, description: taskData.description, deadline: deadlineDate || undefined, labels: labels},
   });
 
   const { mutate } = useUpdateTaskMutation({ taskID, projectID })

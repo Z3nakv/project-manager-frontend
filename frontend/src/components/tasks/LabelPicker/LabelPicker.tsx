@@ -1,15 +1,9 @@
 // components/tasks/LabelPicker/LabelPicker.tsx
 import { useState } from "react";
 import { XMarkIcon, PlusIcon } from "@heroicons/react/20/solid";
-import { labelColorClasses, PREDEFINED_LABELS, LABEL_COLORS } from "../../constants/labelColorClasses";
-import z, { object, string } from "zod";
-
-const labelSchema = object({
-  text: string(),
-  color: string(),
-});
-
-export type Label = z.infer<typeof labelSchema>;
+import { labelColorClasses, PREDEFINED_LABELS, LABEL_COLORS } from "../../../constants/labelColorClasses";
+import type { Label } from "../../../types";
+import { addCustomLabel, isSelected, removeLabel, toggleLabel } from "./LabelPicker.config";
 
 type LabelPickerProps = {
   selectedLabels: Label[];
@@ -19,28 +13,6 @@ type LabelPickerProps = {
 const LabelPicker = ({ selectedLabels, onChange }: LabelPickerProps) => {
   const [customText, setCustomText] = useState("");
   const [customColor, setCustomColor] = useState<typeof LABEL_COLORS[number]>("indigo");
-
-  const isSelected = (text: string) =>
-    selectedLabels.some((l) => l.text.toLowerCase() === text.toLowerCase());
-
-  const toggleLabel = (label: Label) => {
-    if (isSelected(label.text)) {
-      onChange(selectedLabels.filter((l) => l.text.toLowerCase() !== label.text.toLowerCase()));
-    } else {
-      onChange([...selectedLabels, label]);
-    }
-  };
-
-  const addCustomLabel = () => {
-    const text = customText.trim();
-    if (!text || isSelected(text)) return;
-    onChange([...selectedLabels, { text, color: customColor }]);
-    setCustomText("");
-  };
-
-  const removeLabel = (text: string) => {
-    onChange(selectedLabels.filter((l) => l.text !== text));
-  };
 
   return (
     <div className="space-y-3">
@@ -59,7 +31,7 @@ const LabelPicker = ({ selectedLabels, onChange }: LabelPickerProps) => {
               {label.text}
               <button
                 type="button"
-                onClick={() => removeLabel(label.text)}
+                onClick={() => removeLabel({selectedLabels, text:label.text, onChange})}
                 className="hover:opacity-70"
               >
                 <XMarkIcon className="h-3 w-3" />
@@ -71,11 +43,11 @@ const LabelPicker = ({ selectedLabels, onChange }: LabelPickerProps) => {
 
       {/* Predeterminadas */}
       <div className="flex flex-wrap gap-1.5">
-        {PREDEFINED_LABELS.filter((l) => !isSelected(l.text)).map((label) => (
+        {PREDEFINED_LABELS.filter((l) => !isSelected({selectedLabels,text: l.text})).map((label) => (
           <button
             key={label.text}
             type="button"
-            onClick={() => toggleLabel(label)}
+            onClick={() => toggleLabel({label, selectedLabels, onChange})}
             className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full border border-dashed opacity-70 hover:opacity-100 transition-opacity ${labelColorClasses[label.color]}`}
           >
             <PlusIcon className="h-3 w-3" />
@@ -104,7 +76,7 @@ const LabelPicker = ({ selectedLabels, onChange }: LabelPickerProps) => {
         </select>
         <button
           type="button"
-          onClick={addCustomLabel}
+          onClick={() => addCustomLabel({customText, selectedLabels, onChange, setCustomText, customColor})}
           className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg transition-colors"
         >
           Agregar

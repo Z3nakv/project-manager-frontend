@@ -1,4 +1,5 @@
 import z, { array, boolean, email, object, string } from "zod";
+import { LABEL_COLORS } from "../constants/labelColorClasses";
 
 export const taskStatusSchema = z.enum(["pending", "onHold", "inProgress", "underReview", "completed"]);
 
@@ -30,6 +31,11 @@ export const noteSchema = object({
     createdAt: string()
 })
 
+export const labelSchema = object({
+  text: string(),
+  color: z.enum(LABEL_COLORS),
+});
+
 export const taskSchema = object({
     _id: string(),
     name: string(),
@@ -40,7 +46,7 @@ export const taskSchema = object({
         user: userSchema,
         status: taskStatusSchema
     })),
-    labels: array(object({text:string(), color:string()})).optional(),
+    labels: array(labelSchema).optional(),
     project: object({
         team: array(object({_id: string()})),
         manager: object({_id: string()})
@@ -177,3 +183,4 @@ export type UserProfileForm = Pick<User, 'name' | 'email'>;
 
 export type Notification = z.infer<typeof notificationSchema>
 export type NotificationType = z.infer<typeof notificationTypeSchema>
+export type Label = z.infer<typeof labelSchema>;
