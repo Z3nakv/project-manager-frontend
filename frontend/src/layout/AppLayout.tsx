@@ -18,7 +18,7 @@ const AppLayout = () => {
       <div className="min-h-screen bg-[#151921] flex flex-col">
         {/* ── Header ─────────────────────────────────────────── */}
         <header className="bg-[#1e2330] border-b border-[#2d3348] sticky top-0 z-20 shadow-[0_2px_16px_rgba(0,0,0,0.4)]">
-          <div className="relative max-w-screen-2xl mx-auto px-6 py-4 flex flex-col lg:flex-row justify-between items-center gap-4">
+          <div className="relative max-w-screen-2xl mx-auto px-6 py-4 flex  justify-between items-center gap-4">
             <div className="w-52">
               <Link to={"/dashboard"} className="cursor-pointer">
                 <Logo />

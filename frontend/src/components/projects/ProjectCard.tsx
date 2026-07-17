@@ -16,13 +16,14 @@ import {
 import { Fragment } from "react/jsx-runtime";
 import { isManager } from "../../utils/policies";
 import { useDeleteProjectMutation } from "../../hooks/mutations/useProjectMutations";
+import AssignTaskMembers from "../tasks/TaskCard/AssignTaskMembers";
 
-export type ProjectItemProps = {
+export type ProjectCardProps = {
   project: ProjectItemType;
   user: User;
 };
 
-const ProjectItem = ({ project, user }: ProjectItemProps) => {
+const ProjectCard = ({ project, user }: ProjectCardProps) => {
 
   const { mutate } = useDeleteProjectMutation({ project, user })
 
@@ -116,8 +117,10 @@ const ProjectItem = ({ project, user }: ProjectItemProps) => {
           </span>
         )}
       </div>
+
+      <AssignTaskMembers AssignedMembers={project.team}/>
     </li>
   );
 };
 
-export default ProjectItem;
+export default ProjectCard;

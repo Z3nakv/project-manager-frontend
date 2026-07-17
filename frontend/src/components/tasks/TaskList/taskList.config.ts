@@ -1,4 +1,5 @@
-import type { TaskProjectType } from "../../types";
+import type { TaskProjectType } from "../../../types";
+
 
 type GroupedTasks = {
   [key: string]: TaskProjectType[];

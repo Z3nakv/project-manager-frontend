@@ -20,3 +20,9 @@ export const deleteNote = async ({projectID, taskID, noteID} : Pick<NoteAPIType,
     const { data } = await api.delete<string>(url);
     return data;
 }
+
+export const updateNoteStatus = async ({projectID, taskID, noteID} : Pick<NoteAPIType, 'projectID' | 'taskID' | 'noteID'>) => {
+    const url = `/projects/${projectID}/tasks/${taskID}/notes/${noteID}/status`;
+    const { data } = await api.put<string>(url);
+    return data;
+}

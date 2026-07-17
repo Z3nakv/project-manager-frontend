@@ -69,9 +69,9 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
 
   return (
     <div className="mt-6">
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
+      {/* <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
         Tareas
-      </h2>
+      </h2> */}
 
       <HorizontalScroller>
         <DragDropProvider onDragEnd={handleDragEnd}>

@@ -5,6 +5,8 @@ import TaskNotes from "./TaskNotes";
 import TaskDeadLine from "./TaskDeadLine";
 import TaskCreatedAt from "./TaskCreatedAt";
 import TaskMenuItems from "./TaskMenuItems";
+import TaskCardAttachments from "./TaskCardAttachments";
+import AssignTaskMembers from "./AssignTaskMembers";
 
 type TaskCardProps = {
   task: TaskProjectType;
@@ -35,6 +37,8 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
         {task.description}
       </p>
 
+      <TaskCardAttachments taskID={task._id} />
+
       {/* Etiquetas */}
       <TaskColorLabels taskLabels={task.labels} />
 
@@ -49,6 +53,8 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
 
       {/* Notas */}
       <TaskNotes taskNotes={task.notes}/>
+
+      <AssignTaskMembers AssignedMembers={task.assignedTo} />
     </li>
   );
 };

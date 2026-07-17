@@ -50,8 +50,8 @@ const EditTaskModal = ({ taskData, taskID }: EditTaskModalProps) => {
               enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100"
               leave="ease-in duration-200"  leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-lg bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
-
+              {/* <DialogPanel className="w-full max-w-lg bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8"> */}
+              <DialogPanel className="w-full max-w-lg max-h-[80vh] mt-30 overflow-y-auto scrollbar-thumb-indigo-50 scrollbar-auto bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">
                   <div>

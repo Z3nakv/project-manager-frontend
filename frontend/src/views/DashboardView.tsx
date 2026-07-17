@@ -1,9 +1,9 @@
-import ProjectItem from "../components/projects/ProjectItem";
 import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../services/ProjectService";
 import { Link } from "react-router";
 import DashboardSkeleton from "../components/ui/DashboardSkeleton";
+import ProjectCard from "../components/projects/ProjectCard";
 
 const DashboardView = () => {
 
@@ -62,7 +62,7 @@ const DashboardView = () => {
         className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"
         >
           {data.map((project) => (
-            <ProjectItem key={project._id} project={project} user={user} />
+            <ProjectCard key={project._id} project={project} user={user} />
           ))}
         </ul>
       ) : (

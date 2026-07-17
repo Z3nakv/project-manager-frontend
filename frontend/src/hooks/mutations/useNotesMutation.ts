@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNote, deleteNote } from "../../services/NoteService";
+import { createNote, deleteNote, updateNoteStatus } from "../../services/NoteService";
 import { toast } from "react-toastify";
 import type { UseFormResetField } from "react-hook-form";
 import type { Note, NoteFormData } from "../../types";
@@ -67,4 +67,42 @@ export const useDeleteNoteMutation = ({
   };
 
   return { isPending, handleDeleteNote };
+};
+
+type useUpdateNoteStatusMutationProps = {
+  projectID: string;
+  taskID: string;
+  note: Note;
+};
+
+export const useUpdateNoteStatusMutation = ({
+  taskID,
+  projectID,
+  note,
+}: useUpdateNoteStatusMutationProps) => {
+  const isSubmitting = useRef(false);
+  const queryClient = useQueryClient();
+
+  const { mutate: updateNoteStatusMutation, isPending } = useMutation({
+    mutationFn: updateNoteStatus,
+    onSuccess: (data) => {
+      isSubmitting.current = false;
+      toast.success(data);
+      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
+    onError: (error) => {
+      isSubmitting.current = false;
+      toast.error(error.message);
+    },
+  });
+
+  const handUpdateNoteStatus = () => {
+    if (isSubmitting.current) return;
+    isSubmitting.current = true;
+    updateNoteStatusMutation({ projectID, taskID, noteID: note._id });
+  };
+
+  return { isPending, handUpdateNoteStatus };
 };

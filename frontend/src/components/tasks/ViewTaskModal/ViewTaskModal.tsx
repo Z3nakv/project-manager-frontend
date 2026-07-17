@@ -15,6 +15,7 @@ import ViewTaskModalHeader from "./ViewTaskModalHeader";
 import TimeStamps from "./TimeStamps";
 import { handleTeamMembers } from "./ViewTaskModal.config";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
+import TaskCardAttachments from "../TaskCard/TaskCardAttachments";
 
 const ViewTaskModal = () => {
   const params = useParams();
@@ -69,7 +70,7 @@ const ViewTaskModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-lg bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
+                <DialogPanel className="w-full max-w-lg max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto overflow-y-auto bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
                   {/* Header */}
                   <ViewTaskModalHeader
                     taskData={taskData}
@@ -99,6 +100,8 @@ const ViewTaskModal = () => {
                     handleUpdateStatus={handleUpdateStatus}
                   />
 
+                  {/* <TaskAttachments projectID={projectID} taskID={taskID}/> */}
+                  <TaskCardAttachments taskID={taskID} />
                   <NotesPanel notes={taskData.notes} />
 
                 </DialogPanel>

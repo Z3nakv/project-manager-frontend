@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import type { Task } from "../../../types"
 import AddNoteForm from "./AddNoteForm"
 import NoteDetail from "./NoteDetail"
+import type { Task } from '../../types'
 
 type NotesPanelProps = {
   notes: Task['notes']

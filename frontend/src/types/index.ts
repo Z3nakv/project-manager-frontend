@@ -1,4 +1,4 @@
-import z, { array, boolean, email, object, string } from "zod";
+import z, { array, boolean, email, object, string, url } from "zod";
 import { LABEL_COLORS } from "../constants/labelColorClasses";
 
 export const taskStatusSchema = z.enum(["pending", "onHold", "inProgress", "underReview", "completed"]);
@@ -16,10 +16,13 @@ const authSchema = object({
 
 export const userSchema = authSchema.pick({
     name: true,
-    email: true
+    email: true,
 }).extend({
-    _id: string()
-});
+    _id: string(),
+}).extend({
+    avatar: url().optional()
+})
+    
 
 /* notes */
 
@@ -28,7 +31,8 @@ export const noteSchema = object({
     content: string(),
     createdBy: userSchema,
     task: string(),
-    createdAt: string()
+    createdAt: string(),
+    completed: boolean()
 })
 
 export const labelSchema = object({
@@ -54,7 +58,8 @@ export const taskSchema = object({
     notes: array(noteSchema),
     createdAt: string(),
     updatedAt: string(),
-    deadline: string().optional().nullable()
+    deadline: string().optional().nullable(),
+    assignedTo: array(userSchema).min(0).optional()
 });
 
 export const taskProjectSchema = taskSchema.pick({
@@ -65,7 +70,8 @@ export const taskProjectSchema = taskSchema.pick({
     notes: true,
     deadline: true,
     createdAt: true,
-    labels: true
+    labels: true,
+    assignedTo: true,
 })
 
 export const teamMemberSchema = userSchema.pick({
@@ -81,7 +87,7 @@ export const projectItemSchemaDetails = object({
     description: string(),
     tasks: array(taskSchema),
     manager: userSchema.pick({_id: true}),
-    team: array(userSchema.pick({_id: true})),
+    team: array(userSchema),
 });
 
 export const projectItemSchemaDetailsByID = object({
@@ -91,7 +97,7 @@ export const projectItemSchemaDetailsByID = object({
     description: string(),
     tasks: array(taskSchema),
     manager: userSchema.pick({_id: true}),
-    team: array(userSchema.pick({_id: true}))
+    team: array(userSchema)
 });
 
 export const projectItemSchemaDetailsArray = z.array(projectItemSchemaDetails)
@@ -141,6 +147,10 @@ updatedAt: string(),
 user: userSchema.pick({'_id':true}),
 _id: string()
 })
+
+export const assignTaskSchema = z.object({
+  userIDs: z.array(z.string()).min(0),
+});
 
 export const notificationsArraySchema = array(notificationSchema);
 
