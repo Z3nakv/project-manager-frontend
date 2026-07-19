@@ -12,6 +12,8 @@ import { useIsMobile } from "../../../hooks/useIsMobile";
 import HorizontalScroller from "../../ui/HorizontalScroller";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
 import { initialStatusGroups, statusConfig } from "./taskList.config";
+import useSearch from "../../../hooks/useSearch";
+import SearchBar from "../../SearchBar";
 
 
 
@@ -26,6 +28,8 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
   const projectID = params.projectID!;
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
+  
+  const { filteredItems } = useSearch(tasks, (task) => task.name);
   
   const { mutate } = useUpdateTaskStatusMutation({projectID , team});
 
@@ -60,7 +64,7 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
     }
   };
 
-  const groupedTasks = tasks.reduce((acc, task) => {
+  const groupedTasks = filteredItems.reduce((acc, task) => {
     let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
     currentGroup = [...currentGroup, task];
     return { ...acc, [task.status]: currentGroup };
@@ -72,7 +76,7 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
       {/* <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
         Tareas
       </h2> */}
-
+      
       <HorizontalScroller>
         <DragDropProvider onDragEnd={handleDragEnd}>
           <div className="flex gap-4 pb-4" style={{ minWidth: "max-content" }}>

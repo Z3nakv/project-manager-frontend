@@ -17,9 +17,7 @@ const EditProjectView = () => {
     retry: false
   });
   
-  //CONVERTIR EL LOADING EN UN SKELETON
   if (isLoading) return <EditProjectSkeleton />;
-  //MOSTRAR ERROR EN EL LINK A 404
   if (isError) return <Navigate to={'/404'}/>
   
   if(data) return <EditProjectForm project={data} />;

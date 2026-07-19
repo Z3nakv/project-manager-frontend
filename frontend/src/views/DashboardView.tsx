@@ -4,26 +4,29 @@ import { getAllProjects } from "../services/ProjectService";
 import { Link } from "react-router";
 import DashboardSkeleton from "../components/ui/DashboardSkeleton";
 import ProjectCard from "../components/projects/ProjectCard";
+import useSearch from "../hooks/useSearch";
 
 const DashboardView = () => {
 
   const { data: user, isLoading: authLoading } = useAuth();
 
-  const { data, isError, isLoading } = useQuery({
+  const { data = [], isError, isLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: getAllProjects,
     staleTime: 1000 * 60 * 5 // 5 minutos
   });
+
+  const { filteredItems } = useSearch(data, (data) => data.projectName);
   
   if (isLoading || authLoading) return <DashboardSkeleton />;
   if (isError) return <p>Hubo un error</p>;
-
-  if (data && user)
+  
+  if (filteredItems && user)
   return (
-    <div className="min-h-screen bg-[#151921] px-8 py-10">
-
+    <div className="min-h-screen bg-[#151921] px-8 ">
+      
       {/* ── Header ─────────────────────────────────────────── */}
-      <div className="flex flex-col items-center justify-between mb-10">
+      <div className="flex flex-col items-center justify-between mb-10 mt-5">
         <div className="flex flex-col items-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-1">
             Workspace
@@ -61,7 +64,7 @@ const DashboardView = () => {
         /* className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" */
         className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"
         >
-          {data.map((project) => (
+          {filteredItems.map((project) => (
             <ProjectCard key={project._id} project={project} user={user} />
           ))}
         </ul>

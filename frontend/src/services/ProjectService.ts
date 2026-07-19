@@ -11,7 +11,7 @@ export const getAllProjects = async () => {
 export const getProjectByID = async(projectID : ProjectItemType['_id']) => {
     const {data} = await api(`/projects/${projectID}`);
     const response = projectItemSchemaDetailsByID.safeParse(data);
-    if(response.success) return response.data;
+    if(response.success) return response.data ?? [];
 }
 
 type CreateProjectType = {

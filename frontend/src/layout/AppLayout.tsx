@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import NotificationCenter from "../components/NotificationCenter";
 import SocketProvider from "../socket/SocketProvider";
 import "react-toastify/dist/ReactToastify.css";
+import SearchBar from "../components/SearchBar";
 
 const AppLayout = () => {
 
@@ -16,23 +17,24 @@ const AppLayout = () => {
   if (user) return (
   <SocketProvider user={user}>
       <div className="min-h-screen bg-[#151921] flex flex-col">
+        
         {/* ── Header ─────────────────────────────────────────── */}
         <header className="bg-[#1e2330] border-b border-[#2d3348] sticky top-0 z-20 shadow-[0_2px_16px_rgba(0,0,0,0.4)]">
           <div className="relative max-w-screen-2xl mx-auto px-6 py-4 flex  justify-between items-center gap-4">
-            <div className="w-52">
+            <div className="w-52 flex">
               <Link to={"/dashboard"} className="cursor-pointer">
                 <Logo />
               </Link>
               <NotificationCenter />
             </div>
-
+            <SearchBar />
             <NavMenu name={user.name} />
           </div>
 
         </header>
 
         {/* ── Main content ───────────────────────────────────── */}
-        <main className="flex-1 max-w-screen-2xl w-full mx-auto px-6 py-10">
+        <main className="flex-1 max-w-screen-2xl w-full mx-auto px-6 py-5">
           <Outlet />
         </main>
 

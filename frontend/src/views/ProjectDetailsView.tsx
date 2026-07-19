@@ -34,7 +34,6 @@ const ProjectDetailsView = () => {
 
   if (isLoading || authLoading) return <ProjectDetailsSkeleton />;
   if (isError) return <Navigate to={"/404"} />;
-  console.log(data);
   
   if (data)
     return (

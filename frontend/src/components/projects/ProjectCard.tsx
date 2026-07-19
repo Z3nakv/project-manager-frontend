@@ -24,11 +24,11 @@ export type ProjectCardProps = {
 };
 
 const ProjectCard = ({ project, user }: ProjectCardProps) => {
-
+  
   const { mutate } = useDeleteProjectMutation({ project, user })
 
   return (
-    <li className="bg-[#1e2330] rounded-xl p-4 border border-[#2d3348] shadow-md hover:-translate-y-1 transition-transform duration-150 cursor-pointer flex flex-col gap-3">
+    <li className="bg-[#1e2330] max-w-2xl rounded-xl p-4 border border-[#2d3348] shadow-md hover:-translate-y-1 transition-transform duration-150 cursor-pointer flex flex-col gap-3">
       {/* Header: título + menú */}
       <div className="flex justify-between items-start gap-2">
         <Link
