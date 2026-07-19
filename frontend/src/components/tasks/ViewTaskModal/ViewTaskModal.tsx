@@ -70,8 +70,12 @@ const ViewTaskModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-lg max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto overflow-y-auto bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
+                <DialogPanel className="md:grid md:grid-cols-2 md:gap-5 w-full md:max-w-3xl max-w-md max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto overflow-y-auto bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
                   {/* Header */}
+
+                  <div>
+
+                  
                   <ViewTaskModalHeader
                     taskData={taskData}
                     handleClose={handleClose}
@@ -102,8 +106,12 @@ const ViewTaskModal = () => {
 
                   {/* <TaskAttachments projectID={projectID} taskID={taskID}/> */}
                   <TaskCardAttachments taskID={taskID} />
-                  <NotesPanel notes={taskData.notes} />
 
+                  </div>
+
+                  <div>
+                  <NotesPanel notes={taskData.notes} />
+                  </div>
                 </DialogPanel>
               </TransitionChild>
             </div>
