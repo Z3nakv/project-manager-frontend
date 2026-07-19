@@ -13,9 +13,6 @@ import HorizontalScroller from "../../ui/HorizontalScroller";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
 import { initialStatusGroups, statusConfig } from "./taskList.config";
 import useSearch from "../../../hooks/useSearch";
-import SearchBar from "../../SearchBar";
-
-
 
 type TaskListProps = {
   tasks: TaskProjectType[];
@@ -73,9 +70,6 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
 
   return (
     <div className="mt-6">
-      {/* <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
-        Tareas
-      </h2> */}
       
       <HorizontalScroller>
         <DragDropProvider onDragEnd={handleDragEnd}>

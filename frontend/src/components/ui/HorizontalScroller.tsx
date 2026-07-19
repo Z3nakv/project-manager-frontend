@@ -14,22 +14,23 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
     return (
         <div>
             {/* Flechas - solo en mobile */}
-            <div className="flex justify-between items-center mb-3 md:hidden">
+            {/* <div className="flex justify-between items-center mb-3 md:hidden"> */}
+            <div className='relative md:hidden'>
                 {canScrollLeft ? (
                     <button
                         onClick={() => scroll('left')}
-                        className="cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                        className="absolute left-0 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
                     >
                         <ChevronLeftIcon className="h-5 w-5" />
                     </button>
                 ) : <div />}
 
-                <span className="text-xs text-slate-500">Desliza para ver más</span>
+                {/* <span className="text-xs text-slate-500">Desliza para ver más</span> */}
 
                 {canScrollRight ? (
                     <button
                         onClick={() => scroll('right')}
-                        className="cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                        className="absolute right-0 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
                     >
                         <ChevronRightIcon className="h-5 w-5" />
                     </button>
