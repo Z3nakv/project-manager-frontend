@@ -29,8 +29,8 @@ const ProjectCard = ({ project, user }: ProjectCardProps) => {
   const { mutate } = useDeleteProjectMutation({ project, user })
 
   return (
-    <li className="bg-[#1e2330] max-w-2xl rounded-xl p-4 border border-[#2d3348] shadow-md hover:-translate-y-1 transition-transform duration-150 cursor-pointer flex flex-col gap-3">
-      {/* Header: título + menú */}
+    <li className="relative bg-[#1e2330] max-w-2xl rounded-xl p-4 border border-[#2d3348] shadow-md hover:-translate-y-1 transition-transform duration-150 cursor-pointer flex flex-col gap-3">
+      
       <div className="flex justify-between items-start gap-2">
         <Link
           to={`/projects/${project._id}`}
@@ -96,18 +96,15 @@ const ProjectCard = ({ project, user }: ProjectCardProps) => {
         </Menu>
       </div>
 
-      {/* Cliente */}
       <p className="text-xs font-medium text-indigo-400">
         {project.clientName}
       </p>
 
-      {/* Descripción */}
       <p className="text-[13px] text-slate-400 leading-relaxed line-clamp-2">
         {project.description}
       </p>
 
-      {/* Badge */}
-      <div>
+      <div className="absolute bottom-3 left-3">
         {isManager(project.manager._id, user._id) ? (
           <span className="text-[10px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/25">
             Manager

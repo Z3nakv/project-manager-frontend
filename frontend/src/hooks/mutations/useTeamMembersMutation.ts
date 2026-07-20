@@ -27,15 +27,14 @@ export const useAddUserToProjectMutation = ({ user, reset, projectID } : useAddU
     return useMutation({
         mutationFn: addUserToProject,
         onSuccess: (data) => {
-
             socket.emit('member_added',{
                 message: `${user?.name} te agregó como colaborador al proyecto`,
                 userID: user._id
             });
-
             toast.success(data);
             reset()
             navigate(location.pathname, {replace: true});
+            queryClient.invalidateQueries({queryKey:['projects']});
             queryClient.invalidateQueries({queryKey:['projectTeam', projectID]});
         },
         onError: (error) => {
@@ -59,6 +58,7 @@ export const useRemoveUserFromProjectMutation = ({ projectID } : useRemoveUserFr
         userID: data?.colaborador,
       });
       toast.success(data?.message);
+      queryClient.invalidateQueries({queryKey:['projects']});
       queryClient.invalidateQueries({ queryKey: ["projectTeam", projectID] });
       queryClient.invalidateQueries({ queryKey: ["project", projectID] });
     },
