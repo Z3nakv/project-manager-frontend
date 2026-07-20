@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authenticateUser, confirmAccount, createAccount, forgotPassword, requestConfirmationCode, updatePasswordWithToken, validateToken } from "../../services/authService";
 import { toast } from "react-toastify";
-import type { ForgotPasswordForm, UserRegistrationForm } from "../../types";
 import type { UseFormReset } from "react-hook-form";
 import { useNavigate } from "react-router";
+import type { ForgotPasswordForm, UserRegistrationForm } from "../../types/auth";
 
 type useCreateAccountMutationProps = {
     reset: UseFormReset<UserRegistrationForm>

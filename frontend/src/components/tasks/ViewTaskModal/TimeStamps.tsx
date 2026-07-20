@@ -1,4 +1,4 @@
-import type { Task } from "../../../types";
+import type { Task } from "../../../types/task";
 import { formatDate } from "../../../utils";
 
 type TimeStampsProps = {

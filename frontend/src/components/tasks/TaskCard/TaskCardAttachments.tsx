@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useTaskAttachments } from "../../../hooks/queries/useAttachmentsQueries";
-import type { Task } from "../../../types";
+import type { Task } from "../../../types/task";
 
 type TaskCardAttachmentsProps = {
   taskID: Task["_id"];

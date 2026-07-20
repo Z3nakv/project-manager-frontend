@@ -1,5 +1,5 @@
 import { statusTranslations } from "../../../constants/statusColors";
-import type { Task } from "../../../types";
+import type { Task } from "../../../types/task";
 
 type StatusSelectorProps = {
   taskData: Task;

@@ -2,10 +2,10 @@ import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { useNavigate, useParams } from "react-router";
 import TaskForm from "../TaskForm";
-import type { TaskFormType, TaskProjectType } from "../../../types";
 import { useForm } from "react-hook-form";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useUpdateTaskMutation } from "../../../hooks/mutations/useTaskMutatios";
+import type { TaskFormType, TaskProjectType } from "../../../types/task";
 
 type EditTaskModalProps = {
   taskData: TaskProjectType;

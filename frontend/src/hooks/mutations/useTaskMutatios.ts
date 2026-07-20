@@ -3,9 +3,11 @@ import { createTask, deleteTask, updateStatus, updateTask } from "../../services
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { socket } from "../../lib/socket";
-import type { projectItemDetailsType, ProjectItemType, Task, TaskFormType, TeamMember } from "../../types";
 import type { UseFormReset } from "react-hook-form";
 import { useAuth } from "../useAuth";
+import type { Task, TaskFormType } from "../../types/task";
+import type { ProjectItemSchemaDetailsType, ProjectItemType } from "../../types/project";
+import type { TeamMember } from "../../types/team";
 
 type useCreateTaskMutationProps = {
     reset: UseFormReset<TaskFormType>
@@ -87,7 +89,7 @@ export const useUpdateTaskStatusMutation = ( {projectID, team} : useUpdateTaskSt
 }
 
 type useDeleteTaskMutationProps = {
-  projectID: projectItemDetailsType['_id']
+  projectID: ProjectItemSchemaDetailsType['_id']
 }
 
 export const useDeleteTaskMutation = ({ projectID } : useDeleteTaskMutationProps) => {

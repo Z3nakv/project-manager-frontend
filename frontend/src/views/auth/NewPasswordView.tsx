@@ -1,7 +1,7 @@
 import { useState } from "react";
-import type { ConfirmToken } from "../../types";
 import NewPasswordToken from "../../components/auth/NewPasswordToken";
 import NewPasswordForm from "../../components/auth/NewPasswordForm";
+import type { ConfirmToken } from "../../types/auth";
 
 const NewPasswordView = () => {
 

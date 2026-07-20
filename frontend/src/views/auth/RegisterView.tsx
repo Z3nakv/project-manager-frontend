@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import type { UserRegistrationForm } from "../../types";
 import { Link } from "react-router";
 import { useCreateAccountMutation } from "../../hooks/mutations/useAuthMutation";
+import type { UserRegistrationForm } from "../../types/auth";
 
 export default function RegisterView() {
   const initialValues: UserRegistrationForm = {

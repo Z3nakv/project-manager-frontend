@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
-import { type RequestConfirmationCodeForm } from "../../types";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useRequestConfirmationCodeMutation } from "../../hooks/mutations/useAuthMutation";
+import type { RequestConfirmationCodeForm } from "../../types/auth";
 
 export default function RegisterView() {
     const initialValues: RequestConfirmationCodeForm = {

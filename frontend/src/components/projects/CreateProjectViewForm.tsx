@@ -1,6 +1,6 @@
 import type { FieldErrors, UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
-import type { ProjectFormDataType } from "../../types";
 import ProjectForm from "./ProjectForm";
+import type { ProjectFormDataType } from "../../types/project";
 
 type CreateProjectViewFormProps = {
     handleSubmit: UseFormHandleSubmit<ProjectFormDataType, ProjectFormDataType>

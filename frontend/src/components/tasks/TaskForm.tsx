@@ -1,8 +1,9 @@
 import  { type Control, type FieldErrors, type UseFormRegister, Controller } from "react-hook-form";
-import type { Label, TaskFormType } from "../../types";
 import LabelPicker from "./LabelPicker/LabelPicker";
 import { TaskAttachments } from "./attachments/TaskAttachments";
 import { useParams } from "react-router";
+import type { TaskFormType } from "../../types/task";
+import type { Label } from "../../types/label";
 
 type TaskFormProps = {
   register: UseFormRegister<TaskFormType>;

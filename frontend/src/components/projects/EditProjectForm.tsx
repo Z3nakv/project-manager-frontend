@@ -1,10 +1,10 @@
 
 import { Link, useNavigate, useParams } from "react-router";
-import type { ProjectFormDataType, ProjectItemType } from "../../types";
 import { useForm } from "react-hook-form";
 import ProjectForm from "./ProjectForm";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useUpdateProjectMutation } from "../../hooks/mutations/useProjectMutations";
+import type { ProjectFormDataType, ProjectItemType } from "../../types/project";
 
 type EditProjectFormProps = {
   project: ProjectItemType;

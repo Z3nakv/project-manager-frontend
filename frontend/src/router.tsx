@@ -1,107 +1,123 @@
 import { createBrowserRouter } from "react-router";
-import AppLayout from "./layout/AppLayout";
 import DashboardView from "./views/DashboardView";
-import ProjectDetailsView from "./views/ProjectDetailsView";
-import EditProjectView from "./views/EditProjectView";
-import CreateProjectView from "./views/CreateProjectView";
-import AuthLayout from "./layout/AuthLayout";
-import ProfileView from "./views/profile/ProfileView";
-import ChangePasswordView from "./views/profile/ChangePasswordView";
-import ProfileLayout from "./layout/ProfileLayout";
-import LoginView from "./views/auth/LoginView";
-import RegisterView from "./views/auth/RegisterView";
-import ConfirmAccountView from "./views/auth/ConfirmAccountView";
-import RequestNewCodeView from "./views/auth/RequestNewCode";
-import ForgotPasswordView from "./views/auth/ForgotPasswordView";
-import NewPasswordView from "./views/auth/NewPasswordView";
-import NotFound from "./views/404/NotFound";
-import ProjectTeamView from "./views/ProjectTeamView";
 import LandingView from "./views/LandingView";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        Component: LandingView
-    },
-    {
-        Component: AppLayout,
+  {
+    path: "/",
+    Component: LandingView
+  },
+  {
+    lazy: async () => ({
+      Component: (await import("./layout/AppLayout")).default,
+    }),
+    children: [
+      {
+        path: "/dashboard",
+        Component: DashboardView
+      },
+      {
+        path: "/projects/:projectID",
+        lazy: async () => ({
+          Component: (await import("./views/ProjectDetailsView")).default,
+        }),
+      },
+      {
+        path: "/projects/create-project",
+        lazy: async () => ({
+          Component: (await import("./views/CreateProjectView")).default,
+        }),
+      },
+      {
+        path: "/projects/:projectID/edit",
+        lazy: async () => ({
+          Component: (await import("./views/EditProjectView")).default,
+        }),
+      },
+      {
+        path: "/projects/:projectID/team",
+        lazy: async () => ({
+          Component: (await import("./views/ProjectTeamView")).default,
+        }),
+      },
+      {
+        lazy: async () => ({
+          Component: (await import("./layout/ProfileLayout")).default,
+        }),
         children: [
-            {
-                path: '/dashboard',
-                Component: DashboardView,
-                index: true,
-            },
-            {
-                path: '/projects/:projectID',
-                Component: ProjectDetailsView,
-            },
-            {
-                path: '/projects/create-project',
-                Component: CreateProjectView
-            },
-            {
-                path: '/projects/:projectID/edit',
-                Component: EditProjectView
-            },
-            {
-                path: '/projects/:projectID/team',
-                Component: ProjectTeamView
-            },
-            {
-                Component: ProfileLayout,
-                children: [
-                    {
-                        path: '/profile',
-                        Component: ProfileView,
-                    },
-                    {
-                        path: '/profile/password',
-                        Component: ChangePasswordView
-                    }
-                ]
-            }
-        ]
-
-    },
-    {
-        Component: AuthLayout,
-        children: [
-            {
-                path: '/auth/login',
-                Component: LoginView
-            },
-            {
-                path: '/auth/register',
-                Component: RegisterView
-            },
-            {
-                path: '/auth/confirm-account',
-                Component: ConfirmAccountView
-            },
-            {
-                path: '/auth/request-code',
-                Component: RequestNewCodeView
-            },
-            {
-                path: '/auth/forgot-password',
-                Component: ForgotPasswordView
-            },
-            {
-                path: '/auth/new-password',
-                Component: NewPasswordView
-            },
-            
-        ]
-    },
-    {
-        Component: AuthLayout,
-        children: [
-            {
-                path: "*",
-                Component: NotFound
-            }
-        ]
-    }
-])
+          {
+            path: "/profile",
+            lazy: async () => ({
+              Component: (await import("./views/profile/ProfileView")).default,
+            }),
+          },
+          {
+            path: "/profile/password",
+            lazy: async () => ({
+              Component: (await import("./views/profile/ChangePasswordView"))
+                .default,
+            }),
+          },
+        ],
+      },
+    ],
+  },
+  {
+    lazy: async () => ({
+      Component: (await import("./layout/AuthLayout")).default,
+    }),
+    children: [
+      {
+        path: "/auth/login",
+        lazy: async () => ({
+          Component: (await import("./views/auth/LoginView")).default,
+        }),
+      },
+      {
+        path: "/auth/register",
+        lazy: async () => ({
+          Component: (await import("./views/auth/RegisterView")).default,
+        }),
+      },
+      {
+        path: "/auth/confirm-account",
+        lazy: async () => ({
+          Component: (await import("./views/auth/ConfirmAccountView")).default,
+        }),
+      },
+      {
+        path: "/auth/request-code",
+        lazy: async () => ({
+          Component: (await import("./views/auth/RequestNewCode")).default,
+        }),
+      },
+      {
+        path: "/auth/forgot-password",
+        lazy: async () => ({
+          Component: (await import("./views/auth/ForgotPasswordView")).default,
+        }),
+      },
+      {
+        path: "/auth/new-password",
+        lazy: async () => ({
+          Component: (await import("./views/auth/NewPasswordView")).default,
+        }),
+      },
+    ],
+  },
+  {
+    lazy: async () => ({
+      Component: (await import("./layout/AuthLayout")).default,
+    }),
+    children: [
+      {
+        path: "*",
+        lazy: async () => ({
+            Component: (await import("./views/404/NotFound")).default,
+        }),
+      },
+    ],
+  },
+]);
 
 export default router;

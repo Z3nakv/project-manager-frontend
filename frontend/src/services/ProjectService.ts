@@ -1,5 +1,5 @@
-import { dashboardProjectSchema, projectItemSchemaDetailsByID, type ProjectFormDataType, type ProjectItemType } from "../types";
 import { api } from "../lib/axios";
+import { dashboardProjectSchema, projectItemSchemaDetailsByID, type ProjectFormDataType, type ProjectItemType } from "../types/project";
 
 export const getAllProjects = async () => {
 

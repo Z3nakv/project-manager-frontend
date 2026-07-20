@@ -3,8 +3,8 @@
 import {
   UserGroupIcon,
 } from "@heroicons/react/20/solid";
-import type { TeamMember } from "../../types";
 import TeamMemberInfo from "./TeamMemberInfo";
+import type { TeamMember } from "../../types/team";
 
 type TeamMembersListProps = {
     teamMembers: TeamMember[]

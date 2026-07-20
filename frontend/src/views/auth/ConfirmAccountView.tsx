@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { ConfirmToken } from "../../types";
 import { PinInput, PinInputField } from '@chakra-ui/pin-input'
 import { Link } from "react-router";
 import { useConfirmAccountMutation } from "../../hooks/mutations/useAuthMutation";
+import type { ConfirmToken } from "../../types/auth";
 
 export default function ConfirmAccountView() {
 

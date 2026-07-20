@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { XMarkIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { labelColorClasses, PREDEFINED_LABELS, LABEL_COLORS } from "../../../constants/labelColorClasses";
-import type { Label } from "../../../types";
 import { addCustomLabel, isSelected, removeLabel, toggleLabel } from "./LabelPicker.config";
+import type { Label } from "../../../types/label";
 
 type LabelPickerProps = {
   selectedLabels: Label[];

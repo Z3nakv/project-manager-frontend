@@ -1,7 +1,7 @@
 import { DialogTitle } from "@headlessui/react";
 import { statusColors, statusTranslations } from "../../../constants/statusColors";
-import type { Task } from "../../../types";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import type { Task } from "../../../types/task";
 
 type ViewTaskModalHeaderProps = {
   taskData: Task;

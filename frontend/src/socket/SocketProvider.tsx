@@ -1,9 +1,9 @@
 import { useEffect, type PropsWithChildren } from "react";
 import { socket } from "../lib/socket";
-import type { User } from "../types";
 import { registerListeners } from "./registerListener";
 import { useQueryClient } from "@tanstack/react-query";
 import { SocketEvents } from "./events";
+import type { User } from "../types/user";
 
 function SocketProvider({ children, user } : PropsWithChildren<{ user: User }>) {
 

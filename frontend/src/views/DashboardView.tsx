@@ -5,6 +5,9 @@ import { Link } from "react-router";
 import DashboardSkeleton from "../components/ui/DashboardSkeleton";
 import ProjectCard from "../components/projects/ProjectCard";
 import useSearch from "../hooks/useSearch";
+import PlusIcon from "../components/PlusIcon";
+import { useCallback } from "react";
+import type { ProjectItemType } from "../types/project";
 
 const DashboardView = () => {
 
@@ -16,12 +19,14 @@ const DashboardView = () => {
     staleTime: 1000 * 60 * 5 // 5 minutos
   });
 
-  const { filteredItems } = useSearch(data, (data) => data.projectName);
+  const getProjectName = useCallback((data : ProjectItemType) => data.projectName, []);
+  const { filteredItems } = useSearch(data, getProjectName);
   
   if (isLoading || authLoading) return <DashboardSkeleton />;
   if (isError) return <p>Hubo un error</p>;
   
-  if (filteredItems && user)
+  if (!filteredItems || !user) return <DashboardSkeleton />;
+
   return (
     <div className="min-h-screen bg-[#151921] px-8 ">
       
@@ -41,9 +46,7 @@ const DashboardView = () => {
           to="/projects/create-project"
           className="flex items-center gap-2 mt-4 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-md transition-colors duration-150"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
-          </svg>
+          <PlusIcon />
           Nuevo Proyecto
         </Link>
       </div>
@@ -86,9 +89,7 @@ const DashboardView = () => {
             to="/projects/create-project"
             className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors duration-150 shadow-md"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
-            </svg>
+            <PlusIcon />
             Crear Proyecto
           </Link>
         </div>

@@ -1,7 +1,7 @@
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { Link } from 'react-router';
-import type { ConfirmToken } from '../../types';
 import { useValidateTokenMutation } from '../../hooks/mutations/useAuthMutation';
+import type { ConfirmToken } from '../../types/auth';
 
 type NewPasswordTokenProps = {
     token: ConfirmToken['token']

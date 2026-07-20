@@ -1,10 +1,10 @@
 // NoteDetail.tsx
 import { useLocation, useParams } from "react-router";
 import { TrashIcon, CheckIcon } from "@heroicons/react/20/solid";
-import type { Note } from "../../types";
 
 import { formatDate } from "../../utils";
 import { useDeleteNoteMutation, useUpdateNoteStatusMutation } from "../../hooks/mutations/useNotesMutation";
+import type { Note } from "../../types/note";
 
 type NoteDetailProps = {
   note: Note;

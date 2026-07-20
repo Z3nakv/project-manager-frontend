@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import type { UpdateCurrentPasswordForm } from "../../types";
 import { changePassword } from "../../services/profileService";
 import ErrorMessage from "../../components/ErrorMessage";
+import type { UpdateCurrentPasswordForm } from "../../types/auth";
 
 export default function ChangePasswordView() {
   const initialValues: UpdateCurrentPasswordForm = {

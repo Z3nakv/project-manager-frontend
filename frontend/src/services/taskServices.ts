@@ -1,6 +1,6 @@
-
-import type { ProjectItemType, Task, TaskFormType, TaskProjectType } from "../types"
 import { api } from "../lib/axios"
+import type { ProjectItemType } from "../types/project"
+import type { Task, TaskFormType, TaskProjectType } from "../types/task"
 
 type TaskDataProps = {
     projectID: ProjectItemType['_id'] 

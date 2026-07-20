@@ -2,16 +2,16 @@
 import { useState, useRef, useEffect } from "react";
 import { BellIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router";
-import type { Notification } from "../types";
 import { useClearAllMutation, useMarkAsReadMutation } from "../hooks/mutations/useNotificationMutation";
 import { useGetNotificationsQuery } from "../hooks/queries/useNotificationQueries";
+import type { Notification } from "../types/notification";
 
 const NotificationCenter = () => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const { data: notifications = [] } = useGetNotificationsQuery();
+  const { data: notifications = []} = useGetNotificationsQuery(open);
   
   const { mutate: readMutate } = useMarkAsReadMutation();
 

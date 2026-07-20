@@ -1,12 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { socket } from "../../lib/socket";
-import type { ProjectItemType, User } from "../../types";
 import { useNavigate, type NavigateFunction } from "react-router";
 import { createProject, deleteProject, updateProject } from "../../services/ProjectService";
 import { useRef } from "react";
-
-
+import type { ProjectItemType } from "../../types/project";
+import type { User } from "../../types/user";
 
 export const useCreateProjectMutation = () => {
     const queryClient = useQueryClient();

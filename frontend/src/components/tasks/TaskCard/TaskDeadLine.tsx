@@ -1,7 +1,7 @@
 import { ClockIcon } from "@heroicons/react/20/solid"
-import type { Task } from "../../../types"
 import { formatDate } from "../../../utils"
 import { getDeadlineStatus } from "./taskCard.config"
+import type { Task } from "../../../types/task"
 
 type TaskDeadlineProps = {
     taskDeadline: Task['deadline']

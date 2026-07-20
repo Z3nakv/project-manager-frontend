@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import type { UserLoginForm } from "../../types";
 import { Link } from "react-router";
 import { useAuthenticateUserMutation } from "../../hooks/mutations/useAuthMutation";
+import type { UserLoginForm } from "../../types/auth";
 
 export default function LoginView() {
   

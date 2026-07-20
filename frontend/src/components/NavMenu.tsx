@@ -3,7 +3,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, UserCircleIcon, FolderIcon, ArrowRightStartOnRectangleIcon } from "@heroicons/react/20/solid";
 import { Link, useNavigate } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import type { User } from "../types";
+import type { User } from "../types/user";
 
 type NavMenuProps = {
   name: User['name']

@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import type { ProjectFormDataType } from "../types";
 import { Link } from "react-router";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import CreateProjectViewForm from "../components/projects/CreateProjectViewForm";
 import { useCreateProjectMutation } from "../hooks/mutations/useProjectMutations";
+import type { ProjectFormDataType } from "../types/project";
 
 const CreateProjectView = () => {
 

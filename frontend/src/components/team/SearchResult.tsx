@@ -1,7 +1,7 @@
-import type { TeamMember } from "../../types";
 import { useParams } from "react-router";
 import { UserPlusIcon } from "@heroicons/react/20/solid";
 import { useAddUserToProjectMutation } from "../../hooks/mutations/useTeamMembersMutation";
+import type { TeamMember } from "../../types/team";
 
 type SearchResultProps = {
     user: TeamMember

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import type { ConfirmToken, NewPasswordForm } from "../../types";
 import ErrorMessage from "../ErrorMessage";
 import { useUpdatePasswordWithTokenMutation } from "../../hooks/mutations/useAuthMutation";
+import type { ConfirmToken, NewPasswordForm } from "../../types/auth";
 
 type NewPasswordFormProps = {
     token: ConfirmToken['token']

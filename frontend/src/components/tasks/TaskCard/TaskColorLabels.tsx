@@ -1,5 +1,5 @@
 import { labelColorClasses } from "../../../constants/labelColorClasses"
-import type { Task } from "../../../types"
+import type { Task } from "../../../types/task"
 
 type TaskColorLabelsProps = {
     taskLabels: Task['labels']

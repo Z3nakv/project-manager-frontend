@@ -1,6 +1,6 @@
 import { CalendarDaysIcon } from "@heroicons/react/20/solid";
 import { formatDate } from "../../../utils";
-import type { Task } from "../../../types";
+import type { Task } from "../../../types/task";
 
 type taskCreatedAtProps = {
   taskCreatedAt: Task["createdAt"];

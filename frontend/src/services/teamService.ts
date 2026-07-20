@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios";
 import { api } from "../lib/axios";
-import { teamMemberSchema, TeamMembersSchema, type ProjectFormType, type TeamMember, type TeamMemberForm } from "../types";
+import { teamMemberSchema, TeamMembersSchema, type TeamMember, type TeamMemberForm } from "../types/team";
+import type { ProjectFormType } from "../types/project";
 
 export const findUserByEmail = async ({projectID, formData} : {projectID: ProjectFormType['_id'], formData: TeamMemberForm}) => {
 

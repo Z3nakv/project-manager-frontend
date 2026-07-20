@@ -1,5 +1,5 @@
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import type { ProjectFormDataType } from "../../types";
+import type { ProjectFormDataType } from "../../types/project";
 
 type ProjectFormProps = {
   register: UseFormRegister<ProjectFormDataType>;

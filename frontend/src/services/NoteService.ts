@@ -1,6 +1,8 @@
 
-import type { Note, NoteFormData, ProjectItemSchemaDetailsType, Task } from "../types";
 import { api } from "../lib/axios";
+import type { Note, NoteFormData } from "../types/note";
+import type { ProjectItemSchemaDetailsType } from "../types/project";
+import type { Task } from "../types/task";
 
 type NoteAPIType = {
     formData: NoteFormData

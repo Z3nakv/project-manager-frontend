@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote, deleteNote, updateNoteStatus } from "../../services/NoteService";
 import { toast } from "react-toastify";
 import type { UseFormResetField } from "react-hook-form";
-import type { Note, NoteFormData } from "../../types";
 import { useRef } from "react";
+import type { Note, NoteFormData } from "../../types/note";
 
 type useCreateNoteMutationProps = {
   resetField: UseFormResetField<NoteFormData>;

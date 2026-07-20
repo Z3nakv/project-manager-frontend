@@ -10,7 +10,7 @@ import {
   EllipsisVerticalIcon,
   TrashIcon,
 } from "@heroicons/react/20/solid";
-import type { TeamMember } from "../../types";
+import type { TeamMember } from "../../types/team";
 
 type TeamMemberInfoProps = {
   member: TeamMember

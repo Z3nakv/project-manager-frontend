@@ -25,8 +25,6 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
                     </button>
                 ) : <div />}
 
-                {/* <span className="text-xs text-slate-500">Desliza para ver más</span> */}
-
                 {canScrollRight ? (
                     <button
                         onClick={() => scroll('right')}

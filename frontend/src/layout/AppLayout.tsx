@@ -3,10 +3,15 @@ import Logo from "../components/Logo";
 import NavMenu from "../components/NavMenu";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
-import NotificationCenter from "../components/NotificationCenter";
+/* import NotificationCenter from "../components/NotificationCenter"; */
 import SocketProvider from "../socket/SocketProvider";
 import "react-toastify/dist/ReactToastify.css";
 import SearchBar from "../components/SearchBar";
+import { lazy } from "react";
+
+const NotificationCenter = lazy(
+    () => import("../components/NotificationCenter")
+);
 
 const AppLayout = () => {
 

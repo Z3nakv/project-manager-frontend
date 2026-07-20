@@ -1,9 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import type {
-  ProjectItemSchemaDetailsType,
-  TaskProjectType,
-  TaskStatus,
-} from "../../../types";
 import DropTask from "../DropTask";
 import TaskCard from "../TaskCard/TaskCard";
 import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
@@ -13,6 +8,8 @@ import HorizontalScroller from "../../ui/HorizontalScroller";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
 import { initialStatusGroups, statusConfig } from "./taskList.config";
 import useSearch from "../../../hooks/useSearch";
+import type { TaskProjectType, TaskStatus } from "../../../types/task";
+import type { ProjectItemSchemaDetailsType } from "../../../types/project";
 
 type TaskListProps = {
   tasks: TaskProjectType[];

@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import type { ProjectItemType, User } from "../../types";
 import {
   EllipsisVerticalIcon,
   EyeIcon,
@@ -17,6 +16,8 @@ import { Fragment } from "react/jsx-runtime";
 import { isManager } from "../../utils/policies";
 import { useDeleteProjectMutation } from "../../hooks/mutations/useProjectMutations";
 import AssignTaskMembers from "../tasks/TaskCard/AssignTaskMembers";
+import type { ProjectItemType } from "../../types/project";
+import type { User } from "../../types/user";
 
 export type ProjectCardProps = {
   project: ProjectItemType;

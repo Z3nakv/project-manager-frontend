@@ -1,4 +1,4 @@
-import type { Label } from "../../../types";
+import type { Label } from "../../../types/label";
 
 type isSelectedProps = {
     selectedLabels: Label[]

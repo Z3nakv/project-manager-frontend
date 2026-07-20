@@ -6,7 +6,6 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { useLocation, useNavigate, useParams } from "react-router";
-import type { TaskStatus } from "../../../types";
 import NotesPanel from "../../notes/NotesPanel";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
 import ActivityLog from "./ActivityLog";
@@ -16,6 +15,7 @@ import TimeStamps from "./TimeStamps";
 import { handleTeamMembers } from "./ViewTaskModal.config";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
 import TaskCardAttachments from "../TaskCard/TaskCardAttachments";
+import type { TaskStatus } from "../../../types/task";
 
 const ViewTaskModal = () => {
   const params = useParams();

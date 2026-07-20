@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
-import type { ForgotPasswordForm } from "../../types";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useForgotPasswordMutation } from "../../hooks/mutations/useAuthMutation";
+import type { ForgotPasswordForm } from "../../types/auth";
 
 
 export default function ForgotPasswordView() {

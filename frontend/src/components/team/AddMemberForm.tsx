@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import ErrorMessage from "../ErrorMessage";
-import type { TeamMemberForm } from "../../types";
 import SearchResult from "./SearchResult";
 import { useFindUserByEmailMutation } from "../../hooks/mutations/useTeamMembersMutation";
+import type { TeamMemberForm } from "../../types/team";
 
 export default function AddMemberForm() {
     const initialValues: TeamMemberForm = {

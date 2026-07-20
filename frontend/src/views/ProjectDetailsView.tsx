@@ -1,17 +1,28 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router";
 import TaskList from "../components/tasks/TaskList/TaskList";
-import ViewTaskModal from "../components/tasks/ViewTaskModal/ViewTaskModal";
-import AddTaskModal from "../components/tasks/AddTaskModal";
 import { PlusIcon, UsersIcon, ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { getProjectByID } from "../services/ProjectService";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
+import { lazy, useMemo } from "react";
 import { useAuth } from "../hooks/useAuth";
-import RemovedFromProjectModal from "../components/RemoveFromProjectModal";
 import { useForbidden } from "../hooks/useForbidden";
 import ProjectDetailsSkeleton from "../components/ui/ProjectDetailsSkeleton";
-import EditTaskData from "../components/tasks/EditTaskData/EditTaskData";
-import TaskAttachmentModal from "../components/tasks/attachments/TaskAttachmentModal";
+
+const EditTaskData = lazy(
+    () => import("../components/tasks/EditTaskData/EditTaskData")
+);
+const ViewTaskModal = lazy(
+    () => import("../components/tasks/ViewTaskModal/ViewTaskModal")
+);
+const AddTaskModal = lazy(
+    () => import("../components/tasks/AddTaskModal")
+);
+const TaskAttachmentModal = lazy(
+    () => import("../components/tasks/attachments/TaskAttachmentModal")
+);
+const RemovedFromProjectModal = lazy(
+    () => import("../components/RemoveFromProjectModal")
+);
 
 const ProjectDetailsView = () => {
   const { data: user, isLoading: authLoading } = useAuth();

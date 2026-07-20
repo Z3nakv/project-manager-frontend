@@ -3,7 +3,7 @@ import { addUserToProject, findUserByEmail, removeUserFromProject } from "../../
 import { socket } from "../../lib/socket";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import type { TeamMember } from "../../types";
+import type { TeamMember } from "../../types/team";
 
 export const useFindUserByEmailMutation = () => {
     const queryClient = useQueryClient();

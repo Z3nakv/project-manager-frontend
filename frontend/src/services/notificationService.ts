@@ -1,5 +1,5 @@
 import { api } from "../lib/axios"
-import { notificationsArraySchema } from "../types";
+import { notificationsArraySchema } from "../types/notification";
 
 // services/notificationService.ts
 export const getNotifications = async () => {

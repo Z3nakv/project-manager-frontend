@@ -1,5 +1,5 @@
 import { ChatBubbleLeftIcon } from "@heroicons/react/20/solid"
-import type { Task } from "../../../types"
+import type { Task } from "../../../types/task";
 
 type TaskNotesProps = {
     taskNotes: Task['notes']

@@ -1,11 +1,11 @@
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import type { TaskFormType } from "../../types";
 import { useForm } from "react-hook-form";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import TaskForm from "./TaskForm";
 import { useCreateTaskMutation } from "../../hooks/mutations/useTaskMutatios";
+import type { TaskFormType } from "../../types/task";
 
 export default function AddTaskModal() {
 

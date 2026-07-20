@@ -1,5 +1,5 @@
 import { api } from "../lib/axios";
-import { assignTaskSchema } from "../types";
+import { assignTaskSchema } from "../types/assignTaskSchema";
 
 type assignTaskProps = {
     projectID: string

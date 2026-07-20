@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios";
 import { api } from "../lib/axios";
-import type { UpdateCurrentPasswordForm, UserProfileForm } from "../types";
+import type { UserProfileForm } from "../types/profile";
+import type { UpdateCurrentPasswordForm } from "../types/auth";
 
 export const updateProfile = async (formData: UserProfileForm) => {
   try {

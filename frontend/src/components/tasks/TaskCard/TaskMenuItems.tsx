@@ -2,8 +2,8 @@ import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/r
 import { EllipsisVerticalIcon, EyeIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid"
 import { useNavigate, useParams } from "react-router";
 import { Fragment } from "react/jsx-runtime"
-import type { Task } from "../../../types";
 import { useDeleteTaskMutation } from "../../../hooks/mutations/useTaskMutatios";
+import type { Task } from "../../../types/task";
 
 type TaskMenuItemsProps = {
     canEdit: boolean,

@@ -1,8 +1,8 @@
 // AddNoteForm.tsx
 import { useForm } from "react-hook-form";
 import { useLocation, useParams } from "react-router";
-import type { NoteFormData } from "../../types";
 import { useCreateNoteMutation } from "../../hooks/mutations/useNotesMutation";
+import type { NoteFormData } from "../../types/note";
 
 const AddNoteForm = () => {
 

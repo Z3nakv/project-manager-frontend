@@ -1,10 +1,11 @@
 // ProfileForm.tsx
 import { useForm } from "react-hook-form";
 import ErrorMessage from "../ErrorMessage";
-import type { User, UserProfileForm } from "../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { updateProfile } from "../../services/profileService";
+import type { User } from "../../types/user";
+import type { UserProfileForm } from "../../types/profile";
 
 type ProfileFormProps = {
   data: User;

@@ -1,4 +1,3 @@
-import type { TaskProjectType } from "../../../types";
 import { useDraggable } from "@dnd-kit/react";
 import TaskColorLabels from "./TaskColorLabels";
 import TaskNotes from "./TaskNotes";
@@ -7,6 +6,7 @@ import TaskCreatedAt from "./TaskCreatedAt";
 import TaskMenuItems from "./TaskMenuItems";
 import TaskCardAttachments from "./TaskCardAttachments";
 import AssignTaskMembers from "./AssignTaskMembers";
+import type { TaskProjectType } from "../../../types/task";
 
 type TaskCardProps = {
   task: TaskProjectType;
