@@ -29,4 +29,6 @@ export const SocketEvents = {
   // Client -> Server
   SEND_MESSAGE: "send_message",
 
+  ASSIGNED_TASK: "assigned_task_notification"
+
 } as const;

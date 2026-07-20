@@ -51,6 +51,20 @@ export function registerTaskListeners (
 
   };
 
+  const onTaskAssigned = (data: {message: string, projectID: string}) => {
+
+    toast.info(data.message);
+
+    queryClient.invalidateQueries({
+      queryKey: ["project", data.projectID],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["notifications"],
+    });
+
+  }
+
   socket.on(
     SocketEvents.TASK_CREATED,
     onTaskCreated
@@ -70,6 +84,11 @@ export function registerTaskListeners (
     SocketEvents.TASK_STATUS_UPDATED,
     onTaskStatusUpdated
   );
+
+  socket.on(
+    SocketEvents.ASSIGNED_TASK,
+    onTaskAssigned
+  )
 
   return () => {
 
@@ -92,6 +111,11 @@ export function registerTaskListeners (
       SocketEvents.TASK_STATUS_UPDATED,
       onTaskStatusUpdated
     );
+
+    socket.off(
+      SocketEvents.ASSIGNED_TASK,
+      onTaskAssigned
+    )
 
   };
 }

@@ -3,16 +3,20 @@ import TaskColorLabels from "./TaskColorLabels";
 import TaskNotes from "./TaskNotes";
 import TaskDeadLine from "./TaskDeadLine";
 import TaskCreatedAt from "./TaskCreatedAt";
-import TaskMenuItems from "./TaskMenuItems";
 import TaskCardAttachments from "./TaskCardAttachments";
 import AssignTaskMembers from "./AssignTaskMembers";
 import type { TaskProjectType } from "../../../types/task";
+import { lazy } from "react";
 
 type TaskCardProps = {
   task: TaskProjectType;
   canEdit: boolean;
   isMobile: boolean;
 };
+
+const TaskMenuItems = lazy(
+    () => import("./TaskMenuItems")
+);
 
 const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
   

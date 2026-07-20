@@ -15,7 +15,7 @@ export function registerListeners(
     registerProjectListeners(socket, queryClient),
     registerTaskListeners(socket, queryClient),
     registerMemberListeners(socket, queryClient),
-    registerNoteListener(socket, queryClient)
+    registerNoteListener(socket, queryClient),
   ];
 
   return () => {

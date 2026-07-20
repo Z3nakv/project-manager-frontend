@@ -17,8 +17,11 @@ const ViewTaskModal = lazy(
 const AddTaskModal = lazy(
     () => import("../components/tasks/AddTaskModal")
 );
-const TaskAttachmentModal = lazy(
+const AssignMemberModal = lazy(
     () => import("../components/tasks/attachments/TaskAttachmentModal")
+);
+const TaskAttachmentModal = lazy(
+    () => import("../components/tasks/AssignMemberModal/AssignMemberModal")
 );
 const RemovedFromProjectModal = lazy(
     () => import("../components/RemoveFromProjectModal")
@@ -114,6 +117,7 @@ const ProjectDetailsView = () => {
         <AddTaskModal />
         <ViewTaskModal />
         <EditTaskData />
+        <AssignMemberModal />
         <RemovedFromProjectModal show={isForbidden} />
         <TaskAttachmentModal/>
       </div>

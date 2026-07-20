@@ -24,7 +24,6 @@ const TaskAttachmentModal = () => {
     taskID,
   ]);
   const attachment = attachmentsData?.find((att) => att._id === attachmentID);
-  console.log(attachment);
 
   if (attachmentID)
     return (

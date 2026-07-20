@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { assignTask } from "../../services/assignTask";
+import type { assignTaskType } from "../../types/assignTaskSchema";
+import { socket } from "../../lib/socket";
 
 type useAssignTaskMutationProps = {
     taskID: string
@@ -9,12 +11,13 @@ type useAssignTaskMutationProps = {
 
 export const useAssignTaskMutation = ({ taskID, projectID }: useAssignTaskMutationProps) => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
-    mutationFn: (userIDs: string[]) => assignTask( {taskID, projectID, userIDs} ),
-    onSuccess: () => {
+    mutationFn: (userIDs: assignTaskType) => assignTask( {projectID, taskID, userIDs} ),
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["project", projectID] });
-      toast.success("Tarea asignada");
+      toast.success(data.message);
+      socket.emit('assignedTask', {userID: data.userID, taskName: data.taskName, projectName: data.projectName, projectID: data.projectID, userIDs:data.userIDs})
     },
     onError: (error) => toast.error(error.message),
   });
