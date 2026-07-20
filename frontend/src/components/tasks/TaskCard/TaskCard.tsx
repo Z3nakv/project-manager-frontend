@@ -7,6 +7,7 @@ import TaskCardAttachments from "./TaskCardAttachments";
 import AssignTaskMembers from "./AssignTaskMembers";
 import type { TaskProjectType } from "../../../types/task";
 import { lazy } from "react";
+import { useAuth } from "../../../hooks/useAuth";
 
 type TaskCardProps = {
   task: TaskProjectType;
@@ -19,13 +20,18 @@ const TaskMenuItems = lazy(
 );
 
 const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
-  
+  const currentUser = useAuth();
   const { ref } = useDraggable({ id: task._id, disabled: isMobile });
+  const isAssignedToMe = task.assignedTo?.some(user => user._id === currentUser.data?._id)
   
   return (
     <li
       ref={ref}
-      className="bg-[#1e2330] rounded-xl p-4 border border-[#2d3348] cursor-grab active:cursor-grabbing shadow-md hover:-translate-y-1 transition-transform duration-150"
+      className={`bg-[#1e2330] rounded-xl p-4 border 
+      border-[#2d3348] cursor-grab active:cursor-grabbing shadow-md 
+      hover:-translate-y-1 transition-transform duration-150
+      ${isAssignedToMe ? 'border-indigo-500' : 'border-transparent'}
+      `}
     >
       {/* Header */}
       <div className="flex justify-between items-start mb-2">
