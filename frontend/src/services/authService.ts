@@ -1,7 +1,7 @@
 import { isAxiosError } from "axios";
 import { api } from "../lib/axios";
 import type { checkPasswordForm, ConfirmToken, ForgotPasswordForm, NewPasswordForm, RequestConfirmationCodeForm, UserLoginForm, UserRegistrationForm } from "../types/auth";
-import { userSchema } from "../types/user";
+import { userSchema, type User } from "../types/user";
 
 export const createAccount = async (formData: UserRegistrationForm) => {
   try {
@@ -119,3 +119,23 @@ export const checkPassword = async (formData : checkPasswordForm) => {
     }
   }
 };
+
+type GoogleAuthResponse = {
+    user: User
+    token: string
+}
+
+export const googleAuth = async (googleToken: string) => {
+  
+  try {
+    const { data } = await api.post<GoogleAuthResponse>('/auth/google', {
+      token: googleToken
+    });
+    return data;
+  } catch (error) {
+    if(isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error, { cause: error });
+    }
+    throw new Error('Error al autenticar con Google', {cause:error})
+  }
+}

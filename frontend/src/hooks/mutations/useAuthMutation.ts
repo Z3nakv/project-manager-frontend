@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authenticateUser, confirmAccount, createAccount, forgotPassword, requestConfirmationCode, updatePasswordWithToken, validateToken } from "../../services/authService";
+import { authenticateUser, confirmAccount, createAccount, forgotPassword, googleAuth, requestConfirmationCode, updatePasswordWithToken, validateToken } from "../../services/authService";
 import { toast } from "react-toastify";
 import type { UseFormReset } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -103,4 +103,24 @@ export const useUpdatePasswordWithTokenMutation = () => {
                 toast.error(error.message)
             }
         })
+}
+
+export const useGoogleAuthMutation = () => {
+    
+    const navigate = useNavigate();
+        const queryClient = useQueryClient();
+
+    const { mutate: authenticateWithGoogle, isPending } = useMutation({
+        mutationFn: googleAuth,
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        onSuccess: (data) => {
+            localStorage.setItem("AUTH_TOKEN_JWT", data.token)
+            queryClient.removeQueries({queryKey: ['user']})
+            toast.success('Sesion iniciada correctamente');
+            navigate('/dashboard',{ replace: true });
+        }
+    })
+    return { authenticateWithGoogle, isPending }
 }
