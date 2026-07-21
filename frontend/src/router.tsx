@@ -70,7 +70,7 @@ const router = createBrowserRouter([
       {
         path: "/auth/login",
         lazy: async () => ({
-          Component: (await import("./views/auth/LoginView")).default,
+          Component: (await import("./views/auth/LoginWithGoogleProvider")).default,
         }),
       },
       {
