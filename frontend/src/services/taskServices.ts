@@ -10,8 +10,6 @@ type TaskDataProps = {
 export const getProjectTaskByID = async ({ projectID, taskID } : TaskDataProps) => {
     const url = `/projects/${projectID}/tasks/${taskID}`
     const { data } = await api<Task>(url);
-    console.log(data);
-    
     return data;
 }
 

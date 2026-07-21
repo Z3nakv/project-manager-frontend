@@ -11,7 +11,7 @@ const NotificationCenter = () => {
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const { data: notifications = []} = useGetNotificationsQuery(open);
+  const { data: notifications = []} = useGetNotificationsQuery();
   
   const { mutate: readMutate } = useMarkAsReadMutation();
 

@@ -56,13 +56,12 @@ export function registerTaskListeners (
     toast.info(data.message);
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectID],
-    });
-
-    queryClient.invalidateQueries({
       queryKey: ["notifications"],
     });
 
+    queryClient.invalidateQueries({
+      queryKey: ["project", data.projectID],
+    });
   }
 
   socket.on(
