@@ -47,6 +47,7 @@ const NotificationCenter = () => {
       <button
         onClick={() => setOpen(!open)}
         className="relative p-2 text-slate-400 hover:text-slate-100 transition-colors"
+        aria-label="notifications"
       >
         <BellIcon className="h-5 w-5 cursor-pointer" />
         {unread > 0 && (

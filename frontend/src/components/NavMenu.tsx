@@ -21,7 +21,10 @@ export default function NavMenu({name} : NavMenuProps) {
 
   return (
     <Popover className="relative">
-      <Popover.Button className="inline-flex items-center gap-x-1 p-1.5 rounded-lg bg-[#2d3348] hover:bg-[#353d55] border border-[#3d4663] transition-colors duration-150 focus:outline-none">
+      <Popover.Button 
+      className="inline-flex items-center gap-x-1 p-1.5 rounded-lg bg-[#2d3348] hover:bg-[#353d55] border border-[#3d4663] transition-colors duration-150 focus:outline-none"
+      aria-label="menu"
+      >
         <Bars3Icon className="cursor-pointer w-6 h-6 text-slate-300" />
       </Popover.Button>
 
@@ -35,7 +38,7 @@ export default function NavMenu({name} : NavMenuProps) {
         leaveTo="opacity-0 translate-y-1"
       >
         <Popover.Panel className="absolute right-0 z-10 mt-3 w-56">
-          {({ close }) => (  // 👈
+          {({ close }) => ( 
             <div className="rounded-xl overflow-hidden border border-[#2d3348] bg-[#252d3d] shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
 
               <div className="px-4 py-3 border-b border-[#2d3348]">

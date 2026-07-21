@@ -41,7 +41,7 @@ const ProjectDetailsView = () => {
     () => data?.manager._id.toString() === user?._id.toString(),
     [data, user],
   );
-
+  
   const { isForbidden } = useForbidden();
 
   if (isLoading || authLoading) return <ProjectDetailsSkeleton />;
