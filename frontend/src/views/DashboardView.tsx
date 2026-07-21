@@ -10,26 +10,31 @@ import { useCallback } from "react";
 import type { ProjectItemType } from "../types/project";
 
 const DashboardView = () => {
-
   const { data: user, isLoading: authLoading } = useAuth();
 
-  const { data = [], isError, isLoading } = useQuery({
+  const {
+    data = [],
+    isError,
+    isLoading,
+  } = useQuery({
     queryKey: ["projects"],
     queryFn: getAllProjects,
-    staleTime: 1000 * 60 * 5 // 5 minutos
+    staleTime: 1000 * 60 * 5, // 5 minutos
   });
 
-  const getProjectName = useCallback((data : ProjectItemType) => data.projectName, []);
+  const getProjectName = useCallback(
+    (data: ProjectItemType) => data.projectName,
+    [],
+  );
   const { filteredItems } = useSearch(data, getProjectName);
-  
+
   if (isLoading || authLoading) return <DashboardSkeleton />;
   if (isError) return <p>Hubo un error</p>;
-  
+
   if (!filteredItems || !user) return <DashboardSkeleton />;
 
   return (
     <div className="min-h-screen bg-[#151921] px-8 ">
-      
       {/* ── Header ─────────────────────────────────────────── */}
       <div className="flex flex-col items-center justify-between mb-10 mt-5">
         <div className="flex flex-col items-center">
@@ -63,9 +68,9 @@ const DashboardView = () => {
 
       {/* ── Grid o empty state ─────────────────────────────── */}
       {data?.length ? (
-        <ul 
-        /* className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" */
-        className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"
+        <ul
+          /* className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" */
+          className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"
         >
           {filteredItems.map((project) => (
             <ProjectCard key={project._id} project={project} user={user} />
@@ -74,9 +79,18 @@ const DashboardView = () => {
       ) : (
         <div className="flex flex-col items-center justify-center py-36 gap-5">
           <div className="w-14 h-14 rounded-2xl bg-[#1e2330] border border-[#2d3348] flex items-center justify-center shadow-md">
-            <svg className="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2" />
+            <svg
+              className="w-7 h-7 text-indigo-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2"
+              />
             </svg>
           </div>
           <div className="text-center">

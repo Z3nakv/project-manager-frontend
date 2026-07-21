@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useTaskAttachments } from "../../../hooks/queries/useAttachmentsQueries";
 import type { Task } from "../../../types/task";
+import AttachmentsSkeleton from "../../ui/AttachmentsSkeleton";
 
 type TaskCardAttachmentsProps = {
   taskID: Task["_id"];
@@ -30,7 +31,7 @@ const TaskCardAttachments = ({ taskID }: TaskCardAttachmentsProps) => {
   return (
     <div className="my-3">
       {isLoading ? (
-        <p>Cargando attachments...</p>
+        <AttachmentsSkeleton />
       ) : (
         <ul className="grid grid-cols-4 gap-2">
           {attachments?.map((att) => (

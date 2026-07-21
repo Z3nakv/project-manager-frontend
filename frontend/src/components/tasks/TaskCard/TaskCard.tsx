@@ -64,7 +64,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
       {/* Notas */}
       <TaskNotes taskNotes={task.notes}/>
 
-      <AssignTaskMembers AssignedMembers={task.assignedTo} />
+      <AssignTaskMembers AssignedMembers={task.assignedTo!} />
     </li>
   );
 };

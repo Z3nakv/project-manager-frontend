@@ -1,5 +1,5 @@
 import z, { array, object, string } from "zod";
-import { taskSchema } from "./task";
+import { taskSchema, taskStatusSchema } from "./task";
 import { userSchema } from "./user";
 
 export const projectItemSchemaDetails = object({
@@ -8,9 +8,12 @@ export const projectItemSchemaDetails = object({
     clientName: string(),
     description: string(),
     tasks: array(taskSchema),
-    manager: userSchema.pick({_id: true}),
+    manager: userSchema,
     team: array(userSchema),
 });
+
+const deadline = string().nullable();
+const tasks = array(object({_id:string(), status:taskStatusSchema, deadline: deadline}));
 
 export const projectItemSchemaDetailsArray = z.array(projectItemSchemaDetails)
 
@@ -21,7 +24,7 @@ export const projectItemSchema = projectItemSchemaDetails.pick({
     description: true,
     manager: true,
     team: true
-});
+}).extend({tasks});
 
 export const dashboardProjectSchema = z.array(
     projectItemSchemaDetails.pick({
@@ -30,8 +33,8 @@ export const dashboardProjectSchema = z.array(
     clientName: true,
     description: true,
     manager: true,
-    team: true
-    })
+    team: true,
+    }).extend({tasks})
 );
 
 export const projectItemSchemaDetailsByID = object({

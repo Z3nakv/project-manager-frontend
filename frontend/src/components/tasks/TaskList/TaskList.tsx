@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import { useIsMobile } from "../../../hooks/useIsMobile";
 import HorizontalScroller from "../../ui/HorizontalScroller";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
-import { initialStatusGroups, statusConfig } from "./taskList.config";
+import { statusConfig, taskReducer } from "./taskList.config";
 import useSearch from "../../../hooks/useSearch";
 import type { TaskProjectType, TaskStatus } from "../../../types/task";
 import type { ProjectItemSchemaDetailsType } from "../../../types/project";
@@ -58,13 +58,8 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
     }
   };
 
-  const groupedTasks = filteredItems.reduce((acc, task) => {
-    let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
-    currentGroup = [...currentGroup, task];
-    return { ...acc, [task.status]: currentGroup };
-  }, initialStatusGroups);
-
-
+  const groupedTasks = taskReducer(filteredItems);
+  
   return (
     <div className="mt-6">
       

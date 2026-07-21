@@ -1,10 +1,9 @@
-import type { TaskProjectType } from "../../../types/task";
+import type { TaskStatus } from "../../../types/task";
 
-type GroupedTasks = {
-  [key: string]: TaskProjectType[];
-};
+type StatusGroups<T> = Record<TaskStatus, T[]>;
 
-export const initialStatusGroups: GroupedTasks = {
+
+export const initialStatusGroups: Record<TaskStatus, unknown[]> = {
     pending: [],
     inProgress: [],
     onHold: [],
@@ -21,3 +20,22 @@ export const statusConfig: StatusConfig = {
     underReview: { label: "En revisión", color: "#0ea5e9", icon: "⊙" },
     completed: { label: "Completado", color: "#10b981", icon: "✓" },
 }
+
+/* export const taskReducer = (filteredItems) => {
+    const response = filteredItems.reduce((acc, task) => {
+    let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
+    currentGroup = [...currentGroup, task];
+    return { ...acc, [task.status]: currentGroup };
+  }, initialStatusGroups);
+    return response;
+} */
+
+export const taskReducer =<T extends { _id: string; status: TaskStatus }>(tasks : T[]): StatusGroups<T>  => {
+  const groups = structuredClone(initialStatusGroups) as StatusGroups<T>;
+
+  for (const task of tasks) {
+    groups[task.status].push(task);
+  }
+
+  return groups;
+};

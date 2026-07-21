@@ -7,8 +7,6 @@ type TaskDeadlineProps = {
     taskDeadline: Task['deadline']
 }
 
-
-
 const TaskDeadLine = ({ taskDeadline } : TaskDeadlineProps) => {
 
 const deadlineStatus = getDeadlineStatus(taskDeadline!);

@@ -1,4 +1,5 @@
 export function formatDate(isoString: string) : string {
+    if(!isoString) return '';
     const date = new Date(isoString);
     const formatter = new Intl.DateTimeFormat('es-ES', {
         year: 'numeric',
