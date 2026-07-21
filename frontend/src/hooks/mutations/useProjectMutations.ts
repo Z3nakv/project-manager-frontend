@@ -25,7 +25,7 @@ export const useCreateProjectMutation = () => {
 
 type useEditProjectMutationProps = {
   projectID: string
-  project: ProjectItemType
+  project: Pick<ProjectItemType, "projectName" | "clientName" | "description" | "team">;
   navigate: NavigateFunction
 }
 

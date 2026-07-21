@@ -1,4 +1,3 @@
-
 import { Link, useNavigate, useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import ProjectForm from "./ProjectForm";
@@ -7,7 +6,7 @@ import { useUpdateProjectMutation } from "../../hooks/mutations/useProjectMutati
 import type { ProjectFormDataType, ProjectItemType } from "../../types/project";
 
 type EditProjectFormProps = {
-  project: ProjectItemType;
+  project: Pick<ProjectItemType, "projectName" | "clientName" | "description" | "team">;
 };
 
 const EditProjectForm = ({ project }: EditProjectFormProps) => {

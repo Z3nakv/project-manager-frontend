@@ -43,7 +43,7 @@ export const projectItemSchemaDetailsByID = object({
     clientName: string(),
     description: string(),
     tasks: array(taskSchema),
-    manager: userSchema.pick({_id: true}),
+    manager: userSchema,
     team: array(userSchema)
 });
 
