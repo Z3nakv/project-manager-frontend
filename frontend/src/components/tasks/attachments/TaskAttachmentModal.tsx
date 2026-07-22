@@ -14,18 +14,18 @@ const TaskAttachmentModal = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const taskID = searchParams.get("viewTask") ?? searchParams.get("task")!;
-  const attachmentID = searchParams.get("viewAttachment")!;
+  const taskId = searchParams.get("viewTask") ?? searchParams.get("task")!;
+  const attachmentId = searchParams.get("viewAttachment")!;
   const handleClose = () => navigate(location.pathname, { replace: true });
 
   const queryClient = useQueryClient();
   const attachmentsData = queryClient.getQueryData<attachmentsSchemaType>([
     "taskAttachments",
-    taskID,
+    taskId,
   ]);
-  const attachment = attachmentsData?.find((att) => att._id === attachmentID);
+  const attachment = attachmentsData?.find((att) => att._id === attachmentId);
 
-  if (attachmentID)
+  if (attachmentId)
     return (
       <Transition appear show={true} as={Fragment}>
         <Dialog as="div" className="relative z-40" onClose={handleClose}>
@@ -57,7 +57,7 @@ const TaskAttachmentModal = () => {
                   <div className="flex items-start justify-between mb-6">
                     {attachment && (
                       <img
-                        src={getCloudinaryUrl(attachment.publicID, 600, 450)}
+                        src={getCloudinaryUrl(attachment.publicId, 600, 450)}
                         alt={attachment.filename}
                         className="rounded-lg w-full h-auto"
                       />

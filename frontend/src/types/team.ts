@@ -11,4 +11,4 @@ export const TeamMembersSchema = array(teamMemberSchema)
 
 export type TeamMember = z.infer<typeof teamMemberSchema>
 export type TeamMemberForm = Pick<TeamMember, 'email'>
-export type TeamMemberID = Pick<TeamMember, '_id'>
+export type TeamMemberId = Pick<TeamMember, '_id'>

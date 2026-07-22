@@ -9,14 +9,14 @@ import type { TaskFormType, TaskProjectType } from "../../../types/task";
 
 type EditTaskModalProps = {
   taskData: TaskProjectType;
-  taskID: TaskProjectType["_id"];
+  taskId: TaskProjectType["_id"];
 };
 
-const EditTaskModal = ({ taskData, taskID }: EditTaskModalProps) => {
+const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
 
   const navigate = useNavigate();
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
   
   const deadlineDate = taskData.deadline ? taskData.deadline.slice(0, 10) : undefined;
   const labels = taskData.labels
@@ -24,9 +24,9 @@ const EditTaskModal = ({ taskData, taskID }: EditTaskModalProps) => {
     defaultValues: { name: taskData.name, description: taskData.description, deadline: deadlineDate || undefined, labels: labels},
   });
 
-  const { mutate } = useUpdateTaskMutation({ taskID, projectID })
+  const { mutate } = useUpdateTaskMutation({ taskId, projectId })
 
-  const handleEditTask = (formData: TaskFormType) => mutate({ taskID, projectID, formData });
+  const handleEditTask = (formData: TaskFormType) => mutate({ taskId, projectId, formData });
 
   const handleClose = () => navigate(location.pathname, { replace: true });
 

@@ -3,9 +3,9 @@ import { useTaskAttachments } from "../../../hooks/queries/useAttachmentsQueries
 import { useUploadAttachment } from "../../../hooks/mutations/useAttachmentMutations";
 import ImageUploader from "../../attachments/ImageUploader";
 
-export function TaskAttachments({ projectID, taskID }: { projectID: string; taskID: string }) {
+export function TaskAttachments({ projectId, taskId }: { projectId: string; taskId: string }) {
   
-  const { data: attachments, isLoading } = useTaskAttachments({ projectID, taskID });
+  const { data: attachments, isLoading } = useTaskAttachments({ projectId, taskId });
   const [file, setFile] = useState<File | null>(null);
   const { mutate, isPending } = useUploadAttachment();
 
@@ -13,7 +13,7 @@ export function TaskAttachments({ projectID, taskID }: { projectID: string; task
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
-    mutate({ projectID, taskID, formData });
+    mutate({ projectId, taskId, formData });
   };
   
   return (

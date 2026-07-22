@@ -11,10 +11,10 @@ import type { TeamMember } from "../../types/team";
 
 type useCreateTaskMutationProps = {
     reset: UseFormReset<TaskFormType>
-    projectID: ProjectItemType['_id']
+    projectId: ProjectItemType['_id']
 }
 
-export const useCreateTaskMutation = ({ reset, projectID } : useCreateTaskMutationProps) => {
+export const useCreateTaskMutation = ({ reset, projectId } : useCreateTaskMutationProps) => {
 
     const queryClient = useQueryClient();
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const useCreateTaskMutation = ({ reset, projectID } : useCreateTaskMutati
         mutationFn: createTask,
         onSuccess: (data) => {
           toast.success(data.message);
-          queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+          queryClient.invalidateQueries({ queryKey: ["project", projectId] });
           reset();
           navigate(location.pathname, { replace: true })
     
@@ -35,11 +35,11 @@ export const useCreateTaskMutation = ({ reset, projectID } : useCreateTaskMutati
 }
 
 type useUpdateTaskMutationProps = {
-    taskID: Task['_id']
-    projectID: ProjectItemType['_id']
+    taskId: Task['_id']
+    projectId: ProjectItemType['_id']
 }
 
-export const useUpdateTaskMutation = ({ taskID, projectID } : useUpdateTaskMutationProps) => {
+export const useUpdateTaskMutation = ({ taskId, projectId } : useUpdateTaskMutationProps) => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
@@ -51,8 +51,8 @@ export const useUpdateTaskMutation = ({ taskID, projectID } : useUpdateTaskMutat
             message: `Tarea "${data.task.name}" actualizada`, 
             project: data.project 
           }); // Emitir evento de actualización
-          queryClient.invalidateQueries({ queryKey: ["task", taskID] });
-          queryClient.invalidateQueries({ queryKey: ["project", projectID] }); 
+          queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+          queryClient.invalidateQueries({ queryKey: ["project", projectId] }); 
           navigate(location.pathname, { replace: true });
         },
         onError: (error) => console.log(error.message),
@@ -61,10 +61,10 @@ export const useUpdateTaskMutation = ({ taskID, projectID } : useUpdateTaskMutat
 }
 
 type useUpdateTaskStatusMutationProps = {
-    projectID : ProjectItemType['_id']
+    projectId : ProjectItemType['_id']
     team: TeamMember['_id'][]
 }
-export const useUpdateTaskStatusMutation = ( {projectID, team} : useUpdateTaskStatusMutationProps ) => {
+export const useUpdateTaskStatusMutation = ( {projectId, team} : useUpdateTaskStatusMutationProps ) => {
     const queryClient = useQueryClient();
     const { data: user } = useAuth();
 
@@ -75,11 +75,11 @@ export const useUpdateTaskStatusMutation = ( {projectID, team} : useUpdateTaskSt
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({queryKey: ["project", projectID]})
+      queryClient.invalidateQueries({queryKey: ["project", projectId]})
 
       socket.emit("task_status_update", {
         message: `${user?.name} ha actualizado la tarea "${data.task?.name}"`,
-        projectID,
+        projectId,
         team: team.map((member) => member),
         triggeredBy: user?._id,
       });
@@ -89,16 +89,16 @@ export const useUpdateTaskStatusMutation = ( {projectID, team} : useUpdateTaskSt
 }
 
 type useDeleteTaskMutationProps = {
-  projectID: ProjectItemSchemaDetailsType['_id']
+  projectId: ProjectItemSchemaDetailsType['_id']
 }
 
-export const useDeleteTaskMutation = ({ projectID } : useDeleteTaskMutationProps) => {
+export const useDeleteTaskMutation = ({ projectId } : useDeleteTaskMutationProps) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: deleteTask,
     onSuccess: (data) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
 
       socket.emit("taskDeleted", { message: `Tarea eliminada en proyecto ${data.project.projectName}`, project: data.project });
     },

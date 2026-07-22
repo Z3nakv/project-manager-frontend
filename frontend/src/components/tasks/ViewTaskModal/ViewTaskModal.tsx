@@ -19,23 +19,23 @@ import type { TaskStatus } from "../../../types/task";
 
 const ViewTaskModal = () => {
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
   const location = useLocation();
   const navigate = useNavigate();
 
   const queryParams = new URLSearchParams(location.search);
-  const taskID = queryParams.get("viewTask")!;
-  const show = !!taskID;
+  const taskId = queryParams.get("viewTask")!;
+  const show = !!taskId;
 
-  const { data: taskData, isError, error } = useGetTaskData({ projectID, taskID })
+  const { data: taskData, isError, error } = useGetTaskData({ projectId, taskId })
 
   const team = handleTeamMembers({taskData});
   
-  const { mutate } = useUpdateTaskStatusMutation({ projectID, team });
+  const { mutate } = useUpdateTaskStatusMutation({ projectId, team });
 
   const handleUpdateStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const status = e.target.value as TaskStatus;
-    mutate({ projectID, taskID, status });
+    mutate({ projectId, taskId, status });
   };
 
   const handleClose = () => navigate(location.pathname, { replace: true });
@@ -104,8 +104,8 @@ const ViewTaskModal = () => {
                     handleUpdateStatus={handleUpdateStatus}
                   />
 
-                  {/* <TaskAttachments projectID={projectID} taskID={taskID}/> */}
-                  <TaskCardAttachments taskID={taskID} />
+                  {/* <TaskAttachments projectId={projectId} taskId={taskId}/> */}
+                  <TaskCardAttachments taskId={taskId} />
 
                   </div>
 

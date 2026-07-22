@@ -4,26 +4,26 @@ import type { Task } from "../../../types/task";
 import AttachmentsSkeleton from "../../ui/AttachmentsSkeleton";
 
 type TaskCardAttachmentsProps = {
-  taskID: Task["_id"];
+  taskId: Task["_id"];
 };
 
-const TaskCardAttachments = ({ taskID }: TaskCardAttachmentsProps) => {
+const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
   const navigate = useNavigate();
   const location = useLocation();
   const { data: attachments, isLoading } = useTaskAttachments({
-    projectID,
-    taskID,
+    projectId,
+    taskId,
   });
 
-  const handleNavigation = async (attachmentID : string, taskID : string) => {
+  const handleNavigation = async (attachmentId : string, taskId : string) => {
     const searchParams =  new URLSearchParams(location.search)
     if(!searchParams.get("viewTask")) {
-      searchParams.set("task", taskID);
-      searchParams.set("viewAttachment", attachmentID);
+      searchParams.set("task", taskId);
+      searchParams.set("viewAttachment", attachmentId);
     }else {
-      searchParams.set("viewAttachment", attachmentID);
+      searchParams.set("viewAttachment", attachmentId);
     }
     navigate(`${location.pathname}?${searchParams.toString()}`);
   }

@@ -5,7 +5,7 @@ import { SocketEvents } from "../events";
 
 interface NoteNotificationPayload {
   message: string;
-  projectID: string
+  projectId: string
 }
 
 export function registerNoteListener(
@@ -20,7 +20,7 @@ export function registerNoteListener(
             queryKey: ["notifications"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["project", payload.projectID]
+          queryKey: ["project", payload.projectId]
         })
     }
 
@@ -32,7 +32,7 @@ export function registerNoteListener(
             queryKey: ["notifications"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["project", payload.projectID]
+          queryKey: ["project", payload.projectId]
         });
     }
 

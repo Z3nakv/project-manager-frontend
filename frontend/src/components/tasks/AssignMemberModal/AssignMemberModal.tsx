@@ -10,13 +10,13 @@ const AssignMemberModal = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
-    const projectID = params.projectID!;
+    const projectId = params.projectId!;
     const queryClient = useQueryClient();
-    const project = queryClient.getQueryData<ProjectItemSchemaDetailsType>(['project', projectID])!;
-    const taskID = new URLSearchParams(location.search).get("viewAssignMember")!;
-    const show = !!taskID;
+    const project = queryClient.getQueryData<ProjectItemSchemaDetailsType>(['project', projectId])!;
+    const taskId = new URLSearchParams(location.search).get("viewAssignMember")!;
+    const show = !!taskId;
     const handleClose = () => navigate(location.pathname, { replace: true });
-    const task = project.tasks.find(task => task._id === taskID)!;
+    const task = project.tasks.find(task => task._id === taskId)!;
     if (!task) return null;
     const taskTeam = task.assignedTo!.map(task => task._id) ?? [];
     const projectTeam = project.team;
@@ -69,7 +69,7 @@ const AssignMemberModal = () => {
                                         </button>
                                     </div>
     
-                                    <AssignMembersForm projectTeam ={projectTeam} taskTeam={taskTeam} taskID={taskID} projectID={projectID} />
+                                    <AssignMembersForm projectTeam ={projectTeam} taskTeam={taskTeam} taskId={taskId} projectId={projectId} />
     
                                 </DialogPanel>
                             </TransitionChild>

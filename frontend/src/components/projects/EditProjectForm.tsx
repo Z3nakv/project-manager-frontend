@@ -11,7 +11,7 @@ type EditProjectFormProps = {
 
 const EditProjectForm = ({ project }: EditProjectFormProps) => {
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
   const navigate = useNavigate();
 
   const {
@@ -26,10 +26,10 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
     },
   });
 
-  const { mutate, isPending } = useUpdateProjectMutation({ projectID, project, navigate });
+  const { mutate, isPending } = useUpdateProjectMutation({ projectId, project, navigate });
 
   const handleForm = (formData: ProjectFormDataType) => {
-    mutate({ projectID, formData });
+    mutate({ projectId, formData });
   };
   
   return (

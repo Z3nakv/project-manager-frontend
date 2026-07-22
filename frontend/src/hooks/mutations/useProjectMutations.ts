@@ -24,12 +24,12 @@ export const useCreateProjectMutation = () => {
 }
 
 type useEditProjectMutationProps = {
-  projectID: string
+  projectId: string
   project: Pick<ProjectItemType, "projectName" | "clientName" | "description" | "team">;
   navigate: NavigateFunction
 }
 
-export const useUpdateProjectMutation = ({ projectID, project, navigate} : useEditProjectMutationProps) => {
+export const useUpdateProjectMutation = ({ projectId, project, navigate} : useEditProjectMutationProps) => {
 
   const queryClient = useQueryClient();
   const isSubmitting = useRef(false);
@@ -41,11 +41,11 @@ export const useUpdateProjectMutation = ({ projectID, project, navigate} : useEd
         toast.success(data);
   
         queryClient.invalidateQueries({queryKey: ['projects']})
-        queryClient.invalidateQueries({queryKey: ['editProject', projectID]})
+        queryClient.invalidateQueries({queryKey: ['editProject', projectId]})
   
         socket.emit("project_updated", {
           message: `El proyecto "${project.projectName}" ha sido actualizado`,
-          team: project.team.map(memberID => memberID._id)
+          team: project.team.map(memberId => memberId._id)
         });
         navigate("/dashboard");
       },
@@ -71,8 +71,8 @@ export const useDeleteProjectMutation = ({ user, project } : ProjectItemProps) =
     onSuccess: (data) => {
       socket.emit("project_deleted", {
             message: `${user?.name} ha eliminado el proyecto ${project.projectName}`,
-            projectID: project._id,
-            team: project.team.map(memberID => memberID._id)
+            projectId: project._id,
+            team: project.team.map(memberId => memberId._id)
         })
         queryClient.invalidateQueries({ queryKey: ["projects"] })
       toast.success(data);

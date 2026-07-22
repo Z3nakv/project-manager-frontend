@@ -3,10 +3,10 @@ import { api } from "../lib/axios";
 import { teamMemberSchema, TeamMembersSchema, type TeamMember, type TeamMemberForm } from "../types/team";
 import type { ProjectFormType } from "../types/project";
 
-export const findUserByEmail = async ({projectID, formData} : {projectID: ProjectFormType['_id'], formData: TeamMemberForm}) => {
+export const findUserByEmail = async ({projectId, formData} : {projectId: ProjectFormType['_id'], formData: TeamMemberForm}) => {
 
   try {
-    const url = `/projects/${projectID}/team/find`;
+    const url = `/projects/${projectId}/team/find`;
     const { data } = await api.post<TeamMember>(url, formData);
     const response = teamMemberSchema.safeParse(data);
     if(response.success) return response.data;
@@ -17,10 +17,10 @@ export const findUserByEmail = async ({projectID, formData} : {projectID: Projec
   }
 }
 
-export const addUserToProject = async ({projectID, _id} : {projectID: ProjectFormType['_id'], _id: TeamMember['_id']}) => {
+export const addUserToProject = async ({projectId, _id} : {projectId: ProjectFormType['_id'], _id: TeamMember['_id']}) => {
     
   try {
-    const url = `/projects/${projectID}/team`;
+    const url = `/projects/${projectId}/team`;
     const { data } = await api.post<string>(url, {_id});
     return data;
   } catch (error) {
@@ -30,10 +30,10 @@ export const addUserToProject = async ({projectID, _id} : {projectID: ProjectFor
   }
 }
 
-export const getProjectTeam = async (projectID: ProjectFormType['_id']) => {
+export const getProjectTeam = async (projectId: ProjectFormType['_id']) => {
     
   try {
-    const url = `/projects/${projectID}/team`;
+    const url = `/projects/${projectId}/team`;
     const { data } = await api(url);
     const response = TeamMembersSchema.safeParse(data);
     if(response.success){
@@ -46,10 +46,10 @@ export const getProjectTeam = async (projectID: ProjectFormType['_id']) => {
   }
 }
 
-export const removeUserFromProject = async ({projectID, userID} : {projectID: ProjectFormType['_id'], userID: TeamMember['_id']}) => {
+export const removeUserFromProject = async ({projectId, userId} : {projectId: ProjectFormType['_id'], userId: TeamMember['_id']}) => {
     
   try {
-    const url = `/projects/${projectID}/team/${userID}`;
+    const url = `/projects/${projectId}/team/${userId}`;
     const { data } = await api.delete(url);
     return data;
   } catch (error) {

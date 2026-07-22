@@ -6,25 +6,25 @@ import type { Task } from "../types/task";
 
 type NoteAPIType = {
     formData: NoteFormData
-    projectID: ProjectItemSchemaDetailsType['_id']
-    taskID: Task['_id']
-    noteID: Note['_id']
+    projectId: ProjectItemSchemaDetailsType['_id']
+    taskId: Task['_id']
+    noteId: Note['_id']
 }
 
-export const createNote = async ({formData, projectID, taskID} : Pick<NoteAPIType, 'projectID' | 'taskID' | 'formData'>) => {
-    const url = `/projects/${projectID}/tasks/${taskID}/notes`
+export const createNote = async ({formData, projectId, taskId} : Pick<NoteAPIType, 'projectId' | 'taskId' | 'formData'>) => {
+    const url = `/projects/${projectId}/tasks/${taskId}/notes`
     const { data } = await api.post<string>(url, formData);
     return data;
 }
 
-export const deleteNote = async ({projectID, taskID, noteID} : Pick<NoteAPIType, 'projectID' | 'taskID' | 'noteID'>) => {
-    const url = `/projects/${projectID}/tasks/${taskID}/notes/${noteID}`
+export const deleteNote = async ({projectId, taskId, noteId} : Pick<NoteAPIType, 'projectId' | 'taskId' | 'noteId'>) => {
+    const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}`
     const { data } = await api.delete<string>(url);
     return data;
 }
 
-export const updateNoteStatus = async ({projectID, taskID, noteID} : Pick<NoteAPIType, 'projectID' | 'taskID' | 'noteID'>) => {
-    const url = `/projects/${projectID}/tasks/${taskID}/notes/${noteID}/status`;
+export const updateNoteStatus = async ({projectId, taskId, noteId} : Pick<NoteAPIType, 'projectId' | 'taskId' | 'noteId'>) => {
+    const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}/status`;
     const { data } = await api.put<string>(url);
     return data;
 }

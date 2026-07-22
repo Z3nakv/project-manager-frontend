@@ -10,14 +10,14 @@ export default function AddMemberForm() {
         email: ''
     }
     const params = useParams();
-    const projectID = params.projectID!;
+    const projectId = params.projectId!;
     
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 
     const mutation = useFindUserByEmailMutation();
 
     const handleSearchUser = async (formData: TeamMemberForm) => {
-        const data = {projectID, formData};
+        const data = {projectId, formData};
         mutation.mutate(data);
     }
 

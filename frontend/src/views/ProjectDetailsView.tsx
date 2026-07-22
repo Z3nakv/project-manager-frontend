@@ -1,7 +1,7 @@
 import { Link, Navigate, useNavigate, useParams } from "react-router";
 import TaskList from "../components/tasks/TaskList/TaskList";
 import { PlusIcon, UsersIcon, ArrowLeftIcon } from "@heroicons/react/20/solid";
-import { getProjectByID } from "../services/ProjectService";
+import { getProjectById } from "../services/ProjectService";
 import { useQuery } from "@tanstack/react-query";
 import { lazy, useMemo } from "react";
 import { useAuth } from "../hooks/useAuth";
@@ -29,11 +29,11 @@ const ProjectDetailsView = () => {
   const { data: user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
 
   const { data, isError, isLoading } = useQuery({
-    queryKey: ["project", projectID],
-    queryFn: () => getProjectByID(projectID),
+    queryKey: ["project", projectId],
+    queryFn: () => getProjectById({projectId}),
     retry: false,
   });
 

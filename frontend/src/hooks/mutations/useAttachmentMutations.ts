@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"; // tu funci
 import { uploadAttachment } from "../../services/AttachmentService";
 
 type UploadAttachmentParams = {
-  projectID: string;
-  taskID: string;
+  projectId: string;
+  taskId: string;
   formData: FormData;
 };
 
@@ -12,10 +12,10 @@ export function useUploadAttachment() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ projectID, taskID, formData }: UploadAttachmentParams) =>
-      uploadAttachment({ projectID, taskID, formData }),
+    mutationFn: ({ projectId, taskId, formData }: UploadAttachmentParams) =>
+      uploadAttachment({ projectId, taskId, formData }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["taskAttachments", variables.taskID] });
+      queryClient.invalidateQueries({ queryKey: ["taskAttachments", variables.taskId] });
     },
     onError: (error) => {
       console.log(error);

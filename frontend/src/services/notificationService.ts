@@ -8,8 +8,8 @@ export const getNotifications = async () => {
     if(response.success) return response.data;
 }
 
-export const markAsRead = async (notificationID: string) => {
-    const { data } = await api.put(`/notifications/${notificationID}/read`)
+export const markAsRead = async (notificationId: string) => {
+    const { data } = await api.put(`/notifications/${notificationId}/read`)
     return data
 }
 

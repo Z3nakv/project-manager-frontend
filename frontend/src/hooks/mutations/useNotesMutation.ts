@@ -7,22 +7,22 @@ import type { Note, NoteFormData } from "../../types/note";
 
 type useCreateNoteMutationProps = {
   resetField: UseFormResetField<NoteFormData>;
-  projectID: string;
-  taskID: string;
+  projectId: string;
+  taskId: string;
 };
 
 export const useCreateNoteMutation = ({
   resetField,
-  projectID,
-  taskID,
+  projectId,
+  taskId,
 }: useCreateNoteMutationProps) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createNote,
     onSuccess: (data) => {
       toast.success(data);
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
-      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
       resetField("content");
     },
     onError: (error) => {
@@ -32,14 +32,14 @@ export const useCreateNoteMutation = ({
 };
 
 type useDeleteNoteMutationProps = {
-  projectID: string;
-  taskID: string;
+  projectId: string;
+  taskId: string;
   note: Note;
 };
 
 export const useDeleteNoteMutation = ({
-  taskID,
-  projectID,
+  taskId,
+  projectId,
   note,
 }: useDeleteNoteMutationProps) => {
   const isSubmitting = useRef(false);
@@ -50,8 +50,8 @@ export const useDeleteNoteMutation = ({
     onSuccess: (data) => {
       isSubmitting.current = false;
       toast.success(data);
-      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: (error) => {
@@ -63,21 +63,21 @@ export const useDeleteNoteMutation = ({
   const handleDeleteNote = () => {
     if (isSubmitting.current) return;
     isSubmitting.current = true;
-    mutate({ projectID, taskID, noteID: note._id });
+    mutate({ projectId, taskId, noteId: note._id });
   };
 
   return { isPending, handleDeleteNote };
 };
 
 type useUpdateNoteStatusMutationProps = {
-  projectID: string;
-  taskID: string;
+  projectId: string;
+  taskId: string;
   note: Note;
 };
 
 export const useUpdateNoteStatusMutation = ({
-  taskID,
-  projectID,
+  taskId,
+  projectId,
   note,
 }: useUpdateNoteStatusMutationProps) => {
   const isSubmitting = useRef(false);
@@ -88,8 +88,8 @@ export const useUpdateNoteStatusMutation = ({
     onSuccess: (data) => {
       isSubmitting.current = false;
       toast.success(data);
-      queryClient.invalidateQueries({ queryKey: ["task", taskID] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: (error) => {
@@ -101,7 +101,7 @@ export const useUpdateNoteStatusMutation = ({
   const handUpdateNoteStatus = () => {
     if (isSubmitting.current) return;
     isSubmitting.current = true;
-    updateNoteStatusMutation({ projectID, taskID, noteID: note._id });
+    updateNoteStatusMutation({ projectId, taskId, noteId: note._id });
   };
 
   return { isPending, handUpdateNoteStatus };

@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getProjectTeam } from "../../services/teamService";
 
 type useGetProjectTeamProps = {
-    projectID: string
+    projectId: string
 }
 
-export const useGetProjectTeam = ({ projectID } : useGetProjectTeamProps) => {
+export const useGetProjectTeam = ({ projectId } : useGetProjectTeamProps) => {
     return useQuery({
-        queryKey: ["projectTeam", projectID],
-        queryFn: () => getProjectTeam(projectID),
+        queryKey: ["projectTeam", projectId],
+        queryFn: () => getProjectTeam(projectId),
         retry: false,
       });
 }

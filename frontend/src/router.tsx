@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         Component: DashboardView
       },
       {
-        path: "/projects/:projectID",
+        path: "/projects/:projectId",
         lazy: async () => ({
           Component: (await import("./views/ProjectDetailsView")).default,
         }),
@@ -29,13 +29,13 @@ const router = createBrowserRouter([
         }),
       },
       {
-        path: "/projects/:projectID/edit",
+        path: "/projects/:projectId/edit",
         lazy: async () => ({
           Component: (await import("./views/EditProjectView")).default,
         }),
       },
       {
-        path: "/projects/:projectID/team",
+        path: "/projects/:projectId/team",
         lazy: async () => ({
           Component: (await import("./views/ProjectTeamView")).default,
         }),

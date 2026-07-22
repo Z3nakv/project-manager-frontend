@@ -18,10 +18,10 @@ export const useFindUserByEmailMutation = () => {
 type useAddUserToProjectMutationProps = {
     user: TeamMember
     reset: () => void
-    projectID: string
+    projectId: string
 }
 
-export const useAddUserToProjectMutation = ({ user, reset, projectID } : useAddUserToProjectMutationProps) => {
+export const useAddUserToProjectMutation = ({ user, reset, projectId } : useAddUserToProjectMutationProps) => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     return useMutation({
@@ -29,13 +29,13 @@ export const useAddUserToProjectMutation = ({ user, reset, projectID } : useAddU
         onSuccess: (data) => {
             socket.emit('member_added',{
                 message: `${user?.name} te agregó como colaborador al proyecto`,
-                userID: user._id
+                userId: user._id
             });
             toast.success(data);
             reset()
             navigate(location.pathname, {replace: true});
             queryClient.invalidateQueries({queryKey:['projects']});
-            queryClient.invalidateQueries({queryKey:['projectTeam', projectID]});
+            queryClient.invalidateQueries({queryKey:['projectTeam', projectId]});
         },
         onError: (error) => {
             toast.error(error.message);
@@ -44,10 +44,10 @@ export const useAddUserToProjectMutation = ({ user, reset, projectID } : useAddU
 }
 
 type useRemoveUserFromProjectMutationProps = {
-    projectID: string
+    projectId: string
 }
 
-export const useRemoveUserFromProjectMutation = ({ projectID } : useRemoveUserFromProjectMutationProps) => {
+export const useRemoveUserFromProjectMutation = ({ projectId } : useRemoveUserFromProjectMutationProps) => {
     const queryClient = useQueryClient();
     return useMutation({
     mutationFn: removeUserFromProject,
@@ -55,12 +55,12 @@ export const useRemoveUserFromProjectMutation = ({ projectID } : useRemoveUserFr
       
       socket.emit("member_removed", {
         message: `${data?.manager} te elimino como colaborador del proyecto`,
-        userID: data?.colaborador,
+        userId: data?.colaborador,
       });
       toast.success(data?.message);
       queryClient.invalidateQueries({queryKey:['projects']});
-      queryClient.invalidateQueries({ queryKey: ["projectTeam", projectID] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["projectTeam", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
     },
     onError: (error) => toast.error(error.message),
   });

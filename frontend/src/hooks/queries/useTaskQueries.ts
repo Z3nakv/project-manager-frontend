@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProjectTaskByID } from "../../services/taskServices";
+import { getProjectTaskById } from "../../services/taskServices";
 
 type useGetTaskDataProps = {
-    projectID: string
-    taskID: string
+    projectId: string
+    taskId: string
 }
 
-export const useGetTaskData = ({ projectID, taskID } : useGetTaskDataProps) => {
+export const useGetTaskData = ({ projectId, taskId } : useGetTaskDataProps) => {
     return useQuery({
-    queryKey: ["task", taskID],
-    queryFn: () => getProjectTaskByID({ projectID, taskID }),
-    enabled: !!taskID,
+    queryKey: ["task", taskId],
+    queryFn: () => getProjectTaskById({ projectId, taskId }),
+    enabled: !!taskId,
   });
   
 }

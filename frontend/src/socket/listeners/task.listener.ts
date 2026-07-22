@@ -7,42 +7,42 @@ export function registerTaskListeners (
     socket: Socket,
     queryClient: QueryClient
 ) {
-    const onTaskCreated = (data : {message:string, projectID:string}) => {
+    const onTaskCreated = (data : {message:string, projectId:string}) => {
 
     toast.info(data.message);
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectID],
+      queryKey: ["project", data.projectId],
     });
 
   };
 
-  const onTaskUpdated = (data : {message:string, projectID: string}) => {
+  const onTaskUpdated = (data : {message:string, projectId: string}) => {
 
     toast.info(data.message);
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectID],
+      queryKey: ["project", data.projectId],
     });
 
   };
 
-  const onTaskDeleted = (data : {message:string, projectID: string}) => {
+  const onTaskDeleted = (data : {message:string, projectId: string}) => {
 
     toast.info(data.message);
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectID],
+      queryKey: ["project", data.projectId],
     });
 
   };
 
-  const onTaskStatusUpdated = (data : {message:string, projectID: string}) => {
+  const onTaskStatusUpdated = (data : {message:string, projectId: string}) => {
   
     toast.info(data.message);
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectID],
+      queryKey: ["project", data.projectId],
     });
 
     queryClient.invalidateQueries({
@@ -51,7 +51,7 @@ export function registerTaskListeners (
 
   };
 
-  const onTaskAssigned = (data: {message: string, projectID: string}) => {
+  const onTaskAssigned = (data: {message: string, projectId: string}) => {
 
     toast.info(data.message);
 
@@ -60,7 +60,7 @@ export function registerTaskListeners (
     });
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectID],
+      queryKey: ["project", data.projectId],
     });
   }
 

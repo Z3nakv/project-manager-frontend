@@ -16,7 +16,7 @@ type TeamMemberInfoProps = {
   member: TeamMember
   index: number
   teamMemberLength: number
-  handleRemoveUserFromProject: (memberID: string) => void
+  handleRemoveUserFromProject: (memberId: string) => void
 }
 
 const TeamMemberInfo = ({member, index, teamMemberLength, handleRemoveUserFromProject} : TeamMemberInfoProps) => {

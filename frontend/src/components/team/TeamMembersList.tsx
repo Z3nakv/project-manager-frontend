@@ -8,7 +8,7 @@ import type { TeamMember } from "../../types/team";
 
 type TeamMembersListProps = {
     teamMembers: TeamMember[]
-    handleRemoveUserFromProject: (memberID: string) => void
+    handleRemoveUserFromProject: (memberId: string) => void
 }
 
 const TeamMembersList = ({teamMembers, handleRemoveUserFromProject} : TeamMembersListProps) => {

@@ -5,30 +5,30 @@ import { useAssignTaskMutation } from "../../../hooks/mutations/useAssignTaskMut
 type AssignTaskMembersProps = {
     projectTeam: User[];
     taskTeam: User['_id'][];
-    taskID: string;
-    projectID: string;
+    taskId: string;
+    projectId: string;
 }
 
 export default function AssignMembersForm({
     projectTeam,
     taskTeam,
-    taskID,
-    projectID,
+    taskId,
+    projectId,
 }: AssignTaskMembersProps) {
-    const [selectedIDs, setSelectedIDs] = useState<string[]>(taskTeam);
-    const mutation = useAssignTaskMutation({projectID, taskID});
+    const [selectedIds, setSelectedIds] = useState<string[]>(taskTeam);
+    const mutation = useAssignTaskMutation({projectId, taskId});
     
-    const toggleMember = (userID: string) => {
-        setSelectedIDs(prev =>
-            prev.includes(userID)
-                ? prev.filter(id => id !== userID)
-                : [...prev, userID]
+    const toggleMember = (userId: string) => {
+        setSelectedIds(prev =>
+            prev.includes(userId)
+                ? prev.filter(id => id !== userId)
+                : [...prev, userId]
         );
     };
 
     const handleSubmit = () => {
         mutation.mutate(
-            { userIDs: selectedIDs },
+            { userIds: selectedIds },
         );
     };
 
@@ -42,7 +42,7 @@ export default function AssignMembersForm({
                     >
                         <input
                             type="checkbox"
-                            checked={selectedIDs.includes(member._id)}
+                            checked={selectedIds.includes(member._id)}
                             onChange={() => toggleMember(member._id)}
                             className="w-4 h-4 rounded accent-indigo-600 cursor-pointer"
                         />

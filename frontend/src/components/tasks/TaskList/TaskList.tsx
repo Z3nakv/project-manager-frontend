@@ -19,28 +19,28 @@ type TaskListProps = {
 
 const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
   
   const { filteredItems } = useSearch(tasks, (task) => task.name);
   
-  const { mutate } = useUpdateTaskStatusMutation({projectID , team});
+  const { mutate } = useUpdateTaskStatusMutation({projectId , team});
 
   const handleDragEnd = (e: DragEndEvent) => {
 
     if(isMobile) return;
 
     const status = e.operation.target?.id as TaskStatus;
-    const taskID = e.operation.source?.id.toString();
+    const taskId = e.operation.source?.id.toString();
 
-    if (status && taskID) {
-      mutate({ projectID, taskID, status });
+    if (status && taskId) {
+      mutate({ projectId, taskId, status });
       queryClient.setQueryData(
-        ["project", projectID],
+        ["project", projectId],
         (prevData: ProjectItemSchemaDetailsType) => {
           const updatedTasks = prevData.tasks.map((task) => {
-            if (task._id === taskID) {
+            if (task._id === taskId) {
               return {
                 ...task,
                 status,

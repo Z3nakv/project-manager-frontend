@@ -10,8 +10,8 @@ const AddNoteForm = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  const projectID = params.projectID!;
-  const taskID = queryParams.get("viewTask")!;
+  const projectId = params.projectId!;
+  const taskId = queryParams.get("viewTask")!;
 
   const initialValues: NoteFormData = {
     content: "",
@@ -19,9 +19,9 @@ const AddNoteForm = () => {
 
   const { register, handleSubmit, resetField, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-  const { mutate, isPending } = useCreateNoteMutation({ resetField, projectID, taskID })
+  const { mutate, isPending } = useCreateNoteMutation({ resetField, projectId, taskId })
 
-  const handleAddNote = (formData: NoteFormData) => mutate({ projectID, taskID, formData });
+  const handleAddNote = (formData: NoteFormData) => mutate({ projectId, taskId, formData });
   
   const inputClass = `
     w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-500

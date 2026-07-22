@@ -12,14 +12,14 @@ import { useGetProjectTeam } from "../hooks/queries/useTeamMembersQueries";
 const ProjectTeamView = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
 
-  const { data, isLoading, isError } = useGetProjectTeam({ projectID })
+  const { data, isLoading, isError } = useGetProjectTeam({ projectId })
 
-  const { mutate } = useRemoveUserFromProjectMutation({ projectID })
+  const { mutate } = useRemoveUserFromProjectMutation({ projectId })
 
-  const handleRemoveUserFromProject = (memberID: string) => {
-    mutate({ projectID, userID: memberID });
+  const handleRemoveUserFromProject = (memberId: string) => {
+    mutate({ projectId, userId: memberId });
   };
 
   if(isLoading) return <ProjectTeamSkeleton />
@@ -54,7 +54,7 @@ const ProjectTeamView = () => {
         </button>
 
         <Link
-          to={`/projects/${projectID}`}
+          to={`/projects/${projectId}`}
           className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#1e2330] hover:bg-[#252d3d] border border-[#2d3348] text-slate-300 hover:text-slate-100 text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors duration-150 shadow-md"
         >
           Volver

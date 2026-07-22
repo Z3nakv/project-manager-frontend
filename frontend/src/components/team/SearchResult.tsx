@@ -11,13 +11,13 @@ type SearchResultProps = {
 const SearchResult = ({ user, reset } : SearchResultProps) => {
 
     const params = useParams();
-    const projectID = params.projectID!;
+    const projectId = params.projectId!;
 
-    const { mutate } = useAddUserToProjectMutation({ user, reset, projectID });
+    const { mutate } = useAddUserToProjectMutation({ user, reset, projectId });
 
     const handleAddUserToProject = () => {
         const data = {
-            projectID,
+            projectId,
             _id: user._id
         }
         mutate(data);

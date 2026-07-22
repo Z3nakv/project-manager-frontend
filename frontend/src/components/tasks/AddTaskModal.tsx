@@ -14,7 +14,7 @@ export default function AddTaskModal() {
   const newTask = searchParams.get("newTask") === "true";
   
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
   
   const initialValues: TaskFormType = { name: "", description: ""};
 
@@ -22,9 +22,9 @@ export default function AddTaskModal() {
     defaultValues: initialValues,
   });
 
-  const { mutate } = useCreateTaskMutation({reset, projectID})
+  const { mutate } = useCreateTaskMutation({reset, projectId});
 
-  const handleCreateTask = (formData: TaskFormType) => mutate({ formData, projectID });
+  const handleCreateTask = (formData: TaskFormType) => mutate({ formData, projectId });
 
   const handleClose = () => {
     reset();

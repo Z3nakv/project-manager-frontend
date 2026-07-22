@@ -2,13 +2,13 @@ import { api } from "../lib/axios";
 import { type assignTaskType } from "../types/assignTaskSchema";
 
 type assignTaskProps = {
-    projectID: string
-    taskID: string
-    userIDs: assignTaskType
+    projectId: string
+    taskId: string
+    userIds: assignTaskType
 }
-export async function assignTask({projectID, taskID, userIDs} : assignTaskProps) {
-    const url = `/projects/${projectID}/tasks/${taskID}/assign`;
-    const { data } = await api.post(url, userIDs)    
+export async function assignTask({projectId, taskId, userIds} : assignTaskProps) {
+    const url = `/projects/${projectId}/tasks/${taskId}/assign`;
+    const { data } = await api.post(url, userIds)    
     if(!data) throw new Error("Datos no válidos");
     return data;
 }

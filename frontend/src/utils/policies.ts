@@ -2,4 +2,4 @@ import type { ProjectFormType } from "../types/project";
 import type { TeamMember } from "../types/team";
 
 
-export const isManager = (managerID: ProjectFormType['manager']['_id'], userID: TeamMember['_id']) => managerID === userID;
+export const isManager = (managerId: ProjectFormType['manager']['_id'], userId: TeamMember['_id']) => managerId === userId;

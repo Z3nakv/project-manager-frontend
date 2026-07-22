@@ -37,7 +37,7 @@ export const dashboardProjectSchema = z.array(
     }).extend({tasks})
 );
 
-export const projectItemSchemaDetailsByID = object({
+export const projectItemSchemaDetailsById = object({
     _id: string(),
     projectName: string(),
     clientName: string(),

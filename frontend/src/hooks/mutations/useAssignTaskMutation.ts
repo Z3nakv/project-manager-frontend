@@ -5,19 +5,19 @@ import type { assignTaskType } from "../../types/assignTaskSchema";
 import { socket } from "../../lib/socket";
 
 type useAssignTaskMutationProps = {
-    taskID: string
-    projectID: string
+    taskId: string
+    projectId: string
 }
 
-export const useAssignTaskMutation = ({ taskID, projectID }: useAssignTaskMutationProps) => {
+export const useAssignTaskMutation = ({ taskId, projectId }: useAssignTaskMutationProps) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (userIDs: assignTaskType) => assignTask( {projectID, taskID, userIDs} ),
+    mutationFn: (userIds: assignTaskType) => assignTask( {projectId, taskId, userIds} ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["project", projectID] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       toast.success(data.message);
-      socket.emit('assignedTask', {userID: data.userID, taskName: data.taskName, projectName: data.projectName, projectID: data.projectID, userIDs:data.userIDs})
+      socket.emit('assignedTask', {userId: data.userId, taskName: data.taskName, projectName: data.projectName, projectId: data.projectId, userIds:data.userIds})
     },
     onError: (error) => toast.error(error.message),
   });

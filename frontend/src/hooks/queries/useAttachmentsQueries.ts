@@ -2,15 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { getTaskAttachments } from "../../services/AttachmentService";
 
 type UseTaskAttachmentsParams = {
-  projectID: string;
-  taskID: string;
+  projectId: string;
+  taskId: string;
 };
 
-export function useTaskAttachments({ projectID, taskID }: UseTaskAttachmentsParams) {
+export function useTaskAttachments({ projectId, taskId }: UseTaskAttachmentsParams) {
   return useQuery({
-    queryKey: ["taskAttachments", taskID],
-    queryFn: () => getTaskAttachments({ projectID, taskID }),
-    enabled: !!taskID,
+    queryKey: ["taskAttachments", taskId],
+    queryFn: () => getTaskAttachments({ projectId, taskId }),
+    enabled: !!taskId,
     refetchOnWindowFocus: false
   });
 }

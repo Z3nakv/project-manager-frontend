@@ -39,7 +39,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
           {task.name}
         </span>
 
-        <TaskMenuItems canEdit={canEdit} taskID={task._id}/>
+        <TaskMenuItems canEdit={canEdit} taskId={task._id}/>
       </div>
 
       {/* Descripción */}
@@ -47,7 +47,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
         {task.description}
       </p>
 
-      <TaskCardAttachments taskID={task._id} />
+      <TaskCardAttachments taskId={task._id} />
 
       {/* Etiquetas */}
       <TaskColorLabels taskLabels={task.labels} />

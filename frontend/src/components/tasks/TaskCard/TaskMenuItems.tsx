@@ -19,15 +19,15 @@ import type { Task } from "../../../types/task";
 
 type TaskMenuItemsProps = {
   canEdit: boolean;
-  taskID: Task["_id"];
+  taskId: Task["_id"];
 };
 
-const TaskMenuItems = ({ canEdit, taskID }: TaskMenuItemsProps) => {
+const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
   const navigate = useNavigate();
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
 
-  const { mutate } = useDeleteTaskMutation({ projectID });
+  const { mutate } = useDeleteTaskMutation({ projectId });
 
   return (
     <>
@@ -52,7 +52,7 @@ const TaskMenuItems = ({ canEdit, taskID }: TaskMenuItemsProps) => {
             <MenuItem>
               <button
                 onClick={() =>
-                  navigate(location.pathname + `?viewTask=${taskID}`)
+                  navigate(location.pathname + `?viewTask=${taskId}`)
                 }
                 className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
               >
@@ -68,7 +68,7 @@ const TaskMenuItems = ({ canEdit, taskID }: TaskMenuItemsProps) => {
                 <MenuItem>
                   <button
                     onClick={() =>
-                      navigate(location.pathname + `?editTask=${taskID}`)
+                      navigate(location.pathname + `?editTask=${taskId}`)
                     }
                     className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
                   >
@@ -82,7 +82,7 @@ const TaskMenuItems = ({ canEdit, taskID }: TaskMenuItemsProps) => {
                 <MenuItem>
                   <button
                     onClick={() =>
-                      navigate(location.pathname + `?viewAssignMember=${taskID}`)
+                      navigate(location.pathname + `?viewAssignMember=${taskId}`)
                     }
                     className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
                   >
@@ -95,7 +95,7 @@ const TaskMenuItems = ({ canEdit, taskID }: TaskMenuItemsProps) => {
 
                 <MenuItem>
                   <button
-                    onClick={() => mutate({ projectID, taskID: taskID })}
+                    onClick={() => mutate({ projectId, taskId: taskId })}
                     className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-400 transition-colors duration-100 data-focus:bg-red-500/10"
                   >
                     <TrashIcon className="h-4 w-4" />

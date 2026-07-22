@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useParams } from "react-router";
-import { getProjectByID } from "../services/ProjectService";
+import { getProjectById } from "../services/ProjectService";
 import EditProjectForm from "../components/projects/EditProjectForm";
 import EditProjectSkeleton from "../components/ui/EditProjectSkeleton";
 
@@ -8,11 +8,11 @@ import EditProjectSkeleton from "../components/ui/EditProjectSkeleton";
 const EditProjectView = () => {
   
   const params = useParams();
-  const projectID = params.projectID!;
+  const projectId = params.projectId!;
 
   const { data, isError, isLoading } = useQuery({
-    queryKey: ["editProject", projectID],
-    queryFn: () => getProjectByID(projectID),
+    queryKey: ["editProject", projectId],
+    queryFn: () => getProjectById({projectId}),
     staleTime: 1000 * 60 * 5,
     retry: false
   });

@@ -14,18 +14,18 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
   const params = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const projectID = params.projectID!;
-  const taskID = queryParams.get("viewTask")!;
+  const projectId = params.projectId!;
+  const taskId = queryParams.get("viewTask")!;
 
   const { isPending: isDeleteNotePending, handleDeleteNote } = useDeleteNoteMutation({
-    taskID,
-    projectID,
+    taskId,
+    projectId,
     note,
   });
 
   const { isPending: isNoteStatusPending, handUpdateNoteStatus } = useUpdateNoteStatusMutation({
-    taskID,
-    projectID,
+    taskId,
+    projectId,
     note,
   });
 
