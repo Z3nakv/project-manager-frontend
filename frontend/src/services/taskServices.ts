@@ -1,6 +1,7 @@
 import { api } from "../lib/axios"
+import { parseOrThrow } from "../lib/parseOrThrow"
 import type { ProjectItemType } from "../types/project"
-import type { Task, TaskFormType, TaskProjectType } from "../types/task"
+import { taskSchema, type Task, type TaskFormType, type TaskProjectType } from "../types/task"
 
 type TaskDataProps = {
     projectId: ProjectItemType['_id'] 
@@ -9,8 +10,8 @@ type TaskDataProps = {
 
 export const getProjectTaskById = async ({ projectId, taskId } : TaskDataProps) => {
     const url = `/projects/${projectId}/tasks/${taskId}`
-    const { data } = await api<Task>(url);
-    return data;
+    const { data: task } = await api<Task>(url);
+    return parseOrThrow(taskSchema, task, "getProjectTaskById");
 }
 
 type CreateTaskdataProps = {

@@ -39,10 +39,7 @@ export async function getTaskAttachments({ projectId, taskId }: GetTaskAttachmen
   const url = `/projects/${projectId}/tasks/${taskId}/images`;
   const { data } = await api.get(url);
   const response = attachmentsSchema.safeParse(data);
-  if (response.success) {
-    return response.data;
-  }
-
+  if (response.success) return response.data;
   throw new Error("Datos de attachments no válidos");
 }
 

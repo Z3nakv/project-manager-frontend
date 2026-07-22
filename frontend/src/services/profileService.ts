@@ -12,6 +12,7 @@ export const updateProfile = async (formData: UserProfileForm) => {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error, {cause:error});
     }
+    throw error;
   }
 };
 
@@ -24,5 +25,6 @@ export const changePassword = async (formData: UpdateCurrentPasswordForm) => {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error,{cause:error});
     }
+    throw error;
   }
 };
