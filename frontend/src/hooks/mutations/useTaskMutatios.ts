@@ -10,7 +10,7 @@ import type { ProjectItemSchemaDetailsType, ProjectItemType } from "../../types/
 import type { TeamMember } from "../../types/team";
 
 type useCreateTaskMutationProps = {
-    reset: UseFormReset<TaskFormType>
+    reset?: UseFormReset<TaskFormType>
     projectId: ProjectItemType['_id']
 }
 
@@ -19,19 +19,19 @@ export const useCreateTaskMutation = ({ reset, projectId } : useCreateTaskMutati
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: createTask,
         onSuccess: (data) => {
           toast.success(data.message);
           queryClient.invalidateQueries({ queryKey: ["project", projectId] });
-          reset();
+          if(reset) reset();
           navigate(location.pathname, { replace: true })
     
           socket.emit("task_created", { message: `Tarea creada en proyecto ${data.project.projectName}`, project: data.project });
         },
         onError: (error) => toast.error(error.message),
       });
-      return { mutate }
+      return { mutate, isPending }
 }
 
 type useUpdateTaskMutationProps = {
@@ -50,7 +50,7 @@ export const useUpdateTaskMutation = ({ taskId, projectId } : useUpdateTaskMutat
           socket.emit("taskUpdated", { 
             message: `Tarea "${data.task.name}" actualizada`, 
             project: data.project 
-          }); // Emitir evento de actualización
+          }); 
           queryClient.invalidateQueries({ queryKey: ["task", taskId] });
           queryClient.invalidateQueries({ queryKey: ["project", projectId] }); 
           navigate(location.pathname, { replace: true });
