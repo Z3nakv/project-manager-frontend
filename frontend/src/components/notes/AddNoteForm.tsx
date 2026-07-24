@@ -53,7 +53,9 @@ const AddNoteForm = () => {
 
       <button
         type="submit"
-        className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer"
+        className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 
+        text-white text-sm font-semibold rounded-lg transition-colors 
+        duration-150 cursor-pointer"
         disabled={isPending}
       >
         {isPending ? 'Guardando Nota...' : 'Crear Nota'}

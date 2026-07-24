@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import {
   Dialog,
   DialogPanel,
@@ -8,14 +8,10 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router";
 import NotesPanel from "../../notes/NotesPanel";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
-import ActivityLog from "./ActivityLog";
-import StatusSelector from "./StatusSelector";
-import ViewTaskModalHeader from "./ViewTaskModalHeader";
-import TimeStamps from "./TimeStamps";
 import { handleTeamMembers } from "./ViewTaskModal.config";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
-import TaskCardAttachments from "../TaskCard/TaskCardAttachments";
 import type { TaskStatus } from "../../../types/task";
+import TaskModalMainBody from "./TaskModalMainBody";
 
 const ViewTaskModal = () => {
   const params = useParams();
@@ -27,19 +23,16 @@ const ViewTaskModal = () => {
   const taskId = queryParams.get("viewTask")!;
   const show = !!taskId;
 
-  const { data: taskData, isError, error } = useGetTaskData({ projectId, taskId })
-
-  const team = handleTeamMembers({taskData});
-  
+  const {data: taskData, isError, error,} = useGetTaskData({ projectId, taskId });
+  const team = handleTeamMembers({ taskData });
   const { mutate } = useUpdateTaskStatusMutation({ projectId, team });
+  const handleClose = () => navigate(location.pathname, { replace: true });
 
   const handleUpdateStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const status = e.target.value as TaskStatus;
     mutate({ projectId, taskId, status });
   };
-
-  const handleClose = () => navigate(location.pathname, { replace: true });
-
+  
   if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
 
   if (taskData)
@@ -70,48 +63,19 @@ const ViewTaskModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="md:grid md:grid-cols-2 md:gap-5 w-full md:max-w-3xl max-w-md max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto overflow-y-auto bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
-                  {/* Header */}
-
-                  <div>
-
-                  
-                  <ViewTaskModalHeader
-                    taskData={taskData}
-                    handleClose={handleClose}
-                  />
-
-                  {/* Timestamps */}
-                  <TimeStamps taskData={taskData}/>
-
-                  {/* Divider */}
-                  <div className="border-t border-[#2d3348] mb-5" />
-
-                  {/* Description */}
-                  <div className="mb-6">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">
-                      Descripción
-                    </p>
-                    <p className="text-sm text-slate-300 leading-relaxed">
-                      {taskData.description}
-                    </p>
-                  </div>
-
-                  <ActivityLog taskData={taskData} />
-
-                  <StatusSelector
+                <DialogPanel
+                  className="md:grid md:grid-cols-2 md:gap-5 w-full md:max-w-3xl 
+                max-w-md max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto 
+                overflow-y-auto bg-[#1e2330] border border-[#2d3348] rounded-xl 
+                shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8"
+                >
+                  <TaskModalMainBody
                     taskData={taskData}
                     handleUpdateStatus={handleUpdateStatus}
+                    handleClose={handleClose}
+                    taskId={taskId}
                   />
-
-                  {/* <TaskAttachments projectId={projectId} taskId={taskId}/> */}
-                  <TaskCardAttachments taskId={taskId} />
-
-                  </div>
-
-                  <div>
                   <NotesPanel notes={taskData.notes} />
-                  </div>
                 </DialogPanel>
               </TransitionChild>
             </div>
@@ -121,4 +85,4 @@ const ViewTaskModal = () => {
     );
 };
 
-export default ViewTaskModal;
+export default React.memo(ViewTaskModal);

@@ -1,19 +1,23 @@
-import { ChatBubbleLeftIcon } from "@heroicons/react/20/solid"
+import { ChatBubbleLeftIcon } from "@heroicons/react/20/solid";
 import type { Task } from "../../../types/task";
 
 type TaskNotesProps = {
-    taskNotes: Task['notes']
-}
+  taskNotes: Task["notes"];
+};
 
-const TaskNotes = ({ taskNotes } : TaskNotesProps) => {
-  const completedNotes = taskNotes.filter(note => note.completed).length;
+const TaskNotes = ({ taskNotes }: TaskNotesProps) => {
+  if (!taskNotes) return null;
+  const completedNotes = taskNotes.filter((note) => note.completed).length;
   return (
-    <>  
-        <progress value={completedNotes} max={taskNotes.length} className="w-full h-2 rounded-full overflow-hidden [&::-webkit-progress-bar]:bg-[#2d3348] [&::-webkit-progress-value]:bg-indigo-600 [&::-moz-progress-bar]:bg-indigo-600" />
-        
-        {taskNotes?.length > 0 && (
+    <>
+      <progress
+        value={completedNotes}
+        max={taskNotes.length}
+        className="w-full h-2 rounded-full overflow-hidden [&::-webkit-progress-bar]:bg-[#2d3348] [&::-webkit-progress-value]:bg-indigo-600 [&::-moz-progress-bar]:bg-indigo-600"
+      />
+
+      {taskNotes?.length > 0 && (
         <>
-          
           <div className="border-t border-[#2d3348] mt-2 mb-2" />
 
           <div className="flex items-center gap-1.5 text-slate-500 mb-1.5">
@@ -28,7 +32,9 @@ const TaskNotes = ({ taskNotes } : TaskNotesProps) => {
               <div key={note._id} className="flex items-start gap-2">
                 <div className="w-1 h-1 rounded-full bg-indigo-500 mt-2 shrink-0" />
                 <div>
-                  <p className={`text-xs text-slate-400 leading-relaxed ${note.completed ? "line-through" : ""}`}>
+                  <p
+                    className={`text-xs text-slate-400 leading-relaxed ${note.completed ? "line-through" : ""}`}
+                  >
                     {note?.content}
                   </p>
                 </div>
@@ -38,7 +44,7 @@ const TaskNotes = ({ taskNotes } : TaskNotesProps) => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default TaskNotes
+export default TaskNotes;

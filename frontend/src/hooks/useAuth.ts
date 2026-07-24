@@ -7,7 +7,8 @@ export const useAuth = () => {
         queryKey: ['user'],
         queryFn: getUser,
         retry: 1,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        enabled: !!localStorage.getItem('AUTH_TOKEN_JWT')
     })
 
     return { data, isError, isLoading, error };

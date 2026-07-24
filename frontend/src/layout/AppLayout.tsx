@@ -6,17 +6,14 @@ import { useAuth } from "../hooks/useAuth";
 import SocketProvider from "../socket/SocketProvider";
 import "react-toastify/dist/ReactToastify.css";
 import SearchBar from "../components/SearchBar";
-import { lazy } from "react";
-
-const NotificationCenter = lazy(
-    () => import("../components/NotificationCenter")
-);
+import { lazy, Suspense } from "react";
+const NotificationCenter = lazy(() => import("../components/NotificationCenter"));
 
 const AppLayout = () => {
 
   const { data: user, isError, isLoading } = useAuth();
   if (isLoading) return "Cargando...";
-  if (isError) return <Navigate to="/" />;
+  if (isError || !user) return <Navigate to="/" />;
   
   if (user) return (
   <SocketProvider user={user}>
@@ -29,7 +26,7 @@ const AppLayout = () => {
               <Link to={"/dashboard"} className="cursor-pointer">
                 <Logo />
               </Link>
-              <NotificationCenter />
+              <Suspense fallback={null}><NotificationCenter /></Suspense>
             </div>
             <SearchBar />
             <NavMenu name={user.name} />

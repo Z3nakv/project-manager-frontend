@@ -10,6 +10,7 @@ import { statusConfig, taskReducer } from "./taskList.config";
 import useSearch from "../../../hooks/useSearch";
 import type { TaskProjectType, TaskStatus } from "../../../types/task";
 import type { ProjectItemSchemaDetailsType } from "../../../types/project";
+import { useCallback } from "react";
 
 type TaskListProps = {
   tasks: TaskProjectType[];
@@ -22,8 +23,8 @@ const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
   const projectId = params.projectId!;
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
-  
-  const { filteredItems } = useSearch(tasks, (task) => task.name);
+  const getTaskName = useCallback((task: TaskProjectType) => task.name, []);
+  const { filteredItems } = useSearch(tasks, getTaskName);
   
   const { mutate } = useUpdateTaskStatusMutation({projectId , team});
 

@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { changePassword } from "../../services/profileService";
@@ -12,7 +12,7 @@ export default function ChangePasswordView() {
     password_confirmation: "",
   };
 
-  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm({ defaultValues: initialValues });
+  const { register, handleSubmit, reset, control, formState: { errors } } = useForm({ defaultValues: initialValues });
 
   const { mutate } = useMutation({
     mutationFn: changePassword,
@@ -23,7 +23,7 @@ export default function ChangePasswordView() {
     onError: (error) => toast.error(error.message),
   });
 
-  const password = watch("password");
+  const password = useWatch({ control, name: 'password'});
   const handleChangePassword = (formData: UpdateCurrentPasswordForm) => mutate(formData);
 
   const inputClass = "w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-600 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150";

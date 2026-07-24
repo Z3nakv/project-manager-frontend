@@ -28,15 +28,9 @@ export function AITaskSuggestions({
   const viewSuggestions = searchParams.get("viewSuggestions");
   const isOpen = viewSuggestions === "true";
 
-  const suggestionsQuery = useTaskSuggestions(
-    projectId,
-    selectedFields,
-    quantity,
-    isOpen,
-  );
+  const suggestionsQuery = useTaskSuggestions(projectId, selectedFields, quantity, isOpen);
 
-  const { mutate: createTaskMutation, isPending: createTaskMutationIsPending } =
-    useCreateTaskMutation({ projectId });
+  const { mutate: createTaskMutation, isPending: createTaskMutationIsPending } = useCreateTaskMutation({ projectId });
 
   const handleClose = () => {
     setSearchParams((prev) => {

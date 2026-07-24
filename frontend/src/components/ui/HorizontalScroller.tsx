@@ -9,12 +9,10 @@ type HorizontalScrollerProps = {
 }
 
 const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) => {
-    const { scrollRef, scroll, canScrollLeft, canScrollRight } = useHorizontalScroll()
-
+    const { scrollRef, scroll, canScrollLeft, canScrollRight } = useHorizontalScroll()    
     return (
         <div>
             {/* Flechas - solo en mobile */}
-            {/* <div className="flex justify-between items-center mb-3 md:hidden"> */}
             <div className='relative md:hidden'>
                 {canScrollLeft ? (
                     <button

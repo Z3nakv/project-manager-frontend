@@ -1,48 +1,57 @@
 import { createBrowserRouter } from "react-router";
 import DashboardView from "./views/DashboardView";
 import LandingView from "./views/LandingView";
+import ProjectDetailsSkeleton from "./components/ui/ProjectDetailsSkeleton";
+import EditProjectSkeleton from "./components/ui/EditProjectSkeleton";
+import ProjectTeamSkeleton from "./components/ui/ProjectTeamSkeleton";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: LandingView
+    Component: LandingView,
   },
   {
     lazy: async () => ({
       Component: (await import("./layout/AppLayout")).default,
+      HydrateFallback: () => null, // o un spinner/skeleton de layout completo
     }),
     children: [
       {
         path: "/dashboard",
-        Component: DashboardView
+        Component: DashboardView,
       },
       {
         path: "/projects/:projectId",
         lazy: async () => ({
           Component: (await import("./views/ProjectDetailsView")).default,
+          HydrateFallback: ProjectDetailsSkeleton,
         }),
       },
       {
         path: "/projects/create-project",
         lazy: async () => ({
           Component: (await import("./views/CreateProjectView")).default,
+          HydrateFallback: () => null,
         }),
       },
       {
         path: "/projects/:projectId/edit",
         lazy: async () => ({
           Component: (await import("./views/EditProjectView")).default,
+          HydrateFallback: EditProjectSkeleton,
         }),
       },
       {
         path: "/projects/:projectId/team",
         lazy: async () => ({
           Component: (await import("./views/ProjectTeamView")).default,
+          HydrateFallback: ProjectTeamSkeleton,
         }),
       },
       {
         lazy: async () => ({
           Component: (await import("./layout/ProfileLayout")).default,
+          HydrateFallback: () => null,
         }),
         children: [
           {
@@ -65,12 +74,14 @@ const router = createBrowserRouter([
   {
     lazy: async () => ({
       Component: (await import("./layout/AuthLayout")).default,
+      HydrateFallback: () => null,
     }),
     children: [
       {
         path: "/auth/login",
         lazy: async () => ({
-          Component: (await import("./views/auth/LoginWithGoogleProvider")).default,
+          Component: (await import("./views/auth/LoginWithGoogleProvider"))
+            .default,
         }),
       },
       {
@@ -107,14 +118,16 @@ const router = createBrowserRouter([
   },
   {
     lazy: async () => ({
-      Component: (await import("./layout/AuthLayout")).default,
-    }),
+    Component: (await import("./layout/AuthLayout")).default,
+    HydrateFallback: () => null,
+  }),
     children: [
       {
-        path: "*",
-        lazy: async () => ({
-            Component: (await import("./views/404/NotFound")).default,
-        }),
+      path: "*",
+      lazy: async () => ({
+        Component: (await import("./views/404/NotFound")).default,
+        HydrateFallback: () => null,
+      }),
       },
     ],
   },

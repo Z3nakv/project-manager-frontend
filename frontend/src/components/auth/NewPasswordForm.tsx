@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import ErrorMessage from "../ErrorMessage";
 import { useUpdatePasswordWithTokenMutation } from "../../hooks/mutations/useAuthMutation";
 import type { ConfirmToken, NewPasswordForm } from "../../types/auth";
@@ -14,7 +14,8 @@ export default function NewPasswordForm({token} : NewPasswordFormProps) {
         password: '',
         password_confirmation: '',
     }
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: initialValues });
+    const { register, handleSubmit, formState: { errors }, control } = useForm({ defaultValues: initialValues });
+    const password = useWatch({ control, name: 'password'});
 
     const { mutate } = useUpdatePasswordWithTokenMutation()
 
@@ -25,8 +26,6 @@ export default function NewPasswordForm({token} : NewPasswordFormProps) {
         }
         mutate(data);
     }
-
-    const password = watch('password');
 
     return (
         <>

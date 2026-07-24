@@ -14,8 +14,8 @@ import {
 } from "@heroicons/react/20/solid";
 import { useNavigate, useParams } from "react-router";
 import { Fragment } from "react/jsx-runtime";
-import { useDeleteTaskMutation } from "../../../hooks/mutations/useTaskMutatios";
-import type { Task } from "../../../types/task";
+import type { Task } from "../../../../types/task";
+import { useDeleteTaskMutation } from "../../../../hooks/mutations/useTaskMutatios";
 
 type TaskMenuItemsProps = {
   canEdit: boolean;

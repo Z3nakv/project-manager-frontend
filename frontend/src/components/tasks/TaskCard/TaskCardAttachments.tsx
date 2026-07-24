@@ -12,10 +12,7 @@ const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
   const projectId = params.projectId!;
   const navigate = useNavigate();
   const location = useLocation();
-  const { data: attachments, isLoading } = useTaskAttachments({
-    projectId,
-    taskId,
-  });
+  const { data: attachments, isLoading } = useTaskAttachments({projectId,taskId});
 
   const handleNavigation = async (attachmentId : string, taskId : string) => {
     const searchParams =  new URLSearchParams(location.search)
@@ -38,7 +35,12 @@ const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
             <li key={att._id}>
               <button
                 onClick={() => handleNavigation(att._id, att.task)}>
-                <img src={att.url} alt={att.filename} className="rounded" />
+                <img 
+                src={att.url} 
+                alt={att.filename} 
+                loading="lazy"
+                className="rounded"
+                decoding="async" />
               </button>
             </li>
           ))}

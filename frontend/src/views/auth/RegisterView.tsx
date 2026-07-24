@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Link } from "react-router";
 import { useCreateAccountMutation } from "../../hooks/mutations/useAuthMutation";
 import type { UserRegistrationForm } from "../../types/auth";
@@ -11,9 +11,9 @@ export default function RegisterView() {
     password_confirmation: "",
   };
 
-  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
+  const { register, handleSubmit, reset, formState: { errors }, control } = useForm<UserRegistrationForm>({ defaultValues: initialValues });
 
-  const password = watch("password");
+  const password = useWatch({ control, name: 'password'});
 
   const { mutate } = useCreateAccountMutation({ reset })
  
