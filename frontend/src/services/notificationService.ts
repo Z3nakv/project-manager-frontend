@@ -1,34 +1,32 @@
-import { isAxiosError } from "axios";
-import { api } from "../lib/axios";
+import { del, get, put, throwApiError } from "../lib/axios";
 import { notificationsArraySchema } from "../types/notification";
 
-// services/notificationService.ts
 export const getNotifications = async () => {
-  const { data } = await api.get("/notifications");
-  const response = notificationsArraySchema.safeParse(data);
-  if (response.success) return response.data;
+  try {
+    const data = await get<unknown>("/notifications");
+    const response = notificationsArraySchema.safeParse(data);
+    if (response.success) return response.data;
+    throw new Error("Datos de notificaciones no válidos");
+  } catch (error) {
+    if (error instanceof Error && error.message === "Datos de notificaciones no válidos") {
+      throw error;
+    }
+    throwApiError(error);
+  }
 };
 
 export const markAsRead = async (notificationId: string) => {
   try {
-    const { data } = await api.put(`/notifications/${notificationId}/read`);
-    return data;
+    return await put(`/notifications/${notificationId}/read`);
   } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
+    throwApiError(error);
   }
 };
 
 export const clearAll = async () => {
   try {
-    const { data } = await api.delete("/notifications");
-    return data;
+    return await del("/notifications");
   } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
+    throwApiError(error);
   }
 };

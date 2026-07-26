@@ -1,30 +1,21 @@
-import { isAxiosError } from "axios";
-import { api } from "../lib/axios";
+import { post, put, throwApiError } from "../lib/axios";
 import type { UserProfileForm } from "../types/profile";
 import type { UpdateCurrentPasswordForm } from "../types/auth";
 
 export const updateProfile = async (formData: UserProfileForm) => {
   try {
-    const url = `/auth/profile`;
-    const { data } = await api.put<string>(url, formData);
-    return data;
+    const url = "/auth/profile";
+    return await put<string>(url, formData);
   } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, {cause:error});
-    }
-    throw error;
+    throwApiError(error);
   }
 };
 
 export const changePassword = async (formData: UpdateCurrentPasswordForm) => {
   try {
-    const url = `/auth/update-password`;
-    const { data } = await api.post<string>(url, formData);
-    return data;
+    const url = "/auth/update-password";
+    return await post<string>(url, formData);
   } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error,{cause:error});
-    }
-    throw error;
+    throwApiError(error);
   }
 };

@@ -1,4 +1,4 @@
-import { api } from "../lib/axios";
+import { del, get, post, put, throwApiError } from "../lib/axios";
 import { parseOrThrow } from "../lib/parseOrThrow";
 import {
   dashboardProjectSchema,
@@ -9,18 +9,26 @@ import {
 
 export const getAllProjects = async () => {
   const url = "/projects";
-  const { data: projects } = await api(url);
-  return parseOrThrow(dashboardProjectSchema, projects, "projects");
+  try {
+    const projects = await get<unknown>(url);
+    return parseOrThrow(dashboardProjectSchema, projects, "projects");
+  } catch (error) {
+    throwApiError(error);
+  }
 };
 
 type getProjectByIdProps = {
   projectId: ProjectItemType["_id"];
 };
 
-export const getProjectById = async ({projectId}: getProjectByIdProps) => {
+export const getProjectById = async ({ projectId }: getProjectByIdProps) => {
   const url = `/projects/${projectId}`;
-  const { data: project } = await api(url);
-  return parseOrThrow(projectItemSchemaDetailsById, project, "getProjectById");
+  try {
+    const project = await get<unknown>(url);
+    return parseOrThrow(projectItemSchemaDetailsById, project, "getProjectById");
+  } catch (error) {
+    throwApiError(error);
+  }
 };
 
 type CreateProjectProps = {
@@ -29,22 +37,32 @@ type CreateProjectProps = {
 
 export const createProject = async ({ formData }: CreateProjectProps) => {
   const url = "/projects/create-project";
-  const { data } = await api.post<string>(url, formData);
-  return data;
+  try {
+    return await post<string>(url, formData);
+  } catch (error) {
+    throwApiError(error);
+  }
 };
 
 type updateProjectProps = {
   projectId: ProjectItemType["_id"];
   formData: ProjectFormDataType;
 };
+
 export const updateProject = async ({ projectId, formData }: updateProjectProps) => {
   const url = `/projects/${projectId}`;
-  const { data } = await api.put<string>(url, formData);
-  return data;
+  try {
+    return await put<string>(url, formData);
+  } catch (error) {
+    throwApiError(error);
+  }
 };
 
 export const deleteProject = async (projectId: ProjectItemType["_id"]) => {
   const url = `/projects/${projectId}`;
-  const { data } = await api.delete<string>(url);
-  return data;
+  try {
+    return await del<string>(url);
+  } catch (error) {
+    throwApiError(error);
+  }
 };

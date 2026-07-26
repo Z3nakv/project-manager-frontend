@@ -1,4 +1,4 @@
-import { api } from "../lib/axios";
+import { get, post, throwApiError } from "../lib/axios";
 import z from "zod";
 
 type UploadAttachmentParams = {
@@ -9,10 +9,13 @@ type UploadAttachmentParams = {
 
 export async function uploadAttachment({ projectId, taskId, formData }: UploadAttachmentParams) {
   const url = `/projects/${projectId}/tasks/${taskId}/images`;
-  const { data } = await api.post(url, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
-  return data;
+  try {
+    return await post(url, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  } catch (error) {
+    throwApiError(error);
+  }
 }
 
 export const attachmentSchema = z.object({
@@ -28,7 +31,7 @@ export const attachmentSchema = z.object({
 });
 
 export const attachmentsSchema = z.array(attachmentSchema);
-export type attachmentsSchemaType = z.infer<typeof attachmentsSchema>
+export type attachmentsSchemaType = z.infer<typeof attachmentsSchema>;
 
 type GetTaskAttachmentsParams = {
   projectId: string;
@@ -37,9 +40,15 @@ type GetTaskAttachmentsParams = {
 
 export async function getTaskAttachments({ projectId, taskId }: GetTaskAttachmentsParams) {
   const url = `/projects/${projectId}/tasks/${taskId}/images`;
-  const { data } = await api.get(url);
-  const response = attachmentsSchema.safeParse(data);
-  if (response.success) return response.data;
-  throw new Error("Datos de attachments no válidos");
+  try {
+    const data = await get<unknown>(url);
+    const response = attachmentsSchema.safeParse(data);
+    if (response.success) return response.data;
+    throw new Error("Datos de attachments no válidos");
+  } catch (error) {
+    if (error instanceof Error && error.message === "Datos de attachments no válidos") {
+      throw error;
+    }
+    throwApiError(error);
+  }
 }
-
