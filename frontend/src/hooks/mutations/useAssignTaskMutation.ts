@@ -4,20 +4,36 @@ import { assignTask } from "../../services/assignTask";
 import type { assignTaskType } from "../../types/assignTaskSchema";
 import { socket } from "../../lib/socket";
 
+type AssignTaskMutationResponse = {
+  message: string;
+  taskName: string;
+  projectName: string;
+  projectId: string;
+  userIds: string[];
+};
 type useAssignTaskMutationProps = {
-    taskId: string
-    projectId: string
-}
+  taskId: string;
+  projectId: string;
+};
 
-export const useAssignTaskMutation = ({ taskId, projectId }: useAssignTaskMutationProps) => {
+export const useAssignTaskMutation = ({
+  taskId,
+  projectId,
+}: useAssignTaskMutationProps) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (userIds: assignTaskType) => assignTask( {projectId, taskId, userIds} ),
-    onSuccess: (data) => {
+    mutationFn: (userIds: assignTaskType) =>
+      assignTask({ projectId, taskId, userIds }),
+    onSuccess: (data: AssignTaskMutationResponse) => {
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       toast.success(data.message);
-      socket.emit('assignedTask', {userId: data.userId, taskName: data.taskName, projectName: data.projectName, projectId: data.projectId, userIds:data.userIds})
+      socket.emit("assignedTask", {
+        taskName: data.taskName,
+        projectName: data.projectName,
+        projectId: data.projectId,
+        userIds: data.userIds,
+      });
     },
     onError: (error) => toast.error(error.message),
   });
