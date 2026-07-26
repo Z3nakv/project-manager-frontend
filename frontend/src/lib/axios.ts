@@ -10,7 +10,8 @@ api.interceptors.request.use( (config) => {
         config.headers.Authorization = `Bearer ${token}`
     }
     if(['post', 'put', 'delete', 'patch'].includes(config.method || '')) {
-        config.headers['Idempotency-Key'] = crypto.randomUUID();
+        config.headers['Idempotency-Key'] = 
+        typeof crypto !== "undefined" ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;;
     }
     return config;
 })
