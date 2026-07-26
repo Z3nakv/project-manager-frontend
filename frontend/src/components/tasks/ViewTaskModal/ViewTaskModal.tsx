@@ -7,7 +7,7 @@ import {
 } from "@headlessui/react";
 import { useLocation, useNavigate, useParams } from "react-router";
 import NotesPanel from "../../notes/NotesPanel";
-import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutatios";
+import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutations";
 import { handleTeamMembers } from "./ViewTaskModal.config";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
 import type { TaskStatus } from "../../../types/task";

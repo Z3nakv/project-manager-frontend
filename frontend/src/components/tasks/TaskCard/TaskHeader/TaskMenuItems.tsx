@@ -15,7 +15,7 @@ import {
 import { useNavigate, useParams } from "react-router";
 import { Fragment } from "react/jsx-runtime";
 import type { Task } from "../../../../types/task";
-import { useDeleteTaskMutation } from "../../../../hooks/mutations/useTaskMutatios";
+import { useDeleteTaskMutation } from "../../../../hooks/mutations/useTaskMutations";
 
 type TaskMenuItemsProps = {
   canEdit: boolean;

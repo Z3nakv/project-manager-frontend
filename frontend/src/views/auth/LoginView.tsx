@@ -5,8 +5,8 @@ import {
   useGoogleAuthMutation,
 } from "../../hooks/mutations/useAuthMutation";
 import type { UserLoginForm } from "../../types/auth";
-import { useGoogleLogin } from "@react-oauth/google";
-import { FaGoogle } from "react-icons/fa";
+import FormInput from "../../components/ui/FormInput";
+import GoogleAuthButton from "../../components/auth/GoogleAuthButton";
 
 export default function LoginView() {
   const { authenticateWithGoogle, isPending } = useGoogleAuthMutation();
@@ -21,16 +21,7 @@ export default function LoginView() {
 
   const { mutate } = useAuthenticateUserMutation();
 
-  const login = useGoogleLogin({
-    onSuccess: ({ access_token }) => {
-        authenticateWithGoogle(access_token)
-    },
-    onError: () => console.log("Login Failed"),
-  });
-
   const handleLogin = (formData: UserLoginForm) => mutate(formData);
-
-  const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
 
   return (
     <div className="bg-[#1e2330] border border-[#2d3348] rounded-2xl shadow-[0_24px_48px_rgba(0,0,0,0.4)] p-8">
@@ -48,84 +39,36 @@ export default function LoginView() {
         className="space-y-5"
         noValidate
       >
-        <div className="flex flex-col gap-1.5">
-          <label
-            className="text-xs font-semibold text-slate-500 uppercase tracking-wide"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="tucorreo@ejemplo.com"
-            className="w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-600 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150"
-            {...register("email", {
-              required: "El email es obligatorio",
-              pattern: { value: /\S+@\S+\.\S+/, message: "Email no válido" },
-            })}
-          />
-          {errors.email && (
-            <p className={errorMsg}>
-              <svg
-                className="w-3.5 h-3.5 shrink-0"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1-9a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              {errors.email.message}
-            </p>
-          )}
-          {/* {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>} */}
-        </div>
+        <FormInput
+          id="email"
+          type="email"
+          label="Email"
+          placeholder="tucorreo@ejemplo.com"
+          error={errors.email?.message}
+          {...register("email", {
+            required: "El email es obligatorio",
+            pattern: { value: /\S+@\S+\.\S+/, message: "Email no válido" },
+          })}
+        />
 
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center justify-between">
-            <label
-              className="text-xs font-semibold text-slate-500 uppercase tracking-wide"
-              htmlFor="password"
-            >
-              Password
-            </label>
+        <FormInput
+          id="password"
+          type="password"
+          label="Password"
+          placeholder="••••••••"
+          error={errors.password?.message}
+          labelExtra={
             <Link
               to="/auth/forgot-password"
               className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors duration-150"
             >
               ¿Olvidaste tu password?
             </Link>
-          </div>
-          <input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            className="w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-600 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150"
-            {...register("password", {
-              required: "El password es obligatorio",
-            })}
-          />
-          {errors.password && (
-            <p className={errorMsg}>
-              <svg
-                className="w-3.5 h-3.5 shrink-0"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-7 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1-9a1 1 0 0 0-1 1v4a1 1 0 1 0 2 0V6a1 1 0 0 0-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              {errors.password.message}
-            </p>
-          )}
-          {/* {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>} */}
-        </div>
+          }
+          {...register("password", {
+            required: "El password es obligatorio",
+          })}
+        />
 
         <button
           type="submit"
@@ -135,14 +78,10 @@ export default function LoginView() {
         </button>
       </form>
 
-      <button 
-      disabled={isPending}
-      className="mt-2 cursor-pointer bg-white w-full flex items-center justify-center gap-3 rounded-lg py-2.5 text-black"
-      onClick={()=>login()}
-      >
-        <FaGoogle />
-        Continuar con Google
-      </button>
+      <GoogleAuthButton
+        onSuccessToken={authenticateWithGoogle}
+        disabled={isPending}
+      />
 
       {/* Footer */}
       <p className="text-center text-sm text-slate-500 mt-6">

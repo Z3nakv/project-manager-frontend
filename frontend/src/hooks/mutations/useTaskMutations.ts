@@ -55,7 +55,7 @@ export const useUpdateTaskMutation = ({ taskId, projectId } : useUpdateTaskMutat
           queryClient.invalidateQueries({ queryKey: ["project", projectId] }); 
           navigate(location.pathname, { replace: true });
         },
-        onError: (error) => console.log(error.message),
+        onError: (error) => toast.error(error.message),
       });
       return { mutate }
 }

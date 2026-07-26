@@ -4,7 +4,7 @@ import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@
 import { Fragment } from "react/jsx-runtime";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import TaskForm from "./TaskForm";
-import { useCreateTaskMutation } from "../../hooks/mutations/useTaskMutatios";
+import { useCreateTaskMutation } from "../../hooks/mutations/useTaskMutations";
 import type { TaskFormType } from "../../types/task";
 
 export default function AddTaskModal() {

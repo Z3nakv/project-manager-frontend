@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { socket } from "../../lib/socket";
 import { useNavigate, type NavigateFunction } from "react-router";
 import { createProject, deleteProject, updateProject } from "../../services/ProjectService";
-import { useRef } from "react";
 import type { ProjectItemType } from "../../types/project";
 import type { User } from "../../types/user";
 
@@ -32,14 +31,11 @@ type useEditProjectMutationProps = {
 export const useUpdateProjectMutation = ({ projectId, project, navigate} : useEditProjectMutationProps) => {
 
   const queryClient = useQueryClient();
-  const isSubmitting = useRef(false);
-
   const { mutate, isPending } = useMutation({
       mutationFn: updateProject,
+
       onSuccess: (data) => {
-        isSubmitting.current = false;
         toast.success(data);
-  
         queryClient.invalidateQueries({queryKey: ['projects']})
         queryClient.invalidateQueries({queryKey: ['editProject', projectId]})
   
@@ -50,7 +46,6 @@ export const useUpdateProjectMutation = ({ projectId, project, navigate} : useEd
         navigate("/dashboard");
       },
       onError: (error) => {
-        isSubmitting.current = false;
         toast.error(error.message)
       },
     }); 

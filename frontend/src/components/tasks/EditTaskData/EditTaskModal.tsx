@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import TaskForm from "../TaskForm";
 import { useForm } from "react-hook-form";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useUpdateTaskMutation } from "../../../hooks/mutations/useTaskMutatios";
+import { useUpdateTaskMutation } from "../../../hooks/mutations/useTaskMutations";
 import type { TaskFormType, TaskProjectType } from "../../../types/task";
 
 type EditTaskModalProps = {
