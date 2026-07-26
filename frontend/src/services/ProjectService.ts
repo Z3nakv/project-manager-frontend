@@ -1,4 +1,4 @@
-import { api } from "../lib/axios";
+import { httpDelete, httpGet, httpPost, httpPut } from "../lib/http";
 import { parseOrThrow } from "../lib/parseOrThrow";
 import {
   dashboardProjectSchema,
@@ -9,7 +9,7 @@ import {
 
 export const getAllProjects = async () => {
   const url = "/projects";
-  const { data: projects } = await api(url);
+  const projects = await httpGet<unknown>(url);
   return parseOrThrow(dashboardProjectSchema, projects, "projects");
 };
 
@@ -19,7 +19,7 @@ type getProjectByIdProps = {
 
 export const getProjectById = async ({projectId}: getProjectByIdProps) => {
   const url = `/projects/${projectId}`;
-  const { data: project } = await api(url);
+  const project = await httpGet<unknown>(url);
   return parseOrThrow(projectItemSchemaDetailsById, project, "getProjectById");
 };
 
@@ -29,8 +29,7 @@ type CreateProjectProps = {
 
 export const createProject = async ({ formData }: CreateProjectProps) => {
   const url = "/projects/create-project";
-  const { data } = await api.post<string>(url, formData);
-  return data;
+  return httpPost<string>(url, formData);
 };
 
 type updateProjectProps = {
@@ -39,12 +38,10 @@ type updateProjectProps = {
 };
 export const updateProject = async ({ projectId, formData }: updateProjectProps) => {
   const url = `/projects/${projectId}`;
-  const { data } = await api.put<string>(url, formData);
-  return data;
+  return httpPut<string>(url, formData);
 };
 
 export const deleteProject = async (projectId: ProjectItemType["_id"]) => {
   const url = `/projects/${projectId}`;
-  const { data } = await api.delete<string>(url);
-  return data;
+  return httpDelete<string>(url);
 };

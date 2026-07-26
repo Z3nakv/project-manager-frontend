@@ -1,87 +1,37 @@
-import { isAxiosError } from "axios";
-import { api } from "../lib/axios";
+import { httpGet, httpPost } from "../lib/http";
 import type { checkPasswordForm, ConfirmToken, ForgotPasswordForm, NewPasswordForm, RequestConfirmationCodeForm, UserLoginForm, UserRegistrationForm } from "../types/auth";
 import { userSchema, type User } from "../types/user";
 
 export const createAccount = async (formData: UserRegistrationForm) => {
   const url = "/auth/create-account";
-  try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpPost<string>(url, formData);
 };
 
 export const confirmAccount = async (formData: ConfirmToken) => {
   const url = "/auth/confirm-account";
-  try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpPost<string>(url, formData);
 };
 
-export const requestConfirmationCode = async (
-  formData: RequestConfirmationCodeForm,
-) => {
+export const requestConfirmationCode = async (formData: RequestConfirmationCodeForm) => {
   const url = "/auth/request-code";
-  try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, {cause: error});
-    }
-    throw error;
-  }
+  return httpPost<string>(url, formData);
 };
 
 export const authenticateUser = async (formData: UserLoginForm) => {
   const url = "/auth/login";
-  try {
-    const { data } = await api.post<string>(url, formData);
-    localStorage.setItem("AUTH_TOKEN_JWT", data);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, {cause:error});
-    }
-    throw error;
-  }
+  const data = await httpPost<string>(url, formData);
+  localStorage.setItem("AUTH_TOKEN_JWT", data);
+  return data;
 };
 
 export const forgotPassword = async (formData: ForgotPasswordForm) => {
   const url = "/auth/forgot-password";
-  try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, {cause:error});
-    }
-    throw error;
-  }
+  return httpPost<string>(url, formData);
 };
 
 export const validateToken = async (formData: ConfirmToken) => {
   const url = "/auth/validate-token";
-  try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpPost<string>(url, formData);
 };
 
 export const updatePasswordWithToken = async ({
@@ -92,60 +42,30 @@ export const updatePasswordWithToken = async ({
   token: ConfirmToken["token"];
 }) => {
   const url = `/auth/update-password/${token}`;
-  try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpPost<string>(url, formData);
 };
 
 export const getUser = async () => {
-  const url ="/auth/user"
-  try {
-    const { data } = await api(url);
-    const response = userSchema.safeParse(data);
-    if (response.success) return response.data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  const data = await httpGet<unknown>("/auth/user");
+  const response = userSchema.safeParse(data);
+  if (response.success) return response.data;
+
+  throw new Error("Los datos del usuario no tienen el formato esperado.");
 };
 
-export const checkPassword = async (formData : checkPasswordForm) => {
-  const url = '/auth/check-password';
-  try {
-        const { data } = await api.post<string>(url, formData);
-        return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+export const checkPassword = async (formData: checkPasswordForm) => {
+  const url = "/auth/check-password";
+  return httpPost<string>(url, formData);
 };
 
 type GoogleAuthResponse = {
-    user: User
-    token: string
-}
+  user: User;
+  token: string;
+};
 
 export const googleAuth = async (googleToken: string) => {
-  const url = '/auth/google';
-  try {
-    const { data } = await api.post<GoogleAuthResponse>(url, {
-      token: googleToken
-    });
-    return data;
-  } catch (error) {
-    if(isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw new Error('Error al autenticar con Google', {cause:error})
-  }
-}
+  const url = "/auth/google";
+  return httpPost<GoogleAuthResponse>(url, {
+    token: googleToken,
+  });
+};

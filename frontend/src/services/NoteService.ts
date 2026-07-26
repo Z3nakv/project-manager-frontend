@@ -1,5 +1,4 @@
-import { isAxiosError } from "axios";
-import { api } from "../lib/axios";
+import { httpDelete, httpPost, httpPut } from "../lib/http";
 import type { Note, NoteFormData } from "../types/note";
 import type { ProjectItemSchemaDetailsType } from "../types/project";
 import type { Task } from "../types/task";
@@ -17,15 +16,7 @@ export const createNote = async ({
   taskId,
 }: Pick<NoteAPIType, "projectId" | "taskId" | "formData">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes`;
-  try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpPost<string>(url, formData);
 };
 
 export const deleteNote = async ({
@@ -34,15 +25,7 @@ export const deleteNote = async ({
   noteId,
 }: Pick<NoteAPIType, "projectId" | "taskId" | "noteId">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}`;
-  try {
-    const { data } = await api.delete<string>(url);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpDelete<string>(url);
 };
 
 export const updateNoteStatus = async ({
@@ -51,13 +34,5 @@ export const updateNoteStatus = async ({
   noteId,
 }: Pick<NoteAPIType, "projectId" | "taskId" | "noteId">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}/status`;
-  try {
-    const { data } = await api.put<string>(url);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpPut<string>(url);
 };

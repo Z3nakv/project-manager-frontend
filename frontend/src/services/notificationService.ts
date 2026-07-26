@@ -1,34 +1,18 @@
-import { isAxiosError } from "axios";
-import { api } from "../lib/axios";
+import { httpDelete, httpGet, httpPut } from "../lib/http";
 import { notificationsArraySchema } from "../types/notification";
 
 // services/notificationService.ts
 export const getNotifications = async () => {
-  const { data } = await api.get("/notifications");
+  const data = await httpGet<unknown>("/notifications");
   const response = notificationsArraySchema.safeParse(data);
   if (response.success) return response.data;
+  throw new Error("Los datos de notificaciones no tienen el formato esperado.");
 };
 
 export const markAsRead = async (notificationId: string) => {
-  try {
-    const { data } = await api.put(`/notifications/${notificationId}/read`);
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpPut(`/notifications/${notificationId}/read`);
 };
 
 export const clearAll = async () => {
-  try {
-    const { data } = await api.delete("/notifications");
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw new Error(error.response.data.error, { cause: error });
-    }
-    throw error;
-  }
+  return httpDelete("/notifications");
 };
