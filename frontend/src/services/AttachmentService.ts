@@ -10,9 +10,7 @@ type UploadAttachmentParams = {
 export async function uploadAttachment({ projectId, taskId, formData }: UploadAttachmentParams) {
   const url = `/projects/${projectId}/tasks/${taskId}/images`;
   try {
-    return await post(url, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    return await post(url, formData);
   } catch (error) {
     throwApiError(error);
   }
