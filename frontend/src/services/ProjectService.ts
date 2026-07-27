@@ -33,10 +33,12 @@ export const getEditProjectById = async ({projectId}: getProjectByIdProps) => {
 type CreateProjectProps = {
   formData: ProjectFormDataType;
 };
+type MessageResponse = { message: string };
 
 export const createProject = async ({ formData }: CreateProjectProps) => {
   const url = "/projects/create-project";
-  return httpPost<string>(url, formData);
+  const data = await httpPost<MessageResponse>(url, formData);
+  return data.message;
 };
 
 type updateProjectProps = {
@@ -45,10 +47,12 @@ type updateProjectProps = {
 };
 export const updateProject = async ({ projectId, formData }: updateProjectProps) => {
   const url = `/projects/${projectId}`;
-  return httpPut<string>(url, formData);
+  const data = await httpPut<MessageResponse>(url, formData);
+  return data.message
 };
 
 export const deleteProject = async (projectId: ProjectItemType["_id"]) => {
   const url = `/projects/${projectId}`;
-  return httpDelete<string>(url);
+  const data = await httpDelete<MessageResponse>(url);
+  return data.message;
 };
