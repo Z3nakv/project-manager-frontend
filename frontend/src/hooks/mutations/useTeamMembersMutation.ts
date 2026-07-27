@@ -31,7 +31,7 @@ export const useAddUserToProjectMutation = ({ user, reset, projectId } : useAddU
                 message: `${user?.name} te agregó como colaborador al proyecto`,
                 userId: user._id
             });
-            toast.success(data);
+            toast.success(data.message);
             reset()
             navigate(location.pathname, {replace: true});
             queryClient.invalidateQueries({queryKey:['projects']});
