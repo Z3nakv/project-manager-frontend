@@ -114,7 +114,7 @@ describe('useTaskMutations', () => {
     it('debe mostrar toast de éxito y emitir el evento de socket correcto (bug corregido)', async () => {
       vi.mocked(updateTask).mockResolvedValue({
         message: 'Tarea actualizada',
-        task: { name: 'Tarea Editada' },
+        taskName: 'Tarea Editada',
         project: { _id: 'proj-1' },
       } as any);
 
@@ -150,7 +150,8 @@ describe('useTaskMutations', () => {
     it('debe emitir el socket con el usuario y equipo correctos', async () => {
       vi.mocked(updateStatus).mockResolvedValue({
         message: 'Estado actualizado',
-        task: { name: 'Tarea X' },
+        task: { taskName: 'Tarea X' },
+        user: {userName: 'Adrian', userId: 'user-1'}
       } as any);
 
       const team = ['member-1', 'member-2'] as any;
@@ -165,6 +166,7 @@ describe('useTaskMutations', () => {
       expect(socket.emit).toHaveBeenCalledWith(
         'task_status_update',
         expect.objectContaining({
+          message: expect.stringContaining('Tarea X'),
           projectId: 'proj-1',
           team,
           triggeredBy: 'user-1',

@@ -55,8 +55,8 @@ export const useUpdateTaskMutation = ({ taskId, projectId } : useUpdateTaskMutat
         onSuccess: (data) => {
           toast.success(data.message);
           socket.emit("taskUpdated", { 
-            message: `Tarea "${data.taskName}" actualizada`, 
-            project: data.project 
+            message: `Tarea "${data.taskName}" actualizada`,
+            project: data.project,
           }); 
           queryClient.invalidateQueries({ queryKey: ["task", taskId] });
           queryClient.invalidateQueries({ queryKey: ["project", projectId] }); 

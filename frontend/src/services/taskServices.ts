@@ -31,7 +31,6 @@ type UpdateTaskProps = {
 }
 
 export const updateTask = async ({projectId, taskId, formData} : UpdateTaskProps) => {
-    
     const url = `/projects/${projectId}/tasks/${taskId}`
     const { data } = await api.put(url, formData);
     return data;
