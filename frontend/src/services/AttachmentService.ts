@@ -1,5 +1,7 @@
 import { api } from "../lib/axios";
-import z from "zod";
+import { httpGet } from "../lib/http";
+import { parseOrThrow } from "../lib/parseOrThrow";
+import { attachmentsSchema } from "../types/attachment";
 
 type UploadAttachmentParams = {
   projectId: string;
@@ -15,21 +17,6 @@ export async function uploadAttachment({ projectId, taskId, formData }: UploadAt
   return data;
 }
 
-export const attachmentSchema = z.object({
-  _id: z.string(),
-  filename: z.string(),
-  url: z.string(),
-  publicId: z.string(),
-  mimeType: z.string(),
-  size: z.string(),
-  task: z.string(),
-  uploadedBy: z.string(),
-  createdAt: z.string(),
-});
-
-export const attachmentsSchema = z.array(attachmentSchema);
-export type attachmentsSchemaType = z.infer<typeof attachmentsSchema>
-
 type GetTaskAttachmentsParams = {
   projectId: string;
   taskId: string;
@@ -37,9 +24,7 @@ type GetTaskAttachmentsParams = {
 
 export async function getTaskAttachments({ projectId, taskId }: GetTaskAttachmentsParams) {
   const url = `/projects/${projectId}/tasks/${taskId}/images`;
-  const { data } = await api.get(url);
-  const response = attachmentsSchema.safeParse(data);
-  if (response.success) return response.data;
-  throw new Error("Datos de attachments no válidos");
+  const data = await httpGet<unknown>(url);
+  parseOrThrow(attachmentsSchema, data, "getTaskAttachments");
 }
 

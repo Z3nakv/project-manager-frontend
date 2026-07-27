@@ -1,8 +1,8 @@
 import { isAxiosError } from "axios";
-import { api } from "../lib/axios";
 import type { Note, NoteFormData } from "../types/note";
 import type { ProjectItemSchemaDetailsType } from "../types/project";
 import type { Task } from "../types/task";
+import { httpDelete, httpPost, httpPut } from "../lib/http";
 
 type NoteAPIType = {
   formData: NoteFormData;
@@ -10,6 +10,7 @@ type NoteAPIType = {
   taskId: Task["_id"];
   noteId: Note["_id"];
 };
+type MessageResponse = { message: string };
 
 export const createNote = async ({
   formData,
@@ -18,7 +19,7 @@ export const createNote = async ({
 }: Pick<NoteAPIType, "projectId" | "taskId" | "formData">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes`;
   try {
-    const { data } = await api.post(url, formData);
+    const data = await httpPost<MessageResponse>(url, formData);
     return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
@@ -35,7 +36,7 @@ export const deleteNote = async ({
 }: Pick<NoteAPIType, "projectId" | "taskId" | "noteId">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}`;
   try {
-    const { data } = await api.delete(url);
+    const data = await httpDelete<MessageResponse>(url);
     return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
@@ -52,7 +53,7 @@ export const updateNoteStatus = async ({
 }: Pick<NoteAPIType, "projectId" | "taskId" | "noteId">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}/status`;
   try {
-    const { data } = await api.put(url);
+    const data = await httpPut<MessageResponse>(url);
     return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios";
 import { api } from "../lib/axios";
 import { notificationsArraySchema } from "../types/notification";
+import { httpDelete, httpPut } from "../lib/http";
 
 // services/notificationService.ts
 export const getNotifications = async () => {
@@ -9,10 +10,12 @@ export const getNotifications = async () => {
   if (response.success) return response.data;
 };
 
+type MessageResponse = { message: string };
+
 export const markAsRead = async (notificationId: string) => {
   try {
-    const { data } = await api.put(`/notifications/${notificationId}/read`);
-    return data;
+    const data = await httpPut<MessageResponse>(`/notifications/${notificationId}/read`);
+    return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error, { cause: error });
@@ -23,8 +26,8 @@ export const markAsRead = async (notificationId: string) => {
 
 export const clearAll = async () => {
   try {
-    const { data } = await api.delete("/notifications");
-    return data;
+    const data = await httpDelete<MessageResponse>("/notifications");
+    return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error, { cause: error });
