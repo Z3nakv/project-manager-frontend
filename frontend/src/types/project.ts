@@ -47,7 +47,25 @@ export const projectItemSchemaDetailsById = object({
     team: array(userSchema)
 });
 
+export const editProjectSchema = object({
+    projectName: string(),
+    clientName: string(),
+    description: string(),
+    team: array(userSchema.pick({_id:true}))
+})
+
 export const projectsItemSchema = array(projectItemSchema);
+
+export type EditProject = Omit<
+  Pick<ProjectItemType, "projectName" | "clientName" | "description" | "team">,
+  "team"
+> & {
+  team: {_id:string}[];
+};
+
+export type EditProjectFormProps = {
+  project: EditProject;
+};
 
 export type ProjectItemType = z.infer<typeof projectItemSchema>;
 export type ProjectFormDataType = Pick<ProjectItemType, 'projectName' | 'clientName' | 'description'>;

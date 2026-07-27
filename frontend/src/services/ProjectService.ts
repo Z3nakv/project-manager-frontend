@@ -2,6 +2,7 @@ import { httpDelete, httpGet, httpPost, httpPut } from "../lib/http";
 import { parseOrThrow } from "../lib/parseOrThrow";
 import {
   dashboardProjectSchema,
+  editProjectSchema,
   projectItemSchemaDetailsById,
   type ProjectFormDataType,
   type ProjectItemType,
@@ -22,6 +23,12 @@ export const getProjectById = async ({projectId}: getProjectByIdProps) => {
   const project = await httpGet<unknown>(url);
   return parseOrThrow(projectItemSchemaDetailsById, project, "getProjectById");
 };
+
+export const getEditProjectById = async ({projectId}: getProjectByIdProps) => {
+  const url = `/projects/${projectId}/edit`;
+  const project = await httpGet<unknown>(url);
+  return parseOrThrow(editProjectSchema, project, "getEditProjectById");
+}
 
 type CreateProjectProps = {
   formData: ProjectFormDataType;

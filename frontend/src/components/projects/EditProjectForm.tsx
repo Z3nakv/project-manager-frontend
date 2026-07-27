@@ -3,11 +3,9 @@ import { useForm } from "react-hook-form";
 import ProjectForm from "./ProjectForm";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useUpdateProjectMutation } from "../../hooks/mutations/useProjectMutations";
-import type { ProjectFormDataType, ProjectItemType } from "../../types/project";
+import type { EditProjectFormProps, ProjectFormDataType } from "../../types/project";
 
-type EditProjectFormProps = {
-  project: Pick<ProjectItemType, "projectName" | "clientName" | "description" | "team">;
-};
+
 
 const EditProjectForm = ({ project }: EditProjectFormProps) => {
   const params = useParams();

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { socket } from "../../lib/socket";
 import { useNavigate, type NavigateFunction } from "react-router";
 import { createProject, deleteProject, updateProject } from "../../services/ProjectService";
-import type { ProjectItemType } from "../../types/project";
+import type { EditProject, ProjectItemType } from "../../types/project";
 import type { User } from "../../types/user";
 
 export const useCreateProjectMutation = () => {
@@ -24,7 +24,7 @@ export const useCreateProjectMutation = () => {
 
 type useEditProjectMutationProps = {
   projectId: string
-  project: Pick<ProjectItemType, "projectName" | "clientName" | "description" | "team">;
+  project: EditProject
   navigate: NavigateFunction
 }
 
