@@ -18,8 +18,8 @@ export const createNote = async ({
 }: Pick<NoteAPIType, "projectId" | "taskId" | "formData">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes`;
   try {
-    const { data } = await api.post<string>(url, formData);
-    return data;
+    const { data } = await api.post(url, formData);
+    return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error, { cause: error });
@@ -35,8 +35,8 @@ export const deleteNote = async ({
 }: Pick<NoteAPIType, "projectId" | "taskId" | "noteId">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}`;
   try {
-    const { data } = await api.delete<string>(url);
-    return data;
+    const { data } = await api.delete(url);
+    return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error, { cause: error });
@@ -52,8 +52,8 @@ export const updateNoteStatus = async ({
 }: Pick<NoteAPIType, "projectId" | "taskId" | "noteId">) => {
   const url = `/projects/${projectId}/tasks/${taskId}/notes/${noteId}/status`;
   try {
-    const { data } = await api.put<string>(url);
-    return data;
+    const { data } = await api.put(url);
+    return data.message;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error, { cause: error });
