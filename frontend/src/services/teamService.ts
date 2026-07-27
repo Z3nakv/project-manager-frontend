@@ -5,15 +5,15 @@ import { httpDelete, httpGet, httpPost } from "../lib/http";
 
 export const findUserByEmail = async ({projectId, formData}: 
 {projectId: ProjectFormType['_id'], formData: TeamMemberForm }) => {
-    const url = `/projects/${projectId}/team/find`
-    const user = await httpPost<unknown>(url, formData)
+    const url = `/projects/${projectId}/team/find`;
+    const user = await httpPost<unknown>(url, formData);
     return parseOrThrow(teamMemberSchema, user, 'findUserByEmail');
 }
 
 export const addUserToProject = async ({projectId, _id} : {projectId: ProjectFormType['_id'], _id: TeamMember['_id']}) => {
     const url = `/projects/${projectId}/team`;
-    const data = await httpPost<string>(url, {_id});
-    return parseOrThrow(addUserToProjectSchema, data, "addUserToProject")
+    const data = await httpPost<unknown>(url, {_id});
+    return parseOrThrow(addUserToProjectSchema, data, "addUserToProject");
 }
 
 export const getProjectTeam = async (projectId: ProjectFormType['_id']) => {

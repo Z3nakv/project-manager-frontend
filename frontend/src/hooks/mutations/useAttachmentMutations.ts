@@ -1,6 +1,6 @@
-// hooks/useAttachmentMutations.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query"; // tu función de API
 import { uploadAttachment } from "../../services/AttachmentService";
+import { toast } from "react-toastify";
 
 type UploadAttachmentParams = {
   projectId: string;
@@ -18,7 +18,7 @@ export function useUploadAttachment() {
       queryClient.invalidateQueries({ queryKey: ["taskAttachments", variables.taskId] });
     },
     onError: (error) => {
-      console.log(error);
+      toast.error(error.message);
     },
   });
 }

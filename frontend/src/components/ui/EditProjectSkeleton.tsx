@@ -1,5 +1,3 @@
-// components/ui/EditProjectSkeleton.tsx
-
 const SkeletonBlock = ({ className }: { className?: string }) => (
     <div className={`animate-pulse bg-[#2d3348] rounded-lg ${className}`} />
 )

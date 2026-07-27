@@ -12,10 +12,11 @@ import {
   TrashIcon,
   UserGroupIcon 
 } from "@heroicons/react/20/solid";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime";
 import type { Task } from "../../../../types/task";
 import { useDeleteTaskMutation } from "../../../../hooks/mutations/useTaskMutations";
+import useProjectId from "../../../../hooks/useProjectId";
 
 type TaskMenuItemsProps = {
   canEdit: boolean;
@@ -24,8 +25,7 @@ type TaskMenuItemsProps = {
 
 const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
   const navigate = useNavigate();
-  const params = useParams();
-  const projectId = params.projectId!;
+  const projectId = useProjectId();
 
   const { mutate } = useDeleteTaskMutation({ projectId });
 

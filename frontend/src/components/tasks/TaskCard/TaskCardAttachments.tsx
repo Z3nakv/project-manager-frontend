@@ -1,15 +1,15 @@
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useTaskAttachments } from "../../../hooks/queries/useAttachmentsQueries";
 import type { Task } from "../../../types/task";
 import AttachmentsSkeleton from "../../ui/AttachmentsSkeleton";
+import useProjectId from "../../../hooks/useProjectId";
 
 type TaskCardAttachmentsProps = {
   taskId: Task["_id"];
 };
 
 const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
-  const params = useParams();
-  const projectId = params.projectId!;
+  const projectId = useProjectId();
   const navigate = useNavigate();
   const location = useLocation();
   const { data: attachments, isLoading } = useTaskAttachments({projectId,taskId});

@@ -1,11 +1,12 @@
 import { Fragment } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import TaskForm from "../TaskForm";
 import { useForm } from "react-hook-form";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useUpdateTaskMutation } from "../../../hooks/mutations/useTaskMutations";
 import type { TaskFormType, TaskProjectType } from "../../../types/task";
+import useProjectId from "../../../hooks/useProjectId";
 
 type EditTaskModalProps = {
   taskData: TaskProjectType;
@@ -15,8 +16,7 @@ type EditTaskModalProps = {
 const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
 
   const navigate = useNavigate();
-  const params = useParams();
-  const projectId = params.projectId!;
+  const projectId = useProjectId();
   
   const deadlineDate = taskData.deadline ? taskData.deadline.slice(0, 10) : undefined;
   const labels = taskData.labels

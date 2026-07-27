@@ -1,16 +1,17 @@
 import  { type Control, type FieldErrors, type UseFormRegister, Controller } from "react-hook-form";
 import LabelPicker from "./LabelPicker/LabelPicker";
 import { TaskAttachments } from "./attachments/TaskAttachments";
-import { useParams } from "react-router";
 import type { TaskFormType } from "../../types/task";
 import type { Label } from "../../types/label";
+import useProjectId from "../../hooks/useProjectId";
+import useTaskId from "../../hooks/useTaskId";
 
 type TaskFormProps = {
   register: UseFormRegister<TaskFormType>;
   errors: FieldErrors<TaskFormType>;
   date?: string;
   labels?: Label[];
-  control: Control<TaskFormType>
+  control: Control<TaskFormType>;
 };
 
 const inputBase =
@@ -22,9 +23,8 @@ const labelBase =
 const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
 
 const TaskForm = ({ register, errors, control }: TaskFormProps) => {
-  const params = useParams();
-  const projectId = params.projectId!;
-  const taskId = params.taskId!;
+  const projectId = useProjectId();
+  const taskId = useTaskId();
   return (
     <div className="space-y-5">
       {/* Nombre */}
@@ -92,7 +92,7 @@ const TaskForm = ({ register, errors, control }: TaskFormProps) => {
         )}
       </div>
 
-      <TaskAttachments projectId={projectId} taskId={taskId}/>
+      { taskId && <TaskAttachments projectId={projectId} taskId={taskId}/> }
 
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">

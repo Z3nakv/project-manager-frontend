@@ -10,20 +10,15 @@ const CreateProjectView = () => {
   const initialValues: ProjectFormDataType = {
     projectName: "",
     clientName: "",
-    description: "",
+    description: ""
   };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
-
   const { mutate } = useCreateProjectMutation()
-
   const handleForm = (formData: ProjectFormDataType) => mutate({ formData });
-
-  
   return (
     <div className="max-w-2xl mx-auto">
 

@@ -1,16 +1,15 @@
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router";
 import ErrorMessage from "../ErrorMessage";
 import SearchResult from "./SearchResult";
 import { useFindUserByEmailMutation } from "../../hooks/mutations/useTeamMembersMutation";
 import type { TeamMemberForm } from "../../types/team";
+import useProjectId from "../../hooks/useProjectId";
 
 export default function AddMemberForm() {
     const initialValues: TeamMemberForm = {
         email: ''
     }
-    const params = useParams();
-    const projectId = params.projectId!;
+    const projectId = useProjectId();
     
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 

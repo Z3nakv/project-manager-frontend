@@ -6,9 +6,8 @@ type Props = {
 }
 
 const RemovedFromProjectModal = ({ show }: Props) => {
-    const navigate = useNavigate()
-
-    if(!show) return null
+    const navigate = useNavigate();
+    if(!show) return null;
 
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">

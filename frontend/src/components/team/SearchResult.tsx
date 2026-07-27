@@ -1,7 +1,7 @@
-import { useParams } from "react-router";
 import { UserPlusIcon } from "@heroicons/react/20/solid";
 import { useAddUserToProjectMutation } from "../../hooks/mutations/useTeamMembersMutation";
 import type { TeamMember } from "../../types/team";
+import useProjectId from "../../hooks/useProjectId";
 
 type SearchResultProps = {
     user: TeamMember
@@ -9,12 +9,8 @@ type SearchResultProps = {
 }
 
 const SearchResult = ({ user, reset } : SearchResultProps) => {
-
-    const params = useParams();
-    const projectId = params.projectId!;
-
+    const projectId = useProjectId();
     const { mutate } = useAddUserToProjectMutation({ user, reset, projectId });
-
     const handleAddUserToProject = () => {
         const data = {
             projectId,
@@ -22,7 +18,6 @@ const SearchResult = ({ user, reset } : SearchResultProps) => {
         }
         mutate(data);
     }
-    
     return (
         <div className="border-t border-[#2d3348] pt-4">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-3">

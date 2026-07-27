@@ -7,8 +7,8 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime";
-import type { attachmentsSchemaType } from "../../../services/AttachmentService";
 import { getCloudinaryUrl } from "../../../utils/cloudinary";
+import type { attachmentsSchemaType } from "../../../types/attachment";
 
 const TaskAttachmentModal = () => {
   const navigate = useNavigate();

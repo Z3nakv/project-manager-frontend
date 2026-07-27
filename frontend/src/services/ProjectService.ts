@@ -11,7 +11,7 @@ import {
 export const getAllProjects = async () => {
   const url = "/projects";
   const projects = await httpGet<unknown>(url);
-  return parseOrThrow(dashboardProjectSchema, projects, "projects");
+  return parseOrThrow(dashboardProjectSchema, projects, "getAllProjects");
 };
 
 type getProjectByIdProps = {

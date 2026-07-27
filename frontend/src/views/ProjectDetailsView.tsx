@@ -1,7 +1,5 @@
-import { Navigate, useParams, useSearchParams } from "react-router";
+import { Navigate, useSearchParams } from "react-router";
 import { lazy, Suspense, useMemo, useState } from "react";
-import { getProjectById } from "../services/ProjectService";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../hooks/useAuth";
 import { useForbidden } from "../hooks/useForbidden";
 import { QueryStateWrapper } from "../components/ui/QueryStateWrapper";
@@ -9,6 +7,8 @@ import ProjectDetailsViewHero from "../components/projects/ProjectDetailsViewHer
 import ProjectDetailsSkeleton from "../components/ui/ProjectDetailsSkeleton";
 import TaskList from "../components/tasks/TaskList";
 import TaskListSkeleton from "../components/TaskListSkeleton";
+import useProjectId from "../hooks/useProjectId";
+import { useGetProjectById } from "../hooks/queries/useProjectQueries";
 
 const EditTaskData = lazy(() => import("../components/tasks/EditTaskData/EditTaskData"));
 const ViewTaskModal = lazy(() => import("../components/tasks/ViewTaskModal/ViewTaskModal"));
@@ -21,11 +21,11 @@ const AITaskSuggestions = lazy(() => import("../components/tasks/AITasksSuggesti
 
 const ProjectDetailsView = () => {
   const { data: user, isLoading: authLoading} = useAuth();
+  const projectId = useProjectId();
   const [, setSearchParams] = useSearchParams();
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [quantity, setQuantity] = useState(1);
-  const params = useParams();
-  const projectId = params.projectId!;
+  
 
   const handleTaskPropsConfirm = (fields: string[], quantity: number) => {
     setSelectedFields(fields);
@@ -37,11 +37,7 @@ const ProjectDetailsView = () => {
     });
   };
 
-  const { data: project, isError, isLoading, error, refetch } = useQuery({
-    queryKey: ["project", projectId],
-    queryFn: () => getProjectById({ projectId }),
-    retry: false
-  });
+  const { data: project, isError, isLoading, error, refetch } = useGetProjectById(projectId);
 
   const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
   const team = project ? [...new Set([...project!.team.map((member) => member._id), project?.manager._id])!] : [];

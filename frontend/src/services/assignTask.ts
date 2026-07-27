@@ -1,15 +1,8 @@
-import { array, object, string } from "zod";
 import { httpPost } from "../lib/http";
-import { type assignTaskType } from "../types/assignTaskSchema";
+import { AssignTaskResponseSchema, type assignTaskType } from "../types/assignTaskSchema";
 import { parseOrThrow } from "../lib/parseOrThrow";
 
-const AssignTaskResponseSchema = object({
-  message: string(),
-  taskName: string(),
-  projectName: string(),
-  projectId: string(),
-  userIds: array(string()),
-});
+
 type assignTaskProps = {
     projectId: string
     taskId: string

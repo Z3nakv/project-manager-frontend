@@ -1,4 +1,3 @@
-import { useNavigate, useParams, useSearchParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
@@ -6,33 +5,22 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import TaskForm from "./TaskForm";
 import { useCreateTaskMutation } from "../../hooks/mutations/useTaskMutations";
 import type { TaskFormType } from "../../types/task";
+import useProjectId from "../../hooks/useProjectId";
+import useShowModal from "../../hooks/useShowModal";
 
 export default function AddTaskModal() {
-
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const newTask = searchParams.get("newTask") === "true";
-  
-  const params = useParams();
-  const projectId = params.projectId!;
-  
+  const projectId = useProjectId();
   const initialValues: TaskFormType = { name: "", description: ""};
-
-  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({
-    defaultValues: initialValues,
-  });
-
+  const { showModal, handleClose } = useShowModal("newTask");
+  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({defaultValues: initialValues});
   const { mutate } = useCreateTaskMutation({reset, projectId});
-
-  const handleCreateTask = (formData: TaskFormType) => mutate({ formData, projectId });
-
-  const handleClose = () => {
+  const handleCreateTask = (formData: TaskFormType) => {
+    mutate({ formData, projectId });
     reset();
-    navigate(location.pathname, { replace: true });
   };
 
   return (
-    <Transition appear show={newTask} as={Fragment}>
+    <Transition appear show={showModal} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
 
         {/* Backdrop */}

@@ -2,28 +2,23 @@ import {
   UserGroupIcon,
   UserPlusIcon,
 } from "@heroicons/react/20/solid";
-import { Link, Navigate, useNavigate, useParams } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import AddMemberModal from "../components/team/AddMemberModal";
 import ProjectTeamSkeleton from "../components/ui/ProjectTeamSkeleton";
 import TeamMembersList from "../components/team/TeamMembersList";
 import { useRemoveUserFromProjectMutation } from "../hooks/mutations/useTeamMembersMutation";
 import { useGetProjectTeam } from "../hooks/queries/useTeamMembersQueries";
+import useProjectId from "../hooks/useProjectId";
 
 const ProjectTeamView = () => {
   const navigate = useNavigate();
-  const params = useParams();
-  const projectId = params.projectId!;
-
+  const projectId = useProjectId();
   const { data, isLoading, isError } = useGetProjectTeam({ projectId })
-
   const { mutate } = useRemoveUserFromProjectMutation({ projectId })
-
   const handleRemoveUserFromProject = (memberId: string) => {
     mutate({ projectId, userId: memberId });
   };
-
   if(isLoading) return <ProjectTeamSkeleton />
-
   if (isError) return <Navigate to="/404" />;
 
   if (data)

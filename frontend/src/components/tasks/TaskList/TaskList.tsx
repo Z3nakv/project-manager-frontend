@@ -2,7 +2,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import DropTask from "../DropTask";
 import TaskCard from "../TaskCard/TaskCard";
 import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
-import { useParams } from "react-router";
 import { useIsMobile } from "../../../hooks/useIsMobile";
 import HorizontalScroller from "../../ui/HorizontalScroller";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutations";
@@ -11,6 +10,7 @@ import useSearch from "../../../hooks/useSearch";
 import type { TaskProjectType, TaskStatus } from "../../../types/task";
 import type { ProjectItemSchemaDetailsType } from "../../../types/project";
 import { useCallback } from "react";
+import useProjectId from "../../../hooks/useProjectId";
 
 type TaskListProps = {
   tasks: TaskProjectType[];
@@ -19,8 +19,7 @@ type TaskListProps = {
 };
 
 const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
-  const params = useParams();
-  const projectId = params.projectId!;
+  const projectId = useProjectId();
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
   const getTaskName = useCallback((task: TaskProjectType) => task.name, []);

@@ -1,4 +1,3 @@
-// components/NotificationCenter.tsx
 import { useState, useRef, useEffect } from "react";
 import { BellIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router";
@@ -12,12 +11,9 @@ const NotificationCenter = () => {
   const navigate = useNavigate();
 
   const { data: notifications = []} = useGetNotificationsQuery();
-  
   const { mutate: readMutate } = useMarkAsReadMutation();
-
   const { mutate: clearMutate } = useClearAllMutation();
 
-  // cerrar al clickear fuera
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {

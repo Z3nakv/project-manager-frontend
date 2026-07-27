@@ -5,39 +5,32 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { useLocation, useNavigate, useParams } from "react-router";
 import NotesPanel from "../../notes/NotesPanel";
 import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutations";
 import { handleTeamMembers } from "./ViewTaskModal.config";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
 import type { TaskStatus } from "../../../types/task";
 import TaskModalMainBody from "./TaskModalMainBody";
+import useProjectId from "../../../hooks/useProjectId";
+import useShowModal from "../../../hooks/useShowModal";
 
 const ViewTaskModal = () => {
-  const params = useParams();
-  const projectId = params.projectId!;
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const queryParams = new URLSearchParams(location.search);
-  const taskId = queryParams.get("viewTask")!;
-  const show = !!taskId;
-
+  const projectId = useProjectId();
+  
+  const { queryValue: taskId, showModal, handleClose } = useShowModal("viewTask");
   const {data: taskData, isError, error,} = useGetTaskData({ projectId, taskId });
   const team = handleTeamMembers({ taskData });
   const { mutate } = useUpdateTaskStatusMutation({ projectId, team });
-  const handleClose = () => navigate(location.pathname, { replace: true });
-
+  if (!showModal || !taskId) return null;
+  if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
   const handleUpdateStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const status = e.target.value as TaskStatus;
     mutate({ projectId, taskId, status });
   };
   
-  if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
-
   if (taskData)
     return (
-      <Transition appear show={show} as={Fragment}>
+      <Transition appear show={showModal} as={Fragment}>
         <Dialog as="div" className="relative z-30" onClose={handleClose}>
           {/* Backdrop */}
           <TransitionChild

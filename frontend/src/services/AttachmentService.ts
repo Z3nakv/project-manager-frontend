@@ -25,6 +25,6 @@ type GetTaskAttachmentsParams = {
 export async function getTaskAttachments({ projectId, taskId }: GetTaskAttachmentsParams) {
   const url = `/projects/${projectId}/tasks/${taskId}/images`;
   const data = await httpGet<unknown>(url);
-  parseOrThrow(attachmentsSchema, data, "getTaskAttachments");
+  return parseOrThrow(attachmentsSchema, data, "getTaskAttachments");
 }
 

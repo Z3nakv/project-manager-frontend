@@ -45,13 +45,14 @@ const updateTaskResponse = z.object({
     project: z.object({
         projectTeam: z.array(z.object({_id:z.string()})),
         projectId: z.string()
-    })
+    }),
+    taskName: z.string()
 })
 
 export const updateTask = async ({projectId, taskId, formData} : UpdateTaskProps) => {
     const url = `/projects/${projectId}/tasks/${taskId}`
     const data = await httpPut(url, formData);
-    parseOrThrow(updateTaskResponse, data, "updateTask")
+    return parseOrThrow(updateTaskResponse, data, "updateTask")
 }
 
 type DeleteTaskProps = {
