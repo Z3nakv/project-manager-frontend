@@ -195,10 +195,12 @@ _* Incluye `useAttachmentQueries.tes.tsx` (nombre con typo en el archivo origina
 npm run test       # Vitest en modo CLI
 npm run test:ui    # Vitest con interfaz gráfica
 npm run coverage   # Reporte de cobertura
+```bash
 Variables de entorno
 VITE_API_URL=<url_base_del_backend>          # Ej: http://localhost:5000/api
 VITE_GOOGLE_CLIENT_ID=<google_oauth_client_id>
 VITE_CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
+```bash
 Instalación y ejecución
 # Instalar dependencias
 npm install
@@ -208,6 +210,7 @@ npm run dev
 npm run build
 # Preview del build generado
 npm run preview
+```bash
 Output del build
 Vite con Rolldown genera chunks separados por vendor mediante codeSplitting.groups:
 - vendor-dndkit — @dnd-kit
@@ -230,6 +233,7 @@ CSS	Tailwind utility classes. Sin CSS modules ni archivos .css adicionales
 Reutilización	Usar QueryStateWrapper para estados loading/error/empty en lugar de repetirlos
 ESLint	Configuración con typescript-eslint y eslint-plugin-react-hooks
 
+```bash
 Performance
 Optimización	Implementación
 Lazy loading	React.lazy() + HydrateFallback en cada ruta
