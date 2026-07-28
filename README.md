@@ -98,25 +98,47 @@ API (backend Express)
 | Estado local de UI         | Modales abiertos/cerrados, formularios      | React state / React Hook Form |
 No se utiliza Zustand, Redux ni ningún store global. TanStack Query cubre todo el estado asíncrono. Los modales y formularios usan estado local en el componente o hooks livianos (`useShowModal`).
 ## Routing
-Definido en `src/router.tsx` con `createBrowserRouter` de react-router.
-/                                    → LandingView (pública)
-/layout (AppLayout, autenticado)     → Protegido por useAuth (redirige a / si no hay sesión)
-  /dashboard                         → DashboardView
-  /projects/:projectId               → ProjectDetailsView (lazy + skeleton)
-  /projects/create-project           → CreateProjectView (lazy)
-  /projects/:projectId/edit          → EditProjectView (lazy + skeleton)
-  /projects/:projectId/team          → ProjectTeamView (lazy + skeleton)
-  /layout (ProfileLayout)
-    /profile                         → ProfileView (lazy)
-    /profile/password                → ChangePasswordView (lazy)
-/layout (AuthLayout, público)
-  /auth/login                        → LoginWithGoogleProvider (lazy)
-  /auth/register                     → RegisterView (lazy)
-  /auth/confirm-account              → ConfirmAccountView (lazy)
-  /auth/request-code                 → RequestNewCode (lazy)
-  /auth/forgot-password              → ForgotPasswordView (lazy)
-  /auth/new-password                 → NewPasswordView (lazy)
-  *                                 → NotFound (lazy)
+
+Definido en `src/router.tsx` mediante `createBrowserRouter` de `react-router`.
+
+```text
+/
+└── LandingView (pública)
+
+layout/
+├── DashboardView
+├── Projects
+│   ├── :projectId
+│   │   └── ProjectDetailsView (lazy + skeleton)
+│   ├── create-project
+│   │   └── CreateProjectView (lazy)
+│   ├── :projectId/edit
+│   │   └── EditProjectView (lazy + skeleton)
+│   └── :projectId/team
+│       └── ProjectTeamView (lazy + skeleton)
+│
+├── ProfileLayout
+│   ├── profile
+│   │   └── ProfileView (lazy)
+│   └── profile/password
+│       └── ChangePasswordView (lazy)
+│
+└── AuthLayout
+    ├── auth/login
+    │   └── LoginWithGoogleProvider (lazy)
+    ├── auth/register
+    │   └── RegisterView (lazy)
+    ├── auth/confirm-account
+    │   └── ConfirmAccountView (lazy)
+    ├── auth/request-code
+    │   └── RequestNewCode (lazy)
+    ├── auth/forgot-password
+    │   └── ForgotPasswordView (lazy)
+    ├── auth/new-password
+    │   └── NewPasswordView (lazy)
+    └── *
+        └── NotFound (lazy)
+```
 ### Patrón de lazy loading
 Todas las rutas protegidas y la mayoría de las rutas públicas usan `lazy()` de React + `HydrateFallback` con skeletons específicos (`ProjectDetailsSkeleton`, `EditProjectSkeleton`, `ProjectTeamSkeleton`). Esto permite que el bundle principal sea pequeño y que cada vista se descargue bajo demanda.
 ### Protección de rutas
