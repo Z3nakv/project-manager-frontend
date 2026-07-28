@@ -78,17 +78,29 @@ src/
 | `types/`        | Schemas Zod y tipos inferidos. Fuente única de verdad para tipos.               |
 | `socket/`       | Proveedor React + listeners por dominio. Cleanup automático en unmount.         |
 ## Flujo de datos
-View (página)
-  │ Usa hooks de queries/mutations
-  ▼
-Hook (useProjectMutations, useTaskQueries, etc.)
-  │ Llama a servicios
-  ▼
-Service (ProjectService, taskService, etc.)
-  │ Usa httpGet / httpPost / etc. + parseOrThrow con Zod
-  ▼
-API (backend Express)
-**Regla:** Las views nunca llaman servicios HTTP directamente. La lógica de fetching, mutación, cacheo e invalidación vive exclusivamente en los hooks de TanStack Query (carpetas `hooks/queries/` y `hooks/mutations/`).
+
+```text
+View (Página)
+      │
+      │ Usa hooks de queries/mutations
+      ▼
+Hook (TanStack Query)
+      │
+      │ Llama a servicios
+      ▼
+Service
+      │
+      │ httpGet/httpPost + parseOrThrow (Zod)
+      ▼
+API (Backend Express)
+```
+
+### Regla de arquitectura
+
+- Las **views** nunca realizan llamadas HTTP directamente.
+- La lógica de **fetching**, **mutaciones**, **cacheo** e **invalidación** vive exclusivamente en `hooks/queries/` y `hooks/mutations/`.
+- Los **services** son la única capa que se comunica con la API.
+- Toda respuesta del backend se valida con **Zod** antes de llegar a la UI.
 ## Gestión de estado
 | Estado                     | Responsabilidad                             | Herramienta      |
 | -------------------------- | ------------------------------------------- | ---------------- |
