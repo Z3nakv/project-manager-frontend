@@ -23,42 +23,50 @@ Aplicación React para la gestión de proyectos con tablero Kanban. Proporciona 
 | Análisis de bundle      | rollup-plugin-visualizer                | ^6.0.11      |
 **Versión de TypeScript estricta** (tsconfig.app.json): `target: es2023`, `moduleResolution: bundler`, `noUnusedLocals`, `noUnusedParameters`, `verbatimModuleSyntax`.
 ## Arquitectura del proyecto
+## Arquitectura del proyecto
+
+```text
 src/
-├── components/           # Componentes reutilizables de UI y de negocio
-│   ├── ui/               #   Primitivas: Button, FormInput, QueryStateWrapper, skeletons
-│   ├── tasks/            #   TaskCard, TaskList, ViewTaskModal, AddTaskModal, AITasksSuggestions
-│   ├── projects/         #   ProjectCard, ProjectForm, CreateProjectViewForm
-│   ├── team/             #   AddMemberModal, TeamMemberInfo, SearchResult
-│   ├── notes/            #   NotesPanel, AddNoteForm, NoteDetail
-│   ├── attachments/      #   ImageUploader
-│   ├── auth/             #   GoogleAuthButton, NewPasswordForm
-│   ├── dashboard/        #   ProjectList
-│   └── profile/          #   ProfileForm, Tabs
-├── hooks/                # Lógica de estado y side-effects
-│   ├── queries/          #   Hooks TanStack Query (lectura)
-│   ├── mutations/        #   Hooks TanStack Query (escritura)
-│   ├── useAuth.ts        #   Hook de autenticación global
+├── components/
+│   ├── ui/               # Componentes base reutilizables
+│   ├── tasks/
+│   ├── projects/
+│   ├── team/
+│   ├── notes/
+│   ├── attachments/
+│   ├── auth/
+│   ├── dashboard/
+│   └── profile/
+│
+├── hooks/
+│   ├── queries/
+│   ├── mutations/
+│   ├── useAuth.ts
 │   ├── useDebounce.ts
 │   ├── useIsMobile.ts
 │   ├── useForbidden.ts
-│   └── ...               #   useProjectId, useTaskId, useSearch, useShowModal, etc.
-├── services/             # Capa HTTP pura (Axios + Zod parseOrThrow)
-├── views/                # Páginas completas (punto de entrada por ruta)
-│   ├── auth/             #   Login, Register, ConfirmAccount, ForgotPassword, NewPassword
-│   └── profile/          #   ProfileView, ChangePasswordView
-├── layout/               # Layouts anidados (AppLayout, AuthLayout, ProfileLayout)
-├── socket/               # Proveedor + listeners de Socket.io
-│   ├── listeners/        #   Módulos por dominio (task, project, member, note, notification)
+│   └── ...
+│
+├── services/
+├── views/
+│   ├── auth/
+│   └── profile/
+│
+├── layout/
+├── socket/
+│   ├── listeners/
 │   ├── SocketProvider.tsx
 │   └── events.ts
-├── lib/                  # Capa base: axios, http helpers, queryClient, socket, parseOrThrow
-├── types/                # Schemas Zod + tipos inferidos
-├── constants/            # Predefined labels, status colors, traducciones
-├── utils/                # Utilidades: formatDate, cloudinaryUrl, isManager
-├── test/                 # Setup de testing (@testing-library/jest-dom)
-├── router.tsx            # Definición de rutas con lazy loading
-├── main.tsx              # Entry point (QueryClientProvider + RouterProvider)
-└── index.css             # Estilos globales Tailwind
+│
+├── lib/
+├── types/
+├── constants/
+├── utils/
+├── test/
+├── router.tsx
+├── main.tsx
+└── index.css
+```
 ### Responsabilidad de cada capa
 | Carpeta         | Responsabilidad                                                                 |
 | --------------- | ------------------------------------------------------------------------------- |
