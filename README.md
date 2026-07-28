@@ -191,56 +191,88 @@ Las mutaciones emiten eventos como `"project_deleted"`, `"project_updated"`, `"t
 | Vistas             | 1        | 6            |
 _* Incluye `useAttachmentQueries.tes.tsx` (nombre con typo en el archivo original)._
 ### Comandos
+
 ```bash
 npm run test       # Vitest en modo CLI
 npm run test:ui    # Vitest con interfaz gráfica
 npm run coverage   # Reporte de cobertura
-```bash
-Variables de entorno
+```
+
+---
+
+### Variables de entorno
+
+```env
 VITE_API_URL=<url_base_del_backend>          # Ej: http://localhost:5000/api
 VITE_GOOGLE_CLIENT_ID=<google_oauth_client_id>
 VITE_CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
-```bash
-Instalación y ejecución
-# Instalar dependencias
-npm install
-# Desarrollo (HMR en http://localhost:5173)
-npm run dev
-# Build de producción (Rolldown + code-splitting)
-npm run build
-# Preview del build generado
-npm run preview
-```bash
-Output del build
-Vite con Rolldown genera chunks separados por vendor mediante codeSplitting.groups:
-- vendor-dndkit — @dnd-kit
-- vendor-tanstack — @tanstack/react-query
-- vendor-ui — @headlessui/react
-- vendor-react — react, react-dom, react-router
-- vendor — catch-all del resto de node_modules
-Además, el build activa el React Compiler (vía @rolldown/plugin-babel con reactCompilerPreset()), que optimiza automáticamente renders y memorización.
-Convenciones de código
-Convención	Regla
-Nombres de componentes	PascalCase
-Nombres de hooks	Prefijo use (ej: useAuth, useProjectMutations)
-Nombres de servicios	PascalCase para clases/instancias, camelCase para funciones exportadas
-Nombres de archivos	camelCase (servicios, hooks), PascalCase (componentes, vistas)
-Llamadas HTTP	Solo desde services/, nunca desde componentes o vistas
-Tipos	Preferir z.infer sobre interfaces manuales. Repository de tipos en types/
-any	Evitar salvo casos justificados y con comentario
-TypeScript	Strict mode habilitado. noUnusedLocals y noUnusedParameters activos
-CSS	Tailwind utility classes. Sin CSS modules ni archivos .css adicionales
-Reutilización	Usar QueryStateWrapper para estados loading/error/empty en lugar de repetirlos
-ESLint	Configuración con typescript-eslint y eslint-plugin-react-hooks
+```
+
+---
+
+### Instalación y ejecución
 
 ```bash
-Performance
-Optimización	Implementación
-Lazy loading	React.lazy() + HydrateFallback en cada ruta
-Code splitting (rutas)	Cada vista es un chunk separado gracias a lazy() + import()
-Vendor chunks (build)	Rolldown codeSplitting.groups separa dnd-kit, TanStack, Headless UI, React
-React Compiler	Habilitado vía babel preset reactCompilerPreset() — optimiza renders automáticamente
-Bundle analysis	rollup-plugin-visualizer genera stats.html con tamaños gzip y brotli
-TanStack Query cache	staleTime: 30s, gcTime: 5min, sin refetch en window focus
-Retry inteligente	No reintenta errores 4xx (validación del lado del cliente)
-Skeletons	Cada ruta lazy tiene un skeleton específico (ProjectDetailsSkeleton, etc.)
+# Instalar dependencias
+npm install
+
+# Desarrollo (HMR)
+npm run dev
+
+# Build de producción
+npm run build
+
+# Preview del build generado
+npm run preview
+```
+
+---
+
+### Output del build
+
+```text
+Vite con Rolldown genera chunks separados por vendor mediante codeSplitting.groups:
+
+- vendor-dndkit    → @dnd-kit
+- vendor-tanstack  → @tanstack/react-query
+- vendor-ui        → @headlessui/react
+- vendor-react     → react, react-dom, react-router
+- vendor           → resto de node_modules
+
+Además, el build activa React Compiler mediante
+@rolldown/plugin-babel con reactCompilerPreset(),
+optimizando automáticamente renders y memorización.
+```
+
+---
+
+## Convenciones de código
+
+| Convención | Regla |
+|------------|-------|
+| Componentes | PascalCase |
+| Hooks | Prefijo `use` |
+| Servicios | PascalCase para clases, camelCase para funciones |
+| Archivos | camelCase (hooks y servicios), PascalCase (componentes y vistas) |
+| HTTP | Solo desde `services/` |
+| Tipos | Preferir `z.infer` |
+| `any` | Evitar salvo casos justificados |
+| TypeScript | Strict mode |
+| CSS | Tailwind |
+| Reutilización | Usar `QueryStateWrapper` |
+| ESLint | `typescript-eslint` + `eslint-plugin-react-hooks` |
+
+---
+
+## Performance
+
+| Optimización | Implementación |
+|--------------|----------------|
+| Lazy loading | React.lazy() + HydrateFallback |
+| Code splitting | Un chunk por vista |
+| Vendor chunks | Rolldown (`vendor-react`, `vendor-ui`, etc.) |
+| React Compiler | `reactCompilerPreset()` |
+| Bundle analysis | `rollup-plugin-visualizer` |
+| TanStack Query cache | `staleTime: 30s`, `gcTime: 5min` |
+| Retry inteligente | No reintenta errores 4xx |
+| Skeletons | Skeleton específico por ruta |
