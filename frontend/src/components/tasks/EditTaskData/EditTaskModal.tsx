@@ -14,7 +14,7 @@ type EditTaskModalProps = {
 };
 
 const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
-
+  
   const navigate = useNavigate();
   const projectId = useProjectId();
   
@@ -84,7 +84,7 @@ const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
                   onSubmit={handleSubmit(handleEditTask)}
                   noValidate
                 >
-                  <TaskForm errors={errors} register={register} control={control}/>
+                   <TaskForm errors={errors} register={register} control={control} taskId={taskId}/>
 
                   <input
                     type="submit"

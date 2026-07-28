@@ -74,7 +74,7 @@ export default function AddTaskModal() {
 
                 {/* Form */}
                 <form noValidate onSubmit={handleSubmit(handleCreateTask)} className="space-y-6">
-                  <TaskForm errors={errors} register={register} control={control} />
+                  <TaskForm errors={errors} register={register} control={control} taskId={''}/>
 
                   <input
                     type="submit"

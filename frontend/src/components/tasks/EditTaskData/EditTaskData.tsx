@@ -1,10 +1,10 @@
-import { useLocation, useParams } from "react-router";
+import { useLocation } from "react-router";
 import EditTaskModal from "./EditTaskModal";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
+import useProjectId from "../../../hooks/useProjectId";
 
 const EditTaskData = () => {
-  const params = useParams();
-  const projectId = params.projectId!;
+  const projectId = useProjectId();
   const location = useLocation();
   const taskId = new URLSearchParams(location.search).get("editTask")!;
 

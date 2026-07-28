@@ -4,7 +4,6 @@ import { TaskAttachments } from "./attachments/TaskAttachments";
 import type { TaskFormType } from "../../types/task";
 import type { Label } from "../../types/label";
 import useProjectId from "../../hooks/useProjectId";
-import useTaskId from "../../hooks/useTaskId";
 
 type TaskFormProps = {
   register: UseFormRegister<TaskFormType>;
@@ -12,6 +11,7 @@ type TaskFormProps = {
   date?: string;
   labels?: Label[];
   control: Control<TaskFormType>;
+  taskId: string
 };
 
 const inputBase =
@@ -22,9 +22,8 @@ const labelBase =
 
 const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
 
-const TaskForm = ({ register, errors, control }: TaskFormProps) => {
+const TaskForm = ({ register, errors, control, taskId }: TaskFormProps) => {
   const projectId = useProjectId();
-  const taskId = useTaskId();
   return (
     <div className="space-y-5">
       {/* Nombre */}
@@ -92,7 +91,7 @@ const TaskForm = ({ register, errors, control }: TaskFormProps) => {
         )}
       </div>
 
-      { taskId && <TaskAttachments projectId={projectId} taskId={taskId}/> }
+       <TaskAttachments projectId={projectId} taskId={taskId}/>
 
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
