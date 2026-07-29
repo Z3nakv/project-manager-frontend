@@ -17,7 +17,8 @@ const TeamMembersList = ({teamMembers, handleRemoveUserFromProject} : TeamMember
       {teamMembers.length ? (
         <ul>
           {teamMembers.map((member, index) => (
-            <TeamMemberInfo 
+            <TeamMemberInfo
+            key={member._id}
             member={member} 
             index={index} 
             teamMemberLength={teamMembers.length} 

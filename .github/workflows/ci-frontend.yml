@@ -32,6 +32,7 @@ jobs:
         run: npm run build
 
   ai-review:
+    needs: lint-and-build
     # Solo corre en PRs, no en pushes directos a main
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
