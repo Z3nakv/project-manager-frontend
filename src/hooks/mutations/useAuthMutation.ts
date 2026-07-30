@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import type { UseFormReset } from "react-hook-form";
 import { useNavigate } from "react-router";
 import type { ForgotPasswordForm, UserRegistrationForm } from "../../types/auth";
+import { setAccessToken } from "../../utils/auth";
 
 type useCreateAccountMutationProps = {
     reset: UseFormReset<UserRegistrationForm>
@@ -48,7 +49,8 @@ export const useAuthenticateUserMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: authenticateUser,
-        onSuccess: async () => {
+        onSuccess: async (data) => {
+                setAccessToken(data.accessToken)
                 queryClient.removeQueries({ queryKey: ['user'] })
                 navigate("/dashboard")
             },
@@ -116,8 +118,8 @@ export const useGoogleAuthMutation = () => {
             toast.error(error.message);
         },
         onSuccess: (data) => {
-            localStorage.setItem("AUTH_TOKEN_JWT", data.token)
-            queryClient.removeQueries({queryKey: ['user']})
+            setAccessToken(data.token);
+            queryClient.setQueryData(['user'], data.user);
             toast.success('Sesion iniciada correctamente');
             navigate('/dashboard',{ replace: true });
         }

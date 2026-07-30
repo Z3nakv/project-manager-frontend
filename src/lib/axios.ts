@@ -1,11 +1,13 @@
 import axios from "axios";
+import { getAccessToken, setAccessToken } from "../utils/auth";
 
 export const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true
 })
 
 api.interceptors.request.use( (config) => {
-    const token = localStorage.getItem('AUTH_TOKEN_JWT');
+    const token = getAccessToken();
     if(token) {
         config.headers.Authorization = `Bearer ${token}`
     }
@@ -17,11 +19,27 @@ api.interceptors.request.use( (config) => {
 })
 
 api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if(error.response?.status === 403) {
-            window.dispatchEvent(new CustomEvent('forbidden'))
-        }
-        return Promise.reject(error)
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/auth/refresh-token`,
+          {},
+          { withCredentials: true },
+        );
+        setAccessToken(data.accessToken);
+        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+        return api(originalRequest); // reintenta la request original
+      } catch (refreshError) {
+        setAccessToken(null);
+        return Promise.reject(refreshError);
+      }
     }
-)
+
+    return Promise.reject(error);
+  },
+);

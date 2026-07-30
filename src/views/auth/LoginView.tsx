@@ -22,7 +22,7 @@ export default function LoginView() {
   const { mutate } = useAuthenticateUserMutation();
 
   const handleLogin = (formData: UserLoginForm) => mutate(formData);
-
+  
   return (
     <div className="bg-[#1e2330] border border-[#2d3348] rounded-2xl shadow-[0_24px_48px_rgba(0,0,0,0.4)] p-8">
       {/* Header */}

@@ -2,9 +2,7 @@ import { Link, Navigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 
 const LandingView = () => {
-  const { data: user, isLoading } = useAuth();
-  const hasToken = !!localStorage.getItem("AUTH_TOKEN_JWT");
-  if (hasToken && isLoading) return null;
+  const { data: user } = useAuth();
   if (user) return <Navigate to="/dashboard" />;
   return (
     <div className="min-h-screen bg-[#0a0e17] text-slate-200">

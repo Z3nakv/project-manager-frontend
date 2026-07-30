@@ -10,6 +10,7 @@ import type {
 import { userSchema, type User } from "../types/user";
 import { httpGet, httpPost } from "../lib/http";
 import { parseOrThrow } from "../lib/parseOrThrow";
+import { setAccessToken } from "../utils/auth";
 
 type MessageResponse = { message: string };
 
@@ -33,10 +34,14 @@ export const requestConfirmationCode = async (
   return data.message;
 };
 
+type LoginResponse = {
+  accessToken: string;
+};
+
 export const authenticateUser = async (formData: UserLoginForm) => {
   const url = "/auth/login";
-  const data = await httpPost<string>(url, formData);
-  localStorage.setItem("AUTH_TOKEN_JWT", data);
+  const data = await httpPost<LoginResponse>(url, formData);
+  setAccessToken(data.accessToken);
   return data;
 };
 
@@ -70,6 +75,11 @@ export const getUser = async () => {
   return parseOrThrow(userSchema, data, "getUser");
 };
 
+export const logoutUser = async () => {
+  const url = "/auth/logout";
+  return httpPost(url, {});
+};
+
 export const checkPassword = async (formData: checkPasswordForm) => {
   const url = "/auth/check-password";
   const data = await httpPost<MessageResponse>(url, formData);
@@ -87,4 +97,9 @@ export const googleAuth = async (googleToken: string) => {
     token: googleToken,
   });
   return data;
+};
+
+export const refreshAccessToken = async (): Promise<{ accessToken: string }> => {
+  const url = "/auth/refresh-token";
+  return httpPost(url, {});
 };

@@ -4,6 +4,8 @@ import { Bars3Icon, UserCircleIcon, FolderIcon, ArrowRightStartOnRectangleIcon }
 import { Link, useNavigate } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "../types/user";
+import { logoutUser } from "../services/authService";
+import { setAccessToken } from "../utils/auth";
 
 type NavMenuProps = {
   name: User['name']
@@ -13,11 +15,18 @@ export default function NavMenu({name} : NavMenuProps) {
 
   const navigate = useNavigate();
   const queryClient = useQueryClient()
-  const logout = () => {
-    localStorage.removeItem('AUTH_TOKEN_JWT')
-    queryClient.clear()
-    navigate('/')
+  const logout = async () => {
+  try {
+    await logoutUser();
+  } catch (error) {
+    console.error("Error al cerrar sesión:", error);
+    // igual continuamos con la limpieza local, aunque falle la llamada
+  } finally {
+    setAccessToken(null); 
+    queryClient.clear();
+    navigate("/");
   }
+};
 
   return (
     <Popover className="relative">
