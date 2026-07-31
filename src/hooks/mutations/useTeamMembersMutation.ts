@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { addUserToProject, findUserByEmail, removeUserFromProject } from "../../services/teamService"
-import { socket } from "../../lib/socket";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import type { TeamMember } from "../../types/team";
@@ -21,16 +20,12 @@ type useAddUserToProjectMutationProps = {
     projectId: string
 }
 
-export const useAddUserToProjectMutation = ({ user, reset, projectId } : useAddUserToProjectMutationProps) => {
+export const useAddUserToProjectMutation = ({ reset, projectId } : useAddUserToProjectMutationProps) => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
     return useMutation({
         mutationFn: addUserToProject,
         onSuccess: (data) => {
-            socket.emit('member_added',{
-                message: `${user?.name} te agregó como colaborador al proyecto`,
-                userId: user._id
-            });
             toast.success(data.message);
             reset()
             navigate(location.pathname, {replace: true});
@@ -52,11 +47,6 @@ export const useRemoveUserFromProjectMutation = ({ projectId } : useRemoveUserFr
     return useMutation({
     mutationFn: removeUserFromProject,
     onSuccess: (data) => {
-      
-      socket.emit("member_removed", {
-        message: `${data?.manager} te elimino como colaborador del proyecto`,
-        userId: data?.colaborador,
-      });
       toast.success(data?.message);
       queryClient.invalidateQueries({queryKey:['projects']});
       queryClient.invalidateQueries({ queryKey: ["projectTeam", projectId] });

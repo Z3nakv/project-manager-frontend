@@ -8,13 +8,8 @@ export function registerMemberListeners(
     queryClient: QueryClient
 ) {
     const onMemberAdded = (message: string) => {
-      
     toast.info(message);
-
-    queryClient.invalidateQueries({
-      queryKey: ["projects"],
-    });
-
+    queryClient.invalidateQueries({queryKey: ["projects"]});
   };
 
   const onMemberRemoved = (message: string) => {
