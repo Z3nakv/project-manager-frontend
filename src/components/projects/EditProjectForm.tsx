@@ -24,7 +24,7 @@ const EditProjectForm = ({ project }: EditProjectFormProps) => {
     },
   });
 
-  const { mutate, isPending } = useUpdateProjectMutation({ projectId, project, navigate });
+  const { mutate, isPending } = useUpdateProjectMutation({ projectId, navigate });
 
   const handleForm = (formData: ProjectFormDataType) => {
     mutate({ projectId, formData });

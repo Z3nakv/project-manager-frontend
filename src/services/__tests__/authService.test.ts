@@ -13,6 +13,7 @@ import {
   googleAuth,
 } from '../authService';
 import { httpGet, httpPost } from '../../lib/http';
+  import { getAccessToken, setAccessToken } from '../../utils/auth';
 
 vi.mock('../../lib/http', () => ({
   httpGet: vi.fn(),
@@ -61,17 +62,23 @@ describe('authService', () => {
     });
   });
 
-  describe('authenticateUser', () => {
-    it('debe guardar el token en localStorage y devolverlo', async () => {
-      vi.mocked(httpPost).mockResolvedValue('jwt-token-real');
 
-      const result = await authenticateUser({ email: 'a@a.com', password: '123' } as any);
 
-      expect(httpPost).toHaveBeenCalledWith('/auth/login', { email: 'a@a.com', password: '123' });
-      expect(localStorage.getItem('AUTH_TOKEN_JWT')).toBe('jwt-token-real');
-      expect(result).toBe('jwt-token-real');
-    });
+describe('authenticateUser', () => {
+  beforeEach(() => {
+    setAccessToken(null); // limpia el estado en memoria entre tests
   });
+
+  it('debe guardar el accessToken en memoria y devolver los datos', async () => {
+    vi.mocked(httpPost).mockResolvedValue({ accessToken: 'jwt-token-real' });
+
+    const result = await authenticateUser({ email: 'a@a.com', password: '123' } as any);
+
+    expect(httpPost).toHaveBeenCalledWith('/auth/login', { email: 'a@a.com', password: '123' });
+    expect(getAccessToken()).toBe('jwt-token-real');
+    expect(result).toEqual({ accessToken: 'jwt-token-real' });
+  });
+});
 
   describe('forgotPassword', () => {
     it('debe devolver el mensaje al solicitar recuperación', async () => {

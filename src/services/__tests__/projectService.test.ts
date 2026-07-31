@@ -10,7 +10,7 @@ vi.mock('../../lib/http', () => ({
   httpDelete: vi.fn(),
 }));
 
-const mockUser = { _id: 'user-1', name: 'Adrian', email: 'adrian@test.com' };
+const mockUser = { _id: 'user-1', name: 'Adrian', avatar: 'https://image.com/avatar.png' };
 const mockedHttpGet = vi.mocked(httpGet);
 const mockedHttpPost = vi.mocked(httpPost);
 const mockedHttpPut = vi.mocked(httpPut);
@@ -62,10 +62,7 @@ describe('projectService', () => {
             name: 'Tarea',
             description: 'Desc',
             status: 'pending',
-            completedBy: [],
-            project: { team: [{ _id: 'user-1' }], manager: { _id: 'user-1' } },
             createdAt: '2026-07-27T00:00:00.000Z',
-            updatedAt: '2026-07-27T00:00:00.000Z',
           },
         ],
       };

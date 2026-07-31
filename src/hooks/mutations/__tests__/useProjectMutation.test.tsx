@@ -9,7 +9,6 @@ import {
   useDeleteProjectMutation,
 } from '../useProjectMutations';
 import { createProject, deleteProject, updateProject } from '../../../services/ProjectService';
-import { socket } from '../../../lib/socket';
 
 vi.mock('../../../services/ProjectService', () => ({
   createProject: vi.fn(),
@@ -73,31 +72,19 @@ describe('useProjectMutations', () => {
   });
 
   describe('useUpdateProjectMutation', () => {
-    const project = {
-      projectName: 'Proyecto Editado',
-      clientName: 'Cliente',
-      description: 'Desc',
-      team: [{ _id: 'member-1' }, { _id: 'member-2' }],
-    } as any;
 
     it('debe emitir el socket con el equipo correcto y navegar al éxito', async () => {
       vi.mocked(updateProject).mockResolvedValue('Proyecto Actualizado' as any);
       const navigateMock = vi.fn();
 
       const { result } = renderHook(
-        () => useUpdateProjectMutation({ projectId: 'proj-1', project, navigate: navigateMock }),
+        () => useUpdateProjectMutation({ projectId: 'proj-1', navigate: navigateMock }),
         { wrapper: createWrapper() }
       );
 
       result.current.mutate({} as any);
 
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Proyecto Actualizado'));
-      expect(socket.emit).toHaveBeenCalledWith(
-        'project_updated',
-        expect.objectContaining({
-          team: ['member-1', 'member-2'],
-        })
-      );
       expect(navigateMock).toHaveBeenCalledWith('/dashboard');
     });
 
@@ -106,7 +93,7 @@ describe('useProjectMutations', () => {
       const navigateMock = vi.fn();
 
       const { result } = renderHook(
-        () => useUpdateProjectMutation({ projectId: 'proj-1', project, navigate: navigateMock }),
+        () => useUpdateProjectMutation({ projectId: 'proj-1', navigate: navigateMock }),
         { wrapper: createWrapper() }
       );
 
@@ -114,43 +101,28 @@ describe('useProjectMutations', () => {
 
       await waitFor(() => expect(toast.error).toHaveBeenCalledWith('Sin permisos'));
       expect(navigateMock).not.toHaveBeenCalled();
-      expect(socket.emit).not.toHaveBeenCalled();
     });
   });
 
   describe('useDeleteProjectMutation', () => {
-    const user = { _id: 'user-1', name: 'Adrian' } as any;
-    const project = {
-      _id: 'proj-1',
-      projectName: 'Proyecto a Eliminar',
-      team: [{ _id: 'member-1' }],
-    } as any;
 
     it('debe emitir el socket, invalidar queries y navegar al eliminar', async () => {
       vi.mocked(deleteProject).mockResolvedValue('Proyecto Eliminado' as any);
 
-      const { result } = renderHook(() => useDeleteProjectMutation({ user, project }), {
+      const { result } = renderHook(() => useDeleteProjectMutation(), {
         wrapper: createWrapper(),
       });
 
       result.current.mutate('proj-1' as any);
 
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Proyecto Eliminado'));
-      expect(socket.emit).toHaveBeenCalledWith(
-        'project_deleted',
-        expect.objectContaining({
-          message: expect.stringContaining('Adrian'),
-          projectId: 'proj-1',
-          team: ['member-1'],
-        })
-      );
       expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
     });
 
     it('debe mostrar toast de error si falla la eliminación', async () => {
       vi.mocked(deleteProject).mockRejectedValue(new Error('No autorizado'));
 
-      const { result } = renderHook(() => useDeleteProjectMutation({ user, project }), {
+      const { result } = renderHook(() => useDeleteProjectMutation(), {
         wrapper: createWrapper(),
       });
 

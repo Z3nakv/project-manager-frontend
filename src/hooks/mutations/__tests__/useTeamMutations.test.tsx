@@ -92,10 +92,6 @@ describe('useTeamMutations', () => {
 
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Usuario agregado correctamente'));
 
-      expect(socket.emit).toHaveBeenCalledWith(
-        'member_added',
-        expect.objectContaining({ userId: 'user-1' })
-      );
       expect(mockReset).toHaveBeenCalledTimes(1);
       expect(mockNavigate).toHaveBeenCalled();
       expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['projects'] });
@@ -139,13 +135,6 @@ describe('useTeamMutations', () => {
 
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Usuario eliminado correctamente'));
 
-      expect(socket.emit).toHaveBeenCalledWith(
-        'member_removed',
-        expect.objectContaining({
-          message: expect.stringContaining('Adrian'),
-          userId: 'user-2',
-        })
-      );
       expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['projects'] });
       expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['projectTeam', 'proj-1'] });
       expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['project', 'proj-1'] });

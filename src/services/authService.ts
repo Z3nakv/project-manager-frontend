@@ -88,7 +88,7 @@ export const checkPassword = async (formData: checkPasswordForm) => {
 
 type GoogleAuthResponse = {
   user: User;
-  token: string;
+  accessToken: string;
 };
 
 export const googleAuth = async (googleToken: string) => {

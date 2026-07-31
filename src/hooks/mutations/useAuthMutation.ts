@@ -118,7 +118,7 @@ export const useGoogleAuthMutation = () => {
             toast.error(error.message);
         },
         onSuccess: (data) => {
-            setAccessToken(data.token);
+            setAccessToken(data.accessToken);
             queryClient.setQueryData(['user'], data.user);
             toast.success('Sesion iniciada correctamente');
             navigate('/dashboard',{ replace: true });

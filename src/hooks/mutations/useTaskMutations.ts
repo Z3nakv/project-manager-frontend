@@ -21,11 +21,6 @@ type useCreateTaskMutationProps = {
 
 type TaskMutationSuccessData = {
   message: string;
-  project: {
-    projectName: string;
-    projectTeam: string[];
-    projectId: string;
-  };
 };
 
 export const useCreateTaskMutation = ({

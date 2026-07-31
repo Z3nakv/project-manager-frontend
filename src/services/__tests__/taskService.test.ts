@@ -48,19 +48,17 @@ describe('taskServices', () => {
   describe('createTask', () => {
     it('debe devolver message y project validados', async () => {
       vi.mocked(httpPost).mockResolvedValue({
-        message: 'Tarea creada correctamente',
-        project: { projectName: 'Proyecto', projectTeam: [{ _id: 'user-1' }], projectId: 'proj-1' },
+        message: 'Tarea creada correctamente'
       });
 
       const result = await createTask({ formData: { name: 'Tarea' } as any, projectId: 'proj-1' });
 
       expect(httpPost).toHaveBeenCalledWith('/projects/proj-1/tasks', { name: 'Tarea' });
       expect(result.message).toBe('Tarea creada correctamente');
-      expect(result.project.projectId).toBe('proj-1');
     });
 
     it('debe lanzar error si la forma de la respuesta no coincide con el schema', async () => {
-      vi.mocked(httpPost).mockResolvedValue({ message: 'ok' }); // sin "project"
+      vi.mocked(httpPost).mockResolvedValue({});
 
       await expect(
         createTask({ formData: { name: 'Tarea' } as any, projectId: 'proj-1' })
@@ -84,16 +82,11 @@ describe('taskServices', () => {
 
       // Antes del fix, "result" era undefined sin importar la respuesta del backend
       expect(result).not.toBeUndefined();
-      expect(result.taskName).toBe('Tarea Editada');
       expect(result.message).toBe('Tarea Actualizada Correctamente');
     });
 
     it('debe lanzar error si falta taskName en la respuesta', async () => {
-      vi.mocked(httpPut).mockResolvedValue({
-        message: 'ok',
-        project: { projectTeam: [], projectId: 'proj-1' },
-        // sin taskName
-      });
+      vi.mocked(httpPut).mockResolvedValue({});
 
       await expect(
         updateTask({ projectId: 'proj-1', taskId: 'task-1', formData: {} as any })

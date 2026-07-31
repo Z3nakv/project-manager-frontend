@@ -23,7 +23,6 @@ export const useCreateProjectMutation = () => {
 
 type useEditProjectMutationProps = {
   projectId: string
-  /* project: EditProject */
   navigate: NavigateFunction
 }
 

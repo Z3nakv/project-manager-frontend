@@ -21,12 +21,7 @@ type CreateTaskdataProps = {
 }
 
 const createTaskResponse = z.object({
-    message: z.string(),
-    project: z.object({
-        projectName: z.string(),
-        projectTeam: z.array(z.string()),
-        projectId: z.string()
-    })
+    message: z.string()
 })
 export const createTask = async ({formData, projectId} : CreateTaskdataProps) => {
     const url = `/projects/${projectId}/tasks`
@@ -42,11 +37,6 @@ type UpdateTaskProps = {
 
 const updateTaskResponse = z.object({
     message: z.string(),
-    project: z.object({
-        projectTeam: z.array(z.string()),
-        projectId: z.string()
-    }),
-    taskName: z.string()
 })
 
 export const updateTask = async ({projectId, taskId, formData} : UpdateTaskProps) => {

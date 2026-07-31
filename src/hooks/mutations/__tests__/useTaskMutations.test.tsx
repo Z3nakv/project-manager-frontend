@@ -72,10 +72,7 @@ describe('useTaskMutations', () => {
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Tarea creada correctamente'));
       expect(mockReset).toHaveBeenCalledTimes(1);
       expect(mockNavigate).toHaveBeenCalled();
-      expect(socket.emit).toHaveBeenCalledWith(
-        'task_created',
-        expect.objectContaining({ message: expect.stringContaining('Proyecto Test') })
-      );
+      
     });
 
     it('debe mostrar un toast de error si createTask falla', async () => {
@@ -106,7 +103,6 @@ describe('useTaskMutations', () => {
       result.current.mutate({ name: 'Tarea' } as any);
 
       await waitFor(() => expect(toast.success).toHaveBeenCalled());
-      // Si esto no lanzó, el guard "if (reset) reset()" funciona correctamente
     });
   });
 
@@ -126,10 +122,6 @@ describe('useTaskMutations', () => {
       result.current.mutate({ name: 'Tarea Editada' } as any);
 
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Tarea actualizada'));
-      expect(socket.emit).toHaveBeenCalledWith(
-        'taskUpdated',
-        expect.objectContaining({ message: expect.stringContaining('Tarea Editada') })
-      );
     });
 
     it('debe mostrar un toast de error si falla (bug corregido — antes solo hacía console.log)', async () => {
@@ -154,31 +146,21 @@ describe('useTaskMutations', () => {
         user: {userName: 'Adrian', userId: 'user-1'}
       } as any);
 
-      const team = ['member-1', 'member-2'] as any;
       const { result } = renderHook(
-        () => useUpdateTaskStatusMutation({ projectId: 'proj-1', team }),
+        () => useUpdateTaskStatusMutation({ projectId: 'proj-1' }),
         { wrapper: createWrapper() }
       );
 
       result.current.mutate({ status: 'completed' } as any);
 
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Estado actualizado'));
-      expect(socket.emit).toHaveBeenCalledWith(
-        'task_status_update',
-        expect.objectContaining({
-          message: expect.stringContaining('Tarea X'),
-          projectId: 'proj-1',
-          team,
-          triggeredBy: 'user-1',
-        })
-      );
     });
 
     it('debe mostrar toast de error si falla', async () => {
       vi.mocked(updateStatus).mockRejectedValue(new Error('Status inválido'));
 
       const { result } = renderHook(
-        () => useUpdateTaskStatusMutation({ projectId: 'proj-1', team: [] as any }),
+        () => useUpdateTaskStatusMutation({ projectId: 'proj-1' }),
         { wrapper: createWrapper() }
       );
 
@@ -203,10 +185,6 @@ describe('useTaskMutations', () => {
       result.current.mutate('task-1' as any);
 
       await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Tarea eliminada'));
-      expect(socket.emit).toHaveBeenCalledWith(
-        'taskDeleted',
-        expect.objectContaining({ message: expect.stringContaining('Proyecto Test') })
-      );
     });
 
     it('debe mostrar toast de error si falla la eliminación', async () => {
