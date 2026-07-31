@@ -1,4 +1,6 @@
-import type { Task } from "../../../types/task";
+import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutations";
+import useProjectId from "../../../hooks/useProjectId";
+import type { Task, TaskStatus } from "../../../types/task";
 import TaskCardAttachments from "../TaskCard/TaskCardAttachments";
 import ActivityLog from "./ActivityLog";
 import StatusSelector from "./StatusSelector";
@@ -7,12 +9,18 @@ import ViewTaskModalHeader from "./ViewTaskModalHeader";
 
 type TaskModalMainBodyProps = {
     taskData: Task
-    handleUpdateStatus: (e: React.ChangeEvent<HTMLSelectElement, Element>) => void
     handleClose: () => void | Promise<void>
     taskId: string
 }
 
-const TaskModalMainBody = ( {taskData, handleUpdateStatus, handleClose, taskId}: TaskModalMainBodyProps ) => {
+const TaskModalMainBody = ( {taskData, handleClose, taskId}: TaskModalMainBodyProps ) => {
+  const projectId = useProjectId();
+  const { mutate } = useUpdateTaskStatusMutation({ projectId });
+  const handleUpdateStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const status = e.target.value as TaskStatus;
+    mutate({ projectId, taskId, status });
+  };
+  
   return (
     <div>
       <ViewTaskModalHeader taskData={taskData} handleClose={handleClose} />

@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { socket } from "../../lib/socket";
 import { useNavigate, type NavigateFunction } from "react-router";
 import { createProject, deleteProject, updateProject } from "../../services/ProjectService";
-import type { EditProject, ProjectItemType } from "../../types/project";
+import type { ProjectItemType } from "../../types/project";
 import type { User } from "../../types/user";
 
 export const useCreateProjectMutation = () => {
@@ -24,25 +23,18 @@ export const useCreateProjectMutation = () => {
 
 type useEditProjectMutationProps = {
   projectId: string
-  project: EditProject
+  /* project: EditProject */
   navigate: NavigateFunction
 }
 
-export const useUpdateProjectMutation = ({ projectId, project, navigate} : useEditProjectMutationProps) => {
-
+export const useUpdateProjectMutation = ({ projectId, navigate} : useEditProjectMutationProps) => {
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
       mutationFn: updateProject,
-
       onSuccess: (data) => {
         toast.success(data);
-        queryClient.invalidateQueries({queryKey: ['projects']})
-        queryClient.invalidateQueries({queryKey: ['editProject', projectId]})
-  
-        socket.emit("project_updated", {
-          message: `El proyecto "${project.projectName}" ha sido actualizado`,
-          team: project.team.map(memberId => memberId._id)
-        });
+        queryClient.invalidateQueries({queryKey: ['projects']});
+        queryClient.invalidateQueries({queryKey: ['editProject', projectId]});
         navigate("/dashboard");
       },
       onError: (error) => {
@@ -57,18 +49,12 @@ export type ProjectItemProps = {
   user: User;
 };
 
-export const useDeleteProjectMutation = ({ user, project } : ProjectItemProps) => {
+export const useDeleteProjectMutation = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
   const { mutate } = useMutation({
     mutationFn: deleteProject,
     onSuccess: (data) => {
-      socket.emit("project_deleted", {
-            message: `${user?.name} ha eliminado el proyecto ${project.projectName}`,
-            projectId: project._id,
-            team: project.team.map(memberId => memberId._id)
-        })
         queryClient.invalidateQueries({ queryKey: ["projects"] })
       toast.success(data);
       navigate("/dashboard");

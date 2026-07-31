@@ -1,10 +1,10 @@
-import type { User } from "../../../types/user";
+import type { projectTask } from "../../../types/task";
 
 type AssignTaskMembersProps = {
-  AssignedMembers: User[];
+  AssignedMembers: projectTask['assignedTo'];
 };
 const AssignTaskMembers = ({ AssignedMembers }: AssignTaskMembersProps) => {
-  const team = AssignedMembers.length!;
+  const team = AssignedMembers ? AssignedMembers.length : 0 ;
   return (
     <div className="flex -space-x-2 justify-end">
       {team

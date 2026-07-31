@@ -40,8 +40,8 @@ const ProjectDetailsView = () => {
   const { data: project, isError, isLoading, error, refetch } = useGetProjectById(projectId);
 
   const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
-  const team = project ? [...new Set([...project!.team.map((member) => member._id), project?.manager._id])!] : [];
-  const { isForbidden } = useForbidden();
+/*   const team = project ? [...new Set([...project!.team.map((member) => member._id), project?.manager._id])!] : [];
+ */  const { isForbidden } = useForbidden();
   if (isError) return <Navigate to={"/404"} />;
   return (
     <QueryStateWrapper
@@ -57,7 +57,9 @@ const ProjectDetailsView = () => {
           <div className="border-t border-[#2d3348] mt-6 mb-8" />
 
           <Suspense fallback={<TaskListSkeleton/>}>
-            <TaskList tasks={project.tasks} canEdit={canEdit} team={team} />
+            <TaskList tasks={project.tasks} canEdit={canEdit} 
+            /* team={team}  */
+            />
           </Suspense>
           
           {/* ── Modals ─────────────────────────────────────────── */}

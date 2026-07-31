@@ -15,17 +15,16 @@ import useProjectId from "../../../hooks/useProjectId";
 type TaskListProps = {
   tasks: TaskProjectType[];
   canEdit: boolean;
-  team: string[];
 };
 
-const TaskList = ({ tasks, canEdit, team }: TaskListProps) => {
+const TaskList = ({ tasks, canEdit }: TaskListProps) => {
   const projectId = useProjectId();
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
   const getTaskName = useCallback((task: TaskProjectType) => task.name, []);
   const { filteredItems } = useSearch(tasks, getTaskName);
   
-  const { mutate } = useUpdateTaskStatusMutation({projectId , team});
+  const { mutate } = useUpdateTaskStatusMutation({projectId});
 
   const handleDragEnd = (e: DragEndEvent) => {
 

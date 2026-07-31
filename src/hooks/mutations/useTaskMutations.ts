@@ -7,14 +7,12 @@ import {
 } from "../../services/taskServices";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { socket } from "../../lib/socket";
 import type { UseFormReset } from "react-hook-form";
 import type { Task, TaskFormType } from "../../types/task";
 import type {
   ProjectItemSchemaDetailsType,
   ProjectItemType,
 } from "../../types/project";
-import type { TeamMember } from "../../types/team";
 
 type useCreateTaskMutationProps = {
   reset?: UseFormReset<TaskFormType>;
@@ -25,7 +23,7 @@ type TaskMutationSuccessData = {
   message: string;
   project: {
     projectName: string;
-    projectTeam: { _id: string }[];
+    projectTeam: string[];
     projectId: string;
   };
 };
@@ -44,11 +42,6 @@ export const useCreateTaskMutation = ({
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       if (reset) reset();
       navigate(location.pathname, { replace: true });
-
-      socket.emit("task_created", {
-        message: `Tarea creada en proyecto ${data.project.projectName}`,
-        project: data.project,
-      });
     },
     onError: (error) => toast.error(error.message),
   });
@@ -71,10 +64,6 @@ export const useUpdateTaskMutation = ({
     mutationFn: updateTask,
     onSuccess: (data) => {
       toast.success(data.message);
-      socket.emit("taskUpdated", {
-        message: `Tarea "${data.taskName}" actualizada`,
-        project: data.project,
-      });
       queryClient.invalidateQueries({ queryKey: ["task", taskId] });
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       navigate(location.pathname, { replace: true });
@@ -86,11 +75,9 @@ export const useUpdateTaskMutation = ({
 
 type useUpdateTaskStatusMutationProps = {
   projectId: ProjectItemType["_id"];
-  team: TeamMember["_id"][];
 };
 export const useUpdateTaskStatusMutation = ({
   projectId,
-  team,
 }: useUpdateTaskStatusMutationProps) => {
   const queryClient = useQueryClient();
 
@@ -102,13 +89,6 @@ export const useUpdateTaskStatusMutation = ({
     onSuccess: (data) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
-
-      socket.emit("task_status_update", {
-        message: `${data.user?.userName} ha actualizado la tarea "${data.task.taskName}"`,
-        projectId,
-        team: team.map((member) => member),
-        triggeredBy: data.user.userId,
-      });
     },
   });
   return { mutate };
@@ -127,11 +107,6 @@ export const useDeleteTaskMutation = ({
     onSuccess: (data) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
-
-      socket.emit("taskDeleted", {
-        message: `Tarea eliminada en proyecto ${data.project.projectName}`,
-        project: data.project,
-      });
     },
     onError: (error) => toast.error(error.message),
   });

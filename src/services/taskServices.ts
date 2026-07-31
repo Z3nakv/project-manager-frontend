@@ -24,7 +24,7 @@ const createTaskResponse = z.object({
     message: z.string(),
     project: z.object({
         projectName: z.string(),
-        projectTeam: z.array(z.object({_id:z.string()})),
+        projectTeam: z.array(z.string()),
         projectId: z.string()
     })
 })
@@ -43,7 +43,7 @@ type UpdateTaskProps = {
 const updateTaskResponse = z.object({
     message: z.string(),
     project: z.object({
-        projectTeam: z.array(z.object({_id:z.string()})),
+        projectTeam: z.array(z.string()),
         projectId: z.string()
     }),
     taskName: z.string()

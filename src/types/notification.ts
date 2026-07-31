@@ -25,7 +25,7 @@ task: taskProjectSchema.pick({_id:true}).nullable(),
 triggeredBy: userSchema,
 type: notificationTypeSchema,
 updatedAt: string(),
-user: userSchema.pick({'_id':true}),
+user: userSchema.pick({_id:true}),
 _id: string()
 })
 

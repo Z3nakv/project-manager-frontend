@@ -24,7 +24,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
     <li
       ref={ref}
       className={`bg-[#1e2330] rounded-xl p-4 border 
-      border-[#2d3348] cursor-grab active:cursor-grabbing shadow-md 
+      border-[#2d3348] cursor-grab active:cursor-grabbing shadow-md
       hover:-translate-y-1 transition-transform duration-150
       ${isAssignedToMe ? 'border-indigo-500' : 'border-transparent'}`}>
       <TaskHeader taskName={task.name} taskDescription={task.description} taskId={task._id} canEdit={canEdit}/>

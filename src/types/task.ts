@@ -27,7 +27,19 @@ export const taskSchema = object({
     assignedTo: array(userSchema).min(0).optional()
 });
 
-export const taskProjectSchema = taskSchema.pick({
+export const projectTaskSchema = object({
+    _id: string(),
+    name: string(),
+    description: string(),
+    status: taskStatusSchema,
+    labels: array(labelSchema).optional(),
+    notes: array(noteSchema.pick({_id:true, completed:true, content:true})).optional(),
+    createdAt: string(),
+    deadline: string().optional().nullable(),
+    assignedTo: array(userSchema.pick({_id:true, name:true, avatar:true})).min(0).optional()
+})
+
+export const taskProjectSchema = projectTaskSchema.pick({
     _id: true,
     name: true,
     description: true,
@@ -39,6 +51,7 @@ export const taskProjectSchema = taskSchema.pick({
     assignedTo: true,
 });
 
+export type projectTask = z.infer<typeof projectTaskSchema>;
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
 export type Task = z.infer<typeof taskSchema>;
 export type TaskProjectType = z.infer<typeof taskProjectSchema>;

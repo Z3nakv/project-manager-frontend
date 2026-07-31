@@ -30,7 +30,7 @@ export type ProjectCardProps = {
 
 const ProjectCard = ({ project, user }: ProjectCardProps) => {
 
-  const { mutate } = useDeleteProjectMutation({ project, user });
+  const { mutate } = useDeleteProjectMutation();
 
   const userIsManager = isManager(project.manager._id, user._id);
   const team = [...project.team, project.manager];

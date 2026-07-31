@@ -6,10 +6,7 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import NotesPanel from "../../notes/NotesPanel";
-import { useUpdateTaskStatusMutation } from "../../../hooks/mutations/useTaskMutations";
-import { handleTeamMembers } from "./ViewTaskModal.config";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
-import type { TaskStatus } from "../../../types/task";
 import TaskModalMainBody from "./TaskModalMainBody";
 import useProjectId from "../../../hooks/useProjectId";
 import useShowModal from "../../../hooks/useShowModal";
@@ -19,14 +16,9 @@ const ViewTaskModal = () => {
   
   const { queryValue: taskId, showModal, handleClose } = useShowModal("viewTask");
   const {data: taskData, isError, error,} = useGetTaskData({ projectId, taskId });
-  const team = handleTeamMembers({ taskData });
-  const { mutate } = useUpdateTaskStatusMutation({ projectId, team });
   if (!showModal || !taskId) return null;
   if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
-  const handleUpdateStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const status = e.target.value as TaskStatus;
-    mutate({ projectId, taskId, status });
-  };
+  
   
   if (taskData)
     return (
@@ -64,7 +56,6 @@ const ViewTaskModal = () => {
                 >
                   <TaskModalMainBody
                     taskData={taskData}
-                    handleUpdateStatus={handleUpdateStatus}
                     handleClose={handleClose}
                     taskId={taskId}
                   />

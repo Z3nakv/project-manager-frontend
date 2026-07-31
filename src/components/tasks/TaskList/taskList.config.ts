@@ -21,15 +21,6 @@ export const statusConfig: StatusConfig = {
     completed: { label: "Completado", color: "#10b981", icon: "✓" },
 }
 
-/* export const taskReducer = (filteredItems) => {
-    const response = filteredItems.reduce((acc, task) => {
-    let currentGroup = acc[task.status] ? [...acc[task.status]] : [];
-    currentGroup = [...currentGroup, task];
-    return { ...acc, [task.status]: currentGroup };
-  }, initialStatusGroups);
-    return response;
-} */
-
 export const taskReducer =<T extends { _id: string; status: TaskStatus }>(tasks : T[]): StatusGroups<T>  => {
   const groups = structuredClone(initialStatusGroups) as StatusGroups<T>;
 

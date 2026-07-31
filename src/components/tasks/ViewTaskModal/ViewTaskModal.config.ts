@@ -1,16 +1,16 @@
-import type { Task } from "../../../types/task";
+import type { ProjectItemSchemaDetailsType } from "../../../types/project";
 
 type handleTeamMembersProps = {
-    taskData?: Task
+    project?: ProjectItemSchemaDetailsType
 }
 
-export const handleTeamMembers = ({taskData} : handleTeamMembersProps) =>  { 
-    if (!taskData) return [];
+export const handleTeamMembers = ({project} : handleTeamMembersProps) =>  { 
+    if (!project) return [];
     return [
     ...new Set([
-      ...(taskData?.project?.team?.map((member) => member._id) ?? []),
-      ...(taskData?.project?.manager?._id
-        ? [taskData.project.manager._id]
+      ...(project?.team?.map((member) => member._id) ?? []),
+      ...(project?.manager?._id
+        ? [project.manager._id]
         : []),
     ]),
   ]}

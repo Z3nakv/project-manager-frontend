@@ -8,9 +8,7 @@ export function registerTaskListeners (
     queryClient: QueryClient
 ) {
     const onTaskCreated = (data : {message:string, projectId:string}) => {
-
     toast.info(data.message);
-
     queryClient.invalidateQueries({
       queryKey: ["project", data.projectId],
     });
@@ -18,13 +16,8 @@ export function registerTaskListeners (
   };
 
   const onTaskUpdated = (data : {message:string, projectId: string}) => {
-
     toast.info(data.message);
-
-    queryClient.invalidateQueries({
-      queryKey: ["project", data.projectId],
-    });
-
+    queryClient.invalidateQueries({queryKey: ["project", data.projectId]});
   };
 
   const onTaskDeleted = (data : {message:string, projectId: string}) => {

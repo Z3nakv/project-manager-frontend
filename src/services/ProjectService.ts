@@ -1,9 +1,9 @@
 import { httpDelete, httpGet, httpPost, httpPut } from "../lib/http";
 import { parseOrThrow } from "../lib/parseOrThrow";
 import {
-  dashboardProjectSchema,
+  dashboardProjectsArraySchema,
   editProjectSchema,
-  projectItemSchemaDetailsById,
+  projectSchema,
   type ProjectFormDataType,
   type ProjectItemType,
 } from "../types/project";
@@ -11,7 +11,7 @@ import {
 export const getAllProjects = async () => {
   const url = "/projects";
   const projects = await httpGet<unknown>(url);
-  return parseOrThrow(dashboardProjectSchema, projects, "getAllProjects");
+  return parseOrThrow(dashboardProjectsArraySchema, projects, "getAllProjects");
 };
 
 type getProjectByIdProps = {
@@ -21,7 +21,7 @@ type getProjectByIdProps = {
 export const getProjectById = async ({projectId}: getProjectByIdProps) => {
   const url = `/projects/${projectId}`;
   const project = await httpGet<unknown>(url);
-  return parseOrThrow(projectItemSchemaDetailsById, project, "getProjectById");
+  return parseOrThrow(projectSchema, project, "getProjectById");
 };
 
 export const getEditProjectById = async ({projectId}: getProjectByIdProps) => {

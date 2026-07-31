@@ -1,20 +1,20 @@
 // NoteDetail.tsx
-import { useLocation, useParams } from "react-router";
+import { useLocation } from "react-router";
 import { TrashIcon, CheckIcon } from "@heroicons/react/20/solid";
 
 import { formatDate } from "../../utils";
 import { useDeleteNoteMutation, useUpdateNoteStatusMutation } from "../../hooks/mutations/useNotesMutation";
 import type { Note } from "../../types/note";
+import useProjectId from "../../hooks/useProjectId";
 
 type NoteDetailProps = {
   note: Note;
 };
 
 const NoteDetail = ({ note }: NoteDetailProps) => {
-  const params = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const projectId = params.projectId!;
+  const projectId = useProjectId();
   const taskId = queryParams.get("viewTask")!;
 
   const { isPending: isDeleteNotePending, handleDeleteNote } = useDeleteNoteMutation({

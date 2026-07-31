@@ -8,25 +8,13 @@ export function registerProjectListeners(
   queryClient: QueryClient
 ) {
 
-  const onProjectUpdated = (message: string) => {
-    
-    toast.info(message);
+  const onProjectUpdated = (data: {message:string}) => {
+    toast.info(data.message);
+    queryClient.invalidateQueries({queryKey: ["projects"]});};
 
-    queryClient.invalidateQueries({
-      queryKey: ["projects"],
-    });
-
-  };
-
-  const onProjectDeleted = (message : string) => {
-    
-    toast.info(message);
-
-    queryClient.invalidateQueries({
-      queryKey: ["projects"],
-    });
-
-  };
+  const onProjectDeleted = (data: {message:string}) => {
+    toast.info(data.message);
+    queryClient.invalidateQueries({queryKey: ["projects"]})};
 
   socket.on(
     SocketEvents.PROJECT_UPDATED,
