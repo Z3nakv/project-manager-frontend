@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getTaskAttachments } from "../AttachmentService";
 import { httpGet } from "../../lib/http";
