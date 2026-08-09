@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { User } from "../../../types/user";
 import { useAssignTaskMutation } from "../../../hooks/mutations/useAssignTaskMutation";
 
@@ -17,6 +17,13 @@ export default function AssignMembersForm({
 }: AssignTaskMembersProps) {
     const [selectedIds, setSelectedIds] = useState<string[]>(taskTeam);
     const mutation = useAssignTaskMutation({projectId, taskId});
+
+    const hasChanges = useMemo(() => {
+        if(selectedIds.length !== taskTeam.length) return true;
+
+        const original = new Set(taskTeam);
+        return selectedIds.some(id => !original.has(id));
+    }, [selectedIds, taskTeam]);
     
     const toggleMember = (userId: string) => {
         setSelectedIds(prev =>
@@ -54,7 +61,7 @@ export default function AssignMembersForm({
 
             <button
                 onClick={handleSubmit}
-                disabled={mutation.isPending}
+                disabled={!hasChanges || mutation.isPending}
                 className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-indigo-500/20 disabled:opacity-50"
             >
                 {mutation.isPending ? "Guardando..." : "Guardar asignación"}

@@ -4,7 +4,7 @@ type AssignTaskMembersProps = {
   AssignedMembers: projectTask['assignedTo'];
 };
 const AssignTaskMembers = ({ AssignedMembers }: AssignTaskMembersProps) => {
-  const team = AssignedMembers ? AssignedMembers.length : 0 ;
+  const team = AssignedMembers ? AssignedMembers.length : 0 ;  
   return (
     <div className="flex -space-x-2 justify-end">
       {team

@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { assignTask } from "../../services/assignTask";
 import type { assignTaskType } from "../../types/assignTaskSchema";
-import { socket } from "../../lib/socket";
 
 type AssignTaskMutationResponse = {
   message: string;
@@ -28,12 +27,6 @@ export const useAssignTaskMutation = ({
     onSuccess: (data: AssignTaskMutationResponse) => {
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       toast.success(data.message);
-      socket.emit("assignedTask", {
-        taskName: data.taskName,
-        projectName: data.projectName,
-        projectId: data.projectId,
-        userIds: data.userIds,
-      });
     },
     onError: (error) => toast.error(error.message),
   });

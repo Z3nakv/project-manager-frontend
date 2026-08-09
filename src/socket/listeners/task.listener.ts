@@ -45,16 +45,9 @@ export function registerTaskListeners (
   };
 
   const onTaskAssigned = (data: {message: string, projectId: string}) => {
-
     toast.info(data.message);
-
-    queryClient.invalidateQueries({
-      queryKey: ["notifications"],
-    });
-
-    queryClient.invalidateQueries({
-      queryKey: ["project", data.projectId],
-    });
+    queryClient.invalidateQueries({queryKey: ["notifications"]});
+    queryClient.invalidateQueries({queryKey: ["project", data.projectId]});
   }
 
   socket.on(

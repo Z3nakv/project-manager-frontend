@@ -1,16 +1,16 @@
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime"
 import AssignMembersForm from "./AssignMembersForm";
 import { useQueryClient } from "@tanstack/react-query";
 import type { ProjectItemSchemaDetailsType } from "../../../types/project";
+import useProjectId from "../../../hooks/useProjectId";
 
 const AssignMemberModal = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const params = useParams();
-    const projectId = params.projectId!;
+    const projectId = useProjectId();
     const queryClient = useQueryClient();
     const project = queryClient.getQueryData<ProjectItemSchemaDetailsType>(['project', projectId])!;
     const taskId = new URLSearchParams(location.search).get("viewAssignMember")!;
