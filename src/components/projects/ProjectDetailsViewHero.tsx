@@ -12,14 +12,14 @@ type ProjectDetailsViewHeroProps = {
 const ProjectDetailsViewHero = ({ projectName, description } : ProjectDetailsViewHeroProps) => {
   return (
     <>
-        <div className="flex justify-between md:justify-normal md:gap-5">
+        <div className="flex gap-5 justify-around md:justify-normal md:gap-5">
             <ButtonLink to={"/dashboard"} icon={ArrowLeftIcon}>
               Volver
             </ButtonLink>
 
             <div className="md:flex md:w-full md:items-center md:justify-around">
               <div className="mb-5">
-                <h1 className="text-3xl font-bold text-slate-100 wrap-break-word">
+                <h1 className="w-xs md:w-full text-3xl truncate font-bold text-slate-100">
                   {projectName}
                 </h1>
                 <p className="text-sm text-slate-400 mt-1 leading-relaxed">

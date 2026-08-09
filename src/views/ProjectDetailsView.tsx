@@ -25,7 +25,6 @@ const ProjectDetailsView = () => {
   const [, setSearchParams] = useSearchParams();
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [quantity, setQuantity] = useState(1);
-  
 
   const handleTaskPropsConfirm = (fields: string[], quantity: number) => {
     setSelectedFields(fields);
@@ -38,10 +37,8 @@ const ProjectDetailsView = () => {
   };
 
   const { data: project, isError, isLoading, error, refetch } = useGetProjectById(projectId);
-
   const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
-/*   const team = project ? [...new Set([...project!.team.map((member) => member._id), project?.manager._id])!] : [];
- */  const { isForbidden } = useForbidden();
+  const { isForbidden } = useForbidden();
   if (isError) return <Navigate to={"/404"} />;
   return (
     <QueryStateWrapper
@@ -57,9 +54,7 @@ const ProjectDetailsView = () => {
           <div className="border-t border-[#2d3348] mt-6 mb-8" />
 
           <Suspense fallback={<TaskListSkeleton/>}>
-            <TaskList tasks={project.tasks} canEdit={canEdit} 
-            /* team={team}  */
-            />
+            <TaskList tasks={project.tasks} canEdit={canEdit}/>
           </Suspense>
           
           {/* ── Modals ─────────────────────────────────────────── */}
@@ -68,10 +63,7 @@ const ProjectDetailsView = () => {
           <Suspense fallback={null}><EditTaskData /></Suspense>
           <Suspense fallback={null}><AssignMemberModal /></Suspense>
           <Suspense fallback={null}><SelectTaskPropsModal onConfirm={handleTaskPropsConfirm} /></Suspense>
-          <Suspense fallback={null}>
-            <AITaskSuggestions 
-            projectId={projectId} selectedFields={selectedFields} quantity={quantity}/>
-          </Suspense>
+          <Suspense fallback={null}><AITaskSuggestions projectId={projectId} selectedFields={selectedFields} quantity={quantity}/></Suspense>
           <Suspense fallback={null}><RemovedFromProjectModal show={isForbidden} /></Suspense>
           <Suspense fallback={null}><TaskAttachmentModal /></Suspense>
         </div>
