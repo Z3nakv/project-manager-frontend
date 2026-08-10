@@ -64,7 +64,7 @@ const TaskList = ({ tasks, canEdit }: TaskListProps) => {
       
       <HorizontalScroller>
         <DragDropProvider onDragEnd={handleDragEnd}>
-          <div className="flex gap-4 pb-4" style={{ minWidth: "max-content" }}>
+          <div className="flex gap-4 pb-4">
             {Object.entries(groupedTasks).map(([status, tasks]) => {
               const config = statusConfig[status];
 

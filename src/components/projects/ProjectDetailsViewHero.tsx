@@ -12,30 +12,30 @@ type ProjectDetailsViewHeroProps = {
 const ProjectDetailsViewHero = ({ projectName, description } : ProjectDetailsViewHeroProps) => {
   return (
     <>
-        <div className="flex gap-5 justify-around md:justify-normal md:gap-5">
-            <ButtonLink to={"/dashboard"} icon={ArrowLeftIcon}>
+        <div className="flex gap-5 justify-around md:justify-normal">
+            <ButtonLink to={"/dashboard"} icon={ArrowLeftIcon} classname="">
               Volver
             </ButtonLink>
 
-            <div className="md:flex md:w-full md:items-center md:justify-around">
-              <div className="mb-5">
-                <h1 className="w-xs md:w-full text-3xl truncate font-bold text-slate-100">
+            <div className="md:flex md:w-full md:justify-around md:items-center">
+              <div className="md:flex-col">
+                <h1 className="font-display capitalize w-xs md:w-full text-xl md:text-2xl lg:text-3xl truncate font-bold text-slate-100">
                   {projectName}
                 </h1>
-                <p className="text-sm text-slate-400 mt-1 leading-relaxed">
+                <p className="md:block hidden font-sans text-sm text-slate-400 mt-1 leading-relaxed">
                   {description}
                 </p>
               </div>
 
-              <div className="flex md:flex-col lg:flex-row justify-center gap-2 mb-8 md:mt-4">
+              <div className="hidden md:flex justify-center gap-2 mb-8 md:mt-4">
                 <Button query="?viewTaskProps=true" icon={HiSparkles}>
-                  <span className="hidden md:block">Sugerir tareas con IA</span>
+                  <span className="hidden lg:block">Crear tareas con IA</span>
                 </Button>
                 <Button query={"?newTask=true"} icon={PlusIcon}>
-                  <span className="hidden md:block">Agregar Tarea</span>
+                  <span className="hidden lg:block">Agregar Tarea</span>
                 </Button>
                 <ButtonLink to={"team"} icon={UsersIcon}>
-                  <span className="hidden md:block">Colaboradores</span>
+                  <span className="hidden lg:block">Colaboradores</span>
                 </ButtonLink>
               </div>
             </div>

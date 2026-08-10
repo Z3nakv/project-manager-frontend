@@ -11,7 +11,7 @@ const Button = ({ query, icon: Icon, children }: ButtonProps) => {
   return (
     <button
       onClick={() => navigate(location.pathname + `${query}`)}
-      className="cursor-pointer flex justify-center items-center w-full md:max-w-xs gap-2 bg-indigo-600 hover:bg-indigo-500
+      className="overflow-visible truncate font-sans cursor-pointer flex justify-center items-center w-full md:max-w-xs gap-2 bg-indigo-600 hover:bg-indigo-500
        text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors duration-150 shadow-md"
     >
       <Icon className="h-4 w-4" />

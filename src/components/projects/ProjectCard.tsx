@@ -50,10 +50,7 @@ const ProjectCard = ({ project, user }: ProjectCardProps) => {
 
   const upcomingDeadline = getDeadlineStatus(deadline)
   
-  const tasksByStatus = useMemo(
-      () => taskReducer(project.tasks),
-      [project.tasks]
-    );
+  const tasksByStatus = useMemo(() => taskReducer(project.tasks),[project.tasks]);
 
   return (
     <li className="bg-[#1e2330] rounded-xl p-4 border border-[#2d3348] shadow-md hover:-translate-y-1 transition-transform duration-150">
@@ -62,16 +59,16 @@ const ProjectCard = ({ project, user }: ProjectCardProps) => {
         <div className="h-full flex flex-col justify-between min-w-0 flex-1">
           <Link
             to={`/projects/${project._id}`}
-            className="text-base font-semibold text-slate-200 leading-snug hover:text-indigo-400 transition-colors duration-150 whitespace-nowrap"
+            className="capitalize font-display text-lg font-semibold tracking-tight text-slate-200 leading-snug hover:text-indigo-400 transition-colors duration-150 whitespace-nowrap"
           >
             {project.projectName}
           </Link>
 
-          <p className="text-xs font-medium text-indigo-400">
+          <p className="font-sans text-xs font-medium uppercase tracking-wide text-indigo-400">
             {project.clientName}
           </p>
 
-          <p className="text-[13px] text-slate-400 leading-relaxed line-clamp-2">
+          <p className="font-sans text-sm text-slate-400 leading-relaxed line-clamp-2">
             {project.description}
           </p>
 

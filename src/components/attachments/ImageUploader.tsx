@@ -1,6 +1,5 @@
-// components/attachments/ImageUploader.tsx
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react";
-import { PhotoIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { MdAddPhotoAlternate } from "react-icons/md";
 
 type ImageUploaderProps = {
   onFileSelect: (file: File | null) => void;
@@ -85,7 +84,7 @@ export default function ImageUploader({
             ${disabled ? "opacity-50 cursor-not-allowed" : "hover:border-indigo-500"}
           `}
         >
-          <PhotoIcon className="h-10 w-10 text-gray-500" />
+          <MdAddPhotoAlternate className="h-10 w-10 text-gray-500" />
           <p className="text-sm text-gray-400">
             <span className="text-indigo-400 font-medium">Haz clic para subir</span> o arrastra una imagen
           </p>
@@ -109,7 +108,7 @@ export default function ImageUploader({
             className="absolute top-2 right-2 rounded-full bg-black/70 p-1.5 text-white hover:bg-black/90 transition-colors"
             aria-label="Quitar imagen"
           >
-            <XMarkIcon className="h-4 w-4" />
+            <div className="h-4 w-4" >x</div>
           </button>
         </div>
       )}

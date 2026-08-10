@@ -1,38 +1,32 @@
-import { Link, Navigate, Outlet } from "react-router";
-import Logo from "../components/Logo";
-import NavMenu from "../components/NavMenu";
+import { Navigate, Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import SocketProvider from "../socket/SocketProvider";
 import "react-toastify/dist/ReactToastify.css";
-import SearchBar from "../components/SearchBar";
-import { lazy, Suspense } from "react";
-const NotificationCenter = lazy(() => import("../components/NotificationCenter"));
+import SideBarMenu from "../components/sidebar/SideBarMenu";
 
 const AppLayout = () => {
 
   const { data: user, isError, isLoading } = useAuth();
+
   if (isLoading) return "Cargando...";
   if (isError || !user) return <Navigate to="/" />;
   
   if (user) return (
-  <SocketProvider user={user}>
-      <div className="min-h-screen bg-[#151921] flex flex-col">
-        
-        {/* ── Header ─────────────────────────────────────────── */}
-        <header className="bg-[#1e2330] border-b border-[#2d3348] sticky top-0 z-20 shadow-[0_2px_16px_rgba(0,0,0,0.4)]">
-          <div className="relative max-w-screen-2xl mx-auto px-6 py-4 flex  justify-between items-center gap-4">
-            <div className="w-fit flex">
-              <Link to={"/dashboard"} className="cursor-pointer">
-                <Logo />
-              </Link>
-              <Suspense fallback={null}><NotificationCenter /></Suspense>
-            </div>
-            <SearchBar />
-            <NavMenu name={user.name} />
-          </div>
 
-        </header>
+  <SocketProvider user={user}>
+
+    <SideBarMenu />
+
+      <div className="ml-10 min-h-screen bg-[#151921] flex flex-col">
+        
+        
+       {/* <header className="bg-[#1e2330] ml-10 border-b border-[#2d3348] sticky top-0 z-20 shadow-[0_2px_16px_rgba(0,0,0,0.4)]">
+       <div className="relative max-w-screen-2xl mx-auto px-6 py-4 flex  justify-between items-center">
+            <SearchBar />
+          </div>  
+         </header>  */}
+        
 
         {/* ── Main content ───────────────────────────────────── */}
         <main className="flex-1 max-w-screen-2xl w-full mx-auto px-6 py-5">

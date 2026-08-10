@@ -40,6 +40,7 @@ const ProjectDetailsView = () => {
   const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
   const { isForbidden } = useForbidden();
   if (isError) return <Navigate to={"/404"} />;
+
   return (
     <QueryStateWrapper
       isLoading={isLoading || authLoading}
