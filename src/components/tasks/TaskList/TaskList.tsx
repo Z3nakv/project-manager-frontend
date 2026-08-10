@@ -62,16 +62,19 @@ const TaskList = ({ tasks, canEdit }: TaskListProps) => {
   return (
     <div className="mt-6">
       
-      <HorizontalScroller>
+      <HorizontalScroller className="snap-x snap-mandatory">
         <DragDropProvider onDragEnd={handleDragEnd}>
-          <div className="flex gap-4 pb-4">
+          <div 
+          className="flex gap-4 pb-4"
+          style={{ paddingInline: 'calc((100vw - 85vw) / 2)' }}
+          >
             {Object.entries(groupedTasks).map(([status, tasks]) => {
               const config = statusConfig[status];
 
               return (
                 <div
                   key={status}
-                  className="w-[85vw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0"
+                  className="w-[85vw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0 snap-center"
                 >
                   {/* Column header */}
                   <div className="flex items-center gap-2 mb-3 px-1">

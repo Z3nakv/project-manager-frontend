@@ -1,8 +1,3 @@
-import { ArrowLeftIcon, UsersIcon } from "@heroicons/react/20/solid"
-import ButtonLink from "../ui/ButtonLink"
-import Button from "../ui/Button"
-import { HiSparkles } from "react-icons/hi2"
-import PlusIcon from "../PlusIcon"
 
 type ProjectDetailsViewHeroProps = {
     projectName: string
@@ -13,9 +8,6 @@ const ProjectDetailsViewHero = ({ projectName, description } : ProjectDetailsVie
   return (
     <>
         <div className="flex gap-5 justify-around md:justify-normal">
-            <ButtonLink to={"/dashboard"} icon={ArrowLeftIcon} classname="">
-              Volver
-            </ButtonLink>
 
             <div className="md:flex md:w-full md:justify-around md:items-center">
               <div className="md:flex-col">
@@ -27,17 +19,6 @@ const ProjectDetailsViewHero = ({ projectName, description } : ProjectDetailsVie
                 </p>
               </div>
 
-              <div className="hidden md:flex justify-center gap-2 mb-8 md:mt-4">
-                <Button query="?viewTaskProps=true" icon={HiSparkles}>
-                  <span className="hidden lg:block">Crear tareas con IA</span>
-                </Button>
-                <Button query={"?newTask=true"} icon={PlusIcon}>
-                  <span className="hidden lg:block">Agregar Tarea</span>
-                </Button>
-                <ButtonLink to={"team"} icon={UsersIcon}>
-                  <span className="hidden lg:block">Colaboradores</span>
-                </ButtonLink>
-              </div>
             </div>
           </div>
     </>

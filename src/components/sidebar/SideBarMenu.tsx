@@ -32,13 +32,11 @@ const SideBarMenu = () => {
           <SearchBar />
           <NotificationCenter />
           {icons.map(({icon, query}) => (
-            <SidebarIcons icon={icon} query={query}  />
+            <SidebarIcons icon={icon} query={query} key={query}  />
           ))}
         </div>
 
-        <button>
-          <ProfileMenu name={user.name} />
-        </button>
+        <ProfileMenu name={user.name} />
 
       </div>
 
