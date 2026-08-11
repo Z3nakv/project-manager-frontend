@@ -1,4 +1,5 @@
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import { MdAddPhotoAlternate } from "react-icons/md";
 
 type ImageUploaderProps = {
@@ -77,18 +78,26 @@ export default function ImageUploader({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onClick={() => !disabled && inputRef.current?.click()}
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          onKeyDown={(e) => {
+            if (!disabled && (e.key === "Enter" || e.key === " ")) {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
           className={`
             flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed
             p-8 cursor-pointer transition-colors
-            ${isDragging ? "border-indigo-500 bg-indigo-500/10" : "border-gray-700 bg-[#0f1117]"}
-            ${disabled ? "opacity-50 cursor-not-allowed" : "hover:border-indigo-500"}
+            ${isDragging ? "border-indigo-500 bg-indigo-500/10" : "border-zinc-800 bg-[#0f1117]"}
+            ${disabled ? "opacity-50 cursor-not-allowed" : "hover:border-indigo-500/60"}
           `}
         >
-          <MdAddPhotoAlternate className="h-10 w-10 text-gray-500" />
-          <p className="text-sm text-gray-400">
+          <MdAddPhotoAlternate className="h-10 w-10 text-zinc-600" />
+          <p className="text-sm text-slate-400">
             <span className="text-indigo-400 font-medium">Haz clic para subir</span> o arrastra una imagen
           </p>
-          <p className="text-xs text-gray-600">PNG, JPG hasta {maxSizeMB}MB</p>
+          <p className="text-xs text-slate-600">PNG, JPG hasta {maxSizeMB}MB</p>
 
           <input
             ref={inputRef}
@@ -100,20 +109,31 @@ export default function ImageUploader({
           />
         </div>
       ) : (
-        <div className="relative rounded-lg overflow-hidden border border-gray-700">
-          <img src={preview} alt="Preview" className="w-full max-h-64 object-center" />
+        <div className="relative rounded-lg overflow-hidden border border-zinc-800">
+          <img src={preview} alt="Preview" className="w-full max-h-64 object-cover" />
+
+          {/* Dog-ear */}
+          <div
+            className="absolute top-0 right-0 w-0 h-0"
+            style={{
+              borderWidth: "0 24px 24px 0",
+              borderStyle: "solid",
+              borderColor: "transparent rgba(0,0,0,0.6) transparent transparent",
+            }}
+          />
+
           <button
             type="button"
             onClick={handleRemove}
-            className="absolute top-2 right-2 rounded-full bg-black/70 p-1.5 text-white hover:bg-black/90 transition-colors"
+            className="absolute top-2 right-2 rounded-full bg-black/70 p-1.5 text-white hover:bg-black/90 transition-colors cursor-pointer"
             aria-label="Quitar imagen"
           >
-            <div className="h-4 w-4" >x</div>
+            <XMarkIcon className="h-4 w-4" />
           </button>
         </div>
       )}
 
-      {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+      {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
     </div>
   );
 }
