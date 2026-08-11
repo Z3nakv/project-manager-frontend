@@ -1,3 +1,4 @@
+import { CalendarIcon, ClockIcon } from "@heroicons/react/20/solid";
 import type { Task } from "../../../types/task";
 import { formatDate } from "../../../utils";
 
@@ -5,20 +6,18 @@ type TimeStampsProps = {
   taskData: Task;
 };
 
-const TimeStamps = ({ taskData } : TimeStampsProps) => {
+const TimeStamps = ({ taskData }: TimeStampsProps) => {
   return (
-    <>
-      <div className="flex gap-4 mb-5">
-        <p className="text-xs text-slate-500">
-          Agregada el: {formatDate(taskData.createdAt)}
-          <span className="text-slate-400 ml-1">—</span>
-        </p>
-        <p className="text-xs text-slate-500">
-          Actualizada: {formatDate(taskData.updatedAt)}
-          <span className="text-slate-400 ml-1">—</span>
-        </p>
-      </div>
-    </>
+    <div className="flex gap-4 mb-5 font-mono text-xs text-slate-500">
+      <span className="flex items-center gap-1.5">
+        <CalendarIcon className="h-3.5 w-3.5 text-slate-600" />
+        Creada: {formatDate(taskData.createdAt)}
+      </span>
+      <span className="flex items-center gap-1.5">
+        <ClockIcon className="h-3.5 w-3.5 text-slate-600" />
+        Modificada: {formatDate(taskData.updatedAt)}
+      </span>
+    </div>
   );
 };
 

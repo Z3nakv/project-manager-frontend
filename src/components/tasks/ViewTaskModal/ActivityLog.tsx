@@ -6,42 +6,40 @@ type ActivityLogProps = {
 };
 
 const ActivityLog = ({ taskData }: ActivityLogProps) => {
-  return (
-    <>
-      {taskData.completedBy.length ? (
-        <div className="space-y-4">
-          <p className="font-bold text-2xl text-slate-600 my-5">
-            Historial de cambios
-          </p>
+  if (!taskData.completedBy.length) return null;
 
-          <ul
-            className="relative border-l-2 border-slate-300 max-h-48 overflow-y-auto
-                                          [&::-webkit-scrollbar]:w-1.5
-                                          [&::-webkit-scrollbar-track]:bg-transparent
-                                          [&::-webkit-scrollbar-thumb]:bg-[#2d3348]
-                                          [&::-webkit-scrollbar-thumb]:rounded-full
-                                          [&::-webkit-scrollbar-thumb:hover]:bg-[#3d4663]"
-          >
-            {taskData.completedBy.map((activityLog, index) => (
-              <li key={activityLog._id} className="mb-6 ml-13">
-                <div className="absolute left-3 w-6 h-6 bg-slate-500 rounded-full border-4 border-white flex items-center justify-center">
-                  <span className="text-xs text-white">{index + 1}</span>
-                </div>
-                <div className="text-sm">
-                  <span className="font-bold text-slate-600">
-                    {statusTranslations[activityLog.status]}
-                  </span>{" "}
-                  <span className="text-slate-500">por : </span>{" "}
-                  <span className="text-slate-500 font-black">
-                    {activityLog.user.name}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-    </>
+  return (
+    <div className="space-y-4">
+      <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mt-6 mb-3">
+        Historial de cambios
+      </p>
+
+      <ul
+        className="relative border-l border-zinc-800 max-h-48 overflow-y-auto pl-2
+          [&::-webkit-scrollbar]:w-1.5
+          [&::-webkit-scrollbar-track]:bg-transparent
+          [&::-webkit-scrollbar-thumb]:bg-[#2d3348]
+          [&::-webkit-scrollbar-thumb]:rounded-full
+          [&::-webkit-scrollbar-thumb:hover]:bg-[#3d4663]"
+      >
+        {taskData.completedBy.map((activityLog, index) => (
+          <li key={activityLog._id} className="mb-4 ml-4 relative">
+            <div className="absolute left-[-1.6rem] top-0.5 w-5 h-5 bg-[#161925] border border-zinc-800 rounded-full flex items-center justify-center">
+              <span className="text-[10px] font-mono text-slate-400">{index + 1}</span>
+            </div>
+            <div className="text-sm">
+              <span className="font-semibold text-slate-300">
+                {statusTranslations[activityLog.status]}
+              </span>{" "}
+              <span className="text-slate-500">por</span>{" "}
+              <span className="text-slate-400 font-medium">
+                {activityLog.user.name}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

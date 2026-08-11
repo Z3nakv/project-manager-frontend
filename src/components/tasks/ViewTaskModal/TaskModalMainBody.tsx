@@ -9,11 +9,10 @@ import ViewTaskModalHeader from "./ViewTaskModalHeader";
 
 type TaskModalMainBodyProps = {
     taskData: Task
-    handleClose: () => void | Promise<void>
     taskId: string
 }
 
-const TaskModalMainBody = ( {taskData, handleClose, taskId}: TaskModalMainBodyProps ) => {
+const TaskModalMainBody = ( {taskData, taskId}: TaskModalMainBodyProps ) => {
   const projectId = useProjectId();
   const { mutate } = useUpdateTaskStatusMutation({ projectId });
   const handleUpdateStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -23,7 +22,8 @@ const TaskModalMainBody = ( {taskData, handleClose, taskId}: TaskModalMainBodyPr
   
   return (
     <div>
-      <ViewTaskModalHeader taskData={taskData} handleClose={handleClose} />
+
+      <ViewTaskModalHeader taskData={taskData} />
 
       {/* Timestamps */}
       <TimeStamps taskData={taskData} />

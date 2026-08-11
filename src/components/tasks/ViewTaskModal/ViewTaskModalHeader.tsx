@@ -1,41 +1,30 @@
 import { DialogTitle } from "@headlessui/react";
 import { statusColors, statusTranslations } from "../../../constants/statusColors";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import type { Task } from "../../../types/task";
 
 type ViewTaskModalHeaderProps = {
   taskData: Task;
-  handleClose: () => void | Promise<void>
 };
 
-const ViewTaskModalHeader = ({ taskData, handleClose } : ViewTaskModalHeaderProps) => {
+const ViewTaskModalHeader = ({ taskData }: ViewTaskModalHeaderProps) => {
   return (
-    <>
-      <div className="flex items-start justify-between mb-6">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-2">
-            <span
-              className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full border ${statusColors[taskData.status]}`}
-            >
-              {statusTranslations[taskData.status]}
-            </span>
-          </div>
-          <DialogTitle
-            as="h3"
-            className="text-xl font-bold text-slate-100 wrap-break-words"
-          >
-            {taskData.name}
-          </DialogTitle>
-        </div>
+    <div className="relative mb-6">
+      
 
-        <button
-          onClick={handleClose}
-          className="cursor-pointer ml-4 p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 shrink-0"
+      <div className="flex items-center gap-2 mb-2">
+        <span
+          className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full border ${statusColors[taskData.status]}`}
         >
-          <XMarkIcon className="h-5 w-5" />
-        </button>
+          {statusTranslations[taskData.status]}
+        </span>
       </div>
-    </>
+      <DialogTitle
+        as="h3"
+        className="text-xl font-bold text-slate-100 wrap-break-words pr-8"
+      >
+        {taskData.name}
+      </DialogTitle>
+    </div>
   );
 };
 

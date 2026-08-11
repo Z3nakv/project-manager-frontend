@@ -8,6 +8,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import TaskHeader from "./TaskHeader/TaskHeader";
 import TaskCreatedAtAndDeadline from "./TaskCreatedAtAndDeadline/TaskCreatedAtAndDeadline";
 import React from "react";
+import DogEar from "../../DogEar";
 
 type TaskCardProps = {
   task: TaskProjectType;
@@ -28,10 +29,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
       ? "border-indigo-500 hover:border-indigo-400" 
       : "border-zinc-800 hover:border-indigo-500/40"
       }`}>
-      <div
-      className="absolute top-0 right-0 w-8 h-8 bg-[#252d3d] group-hover:bg-indigo-500/20 transition-colors border-l border-b border-zinc-800"
-      style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
-      />
+      <DogEar/>
       <TaskHeader taskName={task.name} taskDescription={task.description} taskId={task._id} canEdit={canEdit}/>
       <TaskCardAttachments taskId={task._id} />
       <TaskColorLabels taskLabels={task.labels} />

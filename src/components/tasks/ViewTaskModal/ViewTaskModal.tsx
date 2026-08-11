@@ -5,21 +5,30 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
+import { DocumentTextIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import NotesPanel from "../../notes/NotesPanel";
 import { useGetTaskData } from "../../../hooks/queries/useTaskQueries";
 import TaskModalMainBody from "./TaskModalMainBody";
 import useProjectId from "../../../hooks/useProjectId";
 import useShowModal from "../../../hooks/useShowModal";
+import DogEar from "../../DogEar";
 
 const ViewTaskModal = () => {
   const projectId = useProjectId();
-  
-  const { queryValue: taskId, showModal, handleClose } = useShowModal("viewTask");
-  const {data: taskData, isError, error,} = useGetTaskData({ projectId, taskId });
+
+  const {
+    queryValue: taskId,
+    showModal,
+    handleClose,
+  } = useShowModal("viewTask");
+  const {
+    data: taskData,
+    isError,
+    error,
+  } = useGetTaskData({ projectId, taskId });
   if (!showModal || !taskId) return null;
   if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
-  
-  
+
   if (taskData)
     return (
       <Transition appear show={showModal} as={Fragment}>
@@ -48,19 +57,37 @@ const ViewTaskModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel
-                  className="md:grid md:grid-cols-2 md:gap-5 max-w-sm m-auto md:max-w-3xl 
-                 max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto 
-                overflow-y-auto bg-[#1e2330] border border-[#2d3348] rounded-xl 
-                shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8"
-                >
-                  <TaskModalMainBody
-                    taskData={taskData}
-                    handleClose={handleClose}
-                    taskId={taskId}
-                  />
-                  <NotesPanel notes={taskData.notes} />
-                </DialogPanel>
+                {/* Wrapper de carpeta/archivo */}
+                <div className="relative pt-7 w-full max-w-sm md:max-w-3xl m-auto mt-30">
+                  {/* Pestaña tipo archivo */}
+                  <div className="absolute top-0 left-6 h-7 flex items-center gap-1.5 bg-[#0f1117] border border-zinc-800 border-b-0 rounded-t-md px-3.5">
+                    <DocumentTextIcon className="h-3.5 w-3.5 text-indigo-400" />
+                    <span className="font-mono text-xs text-slate-400">
+                      tarea.task
+                    </span>
+                  </div>
+
+                  {/* Botón cerrar, alineado a la misma altura que la pestaña */}
+                  <button
+                    onClick={handleClose}
+                    className="absolute top-1 right-0 cursor-pointer p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 z-10"
+                  >
+                    <XMarkIcon className="h-5 w-5" />
+                  </button>
+
+                  <DialogPanel
+                    className="relative md:grid md:grid-cols-2 md:gap-5
+                    max-h-[80vh] scrollbar-thumb-indigo-50 scrollbar-auto
+                    overflow-y-auto overflow-x-hidden bg-[#0f1117] border border-zinc-800
+                    rounded-tl-sm rounded-tr-2xl rounded-b-2xl
+                    shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8"
+                  >
+                    <DogEar/>
+
+                    <TaskModalMainBody taskData={taskData} taskId={taskId} />
+                    <NotesPanel notes={taskData.notes} />
+                  </DialogPanel>
+                </div>
               </TransitionChild>
             </div>
           </div>
