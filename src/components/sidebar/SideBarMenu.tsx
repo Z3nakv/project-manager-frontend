@@ -13,14 +13,14 @@ import SearchBar from "../SearchBar";
 
 const icons = [
   {icon:FaUsers, query:'team'}, 
-  {icon:FaPlusSquare, query:'?newTask=true'}, 
+  {icon:FaPlusSquare, query:'?newTask=true'},
   {icon:HiSparkles, query:'?viewTaskProps=true'}
 ] as const;
 
 const SideBarMenu = () => {
   const {data:user} = useAuth();
   if(user) return (
-    <div className="bg-[#151921] fixed left-0 top-0 z-100 h-dvh py-5 pb-10 px-1 shadow-3xl">
+    <div className="bg-[#151921] fixed left-0 top-0 z-100 h-dvh py-5 pb-10 pl-6 shadow-3xl">
 
       <div className="h-full flex flex-col justify-between items-center">
 

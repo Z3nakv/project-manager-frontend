@@ -31,7 +31,7 @@ const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
 
   return (
     <>
-      <Menu as="div" className="relative flex-none">
+      <Menu as="div" className="relative flex-none font-mono text-xs">
         <MenuButton className="p-1 rounded-md text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150">
           <EllipsisVerticalIcon
             className="cursor-pointer h-6 w-6"
@@ -49,12 +49,13 @@ const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
           leaveTo="transform opacity-0 scale-95"
         >
           <MenuItems className="absolute right-0 top-8 z-10 min-w-40 rounded-xl overflow-hidden border border-[#2d3348] bg-[#252d3d] shadow-[0_8px_24px_rgba(0,0,0,0.4)] focus:outline-none">
+            
             <MenuItem>
               <button
                 onClick={() =>
                   navigate(location.pathname + `?viewTask=${taskId}`)
                 }
-                className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
+                className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
               >
                 <EyeIcon className="h-4 w-4 text-slate-400" />
                 Ver tarea
@@ -70,7 +71,7 @@ const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
                     onClick={() =>
                       navigate(location.pathname + `?editTask=${taskId}`)
                     }
-                    className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
+                    className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
                   >
                     <PencilSquareIcon className="h-4 w-4 text-slate-400" />
                     Editar tarea
@@ -84,9 +85,9 @@ const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
                     onClick={() =>
                       navigate(location.pathname + `?viewAssignMember=${taskId}`)
                     }
-                    className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
+                    className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-slate-300 transition-colors duration-100 data-focus:bg-[#2d3a4f]"
                   >
-                    <UserGroupIcon className="h-6 w-6 text-gray-500" />
+                    <UserGroupIcon className="h-4 w-4 text-gray-500" />
                     Asignar
                   </button>
                 </MenuItem>
@@ -96,7 +97,7 @@ const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
                 <MenuItem>
                   <button
                     onClick={() => mutate({ projectId, taskId: taskId })}
-                    className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-400 transition-colors duration-100 data-focus:bg-red-500/10"
+                    className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-red-400 transition-colors duration-100 data-focus:bg-red-500/10"
                   >
                     <TrashIcon className="h-4 w-4" />
                     Eliminar tarea

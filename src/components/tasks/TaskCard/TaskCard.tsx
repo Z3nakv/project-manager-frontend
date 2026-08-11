@@ -23,10 +23,15 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
   return (
     <li
       ref={ref}
-      className={`bg-[#1e2330] rounded-xl p-4 border 
-      border-[#2d3348] cursor-grab active:cursor-grabbing shadow-md
-      hover:-translate-y-1 transition-transform duration-150
-      ${isAssignedToMe ? 'border-indigo-500' : 'border-transparent'}`}>
+      className={`font-mono relative bg-[#0f1117] border rounded-lg p-3 pt-2.5 hover:border-indigo-500/40 transition-colors cursor-pointer group
+      ${isAssignedToMe 
+      ? "border-indigo-500 hover:border-indigo-400" 
+      : "border-zinc-800 hover:border-indigo-500/40"
+      }`}>
+      <div
+      className="absolute top-0 right-0 w-8 h-8 bg-[#252d3d] group-hover:bg-indigo-500/20 transition-colors border-l border-b border-zinc-800"
+      style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
+      />
       <TaskHeader taskName={task.name} taskDescription={task.description} taskId={task._id} canEdit={canEdit}/>
       <TaskCardAttachments taskId={task._id} />
       <TaskColorLabels taskLabels={task.labels} />

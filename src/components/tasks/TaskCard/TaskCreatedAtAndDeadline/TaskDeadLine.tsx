@@ -13,7 +13,7 @@ const TaskDeadLine = ({ taskDeadline }: TaskDeadlineProps) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-amber-50">
             <ClockIcon className="h-5" />
-            <span className="text-xs">
+            <span className="text-xs truncate">
               {formatDate(taskDeadline)}
             </span>
           </div>

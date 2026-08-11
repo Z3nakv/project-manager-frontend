@@ -1,4 +1,3 @@
-// components/HorizontalScroller.tsx
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { useHorizontalScroll } from '../../hooks/useHorizontalScroll'
 
@@ -9,15 +8,15 @@ type HorizontalScrollerProps = {
 }
 
 const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) => {
-    const { scrollRef, scroll, canScrollLeft, canScrollRight } = useHorizontalScroll()    
+    const { scrollRef, scroll, canScrollLeft, canScrollRight } = useHorizontalScroll();
     return (
-        <div>
-            {/* Flechas - solo en mobile */}
-            <div className='relative md:hidden'>
+        <div className='relative'>
+            
+            <div className='md:hidden'>
                 {canScrollLeft ? (
                     <button
                         onClick={() => scroll('left')}
-                        className="absolute left-0 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                        className="absolute left-12 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
                     >
                         <ChevronLeftIcon className="h-5 w-5" />
                     </button>
@@ -26,7 +25,7 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
                 {canScrollRight ? (
                     <button
                         onClick={() => scroll('right')}
-                        className="absolute right-0 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                        className="absolute right-12 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
                     >
                         <ChevronRightIcon className="h-5 w-5" />
                     </button>
@@ -36,7 +35,7 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
             {/* Contenedor scrolleable */}
             <div
                 ref={scrollRef}
-                className={`overflow-x-auto -mx-6 px-6
+                className={`overflow-x-auto mx-6 px-6 @container
                     [&::-webkit-scrollbar]:h-1.5
                     [&::-webkit-scrollbar-track]:bg-transparent
                     [&::-webkit-scrollbar-thumb]:bg-[#2d3348]

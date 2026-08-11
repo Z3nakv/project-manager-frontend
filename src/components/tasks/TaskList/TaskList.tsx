@@ -23,12 +23,11 @@ const TaskList = ({ tasks, canEdit }: TaskListProps) => {
   const isMobile = useIsMobile();
   const getTaskName = useCallback((task: TaskProjectType) => task.name, []);
   const { filteredItems } = useSearch(tasks, getTaskName);
-  
-  const { mutate } = useUpdateTaskStatusMutation({projectId});
+
+  const { mutate } = useUpdateTaskStatusMutation({ projectId });
 
   const handleDragEnd = (e: DragEndEvent) => {
-
-    if(isMobile) return;
+    if (isMobile) return;
 
     const status = e.operation.target?.id as TaskStatus;
     const taskId = e.operation.source?.id.toString();
@@ -58,69 +57,66 @@ const TaskList = ({ tasks, canEdit }: TaskListProps) => {
   };
 
   const groupedTasks = taskReducer(filteredItems);
-  
-  return (
-    <div className="mt-6">
-      
-      <HorizontalScroller className="snap-x snap-mandatory">
-        <DragDropProvider onDragEnd={handleDragEnd}>
-          <div 
-          className="flex gap-4 pb-4"
-          style={{ paddingInline: 'calc((100vw - 85vw) / 2)' }}
-          >
-            {Object.entries(groupedTasks).map(([status, tasks]) => {
-              const config = statusConfig[status];
 
-              return (
-                <div
-                  key={status}
-                  className="w-[85vw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0 snap-center"
-                >
-                  {/* Column header */}
-                  <div className="flex items-center gap-2 mb-3 px-1">
-                    <span
-                      style={{ color: config.color }}
-                      className="text-base leading-none"
-                    >
-                      {config.icon}
-                    </span>
-                    <h3 className="text-sm font-semibold text-slate-300">
+  return (
+  <div>
+    <HorizontalScroller className="snap-x snap-mandatory">
+      <DragDropProvider onDragEnd={handleDragEnd}>
+        <div className="flex gap-4 pb-4 justify-center-safe" data-scroll-track>
+          {/* Spacer izquierdo */}
+          <div className="w-[7.5cqw] sm:w-0 shrink-0" aria-hidden="true" data-scroll-spacer="start"/>
+
+          {Object.entries(groupedTasks).map(([status, tasks]) => {
+            const config = statusConfig[status];
+
+            return (
+              <div
+                key={status}
+                data-scroll-column
+                className="w-[85cqw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0 snap-center"
+              >
+                <div className="flex items-center gap-2 font-mono text-sm">
+                  <div className="flex gap-2 items-center bg-[#161925] border border-indigo-500/30 border-b-0 rounded-t-lg px-4 pt-1.5 pb-1">
+                    <config.icon style={{ color: config.color }} className={"text-lg"} />
+                    <h3 className="font-semibold text-slate-300">
                       {config.label}
-                      <span className="ml-2 text-slate-500 font-normal">
-                        ({tasks.length})
-                      </span>
                     </h3>
                   </div>
 
-                  {/* Color bar */}
-                  <div
-                    className="h-0.5 rounded-full mb-4"
-                    style={{ background: config.color }}
-                  />
-
-                  {/* Drop zone */}
-                  <DropTask status={status} />
-
-                  {/* Cards */}
-                  <ul className="flex flex-col gap-3 mb-3 mt-3">
-                    {tasks.map((task) => (
-                      <TaskCard key={task._id} task={task} canEdit={canEdit} isMobile={isMobile} />
-                    ))}
-
-                    {tasks.length === 0 && (
-                      <li className="text-center text-slate-600 text-xs py-6 border border-dashed border-[#2d3348] rounded-xl">
-                        Sin tareas
-                      </li>
-                    )}
-                  </ul>
+                  <span className="text-slate-500">
+                    {tasks.length} tarea{tasks.length !== 1 ? "s" : ""}
+                  </span>
                 </div>
-              );
-            })}
-          </div>
-        </DragDropProvider>
-      </HorizontalScroller>
-    </div>
-  );
+
+                <DropTask status={status} />
+
+                <ul className="bg-[#161925] border border-indigo-500/30 rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2.5 min-h-30">
+                  {tasks.map((task) => (
+                    <TaskCard
+                      key={task._id}
+                      task={task}
+                      canEdit={canEdit}
+                      isMobile={isMobile}
+                    />
+                  ))}
+
+                  {tasks.length === 0 && (
+                    <li className="text-center text-slate-600 text-xs py-6 border border-dashed border-[#2d3348] rounded-xl">
+                      Sin tareas
+                    </li>
+                  )}
+                </ul>
+              </div>
+            );
+          })}
+
+          {/* Spacer derecho */}
+          <div className="w-[7.5cqw] sm:w-0 shrink-0" aria-hidden="true" data-scroll-spacer="end"/>
+        </div>
+      </DragDropProvider>
+    </HorizontalScroller>
+  </div>
+);
 };
 
 export default TaskList;

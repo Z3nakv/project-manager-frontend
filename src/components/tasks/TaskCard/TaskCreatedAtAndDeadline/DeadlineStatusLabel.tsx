@@ -11,7 +11,7 @@ const DeadlineStatusLabel = ({deadlineStatus} : DeadlineStatusLabelProps) => {
   
   if(deadlineStatus) return (
     <span
-      className={`relative flex items-center text-xs font-bold uppercase tracking-wide px-3 py-2 rounded-md border 
+      className={`relative flex items-center text-xs font-bold uppercase tracking-wide px-2 py-1 rounded-md border 
         ${deadlineStatus.bg} ${deadlineStatus.color}`}
     >
       {deadlineStatus.label === "Vence pronto" && (

@@ -35,7 +35,7 @@ const Logo = () => {
 
       {
 
-        <span className="hidden md:block text-lg font-extrabold tracking-tight text-slate-100 whitespace-nowrap">
+        <span className="hidden text-lg font-extrabold tracking-tight text-slate-100 whitespace-nowrap">
           Project <span className="text-indigo-400">Manager</span>
         </span>
       }

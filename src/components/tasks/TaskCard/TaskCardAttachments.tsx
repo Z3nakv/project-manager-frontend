@@ -26,7 +26,7 @@ const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
   }
 
   return (
-    <div className="my-3">
+    <div>
       {isLoading ? (
         <AttachmentsSkeleton />
       ) : (

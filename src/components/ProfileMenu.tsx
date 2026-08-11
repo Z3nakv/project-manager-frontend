@@ -30,7 +30,7 @@ export default function ProfileMenu({name} : NavMenuProps) {
 };
 
   return (
-    <Popover className="relative">
+    <Popover className="relative font-mono">
       <PopoverButton 
       className="inline-flex items-center gap-x-1 p-1.5 rounded-lg bg-[#2d3348] hover:bg-[#353d55] border border-[#3d4663] transition-colors duration-150 focus:outline-none"
       aria-label="menu"

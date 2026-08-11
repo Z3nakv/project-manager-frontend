@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         }),
       },
       {
-        path: "/projects/create-project",
+        path: "/dashboard/create-project",
         lazy: async () => ({
           Component: (await import("./views/CreateProjectView")).default,
           HydrateFallback: () => null,

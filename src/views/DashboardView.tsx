@@ -20,7 +20,7 @@ const DashboardView = () => {
   if (!filteredItems || !user) return <DashboardSkeleton />;
   
   return (
-    <div className="min-h-screen bg-[#151921] px-8 ">
+    <div className="min-h-screen bg-[#151921] px-8 font-mono">
       {/* ── Header ─────────────────────────────────────────── */}
       <div className="flex flex-col items-center justify-between mb-10 mt-5">
         <div className="flex flex-col items-center">
@@ -33,13 +33,13 @@ const DashboardView = () => {
           </p>
         </div>
 
-        <ButtonLink icon={PlusIcon} to={'/projects/create-project'} classname="bg-indigo-600 hover:bg-indigo-500 text-white mt-4">
+        <ButtonLink icon={PlusIcon} to={'/dashboard/create-project'} classname="bg-indigo-600 hover:bg-indigo-500 text-white mt-4">
           Nuevo Proyecto
         </ButtonLink>
       </div>
 
       {/* ── Section label ──────────────────────────────────── */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 ml-6">
         <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
           Proyectos activos
         </h2>

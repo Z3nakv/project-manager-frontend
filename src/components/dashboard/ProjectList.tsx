@@ -14,7 +14,7 @@ const ProjectList = ({ projects, user }: ProjectListProps) => {
     <>
     {projects?.length ? (
         <ul
-          className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]"
+          className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))] ml-6"
         >
           {projects.map((project) => (
             <ProjectCard key={project._id} project={project} user={user} />

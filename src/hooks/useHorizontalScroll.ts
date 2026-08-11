@@ -1,46 +1,57 @@
-// hooks/useHorizontalScroll.ts
 import { useRef, useState, useEffect } from 'react'
 
-export const useHorizontalScroll = (columnWidthRatio = 0.85) => {
-    const scrollRef = useRef<HTMLDivElement>(null)
-    const [scrollPosition, setScrollPosition] = useState(0)
-    const [maxScroll, setMaxScroll] = useState(0)
-
+export const useHorizontalScroll = () => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [maxScroll, setMaxScroll] = useState(0);
+    
     useEffect(() => {
-    const el = scrollRef.current
-    if(!el) return
+        const el = scrollRef.current
+        if (!el) return
+        
+        const taskListRealSize = el.offsetWidth - el.getBoundingClientRect().x
+        
+        const handleScroll = () => {
+            setScrollPosition(el.scrollLeft)
+            setMaxScroll(el.scrollWidth - taskListRealSize)
+        }
 
-    const handleScroll = () => {
-        setScrollPosition(el.scrollLeft)
-        setMaxScroll(el.scrollWidth - el.offsetWidth)
-    }
+        const resizeObserver = new ResizeObserver(() => {
+            setMaxScroll(el.scrollWidth - taskListRealSize)
+        })
 
-    const resizeObserver = new ResizeObserver(() => {
-        setMaxScroll(el.scrollWidth - el.offsetWidth)
-    })
+        el.addEventListener('scroll', handleScroll)
+        resizeObserver.observe(el)
 
-    el.addEventListener('scroll', handleScroll)
-    resizeObserver.observe(el)
-    setMaxScroll(el.scrollWidth - el.offsetWidth)
+        handleScroll()
 
-    return () => {
-        el.removeEventListener('scroll', handleScroll)
-        resizeObserver.disconnect()
-    }
-}, [])
+        return () => {
+            el.removeEventListener('scroll', handleScroll)
+            resizeObserver.disconnect()
+        }
+    }, [])
 
     const scroll = (direction: 'left' | 'right') => {
-    if(scrollRef.current) {
-        const columnWidth = window.innerWidth * columnWidthRatio + 16
-        scrollRef.current.scrollBy({
-            left: direction === 'right' ? columnWidth : -columnWidth,
-            behavior: 'smooth'
-        })
-    }
+    const el = scrollRef.current
+    if (!el) return
+
+    const firstColumn = el.querySelector<HTMLElement>('[data-scroll-column]')
+    if (!firstColumn) return
+
+    const track = el.querySelector<HTMLElement>('[data-scroll-track]')
+    const gap = track ? parseFloat(window.getComputedStyle(track).columnGap) || 16 : 16
+
+    const columnWidth = firstColumn.offsetWidth + gap
+
+    el.scrollBy({
+        left: direction === 'right' ? columnWidth : -columnWidth,
+        behavior: 'smooth'
+    })
 }
 
-    const canScrollLeft = scrollPosition > 0
-    const canScrollRight = scrollPosition < maxScroll
+    const SCROLL_THRESHOLD = 8
+    const canScrollLeft = scrollPosition > SCROLL_THRESHOLD
+    const canScrollRight = scrollPosition < maxScroll - SCROLL_THRESHOLD
 
     return { scrollRef, scroll, canScrollLeft, canScrollRight }
 }

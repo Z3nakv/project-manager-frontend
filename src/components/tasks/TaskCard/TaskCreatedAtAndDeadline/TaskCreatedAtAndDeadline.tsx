@@ -15,8 +15,8 @@ const TaskCreatedAtAndDeadline = ({
 }: TaskCreatedAtAndDeadlineProps) => {
   const deadlineStatus = getDeadlineStatus(deadline!)!;
     return (
-      <div className="flex justify-between gap-1.5 mb-3">
-        <div className="flex gap-5">
+      <div className="flex justify-between gap-1.5">
+        <div className="flex gap-2">
           <TaskCreatedAt taskCreatedAt={createdAt} />
           <TaskDeadLine taskDeadline={deadline} />
         </div>
