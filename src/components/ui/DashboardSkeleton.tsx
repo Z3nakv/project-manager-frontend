@@ -5,7 +5,7 @@ const SkeletonBlock = ({ className }: { className?: string }) => (
 )
 
 const ProjectCardSkeleton = () => (
-    <div className="bg-[#1e2330] border border-[#2d3348] rounded-xl p-5 space-y-3">
+    <div className="bg-[#0f1117] border border-[#2d3348] rounded-xl p-5 space-y-3">
         <div className="flex justify-between items-start">
             <SkeletonBlock className="h-5 w-40 rounded-md" />
             <SkeletonBlock className="h-5 w-5 rounded-md shrink-0" />
@@ -17,7 +17,7 @@ const ProjectCardSkeleton = () => (
 )
 
 const DashboardSkeleton = () => (
-    <div>
+    <div className="ml-12 mr-8">
         {/* Header - centrado */}
         <div className="flex flex-col items-center gap-3 mb-10 text-center">
             <SkeletonBlock className="h-3 w-24 rounded-md" />

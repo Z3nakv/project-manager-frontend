@@ -1,11 +1,10 @@
-// components/ui/ProjectDetailsSkeleton.tsx
 
 const SkeletonBlock = ({ className }: { className?: string }) => (
     <div className={`animate-pulse bg-[#2d3348] rounded-lg ${className}`} />
 )
 
 const TaskCardSkeleton = () => (
-    <li className="bg-[#1e2330] rounded-xl p-4 border border-[#2d3348] space-y-3">
+    <li className="bg-[#0f1117] h-50 rounded-xl p-4 border border-[#2d3348] space-y-3 mx-10">
         <div className="flex justify-between items-start">
             <SkeletonBlock className="h-4 w-40 rounded-md" />
             <SkeletonBlock className="h-5 w-5 rounded-md shrink-0" />
@@ -27,18 +26,10 @@ const TaskCardSkeleton = () => (
     </li>
 )
 
-const ColumnSkeleton = ({ color }: { color: string }) => (
-    <div className="w-[85vw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0">
-        {/* Column header */}
-        <div className="flex items-center gap-2 mb-3 px-1">
-            <div className="w-3 h-3 rounded-full shrink-0" style={{ background: color }} />
-            <SkeletonBlock className="h-3.5 w-24 rounded-md" />
-            <SkeletonBlock className="h-3 w-6 rounded-md ml-1" />
-        </div>
-        {/* Color bar */}
-        <div className="h-0.5 rounded-full mb-4" style={{ background: color }} />
+const ColumnSkeleton = () => (
+    <div className="w-[75vw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0">
         {/* Drop zone */}
-        <SkeletonBlock className="h-10 w-full rounded-lg mb-3 border border-dashed border-[#2d3348] bg-transparent" />
+        <SkeletonBlock className="hidden h-10 w-full rounded-lg mb-3 border border-dashed border-[#2d3348] bg-transparent" />
         {/* Cards */}
         <ul className="flex flex-col gap-3">
             <TaskCardSkeleton />
@@ -50,42 +41,31 @@ const ColumnSkeleton = ({ color }: { color: string }) => (
 const columnColors = ['#6366f1', '#f59e0b', '#ef4444', '#0ea5e9', '#10b981']
 
 const ProjectDetailsSkeleton = () => (
+    <div className="ml-12 mr-10">
     <div className="min-h-screen bg-[#151921]">
-        {/* Back link */}
-        <SkeletonBlock className="h-9 w-24 rounded-xl mb-6" />
 
         {/* Title block */}
         <div className="mb-5 space-y-2">
-            <SkeletonBlock className="h-3 w-16 rounded-md" />
             <SkeletonBlock className="h-8 w-64 rounded-md" />
-            <SkeletonBlock className="h-3.5 w-72 rounded-md" />
-        </div>
-
-        {/* Action buttons */}
-        <div className="flex gap-2 mb-8">
-            <SkeletonBlock className="h-10 w-36 rounded-xl" />
-            <SkeletonBlock className="h-10 w-36 rounded-xl" />
         </div>
 
         {/* Divider */}
         <div className="border-t border-[#2d3348] mb-8" />
 
-        {/* Tasks label */}
-        <SkeletonBlock className="h-3 w-14 rounded-md mb-5" />
-
         {/* Mobile arrows */}
         <div className="flex justify-between items-center mb-3 md:hidden">
-            <div />
+            <SkeletonBlock className="h-9 w-9 rounded-lg" />
             <SkeletonBlock className="h-3 w-32 rounded-md" />
             <SkeletonBlock className="h-9 w-9 rounded-lg" />
         </div>
 
         {/* Columns */}
-        <div className="flex gap-4 overflow-hidden">
-            {columnColors.map((color, i) => (
-                <ColumnSkeleton key={i} color={color} />
+        <div className="flex gap-4">
+            {columnColors.map(( i) => (
+                <ColumnSkeleton key={i} />
             ))}
         </div>
+    </div>
     </div>
 )
 

@@ -6,7 +6,6 @@ import { QueryStateWrapper } from "../components/ui/QueryStateWrapper";
 import ProjectDetailsViewHero from "../components/projects/ProjectDetailsViewHero";
 import ProjectDetailsSkeleton from "../components/ui/ProjectDetailsSkeleton";
 import TaskList from "../components/tasks/TaskList";
-import TaskListSkeleton from "../components/TaskListSkeleton";
 import useProjectId from "../hooks/useProjectId";
 import { useGetProjectById } from "../hooks/queries/useProjectQueries";
 
@@ -40,7 +39,7 @@ const ProjectDetailsView = () => {
   const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
   const { isForbidden } = useForbidden();
   if (isError) return <Navigate to={"/404"} />;
-
+  
   return (
     <QueryStateWrapper
       isLoading={isLoading || authLoading}
@@ -54,9 +53,9 @@ const ProjectDetailsView = () => {
           <ProjectDetailsViewHero projectName={project.projectName} description={project.description} />
           <div className="border-t border-[#2d3348] mt-6 mb-8 max-w-xs m-auto" />
 
-          <Suspense fallback={<TaskListSkeleton/>}>
+          {/* <Suspense fallback={<TaskListSkeleton/>}> */}
             <TaskList tasks={project.tasks} canEdit={canEdit}/>
-          </Suspense>
+          {/* </Suspense> */}
           
           {/* ── Modals ─────────────────────────────────────────── */}
           <Suspense fallback={null}><ViewTaskModal /></Suspense>

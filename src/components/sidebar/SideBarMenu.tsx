@@ -12,7 +12,7 @@ import ProfileMenu from "../ProfileMenu";
 import SearchBar from "../SearchBar";
 
 const icons = [
-  {icon:FaUsers, query:'team'}, 
+  {icon:FaUsers, query:'/team'}, 
   {icon:FaPlusSquare, query:'?newTask=true'},
   {icon:HiSparkles, query:'?viewTaskProps=true'}
 ] as const;

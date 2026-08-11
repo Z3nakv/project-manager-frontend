@@ -18,7 +18,7 @@ const DashboardView = () => {
   if (isLoading || authLoading) return <DashboardSkeleton />;
   if (isError) return <p>Hubo un error</p>;
   if (!filteredItems || !user) return <DashboardSkeleton />;
-  
+
   return (
     <div className="min-h-screen bg-[#151921] px-8 font-mono">
       {/* ── Header ─────────────────────────────────────────── */}
