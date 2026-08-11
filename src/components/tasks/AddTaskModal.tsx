@@ -21,9 +21,8 @@ export default function AddTaskModal() {
 
   return (
     <Transition appear show={showModal} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={handleClose}>
+      <Dialog as="div" className="relative z-200" onClose={handleClose}>
 
-        {/* Backdrop */}
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
@@ -66,7 +65,7 @@ export default function AddTaskModal() {
 
                   <button
                     onClick={handleClose}
-                    className="p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150"
+                    className=" cursor-pointer p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150"
                   >
                     <XMarkIcon className="h-5 w-5" />
                   </button>

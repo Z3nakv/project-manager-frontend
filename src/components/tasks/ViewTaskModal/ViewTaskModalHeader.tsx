@@ -30,9 +30,9 @@ const ViewTaskModalHeader = ({ taskData, handleClose } : ViewTaskModalHeaderProp
 
         <button
           onClick={handleClose}
-          className="ml-4 p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 shrink-0"
+          className="cursor-pointer ml-4 p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 shrink-0"
         >
-          <XMarkIcon className="cursor-pointer h-5 w-5" />
+          <XMarkIcon className="h-5 w-5" />
         </button>
       </div>
     </>

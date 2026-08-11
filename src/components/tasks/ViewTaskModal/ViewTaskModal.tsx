@@ -23,7 +23,7 @@ const ViewTaskModal = () => {
   if (taskData)
     return (
       <Transition appear show={showModal} as={Fragment}>
-        <Dialog as="div" className="relative z-30" onClose={handleClose}>
+        <Dialog as="div" className="relative z-200" onClose={handleClose}>
           {/* Backdrop */}
           <TransitionChild
             as={Fragment}
@@ -49,8 +49,8 @@ const ViewTaskModal = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel
-                  className="md:grid md:grid-cols-2 md:gap-5 w-full md:max-w-3xl 
-                max-w-md max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto 
+                  className="md:grid md:grid-cols-2 md:gap-5 max-w-sm m-auto md:max-w-3xl 
+                 max-h-[80vh] mt-30 scrollbar-thumb-indigo-50 scrollbar-auto 
                 overflow-y-auto bg-[#1e2330] border border-[#2d3348] rounded-xl 
                 shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8"
                 >

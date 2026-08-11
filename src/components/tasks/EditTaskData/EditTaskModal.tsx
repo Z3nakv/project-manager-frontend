@@ -32,9 +32,8 @@ const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
 
   return (
     <Transition appear show={true} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={handleClose}>
+      <Dialog as="div" className="relative z-200" onClose={handleClose}>
 
-        {/* Backdrop */}
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100"
@@ -50,7 +49,6 @@ const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
               enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100"
               leave="ease-in duration-200"  leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95"
             >
-              {/* <DialogPanel className="w-full max-w-lg bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8"> */}
               <DialogPanel className="w-full max-w-lg max-h-[80vh] mt-30 overflow-y-auto scrollbar-thumb-indigo-50 scrollbar-auto bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">
@@ -69,7 +67,7 @@ const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
 
                   <button
                     onClick={handleClose}
-                    className="ml-4 p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 shrink-0"
+                    className="cursor-pointer ml-4 p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 shrink-0"
                   >
                     <XMarkIcon className="h-5 w-5" />
                   </button>

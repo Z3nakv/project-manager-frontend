@@ -13,6 +13,11 @@ const SidebarIcons = ({icon: Icon, query}: SidebarIconsProps) => {
   ? '/create-project' : query
   : query
   
+  if(location.pathname === '/dashboard'){
+    if(query === '/team') return
+    if(query === '?viewTaskProps=true') return;
+  }
+  
   return (
       <Link to={`${location.pathname}${query}`} >
         <Icon className="h-5 w-5 cursor-pointer text-[#506497] hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150" />
