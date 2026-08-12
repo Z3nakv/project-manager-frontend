@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUser, refreshAccessToken } from "../services/authService";
-import { setAccessToken } from "../utils/auth";
+import { getAccessToken, setAccessToken } from "../utils/auth";
 
 const getCurrentUser = async () => {
   try {
-    const { accessToken } = await refreshAccessToken(); // intenta renovar usando la cookie
-    setAccessToken(accessToken); // lo guarda en memoria para que el interceptor lo use
+    if (!getAccessToken()) {
+      // Solo refresca si NO hay token en memoria (ej. recarga de página, pestaña nueva)
+      const { accessToken } = await refreshAccessToken();
+      setAccessToken(accessToken);
+    } // lo guarda en memoria para que el interceptor lo use
     return await getUser(); // ahora sí, con el token recién puesto, pide el usuario
   } catch {
     setAccessToken(null);
@@ -19,6 +22,8 @@ export const useAuth = () => {
         queryFn: getCurrentUser,
         retry: 1,
         refetchOnWindowFocus: false,
+        staleTime: 1000 * 60, // 1 minuto — evita refetch inmediato tras setQueryData manual
+
     });
     return { data, isError, isLoading, error };
 }
