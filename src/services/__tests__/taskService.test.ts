@@ -51,9 +51,9 @@ describe('taskServices', () => {
         message: 'Tarea creada correctamente'
       });
 
-      const result = await createTask({ formData: { name: 'Tarea' } as any, projectId: 'proj-1' });
+      const result = await createTask({ formData: { name: 'Tarea' } as any, projectId: 'proj-1', idempotencyKey:"abc-123" });
 
-      expect(httpPost).toHaveBeenCalledWith('/projects/proj-1/tasks', { name: 'Tarea' });
+      expect(httpPost).toHaveBeenCalledWith('/projects/proj-1/tasks', { name: 'Tarea' },{ headers: { 'Idempotency-Key': 'abc-123' } });
       expect(result.message).toBe('Tarea creada correctamente');
     });
 
@@ -61,7 +61,7 @@ describe('taskServices', () => {
       vi.mocked(httpPost).mockResolvedValue({});
 
       await expect(
-        createTask({ formData: { name: 'Tarea' } as any, projectId: 'proj-1' })
+        createTask({ formData: { name: 'Tarea' } as any, projectId: 'proj-1', idempotencyKey:'123' })
       ).rejects.toThrow('Los datos de "createTask" no tienen el formato esperado.');
     });
   });
