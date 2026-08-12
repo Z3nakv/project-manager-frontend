@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import SocketProvider from "../socket/SocketProvider";
 import "react-toastify/dist/ReactToastify.css";
 import SideBarMenu from "../components/sidebar/SideBarMenu";
+import Breadcrumbs from "../components/breadcrumbs/Breadcrumbs";
 
 const AppLayout = () => {
   const { data: user, isError, isLoading } = useAuth();
@@ -14,11 +15,15 @@ const AppLayout = () => {
   if (user)
     return (
       <SocketProvider user={user}>
-
+        
         <div className="min-h-screen bg-[#151921] flex ">
           <SideBarMenu />
           <div className="flex-1 flex flex-col min-w-0">
+
+            
+
             <main className="flex-1 max-w-screen-2xl w-full mx-auto pl-6 py-5">
+              <Breadcrumbs />
               <Outlet />
             </main>
 

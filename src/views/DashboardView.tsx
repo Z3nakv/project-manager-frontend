@@ -15,6 +15,7 @@ const DashboardView = () => {
   useQuery({queryKey: ["projects"], queryFn: getAllProjects, staleTime: 1000 * 60 * 5});
   const getProjectName = useCallback((data: ProjectItemType) => data.projectName,[]);
   const { filteredItems } = useSearch(projects, getProjectName);
+  
   if (isLoading || authLoading) return <DashboardSkeleton />;
   if (isError) return <p>Hubo un error</p>;
   if (!filteredItems || !user) return <DashboardSkeleton />;
@@ -37,6 +38,7 @@ const DashboardView = () => {
           Nuevo Proyecto
         </ButtonLink>
       </div>
+
 
       {/* ── Section label ──────────────────────────────────── */}
       <div className="flex items-center justify-between mb-4 ml-6">

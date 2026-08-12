@@ -8,16 +8,18 @@ import type { TaskFormType } from "../../types/task";
 import useProjectId from "../../hooks/useProjectId";
 import useShowModal from "../../hooks/useShowModal";
 import DogEar from "../DogEar";
+import { useState } from "react";
 
 export default function AddTaskModal() {
+  const [idempotencyKey, setIdempotencyKey] = useState(() => crypto.randomUUID());
   const projectId = useProjectId();
   const initialValues: TaskFormType = { name: "", description: "" };
   const { showModal, handleClose } = useShowModal("newTask");
   const { register, handleSubmit, formState: { errors }, reset, control } = useForm({ defaultValues: initialValues });
-  const { mutate } = useCreateTaskMutation({ reset, projectId });
+  const { mutate } = useCreateTaskMutation({ reset, projectId, onSuccess: () => setIdempotencyKey(crypto.randomUUID()) });
+
   const handleCreateTask = (formData: TaskFormType) => {
-    mutate({ formData, projectId });
-    reset();
+    mutate({ formData, projectId, idempotencyKey });
   };
 
   return (
@@ -84,6 +86,7 @@ export default function AddTaskModal() {
 
                   {/* Form */}
                   <form noValidate onSubmit={handleSubmit(handleCreateTask)} className="space-y-6">
+
                     <TaskForm errors={errors} register={register} control={control} taskId={''} />
 
                     <button

@@ -18,14 +18,17 @@ export const getProjectTaskById = async ({ projectId, taskId } : TaskDataProps) 
 type CreateTaskdataProps = {
     formData: TaskFormType
     projectId: ProjectItemType['_id'] 
+    idempotencyKey: string
 }
 
 const createTaskResponse = z.object({
     message: z.string()
 })
-export const createTask = async ({formData, projectId} : CreateTaskdataProps) => {
+export const createTask = async ({formData, projectId, idempotencyKey} : CreateTaskdataProps) => {
     const url = `/projects/${projectId}/tasks`
-    const data = await httpPost<unknown>(url, formData);
+    const data = await httpPost<unknown>(url, formData, {
+        headers: { "Idempotency-Key": idempotencyKey }
+    });
     return parseOrThrow(createTaskResponse, data, "createTask")
 }
 

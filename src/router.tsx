@@ -1,9 +1,11 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, type Params } from "react-router";
 import DashboardView from "./views/DashboardView";
 import LandingView from "./views/LandingView";
 import ProjectDetailsSkeleton from "./components/ui/ProjectDetailsSkeleton";
 import EditProjectSkeleton from "./components/ui/EditProjectSkeleton";
 import ProjectTeamSkeleton from "./components/ui/ProjectTeamSkeleton";
+import TaskList from "./components/tasks/TaskList";
+import { ProjectCrumb } from "./components/breadcrumbs/ProjectCrumb";
 
 const router = createBrowserRouter([
   {
@@ -13,12 +15,14 @@ const router = createBrowserRouter([
   {
     lazy: async () => ({
       Component: (await import("./layout/AppLayout")).default,
-      HydrateFallback: () => null, // o un spinner/skeleton de layout completo
+      HydrateFallback: () => null,
     }),
     children: [
       {
         path: "/dashboard",
         Component: DashboardView,
+        index: true,
+        handle: { crumb: () => "Mis Proyectos" },
       },
       {
         path: "/projects/:projectId",
@@ -26,6 +30,25 @@ const router = createBrowserRouter([
           Component: (await import("./views/ProjectDetailsView")).default,
           HydrateFallback: ProjectDetailsSkeleton,
         }),
+        handle: {
+          crumb: (params: Params) => <ProjectCrumb projectId={params.projectId!} />,
+        },
+        children: [
+          {
+            index: true,
+            Component: TaskList,
+          },
+          {
+            path: "/projects/:projectId/team",
+            lazy: async () => ({
+              Component: (await import("./views/ProjectTeamView")).default,
+              HydrateFallback: ProjectTeamSkeleton,
+            }),
+            handle: {
+              crumb: () => "Equipo",
+            },
+          },
+        ],
       },
       {
         path: "/dashboard/create-project",
@@ -39,13 +62,6 @@ const router = createBrowserRouter([
         lazy: async () => ({
           Component: (await import("./views/EditProjectView")).default,
           HydrateFallback: EditProjectSkeleton,
-        }),
-      },
-      {
-        path: "/projects/:projectId/team",
-        lazy: async () => ({
-          Component: (await import("./views/ProjectTeamView")).default,
-          HydrateFallback: ProjectTeamSkeleton,
         }),
       },
       {
@@ -118,16 +134,16 @@ const router = createBrowserRouter([
   },
   {
     lazy: async () => ({
-    Component: (await import("./layout/AuthLayout")).default,
-    HydrateFallback: () => null,
-  }),
+      Component: (await import("./layout/AuthLayout")).default,
+      HydrateFallback: () => null,
+    }),
     children: [
       {
-      path: "*",
-      lazy: async () => ({
-        Component: (await import("./views/404/NotFound")).default,
-        HydrateFallback: () => null,
-      }),
+        path: "*",
+        lazy: async () => ({
+          Component: (await import("./views/404/NotFound")).default,
+          HydrateFallback: () => null,
+        }),
       },
     ],
   },

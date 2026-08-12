@@ -20,7 +20,7 @@ const icons = [
 const SideBarMenu = () => {
   const {data:user} = useAuth();
   if(user) return (
-    <div className="bg-[#151921] fixed left-0 top-0 z-100 h-dvh py-5 pb-10 pl-6 shadow-3xl">
+    <div className="bg-[#151921] fixed left-0 top-0 z-200 h-dvh py-5 pb-10 pl-6 shadow-3xl">
 
       <div className="h-full flex flex-col justify-between items-center">
 

@@ -9,23 +9,22 @@ import { statusConfig, taskReducer } from "./taskList.config";
 import useSearch from "../../../hooks/useSearch";
 import type { TaskProjectType, TaskStatus } from "../../../types/task";
 import type { ProjectItemSchemaDetailsType } from "../../../types/project";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import useProjectId from "../../../hooks/useProjectId";
+import { useGetProjectById } from "../../../hooks/queries/useProjectQueries";
+import { useAuth } from "../../../hooks/useAuth";
 
-type TaskListProps = {
-  tasks: TaskProjectType[];
-  canEdit: boolean;
-};
-
-const TaskList = ({ tasks, canEdit }: TaskListProps) => {
+const TaskList = () => {
   const projectId = useProjectId();
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
-  const getTaskName = useCallback((task: TaskProjectType) => task.name, []);
-  const { filteredItems } = useSearch(tasks, getTaskName);
-
+  const { data: user} = useAuth();
+  const { data: project } = useGetProjectById(projectId);
   const { mutate } = useUpdateTaskStatusMutation({ projectId });
-
+  const getTaskName = useCallback((task: TaskProjectType) => task.name, []);
+  const { filteredItems } = useSearch(project!.tasks, getTaskName);
+  const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
+  
   const handleDragEnd = (e: DragEndEvent) => {
     if (isMobile) return;
 

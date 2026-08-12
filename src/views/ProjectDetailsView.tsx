@@ -1,11 +1,10 @@
-import { Navigate, useSearchParams } from "react-router";
-import { lazy, Suspense, useMemo, useState } from "react";
+import { Navigate, Outlet, useSearchParams } from "react-router";
+import { lazy, Suspense, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useForbidden } from "../hooks/useForbidden";
 import { QueryStateWrapper } from "../components/ui/QueryStateWrapper";
 import ProjectDetailsViewHero from "../components/projects/ProjectDetailsViewHero";
 import ProjectDetailsSkeleton from "../components/ui/ProjectDetailsSkeleton";
-import TaskList from "../components/tasks/TaskList";
 import useProjectId from "../hooks/useProjectId";
 import { useGetProjectById } from "../hooks/queries/useProjectQueries";
 
@@ -19,7 +18,7 @@ const SelectTaskPropsModal = lazy(() => import("../components/tasks/SelectTaskPr
 const AITaskSuggestions = lazy(() => import("../components/tasks/AITasksSuggestions").then(m => ({default: m.AITaskSuggestions})));
 
 const ProjectDetailsView = () => {
-  const { data: user, isLoading: authLoading} = useAuth();
+  const { isLoading: authLoading} = useAuth();
   const projectId = useProjectId();
   const [, setSearchParams] = useSearchParams();
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
@@ -36,7 +35,7 @@ const ProjectDetailsView = () => {
   };
 
   const { data: project, isError, isLoading, error, refetch } = useGetProjectById(projectId);
-  const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
+  /* const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]); */
   const { isForbidden } = useForbidden();
   if (isError) return <Navigate to={"/404"} />;
   
@@ -53,9 +52,7 @@ const ProjectDetailsView = () => {
           <ProjectDetailsViewHero projectName={project.projectName} description={project.description} />
           <div className="border-t border-[#2d3348] mt-6 mb-8 max-w-xs m-auto" />
 
-          {/* <Suspense fallback={<TaskListSkeleton/>}> */}
-            <TaskList tasks={project.tasks} canEdit={canEdit}/>
-          {/* </Suspense> */}
+          <Outlet/>
           
           {/* ── Modals ─────────────────────────────────────────── */}
           <Suspense fallback={null}><ViewTaskModal /></Suspense>

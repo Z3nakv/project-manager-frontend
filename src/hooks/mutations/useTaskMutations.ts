@@ -17,6 +17,7 @@ import type {
 type useCreateTaskMutationProps = {
   reset?: UseFormReset<TaskFormType>;
   projectId: ProjectItemType["_id"];
+  onSuccess: () => void;
 };
 
 type TaskMutationSuccessData = {
@@ -26,6 +27,7 @@ type TaskMutationSuccessData = {
 export const useCreateTaskMutation = ({
   reset,
   projectId,
+  onSuccess: onSuccessCallback
 }: useCreateTaskMutationProps) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -37,6 +39,7 @@ export const useCreateTaskMutation = ({
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       if (reset) reset();
       navigate(location.pathname, { replace: true });
+      onSuccessCallback?.();
     },
     onError: (error) => toast.error(error.message),
   });
