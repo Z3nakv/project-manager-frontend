@@ -17,7 +17,7 @@ import type {
 type useCreateTaskMutationProps = {
   reset?: UseFormReset<TaskFormType>;
   projectId: ProjectItemType["_id"];
-  onSuccess: () => void;
+  onSuccess?: () => void;
 };
 
 type TaskMutationSuccessData = {
