@@ -7,11 +7,13 @@ import SideBarMenu from "../components/sidebar/SideBarMenu";
 import Breadcrumbs from "../components/breadcrumbs/Breadcrumbs";
 
 const AppLayout = () => {
-  const { data: user, isError, isLoading } = useAuth();
+  const { data: user, isError, isLoading, isFetching } = useAuth();
 
   if (isLoading) return "Cargando...";
-  if (isError || !user) return <Navigate to="/" />;
-
+  if (isError) return <Navigate to="/" />;
+  if (!user && !isFetching) return <Navigate to="/" />; // sin usuario Y sin fetch en curso
+  if (!user) return "Cargando..."; // sin usuario pero todavía resolviendo, no rebotes aún
+  
   if (user)
     return (
       <SocketProvider user={user}>

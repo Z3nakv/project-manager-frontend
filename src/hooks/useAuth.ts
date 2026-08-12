@@ -17,7 +17,7 @@ const getCurrentUser = async () => {
 };
 
 export const useAuth = () => {
-    const { data, isError, isLoading, error } = useQuery({
+    const { data, isError, isLoading, error, isFetching } = useQuery({
         queryKey: ['user'],
         queryFn: getCurrentUser,
         retry: 1,
@@ -25,5 +25,5 @@ export const useAuth = () => {
         staleTime: 1000 * 60, // 1 minuto — evita refetch inmediato tras setQueryData manual
 
     });
-    return { data, isError, isLoading, error };
+    return { data, isError, isLoading, error, isFetching };
 }
