@@ -4,8 +4,8 @@ import LandingView from "./views/LandingView";
 import ProjectDetailsSkeleton from "./components/ui/ProjectDetailsSkeleton";
 import EditProjectSkeleton from "./components/ui/EditProjectSkeleton";
 import ProjectTeamSkeleton from "./components/ui/ProjectTeamSkeleton";
-import TaskList from "./components/tasks/TaskList";
 import { ProjectCrumb } from "./components/breadcrumbs/ProjectCrumb";
+import TaskListSkeleton from "./components/TaskListSkeleton";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +36,10 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: TaskList,
+            lazy: async () => ({
+              Component: ((await import("./components/tasks/TaskList")).default),
+              HydrateFallback: TaskListSkeleton
+            })
           },
           {
             path: "/projects/:projectId/team",

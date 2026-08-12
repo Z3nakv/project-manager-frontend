@@ -1,7 +1,7 @@
-import { defineConfig } from 'vitest/config'
-import react, { reactCompilerPreset } from '@vitejs/plugin-react'
-import babel from '@rolldown/plugin-babel'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vitest/config";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import babel from "@rolldown/plugin-babel";
+import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
@@ -21,19 +21,23 @@ export default defineConfig({
       output: {
         codeSplitting: {
           groups: [
-            { name: 'vendor-dndkit', test: /\/node_modules\/@dnd-kit/ },
-            { name: 'vendor-tanstack', test: /\/node_modules\/@tanstack/ },
-            { name: 'vendor-ui', test: /\/node_modules\/@headlessui/ },
-            { name: 'vendor-react', test: /\/node_modules\/(react|react-dom|react-router)/ },
-            { name: 'vendor', test: /\/node_modules\// }, // catch-all para el resto
+            { name: "vendor-dndkit", test: /\/node_modules\/@dnd-kit/ },
+            { name: "vendor-tanstack", test: /\/node_modules\/@tanstack/ },
+            { name: "vendor-ui", test: /\/node_modules\/@headlessui/ },
+            { name: "vendor-react", test: /\/node_modules\/(react|react-dom|react-router)/,},
+            { name: "vendor", test: /\/node_modules\// }, // catch-all para el resto
+            { name: "vendor-http", test: /\/node_modules\/axios/ },
+            { name: "vendor-chakra", test: /\/node_modules\/@chakra-ui/ },
+            { name: "vendor-validator", test: /\/node_modules\/zod/ },
+            { name: "vendor", test: /\/node_modules\// },
           ],
         },
       },
     },
   },
   test: {
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.ts',
-    globals: true
-  }
-})
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+    globals: true,
+  },
+});

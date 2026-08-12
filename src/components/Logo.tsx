@@ -4,6 +4,9 @@ const Logo = () => {
     
       <img 
       src="/icons/apple-touch-icon.png"
+      width={36}
+      height={36}
+      alt="Logo de Project Manager"
       className="flex items-center justify-center w-9 h-9 rounded-lg shadow-md shrink-0"
       />
 
