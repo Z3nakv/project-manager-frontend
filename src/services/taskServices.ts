@@ -18,7 +18,7 @@ export const getProjectTaskById = async ({ projectId, taskId } : TaskDataProps) 
 type CreateTaskdataProps = {
     formData: TaskFormType
     projectId: ProjectItemType['_id'] 
-    idempotencyKey: string
+    idempotencyKey?: string
 }
 
 const createTaskResponse = z.object({

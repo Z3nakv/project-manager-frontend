@@ -62,8 +62,10 @@ describe('useTaskMutations', () => {
         project: { _id: 'proj-1', projectName: 'Proyecto Test' },
       } as any);
 
+      const mockOnSuccess = vi.fn();
+
       const { result } = renderHook(
-        () => useCreateTaskMutation({ reset: mockReset, projectId: 'proj-1' }),
+        () => useCreateTaskMutation({ reset: mockReset, projectId: 'proj-1', onSuccess: mockOnSuccess}),
         { wrapper: createWrapper() }
       );
 
