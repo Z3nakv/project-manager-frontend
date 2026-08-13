@@ -5,6 +5,7 @@ import { useClearAllMutation, useMarkAsReadMutation } from "../hooks/mutations/u
 import { useGetNotificationsQuery } from "../hooks/queries/useNotificationQueries";
 import type { Notification } from "../types/notification";
 import { Popover, PopoverButton, PopoverPanel, Transition } from "@headlessui/react";
+import { getColor } from "../utils/getColor";
 
 const NotificationCenter = () => {
   const navigate = useNavigate();
@@ -14,17 +15,6 @@ const NotificationCenter = () => {
   const { mutate: clearMutate } = useClearAllMutation();
 
   const unread = notifications.filter((n: Notification) => !n.read).length;
-  
-  const getColor = (id: string) => {
-    const colors = [
-        'bg-indigo-500/20 text-indigo-300',
-        'bg-emerald-500/20 text-emerald-300',
-        'bg-amber-500/20 text-amber-300',
-        'bg-red-500/20 text-red-300',
-    ]
-    const index = id.charCodeAt(0) % colors.length
-    return colors[index]
-}
   
   return (
     <Popover className="relative">

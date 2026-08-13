@@ -21,7 +21,7 @@ const TaskModalMainBody = ( {taskData, taskId}: TaskModalMainBodyProps ) => {
   };
   
   return (
-    <div>
+    <div className="font-mono">
 
       <ViewTaskModalHeader taskData={taskData} />
 

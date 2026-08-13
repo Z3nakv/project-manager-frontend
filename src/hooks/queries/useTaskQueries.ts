@@ -8,7 +8,7 @@ type useGetTaskDataProps = {
 
 export const useGetTaskData = ({ projectId, taskId } : useGetTaskDataProps) => {
     return useQuery({
-    queryKey: ["task",projectId, taskId],
+    queryKey: ["task", projectId, taskId],
     queryFn: () => getProjectTaskById({ 
       projectId, 
       taskId: taskId as string

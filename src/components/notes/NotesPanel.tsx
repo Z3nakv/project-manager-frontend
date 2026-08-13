@@ -14,13 +14,13 @@ const NotesPanel = ({ notes }: NotesPanelProps) => {
   const visibleNotes = showAll ? notes : notes?.slice(0, VISIBLE_NOTES)
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 font-mono">
       <AddNoteForm />
 
-      <div className="mt-8">
+      <div className="mt-3">
         {notes?.length ? (
           <>
-            <p className="font-bold text-base text-slate-300 mb-4">
+            <p className="font-bold text-base text-slate-300 mb-3">
               Notas:{" "}
               <span className="text-slate-500 font-normal text-sm">
                 ({notes.length})
