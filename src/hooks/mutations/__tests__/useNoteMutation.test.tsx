@@ -70,7 +70,7 @@ describe("useNoteMutations", () => {
         queryKey: ["project", "proj-1"],
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: ["task", "task-1"],
+        queryKey: ["task", "proj-1","task-1"],
       });
     });
 
@@ -130,7 +130,7 @@ describe("useNoteMutations", () => {
         expect.anything(),
       );
       expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: ["task", "task-1"],
+        queryKey: ["task", "proj-1", "task-1"],
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: ["project", "proj-1"],
@@ -233,7 +233,7 @@ describe("useNoteMutations", () => {
       );
       expect(updateNoteStatus).toHaveBeenCalledWith(
         { projectId: "proj-1", taskId: "task-1", noteId: "note-1" },
-        expect.anything(), // 👈 fix 1: segundo argumento de contexto de React Query
+        expect.anything(), 
       );
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: ["notifications"],
