@@ -1,4 +1,3 @@
-// ProfileView.tsx
 import { useAuth } from "../../hooks/useAuth";
 import ProfileForm from "../../components/profile/ProfileForm";
 

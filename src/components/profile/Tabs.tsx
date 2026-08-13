@@ -15,7 +15,7 @@ export default function Tabs() {
     <div className="mb-8">
 
       {/* Mobile select */}
-      <div className="sm:hidden">
+      <div className="sm:hidden mr-10">
         <select
           id="tabs"
           name="tabs"
