@@ -3,8 +3,8 @@ import { formatDate } from "../../utils";
 import type { Note } from "../../types/note";
 import useProjectId from "../../hooks/useProjectId";
 import { getColor } from "../../utils/getColor";
-import UpdateNoteStatusButton from "./UpdatenoteStatusButton";
 import DeleteNoteButton from "./DeleteNoteButton";
+import UpdateNoteStatusButton from "./UpdateNoteStatusButton";
 
 type NoteDetailProps = {
   note: Note;
