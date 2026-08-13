@@ -72,7 +72,7 @@ const TaskList = () => {
               <div
                 key={status}
                 data-scroll-column
-                className="w-[85cqw] sm:w-72 2xl:w-auto 2xl:flex-1 flex flex-col shrink-0 snap-center"
+                className="w-[85cqw] sm:w-72 2xl:w-auto 2xl:flex-1 2xl:min-w-72 flex flex-col shrink-0 snap-center"
               >
                 <div className="flex items-center gap-2 font-mono text-sm">
                   <div className="flex gap-2 items-center bg-[#161925] border border-indigo-500/30 border-b-0 rounded-t-lg px-4 pt-1.5 pb-1">
