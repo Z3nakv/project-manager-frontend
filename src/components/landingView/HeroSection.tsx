@@ -1,8 +1,11 @@
 import Button from "./Button";
 import BoardPreview from "./BoardPreview";
-import { HiMiniSparkles, HiMiniArrowRight } from "react-icons/hi2";
+import { HiMiniSparkles } from "react-icons/hi2";
+import { useDemoLoginMutation } from "../../hooks/mutations/useAuthMutation";
 
 const HeroSection = () => {
+
+  const { mutate: loginDemo, isPending } = useDemoLoginMutation();
   return (
     <section className="px-6 pt-16 pb-20 max-w-6xl mx-auto">
       {/* Eyebrow pill */}
@@ -32,10 +35,15 @@ const HeroSection = () => {
         <Button to="/auth/register" variant="primary" size="lg">
           + Comenzar gratis
         </Button>
-        <Button to="/auth/login" variant="secondary" size="lg">
-          Ver demo en vivo
-          <HiMiniArrowRight className="h-4 w-4" aria-hidden="true" />
-        </Button>
+
+        <button
+          onClick={() => loginDemo()}
+          disabled={isPending}
+          className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors duration-150"
+        >
+          {isPending ? "Cargando demo..." : "Ver demo sin registrarte"}
+        </button>
+
       </div>
 
       <p className="text-center text-xs text-slate-400 font-mono mb-14">

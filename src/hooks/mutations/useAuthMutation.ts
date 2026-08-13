@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authenticateUser, confirmAccount, createAccount, forgotPassword, googleAuth, requestConfirmationCode, updatePasswordWithToken, validateToken } from "../../services/authService";
+import { authenticateUser, confirmAccount, createAccount, demoLogin, forgotPassword, googleAuth, requestConfirmationCode, updatePasswordWithToken, validateToken } from "../../services/authService";
 import { toast } from "react-toastify";
 import type { UseFormReset } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -126,3 +126,19 @@ export const useGoogleAuthMutation = () => {
     })
     return { authenticateWithGoogle, isPending }
 }
+
+export const useDemoLoginMutation = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: demoLogin,
+    onSuccess: (data) => {
+      setAccessToken(data.accessToken);
+      queryClient.removeQueries({ queryKey: ["user"] });
+      toast.success("Bienvenido a la demo de TreeWork 🎉");
+      navigate("/dashboard");
+    },
+    onError: () => toast.error("No se pudo cargar la demo, intenta de nuevo"),
+  });
+};

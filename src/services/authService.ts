@@ -11,6 +11,7 @@ import { userSchema, type User } from "../types/user";
 import { httpGet, httpPost } from "../lib/http";
 import { parseOrThrow } from "../lib/parseOrThrow";
 import { setAccessToken } from "../utils/auth";
+import z from "zod";
 
 type MessageResponse = { message: string };
 
@@ -102,4 +103,14 @@ export const googleAuth = async (googleToken: string) => {
 export const refreshAccessToken = async (): Promise<{ accessToken: string }> => {
   const url = "/auth/refresh-token";
   return httpPost(url, {});
+};
+
+const demoLoginResponse = z.object({
+  accessToken: z.string(),
+});
+
+export const demoLogin = async () => {
+  const url = "/auth/demo-login";
+  const data = await httpPost<unknown>(url, {});
+  return parseOrThrow(demoLoginResponse, data, "demoLogin");
 };
