@@ -16,7 +16,10 @@ const SearchBar = () => {
     }
     setSearchParams(searchParams);
   };
+  const isDashboard = location.pathname === '/dashboard';
+  const isProjectDetails = /^\/projects\/[^/]+$/.test(location.pathname);
 
+  if (!isDashboard && !isProjectDetails) return null;
   return (
     <Popover className={'relative'}>
       

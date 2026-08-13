@@ -61,6 +61,9 @@ const router = createBrowserRouter([
           Component: (await import("./views/CreateProjectView")).default,
           HydrateFallback: () => null,
         }),
+        handle: {
+              crumb: () => "create project",
+        },
       },
       {
         path: "/projects/:projectId/edit",
@@ -68,6 +71,9 @@ const router = createBrowserRouter([
           Component: (await import("./views/EditProjectView")).default,
           HydrateFallback: EditProjectSkeleton,
         }),
+        handle: {
+              crumb: () => "edit project",
+        },
       },
       {
         lazy: async () => ({

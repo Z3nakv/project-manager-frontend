@@ -11,9 +11,10 @@ import ProfileMenu from "../ProfileMenu";
 import SearchBar from "../SearchBar";
 
 const icons = [
-  {icon:FaUsers, query:'/team', name:"Team"}, 
-  {icon:FaPlusSquare, query:'?newTask=true', name:"Nueva Tarea"},
-  {icon:HiSparkles, query:'?viewTaskProps=true', name:"Crear con IA"}
+  {icon:FaUsers, query:'/team', name:"Team", id:"team"}, 
+  {icon:FaPlusSquare, query:'?newTask=true', name:"Nueva Tarea", id:"task"},
+  {icon:FaPlusSquare, query:'/create-project', name:"Nuevo Proyecto", id:"project"},
+  {icon:HiSparkles, query:'?viewTaskProps=true', name:"Crear con IA", id:"ia"}
 ] as const;
 
 const SideBarMenu = () => {
@@ -23,13 +24,13 @@ const SideBarMenu = () => {
 
       <div className="h-full flex flex-col justify-between items-center">
         
-          <Logo />
+        <Logo />
     
         <div className="h-full flex flex-col items-start justify-center gap-10">
           <SearchBar />
           <NotificationCenter />
-          {icons.map(({icon, query, name}) => (
-            <SidebarIcons icon={icon} query={query} name={name} key={query}  />
+          {icons.map((data) => (
+            <SidebarIcons data={data}  />
           ))}
         </div>
 

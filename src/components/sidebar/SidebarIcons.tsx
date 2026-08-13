@@ -2,36 +2,51 @@ import type { IconType } from "react-icons";
 import { Link, useLocation } from "react-router";
 
 type SidebarIconsProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  data:{
   icon: IconType;
   query: string;
   name: string;
+  id: string;}
 };
 
-const SidebarIcons = ({icon: Icon, query, name}: SidebarIconsProps) => {
-  const location = useLocation();
-  query = query === '?newTask=true' 
-  ? location.pathname === '/dashboard' 
-  ? '/create-project' : query
-  : query
+const DASHBOARD_HIDDEN_ROUTES_REGEX = [
+  /^\/dashboard$/,
+  /^\/dashboard\/create-project$/,
+  /^\/projects\/[^/]+\/edit$/,
+];
 
-  name = name === 'Nueva Tarea'
-  ? location.pathname === '/dashboard'
-  ? 'Nuevo Proyecto' : name
-  : name
-  
-  if(location.pathname === '/dashboard'){
-    if(query === '/team') return
-    if(query === '?viewTaskProps=true') return;
+const PROJECT_DETAILS_HIDDEN_ROUTES_REGEX = [
+  /^\/projects\/[^/]+$/
+];
+
+const SidebarIcons = ({data}: SidebarIconsProps) => {
+  const location = useLocation();
+  const shouldHide = DASHBOARD_HIDDEN_ROUTES_REGEX.some((pattern) => pattern.test(location.pathname));
+  const taskShouldHide = PROJECT_DETAILS_HIDDEN_ROUTES_REGEX.some((pattern) => pattern.test(location.pathname));
+
+  if (shouldHide) {
+    if (data.id === 'team') return null;
+    if (data.id === 'ia') return null;
+    if (data.id === 'task') return null;
+    if(data.id === 'project') return null;
   }
-  
+
+  if(taskShouldHide) {
+    if(data.id === 'project') return null;
+  }
+
+  if(/^\/projects\/[^/]+\/team$/.test(location.pathname)) return;
+  if(location.pathname === '/profile') return;
+  if(location.pathname === '/profile/password') return;
+
   return (
       <Link 
-      to={`${location.pathname}${query}`} 
+      to={`${location.pathname}${data.query}`}
       className="flex gap-2 text-slate-400 font-mono hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150"
       >
-        <Icon 
+        <data.icon 
         className="h-5 w-5 cursor-pointer text-slate-400 hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150" />
-        <p className="hidden lg:block">{name}</p>
+        <p className="hidden lg:block">{data.name}</p>
       </Link>
   );
 };
