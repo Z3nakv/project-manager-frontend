@@ -3,10 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../services/ProjectService";
 import DashboardSkeleton from "../components/ui/DashboardSkeleton";
 import useSearch from "../hooks/useSearch";
-import PlusIcon from "../components/PlusIcon";
 import { useCallback } from "react";
 import type { ProjectItemType } from "../types/project";
-import ButtonLink from "../components/ui/ButtonLink";
 import ProjectList from "../components/dashboard/ProjectList";
 
 const DashboardView = () => {
@@ -33,10 +31,6 @@ const DashboardView = () => {
             Maneja y administra tus proyectos
           </p>
         </div>
-
-        <ButtonLink icon={PlusIcon} to={'/dashboard/create-project'} classname="bg-indigo-600 hover:bg-indigo-500 text-white mt-4">
-          Nuevo Proyecto
-        </ButtonLink>
       </div>
 
 

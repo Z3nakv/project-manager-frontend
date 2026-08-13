@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import Logo from "../Logo";
 import {
   FaUsers,
@@ -23,10 +22,8 @@ const SideBarMenu = () => {
     <div className="bg-[#151921] fixed left-0 top-0 z-200 h-dvh w-20 lg:w-58 py-5 pb-10 px-6 shadow-3xl transition-[width] duration-200">
 
       <div className="h-full flex flex-col justify-between items-center">
-
-        <Link to={"/dashboard"} className="cursor-pointer">
+        
           <Logo />
-        </Link>
     
         <div className="h-full flex flex-col items-start justify-center gap-10">
           <SearchBar />

@@ -47,6 +47,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
         createdAt={task.createdAt}
         deadline={task.deadline}
       />
+      
       <NotesProgressbar taskNotes={task.notes}/>
       
       <div className="flex justify-between">

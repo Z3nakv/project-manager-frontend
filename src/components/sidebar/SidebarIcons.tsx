@@ -13,6 +13,11 @@ const SidebarIcons = ({icon: Icon, query, name}: SidebarIconsProps) => {
   ? location.pathname === '/dashboard' 
   ? '/create-project' : query
   : query
+
+  name = name === 'Nueva Tarea'
+  ? location.pathname === '/dashboard'
+  ? 'Nuevo Proyecto' : name
+  : name
   
   if(location.pathname === '/dashboard'){
     if(query === '/team') return

@@ -3,6 +3,7 @@ import ProjectCard from "../projects/ProjectCard"
 import PlusIcon from "../PlusIcon"
 import type { ProjectItemType } from "../../types/project"
 import type { User } from "../../types/user"
+import AddProjectFolderCard from "../projects/AddProjectFolderCard"
 
 type ProjectListProps = {
     projects: ProjectItemType[]
@@ -16,6 +17,7 @@ const ProjectList = ({ projects, user }: ProjectListProps) => {
         <ul
           className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))] ml-6"
         >
+          <AddProjectFolderCard />
           {projects.map((project) => (
             <ProjectCard key={project._id} project={project} user={user} />
           ))}

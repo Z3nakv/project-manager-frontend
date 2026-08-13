@@ -74,8 +74,9 @@ const TaskList = () => {
                 data-scroll-column
                 className="w-[85cqw] sm:w-72 2xl:w-auto 2xl:flex-1 2xl:min-w-72 flex flex-col shrink-0 snap-center"
               >
-                <div className="flex items-center gap-2 font-mono text-sm">
-                  <div className="flex gap-2 items-center bg-[#161925] border border-indigo-500/30 border-b-0 rounded-t-lg px-4 pt-1.5 pb-1">
+                <div className="relative mt-2 flex justify-end items-center gap-2 font-mono text-sm">
+
+                  <div className="absolute left-0 flex gap-2 items-center bg-[#161925] border border-indigo-500/30 border-b-0 rounded-t-lg px-4 pt-1.5 pb-1">
                     <config.icon style={{ color: config.color }} className={"text-lg"} />
                     <h3 className="font-semibold text-slate-300">
                       {config.label}
@@ -87,7 +88,7 @@ const TaskList = () => {
                   </span>
                 </div>
 
-                <DropTask status={status} />
+                <DropTask status={status} >
 
                 <ul className="bg-[#161925] border border-indigo-500/30 rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2.5 min-h-30">
                   {tasks.map((task) => (
@@ -105,6 +106,7 @@ const TaskList = () => {
                     </li>
                   )}
                 </ul>
+                </DropTask>
               </div>
             );
           })}
