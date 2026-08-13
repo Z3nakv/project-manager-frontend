@@ -19,12 +19,15 @@ const SearchBar = () => {
 
   return (
     <Popover className={'relative'}>
+      
       <PopoverButton
-        className="inline-flex items-center gap-x-1 p-1.5 rounded-lg bg-[#2d3348] hover:bg-[#353d55] border border-[#3d4663] transition-colors duration-150 focus:outline-none"
+        className="text-slate-400 cursor-pointer  inline-flex items-center gap-x-1 rounded-lg hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150"
         aria-label="searchbar"
       >
-        <FaSearch className="cursor-pointer w-6 h-6 text-slate-300" />
+        <FaSearch className="cursor-pointer w-6 h-6" />
+        <p className="font-mono hidden lg:block">Buscar</p>
       </PopoverButton>
+      
       <Transition
         as={Fragment}
         enter="transition ease-out duration-200"

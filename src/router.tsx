@@ -1,5 +1,4 @@
 import { createBrowserRouter, type Params } from "react-router";
-import DashboardView from "./views/DashboardView";
 import LandingView from "./views/LandingView";
 import ProjectDetailsSkeleton from "./components/ui/ProjectDetailsSkeleton";
 import EditProjectSkeleton from "./components/ui/EditProjectSkeleton";
@@ -20,7 +19,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        Component: DashboardView,
+        lazy: async () => ({
+          Component: (await import("./views/DashboardView")).default,
+          HydrateFallback: () => null,
+        }),
         index: true,
         handle: { crumb: () => "Mis Proyectos" },
       },
