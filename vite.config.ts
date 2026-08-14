@@ -6,8 +6,8 @@ import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
-    react(),
     babel({ presets: [reactCompilerPreset()] }),
+    react(),
     tailwindcss(),
     visualizer({
       open: true,
@@ -24,8 +24,7 @@ export default defineConfig({
             { name: "vendor-dndkit", test: /\/node_modules\/@dnd-kit/ },
             { name: "vendor-tanstack", test: /\/node_modules\/@tanstack/ },
             { name: "vendor-ui", test: /\/node_modules\/@headlessui/ },
-            { name: "vendor-react", test: /\/node_modules\/(react|react-dom|react-router)/,},
-            { name: "vendor", test: /\/node_modules\// }, // catch-all para el resto
+            { name: "vendor-react", test: /\/node_modules\/(react|react-dom|react-router)/ },
             { name: "vendor-http", test: /\/node_modules\/axios/ },
             { name: "vendor-chakra", test: /\/node_modules\/@chakra-ui/ },
             { name: "vendor-validator", test: /\/node_modules\/zod/ },
