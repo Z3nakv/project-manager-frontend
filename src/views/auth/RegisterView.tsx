@@ -26,7 +26,7 @@ export default function RegisterView() {
   const errorMsg = "text-xs text-error mt-1 flex items-center gap-1";
 
   return (
-    <div className="relative pt-4 w-full max-w-sm">
+    <div className="relative pt-4 w-full max-w-sm m-auto">
       {/* Pestaña tipo archivo */}
       <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
         <FiUserPlus className="h-3 w-3 text-accent" />
