@@ -42,6 +42,7 @@ const SidebarIcons = ({data}: SidebarIconsProps) => {
   return (
       <Link 
       to={`${location.pathname}${data.query}`}
+      data-tour={`sidebar-${data.id}`}
       className="flex gap-2 text-text-muted font-mono hover:text-primary hover:-translate-y-1 transition-transform duration-150"
       >
         <data.icon 

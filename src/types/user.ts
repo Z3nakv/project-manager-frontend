@@ -1,10 +1,11 @@
-import z, { object, string, url } from "zod";
+import z, { boolean, object, string, url } from "zod";
 
 export const userSchema = object({
     name: string(),
     email: string(),
     _id: string(),
-    avatar: url().optional()
+    avatar: url().optional(),
+    isEphemeralDemo: boolean()
 })
 
 
