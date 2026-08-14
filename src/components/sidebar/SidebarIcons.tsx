@@ -9,35 +9,25 @@ type SidebarIconsProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   id: string;}
 };
 
-const DASHBOARD_HIDDEN_ROUTES_REGEX = [
-  /^\/dashboard$/,
-  /^\/dashboard\/create-project$/,
-  /^\/projects\/[^/]+\/edit$/,
-];
-
-const PROJECT_DETAILS_HIDDEN_ROUTES_REGEX = [
-  /^\/projects\/[^/]+$/
+const HIDDEN_ICON_RULES: { pattern: RegExp; hideIds: string[] | "*" }[] = [
+  { pattern: /^\/dashboard$/, hideIds: ["team", "ia", "task"] },
+  { pattern: /^\/projects\/[^/]+\/edit$/, hideIds: ["team", "ia", "task"] },
+  { pattern: /^\/projects\/[^/]+$/, hideIds: ["project"] },
+  { pattern: /^\/dashboard\/create-project$/, hideIds: ["project", "task", "team", "ia"] },
+  { pattern: /^\/projects\/[^/]+\/team$/, hideIds: "*" },
+  { pattern: /^\/profile$/, hideIds: "*" },
+  { pattern: /^\/profile\/password$/, hideIds: "*" },
 ];
 
 const SidebarIcons = ({data}: SidebarIconsProps) => {
   const location = useLocation();
-  const shouldHide = DASHBOARD_HIDDEN_ROUTES_REGEX.some((pattern) => pattern.test(location.pathname));
-  const taskShouldHide = PROJECT_DETAILS_HIDDEN_ROUTES_REGEX.some((pattern) => pattern.test(location.pathname));
+  
+  const isHidden = HIDDEN_ICON_RULES.some(({ pattern, hideIds }) => {
+    if (!pattern.test(location.pathname)) return false;
+    return hideIds === "*" || hideIds.includes(data.id);
+  });
 
-  if (shouldHide) {
-    if (data.id === 'team') return null;
-    if (data.id === 'ia') return null;
-    if (data.id === 'task') return null;
-    if(data.id === 'project') return null;
-  }
-
-  if(taskShouldHide) {
-    if(data.id === 'project') return null;
-  }
-
-  if(/^\/projects\/[^/]+\/team$/.test(location.pathname)) return;
-  if(location.pathname === '/profile') return;
-  if(location.pathname === '/profile/password') return;
+  if (isHidden) return null;
 
   return (
       <Link 
