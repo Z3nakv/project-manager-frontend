@@ -8,13 +8,13 @@ type TimeStampsProps = {
 
 const TimeStamps = ({ taskData }: TimeStampsProps) => {
   return (
-    <div className="flex gap-4 mb-5 font-mono text-xs text-slate-500">
+    <div className="flex gap-4 mb-5 font-mono text-xs text-text-muted">
       <span className="flex items-center gap-1.5">
-        <CalendarIcon className="h-3.5 w-3.5 text-slate-600" />
+        <CalendarIcon className="h-3.5 w-3.5 text-text-muted" />
         Creada: {formatDate(taskData.createdAt)}
       </span>
       <span className="flex items-center gap-1.5">
-        <ClockIcon className="h-3.5 w-3.5 text-slate-600" />
+        <ClockIcon className="h-3.5 w-3.5 text-text-muted" />
         Modificada: {formatDate(taskData.updatedAt)}
       </span>
     </div>

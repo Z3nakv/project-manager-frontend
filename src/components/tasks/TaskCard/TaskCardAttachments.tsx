@@ -29,7 +29,7 @@ const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
 
   return (
     <div className="mb-6">
-      <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">
+      <p className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-2">
         Adjuntos {attachments?.length ? `· ${attachments.length}` : ""}
       </p>
 
@@ -41,7 +41,7 @@ const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
             <li key={att._id} className="relative">
               <button
                 onClick={() => handleNavigation(att._id, att.task)}
-                className="relative block w-full aspect-square rounded-lg overflow-hidden border border-zinc-800 hover:border-indigo-500/40 transition-colors group"
+                className="relative block w-full aspect-square rounded-lg overflow-hidden border border-border-subtle hover:border-primary/40 transition-colors group"
               >
                 <img
                   src={att.url}
@@ -51,7 +51,7 @@ const TaskCardAttachments = ({ taskId }: TaskCardAttachmentsProps) => {
                   className="w-full h-full object-cover"
                 />
                 <div
-                  className="absolute top-0 right-0 w-4 h-4 bg-[#0f1117] group-hover:bg-indigo-500/20 transition-colors"
+                  className="absolute top-0 right-0 w-4 h-4 bg-surface-elevated group-hover:bg-primary/20 transition-colors"
                   style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
                 />
               </button>

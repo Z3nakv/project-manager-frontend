@@ -10,7 +10,7 @@ const TaskCreatedAt = ({ taskCreatedAt }: taskCreatedAtProps) => {
   return (
     <>
       {taskCreatedAt && (
-        <div className="flex items-center gap-1.5 text-amber-50">
+        <div className="flex items-center gap-1.5 text-text-secondary">
           <CalendarDaysIcon className="h-5" />
           <span className="text-xs truncate">
             {formatDate(taskCreatedAt)}

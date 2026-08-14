@@ -9,18 +9,18 @@ export const getDeadlineStatus = (deadline?: string) => {
   if (diffDays < 0)
     return {
       label: "Vencida",
-      color: "text-red-400",
-      bg: "bg-red-500/10 border-red-500/25",
+      color: "text-error",
+      bg: "bg-error-subtle border-error/25",
     };
   if (diffDays <= 2)
     return {
       label: "Vence pronto",
-      color: "text-amber-400",
-      bg: "bg-amber-500/10 border-amber-500/25",
+      color: "text-warning",
+      bg: "bg-warning-subtle border-warning/25",
     };
   return {
     label: "A tiempo",
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/10 border-emerald-500/25",
+    color: "text-success",
+    bg: "bg-success-subtle border-success/25",
   };
 };

@@ -19,7 +19,7 @@ export default function Tabs() {
         <select
           id="tabs"
           name="tabs"
-          className="block w-full rounded-lg bg-[#1e2330] border border-[#2d3348] text-slate-300 text-sm px-3 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150"
+          className="block w-full rounded-lg bg-input border border-border text-text-secondary text-sm px-3 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors duration-150"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => navigate(e.target.value)}
           value={currentTab}
         >
@@ -31,7 +31,7 @@ export default function Tabs() {
 
       {/* Desktop tabs */}
       <div className="hidden sm:block">
-        <div className="border-b border-[#2d3348]">
+        <div className="border-b border-border-subtle">
           <nav className="-mb-px flex gap-1" aria-label="Tabs">
             {tabs.map((tab) => (
               <NavLink
@@ -41,15 +41,15 @@ export default function Tabs() {
                 className={({ isActive }) =>
                   `group inline-flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors duration-150 ${
                     isActive
-                      ? "border-indigo-500 text-slate-200"
-                      : "border-transparent text-slate-500 hover:text-slate-300 hover:border-[#2d3348]"
+                      ? "border-primary text-text-primary"
+                      : "border-transparent text-text-muted hover:text-text-primary hover:border-border"
                   }`
                 }
               >
                 {({ isActive }) => (
                   <>
                     <tab.icon
-                      className={`w-4 h-4 transition-colors duration-150 ${isActive ? "text-indigo-400" : "text-slate-600 group-hover:text-slate-400"}`}
+                      className={`w-4 h-4 transition-colors duration-150 ${isActive ? "text-accent" : "text-text-muted group-hover:text-text-primary"}`}
                       aria-hidden="true"
                     />
                     <span>{tab.name}</span>

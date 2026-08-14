@@ -45,16 +45,16 @@ export default function AssignMembersForm({
                 {projectTeam.map(member => (
                     <label
                         key={member._id}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#252d3d] border border-[#2d3348] cursor-pointer hover:border-indigo-500/50 transition-colors duration-150"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-input border border-border cursor-pointer hover:border-border-strong hover:bg-surface-hover transition-colors duration-150"
                     >
                         <input
                             type="checkbox"
                             checked={selectedIds.includes(member._id)}
                             onChange={() => toggleMember(member._id)}
-                            className="w-4 h-4 rounded accent-indigo-600 cursor-pointer"
+                            className="w-4 h-4 rounded accent-primary cursor-pointer"
                         />
-                        <span className="text-sm text-slate-200">{member.name}</span>
-                        <span className="text-xs text-slate-500 ml-auto">{member.email}</span>
+                        <span className="text-sm text-text-primary">{member.name}</span>
+                        <span className="text-xs text-text-muted ml-auto">{member.email}</span>
                     </label>
                 ))}
             </div>
@@ -62,13 +62,13 @@ export default function AssignMembersForm({
             <button
                 onClick={handleSubmit}
                 disabled={!hasChanges || mutation.isPending}
-                className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-indigo-500/20 disabled:opacity-50"
+                className="w-full py-2.5 bg-primary hover:bg-primary-hover text-text-on-primary text-sm font-semibold rounded-xl transition-colors duration-150 cursor-pointer shadow-md disabled:opacity-50"
             >
                 {mutation.isPending ? "Guardando..." : "Guardar asignación"}
             </button>
 
             {mutation.error && (
-                <p className="text-center text-sm text-red-400">{mutation.error.message}</p>
+                <p className="text-center text-sm text-error">{mutation.error.message}</p>
             )}
         </div>
     );

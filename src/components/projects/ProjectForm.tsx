@@ -8,10 +8,10 @@ type ProjectFormProps = {
 };
 
 const inputBase =
-  "w-full bg-[#151921] border border-[#2d3348] text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors duration-150";
+  "w-full bg-input border border-border text-text-primary placeholder:text-text-muted text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors duration-150";
 
-const labelBase = "text-xs font-semibold text-slate-500 uppercase tracking-wide";
-  const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
+const labelBase = "text-xs font-semibold text-text-muted uppercase tracking-wide";
+  const errorMsg = "text-xs text-error mt-1 flex items-center gap-1";
 
 const ProjectForm = ({ register, errors }: ProjectFormProps) => {
   return (
@@ -22,12 +22,12 @@ const ProjectForm = ({ register, errors }: ProjectFormProps) => {
         Nombre del Proyecto
       </label>
       <div className="relative mt-2">
-        <HiOutlineClipboardDocumentList className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <HiOutlineClipboardDocumentList className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
         <input
           type="text"
           id="projectName"
           placeholder="Ej. Rediseño de sitio web"
-          className={`${inputBase} pl-10 ${errors.projectName ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+          className={`${inputBase} pl-10 ${errors.projectName ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
           {...register("projectName", {
             required: "El título del proyecto es obligatorio",
           })}
@@ -49,12 +49,12 @@ const ProjectForm = ({ register, errors }: ProjectFormProps) => {
         Nombre del Cliente
       </label>
       <div className="relative mt-2">
-        <HiOutlineBuildingOffice className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+        <HiOutlineBuildingOffice className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
         <input
           type="text"
           id="clientName"
           placeholder="Ej. Acme Corp"
-          className={`${inputBase} pl-10 ${errors.clientName ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+          className={`${inputBase} pl-10 ${errors.clientName ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
           {...register("clientName", {
             required: "El nombre del cliente es obligatorio",
           })}
@@ -79,7 +79,7 @@ const ProjectForm = ({ register, errors }: ProjectFormProps) => {
         id="description"
         placeholder="Describe brevemente el proyecto y sus objetivos…"
         rows={4}
-        className={`mt-2 ${inputBase} resize-none ${errors.description ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+        className={`mt-2 ${inputBase} resize-none ${errors.description ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
         {...register("description", {
           required: "La descripción es obligatoria",
         })}

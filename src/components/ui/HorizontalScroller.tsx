@@ -16,7 +16,7 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
                 {canScrollLeft ? (
                     <button
                         onClick={() => scroll('left')}
-                        className="absolute left-12 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                        className="absolute left-12 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-surface-elevated border border-border rounded-lg text-text-muted hover:text-text-primary transition-colors"
                     >
                         <ChevronLeftIcon className="h-5 w-5" />
                     </button>
@@ -25,7 +25,7 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
                 {canScrollRight ? (
                     <button
                         onClick={() => scroll('right')}
-                        className="absolute right-12 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-[#1e2330] border border-[#2d3348] rounded-lg text-slate-400 hover:text-slate-100 transition-colors"
+                        className="absolute right-12 -top-8 -translate-y-1/2 z-10 cursor-pointer p-2 bg-surface-elevated border border-border rounded-lg text-text-muted hover:text-text-primary transition-colors"
                     >
                         <ChevronRightIcon className="h-5 w-5" />
                     </button>
@@ -38,9 +38,9 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
                 className={`overflow-x-auto -mx-6 px-6 @container
                     [&::-webkit-scrollbar]:h-1.5
                     [&::-webkit-scrollbar-track]:bg-transparent
-                    [&::-webkit-scrollbar-thumb]:bg-[#2d3348]
+                    [&::-webkit-scrollbar-thumb]:bg-border
                     [&::-webkit-scrollbar-thumb]:rounded-full
-                    [&::-webkit-scrollbar-thumb:hover]:bg-[#3d4663]
+                    [&::-webkit-scrollbar-thumb:hover]:bg-border-strong
                     ${className || ''}`}
             >
                 {children}

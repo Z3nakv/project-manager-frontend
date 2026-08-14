@@ -28,13 +28,13 @@ const NotificationCenter = () => {
     <Popover className="relative">
       
         <PopoverButton
-          className="relative cursor-pointer flex gap-2 text-slate-400 hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150"
+          className="relative cursor-pointer flex gap-2 text-text-muted hover:text-primary hover:-translate-y-1 transition-transform duration-150"
           aria-label="notifications"
         >
           <div className="relative">
           <FaBell className="h-5 w-5 cursor-pointer" />
           {unread > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 bg-indigo-600 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+            <span className="absolute -top-0.5 -right-0.5 bg-primary text-text-on-primary text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
               {unread > 9 ? "9+" : unread}
             </span>
           )}
@@ -51,11 +51,11 @@ const NotificationCenter = () => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <PopoverPanel className="overflow-hidden absolute left-15 w-80 bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-2xl z-50">
+        <PopoverPanel className="overflow-hidden absolute left-15 w-80 bg-surface-elevated border border-border rounded-xl shadow-lifted z-50">
           {({ close }) => (
             <div>
-              <div className="flex justify-between items-center px-4 py-3 border-b border-[#2d3348]">
-                <h3 className="text-slate-200 font-semibold text-sm">
+              <div className="flex justify-between items-center px-4 py-3 border-b border-border-subtle">
+                <h3 className="text-text-primary font-semibold text-sm">
                   Notificaciones
                 </h3>
                 {notifications.length > 0 && (
@@ -64,16 +64,16 @@ const NotificationCenter = () => {
                       clearMutate();
                       close();
                     }}
-                    className="text-xs text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+                    className="text-xs text-text-muted hover:text-text-primary transition-colors cursor-pointer"
                   >
                     Limpiar todo
                   </button>
                 )}
               </div>
 
-              <ul className="max-h-96 overflow-y-auto divide-y divide-[#2d3348]">
+              <ul className="max-h-96 overflow-y-auto divide-y divide-border-subtle">
                 {notifications.length === 0 && (
-                  <li className="text-center text-slate-500 text-sm py-8">
+                  <li className="text-center text-text-muted text-sm py-8">
                     Sin notificaciones
                   </li>
                 )}
@@ -87,7 +87,7 @@ const NotificationCenter = () => {
                       );
                       close();
                     }}
-                    className={`px-4 py-3 cursor-pointer hover:bg-[#252d3d] transition-colors ${!n.read ? "border-l-2 border-indigo-500" : ""}`}
+                    className={`px-4 py-3 cursor-pointer hover:bg-surface-hover transition-colors ${!n.read ? "border-l-2 border-primary" : ""}`}
                   >
                     <div className="flex items-center gap-5">
                       <div
@@ -100,10 +100,10 @@ const NotificationCenter = () => {
                           .toUpperCase()}
                       </div>
                       <div>
-                        <p className="text-xs text-slate-300 leading-snug">
+                        <p className="text-xs text-text-secondary leading-snug">
                           {n.content}
                         </p>
-                        <p className="text-xs text-slate-500 mt-1">
+                        <p className="text-xs text-text-muted mt-1">
                           {new Date(n.createdAt).toLocaleString()}
                         </p>
                       </div>

@@ -3,6 +3,7 @@ import { Navigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import Navbar from "../components/landingView/Navbar";
 import HeroSection from "../components/landingView/HeroSection";
+import ThemeToggle from "../components/themeToggle/ThemeToggle";
 
 const MetricsSection = lazy(() => import("../components/landingView/MetricsSection"));
 const FeaturesSection = lazy(() => import("../components/landingView/FeaturesSection"));
@@ -18,16 +19,19 @@ const LandingView = () => {
   if (user) return <Navigate to="/dashboard" />;
 
   return (
-    <div className="min-h-screen bg-[#151921] text-slate-200 scroll-smooth">
+    <div className="min-h-screen bg-bg text-text-primary scroll-smooth">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-60 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-indigo-600 focus:text-white focus:text-sm focus:font-semibold"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-60 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-text-on-primary focus:text-sm focus:font-semibold"
       >
         Saltar al contenido
       </a>
 
       <Navbar />
       <main id="main">
+        <div className="fixed left-5 top-25">
+          <ThemeToggle />
+        </div>
         <HeroSection />
         <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
           <MetricsSection />

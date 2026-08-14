@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import Logo from "../Logo";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
@@ -30,13 +29,11 @@ const socials = [
 
 const FooterSection = () => {
   return (
-    <footer className="border-t border-[#1e2330] bg-[#151921]">
+    <footer className="border-t border-border-subtle bg-bg text-text-primary">
       <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div className="lg:col-span-2">
-          <Link to="/dashboard" className="inline-block">
-            <Logo />
-          </Link>
-          <p className="text-sm text-slate-400 mt-4 max-w-sm leading-relaxed">
+          <Logo />
+          <p className="text-sm text-text-secondary mt-4 max-w-sm leading-relaxed">
             Gestión de proyectos, tareas y equipos en tiempo real con
             sugerencias de IA. Construido para equipos que entregan a tiempo.
           </p>
@@ -48,7 +45,7 @@ const FooterSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 rounded-lg bg-[#1e2330] border border-[#2d3348] text-slate-400 hover:text-indigo-300 hover:border-indigo-500/40 flex items-center justify-center transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60"
+                className="w-9 h-9 rounded-lg bg-surface-base text-text-primary border border-border hover:text-primary hover:border-primary/40 flex items-center justify-center transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
               </a>
@@ -58,7 +55,7 @@ const FooterSection = () => {
 
         {columns.map((col) => (
           <div key={col.title}>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-300 font-mono mb-4">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-text-secondary font-mono mb-4">
               {col.title}
             </h3>
             <ul className="space-y-2.5">
@@ -66,7 +63,7 @@ const FooterSection = () => {
                 <li key={l.label}>
                   <a
                     href={l.href}
-                    className="text-sm text-slate-400 hover:text-indigo-300 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 focus-visible:rounded"
+                    className="text-sm text-text-secondary hover:text-primary transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:rounded"
                   >
                     {l.label}
                   </a>
@@ -77,8 +74,8 @@ const FooterSection = () => {
         ))}
       </div>
 
-      <div className="border-t border-[#1e2330] py-6 px-6 text-center">
-        <p className="text-xs text-slate-400 font-mono">
+      <div className="border-t border-border-subtle py-6 px-6 text-center">
+        <p className="text-xs text-text-muted font-mono">
           © {new Date().getFullYear()} Project Manager — React · Node.js ·
           Socket.io · MongoDB · Gemini AI
         </p>

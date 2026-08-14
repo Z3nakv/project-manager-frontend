@@ -32,10 +32,10 @@ export default function ProfileMenu({name} : NavMenuProps) {
   return (
     <Popover className="relative font-mono">
       <PopoverButton 
-      className="inline-flex items-center gap-x-1 p-1.5 rounded-lg bg-[#2d3348] hover:bg-[#353d55] border border-[#3d4663] transition-colors duration-150 focus:outline-none"
+      className="inline-flex items-center gap-x-1 p-1.5 rounded-lg bg-surface-hover hover:bg-surface-base border border-border transition-colors duration-150 focus:outline-none"
       aria-label="menu"
       >
-        <FaBars className="cursor-pointer w-6 h-6 text-slate-300" />
+        <FaBars className="cursor-pointer w-6 h-6 text-text-secondary" />
       </PopoverButton>
 
       <Transition
@@ -49,38 +49,38 @@ export default function ProfileMenu({name} : NavMenuProps) {
       >
         <PopoverPanel className="absolute left-10 bottom-10 z-10 mt-3 w-56">
           {({ close }) => ( 
-            <div className="rounded-xl overflow-hidden border border-[#2d3348] bg-[#252d3d] shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
+            <div className="rounded-xl overflow-hidden border border-border bg-surface-elevated shadow-lifted">
 
-              <div className="px-4 py-3 border-b border-[#2d3348]">
-                <p className="text-xs text-slate-500 uppercase tracking-widest">Sesión iniciada como</p>
-                <p className="text-sm font-semibold text-slate-200 mt-0.5">{name}</p>
+              <div className="px-4 py-3 border-b border-border-subtle">
+                <p className="text-xs text-text-muted uppercase tracking-widest">Sesión iniciada como</p>
+                <p className="text-sm font-semibold text-text-primary mt-0.5">{name}</p>
               </div>
 
               <div className="py-1.5">
                 <Link
                   to="/profile"
                   onClick={() => close()} 
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-[#2d3a4f] transition-colors duration-100"
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-hover transition-colors duration-100"
                 >
-                  <FaUserCircle  className="h-4 w-4 text-slate-400" />
+                  <FaUserCircle  className="h-4 w-4 text-text-muted" />
                   Mi Perfil
                 </Link>
 
                 <Link
                   to="/dashboard"
                   onClick={() => close()} 
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-300 hover:bg-[#2d3a4f] transition-colors duration-100"
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-hover transition-colors duration-100"
                 >
-                  <FaFolderOpen  className="h-4 w-4 text-slate-400" />
+                  <FaFolderOpen  className="h-4 w-4 text-text-muted" />
                   Mis Proyectos
                 </Link>
               </div>
 
-              <div className="border-t border-[#2d3348] py-1.5">
+              <div className="border-t border-border-subtle py-1.5">
                 <button
                   type="button"
                   onClick={() => { logout(); close(); }}
-                  className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 transition-colors duration-100"
+                  className="cursor-pointer flex items-center gap-3 w-full px-4 py-2.5 text-sm text-error hover:bg-error-subtle transition-colors duration-100"
                 >
                   <HiMiniArrowRightStartOnRectangle className="h-4 w-4" />
                   Cerrar Sesión

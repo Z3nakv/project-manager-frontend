@@ -19,43 +19,43 @@ type Feature = {
 const features: Feature[] = [
   {
     icon: HiMiniSquares2X2,
-    tile: "bg-indigo-500/10",
-    iconCls: "text-indigo-400",
+    tile: "bg-primary-subtle",
+    iconCls: "text-primary",
     title: "Tablero Kanban",
     desc: "Arrastra y suelta tareas entre columnas. Visualiza el flujo de trabajo de un vistazo.",
   },
   {
     icon: HiMiniBolt,
-    tile: "bg-amber-500/10",
-    iconCls: "text-amber-400",
+    tile: "bg-warning-subtle",
+    iconCls: "text-warning",
     title: "Tiempo real",
     desc: "Los cambios se reflejan al instante para todos los miembros vía Socket.io.",
   },
   {
     icon: HiMiniUserGroup,
-    tile: "bg-emerald-500/10",
-    iconCls: "text-emerald-400",
+    tile: "bg-success-subtle",
+    iconCls: "text-success",
     title: "Roles de equipo",
     desc: "Managers y colaboradores con permisos diferenciados por proyecto.",
   },
   {
     icon: HiMiniBell,
-    tile: "bg-sky-500/10",
-    iconCls: "text-sky-400",
+    tile: "bg-info-subtle",
+    iconCls: "text-info",
     title: "Notificaciones",
     desc: "Historial de actividad persistente. Entérate de cada cambio.",
   },
   {
     icon: HiMiniCalendarDays,
-    tile: "bg-red-500/10",
-    iconCls: "text-red-400",
+    tile: "bg-error-subtle",
+    iconCls: "text-error",
     title: "Fechas límite",
     desc: "Asigna deadlines y recibe alertas visuales cuando una tarea vence.",
   },
   {
     icon: HiMiniDocumentText,
-    tile: "bg-purple-500/10",
-    iconCls: "text-purple-400",
+    tile: "bg-primary-subtle",
+    iconCls: "text-primary",
     title: "Notas en tareas",
     desc: "Agrega contexto en cada tarea con historial de cambios.",
   },
@@ -77,17 +77,17 @@ const FeaturesSection = () => {
         {features.map(({ icon: Icon, ...f }) => (
           <div
             key={f.title}
-            className="bg-[#1e2330] border border-[#2d3348] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors duration-150"
+            className="bg-surface-base text-text-primary border border-border hover:border-primary/40 rounded-2xl p-6 transition-colors duration-150"
           >
             <div
               className={`w-10 h-10 rounded-xl ${f.tile} ${f.iconCls} flex items-center justify-center mb-4`}
             >
               <Icon className="h-5 w-5" aria-hidden="true" />
             </div>
-            <h3 className="font-mono text-sm font-bold text-slate-100 mb-1.5">
+            <h3 className="font-mono text-sm font-bold text-text-primary mb-1.5">
               {f.title}
             </h3>
-            <p className="text-xs text-slate-400 leading-relaxed">{f.desc}</p>
+            <p className="text-xs text-text-secondary leading-relaxed">{f.desc}</p>
           </div>
         ))}
       </div>

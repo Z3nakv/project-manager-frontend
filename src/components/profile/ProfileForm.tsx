@@ -27,43 +27,43 @@ export default function ProfileForm({ data }: ProfileFormProps) {
 
   const handleEditProfile = (formData: UserProfileForm) => mutate(formData);
 
-  const inputClass = "w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-600 bg-[#161925] border border-zinc-800 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150";
-  const labelBase = "text-xs font-semibold text-slate-500 uppercase tracking-wide";
-  const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
+  const inputClass = "w-full px-3 py-2.5 rounded-lg text-sm text-text-primary placeholder:text-text-muted bg-input border border-border focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors duration-150";
+  const labelBase = "text-xs font-semibold text-text-muted uppercase tracking-wide";
+  const errorMsg = "text-xs text-error mt-1 flex items-center gap-1";
 
   return (
     <div className="min-h-full flex items-center justify-center py-10">
       <div className="relative pt-4 w-full max-w-2xl mr-10">
         {/* Pestaña tipo archivo */}
-        <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-[#0f1117] border border-zinc-800 border-b-0 rounded-t-md px-3.5">
-          <FiUser className="h-3 w-3 text-indigo-400" />
-          <span className="font-mono text-xs text-slate-400">perfil.usr</span>
+        <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
+          <FiUser className="h-3 w-3 text-accent" />
+          <span className="font-mono text-xs text-text-muted">perfil.usr</span>
         </div>
 
-        <div className="relative bg-[#0f1117] border border-zinc-800 rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-[0_24px_48px_rgba(0,0,0,0.4)] p-8 overflow-hidden">
+        <div className="relative bg-surface-base border border-border rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-lifted p-8 overflow-hidden">
           <DogEar />
 
           {/* Header */}
           <div className="mb-6">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-1">
+            <p className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-1">
               Cuenta
             </p>
-            <h1 className="text-2xl font-bold text-slate-100">Mi Perfil</h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <h1 className="text-2xl font-bold text-text-primary">Mi Perfil</h1>
+            <p className="text-sm text-text-secondary mt-1">
               Actualiza tu información personal
             </p>
           </div>
 
           {/* Avatar */}
-          <div className="flex items-center gap-4 mb-6 pb-6 border-b border-zinc-800">
-            <div className="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
-              <span className="text-white font-bold text-xl">
+          <div className="flex items-center gap-4 mb-6 pb-6 border-b border-border-subtle">
+            <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 shrink-0">
+              <span className="text-text-on-primary font-bold text-xl">
                 {data.name?.charAt(0).toUpperCase()}
               </span>
             </div>
             <div>
-              <p className="text-slate-200 font-semibold">{data.name}</p>
-              <p className="text-slate-500 text-sm">{data.email}</p>
+              <p className="text-text-primary font-semibold">{data.name}</p>
+              <p className="text-text-muted text-sm">{data.email}</p>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                 id="name"
                 type="text"
                 placeholder="Tu nombre"
-                className={`${inputClass} ${errors.name ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+                className={`${inputClass} ${errors.name ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
                 {...register("name", { required: "El nombre es obligatorio" })}
               />
               {errors.name && (
@@ -99,7 +99,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                 id="email"
                 type="email"
                 placeholder="tucorreo@ejemplo.com"
-                className={`${inputClass} ${errors.email ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+                className={`${inputClass} ${errors.email ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
                 {...register("email", {
                   required: "El email es obligatorio",
                   pattern: { value: /\S+@\S+\.\S+/, message: "Email no válido" },
@@ -118,7 +118,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2"
+                className="w-full py-2.5 bg-primary hover:bg-primary-hover text-text-on-primary text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-primary/20 flex items-center justify-center gap-2"
               >
                 <FiUser className="h-4 w-4" />
                 Guardar cambios

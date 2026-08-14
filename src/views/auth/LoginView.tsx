@@ -30,19 +30,19 @@ export default function LoginView() {
   return (
     <div className="relative pt-4 w-full max-w-sm">
       {/* Pestaña tipo archivo */}
-      <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-[#0f1117] border border-zinc-800 border-b-0 rounded-t-md px-3.5">
-        <IoIosLock className="h-3 w-3 text-indigo-400" />
-        <span className="font-mono text-xs text-slate-400">sesion.auth</span>
+      <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
+        <IoIosLock className="h-3 w-3 text-accent" />
+        <span className="font-mono text-xs text-text-muted">sesion.auth</span>
       </div>
 
-      <div className="relative bg-[#0f1117] border border-zinc-800 rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-[0_24px_48px_rgba(0,0,0,0.4)] p-8 overflow-hidden">
+      <div className="relative bg-surface-base border border-border rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-lifted p-8 overflow-hidden">
         
         <DogEar />
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-xl font-bold text-slate-100">Iniciar sesión</h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <h1 className="text-xl font-bold text-text-primary">Iniciar sesión</h1>
+          <p className="text-sm text-text-secondary mt-1">
             Ingresa tus credenciales para continuar
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function LoginView() {
             labelExtra={
               <Link
                 to="/auth/forgot-password"
-                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors duration-150"
+                className="text-xs text-accent hover:text-ring transition-colors duration-150"
               >
                 ¿Olvidaste tu password?
               </Link>
@@ -86,7 +86,7 @@ export default function LoginView() {
 
           <button
             type="submit"
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-indigo-500/20"
+            className="w-full py-2.5 bg-primary hover:bg-primary-hover text-text-on-primary text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-primary/20"
           >
             Iniciar sesión
           </button>
@@ -94,11 +94,11 @@ export default function LoginView() {
 
         {/* Separador */}
         <div className="flex items-center gap-3 my-6">
-          <div className="flex-1 h-px bg-zinc-800" />
-          <span className="text-[10px] uppercase tracking-wider text-slate-600 font-mono">
+          <div className="flex-1 h-px bg-border-subtle" />
+          <span className="text-[10px] uppercase tracking-wider text-text-muted font-mono">
             o continúa con
           </span>
-          <div className="flex-1 h-px bg-zinc-800" />
+          <div className="flex-1 h-px bg-border-subtle" />
         </div>
 
         <GoogleAuthButton
@@ -118,11 +118,11 @@ export default function LoginView() {
         </button> */}
 
         {/* Footer */}
-        <p className="text-center text-sm text-slate-500 mt-6">
+        <p className="text-center text-sm text-text-muted mt-6">
           ¿No tienes cuenta?{" "}
           <Link
             to="/auth/register"
-            className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors duration-150"
+            className="text-accent hover:text-ring font-medium transition-colors duration-150"
           >
             Crear una cuenta
           </Link>

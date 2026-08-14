@@ -5,7 +5,7 @@ const DogEar = () => {
       style={{
         borderWidth: "0 40px 40px 0",
         borderStyle: "solid",
-        borderColor: " transparent transparent #252d3d transparent",
+        borderColor: "transparent transparent var(--surface-hover) transparent",
       }}
     />
   );

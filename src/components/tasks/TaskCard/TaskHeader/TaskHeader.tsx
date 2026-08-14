@@ -18,14 +18,14 @@ const TaskHeader = ({
   return (
     <>
       <div className="flex justify-between items-start mb-1">
-        <span className="font-mono text-sm font-semibold text-slate-200 leading-snug flex-1">
+        <span className="font-mono text-sm font-semibold text-text-primary leading-snug flex-1">
           {taskName}
         </span>
         <Suspense fallback={null}>
           <TaskMenuItems canEdit={canEdit} taskId={taskId} />
         </Suspense>
       </div>
-      <p className="font-mono text-xs line-clamp-3 text-slate-400 leading-relaxed mb-2">
+      <p className="font-mono text-xs line-clamp-3 text-text-secondary leading-relaxed mb-2">
         {taskDescription}
       </p>
     </>

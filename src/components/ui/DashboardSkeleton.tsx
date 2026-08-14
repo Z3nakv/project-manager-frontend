@@ -1,45 +1,61 @@
-// components/ui/DashboardSkeleton.tsx
-
-const SkeletonBlock = ({ className }: { className?: string }) => (
-    <div className={`animate-pulse bg-[#2d3348] rounded-lg ${className}`} />
-)
+const SkeletonBlock = ({ className = "" }: { className?: string }) => (
+  <div className={`animate-pulse bg-surface-hover rounded-lg ${className}`} />
+);
 
 const ProjectCardSkeleton = () => (
-    <div className="bg-[#0f1117] border border-[#2d3348] rounded-xl p-5 space-y-3">
-        <div className="flex justify-between items-start">
-            <SkeletonBlock className="h-5 w-40 rounded-md" />
-            <SkeletonBlock className="h-5 w-5 rounded-md shrink-0" />
+  <div className="relative pt-4">
+    <div className="absolute top-1 left-4 w-16 h-4 bg-bg border border-border-subtle border-b-0 rounded-t-md" />
+
+    <div className="bg-surface-base border border-border-subtle rounded-tl-sm rounded-tr-2xl rounded-b-2xl p-3.5 shadow-soft">
+      <div className="flex items-center justify-between mb-2.5">
+        <SkeletonBlock className="h-5 w-5 rounded-md" />
+        <SkeletonBlock className="h-5 w-5 rounded-md" />
+      </div>
+
+      <SkeletonBlock className="h-[15px] w-2/3 rounded-md mb-1.5" />
+      <SkeletonBlock className="h-[11px] w-1/2 rounded-md mb-2" />
+      <SkeletonBlock className="h-3 w-full rounded-md mb-1" />
+      <SkeletonBlock className="h-3 w-5/6 rounded-md mb-3" />
+
+      <div className="flex items-center justify-between mb-3">
+        <SkeletonBlock className="h-6 w-20 rounded-md" />
+        <SkeletonBlock className="h-6 w-24 rounded-md" />
+      </div>
+
+      <div className="border-t border-border-subtle pt-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <SkeletonBlock className="h-4 w-4 rounded-md" />
+          <SkeletonBlock className="h-4 w-4 rounded-md" />
+          <SkeletonBlock className="h-4 w-4 rounded-md" />
         </div>
-        <SkeletonBlock className="h-3.5 w-24 rounded-md" />
-        <SkeletonBlock className="h-3.5 w-full rounded-md" />
-        <SkeletonBlock className="h-6 w-20 rounded-full" />
+        <SkeletonBlock className="h-8 w-16 rounded-full" />
+      </div>
     </div>
-)
+  </div>
+);
 
 const DashboardSkeleton = () => (
-    <div className="ml-12 mr-8">
-        {/* Header - centrado */}
-        <div className="flex flex-col items-center gap-3 mb-10 text-center">
-            <SkeletonBlock className="h-3 w-24 rounded-md" />
-            <SkeletonBlock className="h-9 w-48 rounded-md" />
-            <SkeletonBlock className="h-3.5 w-56 rounded-md" />
-            <SkeletonBlock className="h-10 w-40 rounded-xl mt-2" />
-        </div>
-
-        {/* Section header */}
-        <div className="flex justify-between items-center mb-4">
-            <SkeletonBlock className="h-3 w-32 rounded-md" />
-            <SkeletonBlock className="h-3 w-16 rounded-md" />
-        </div>
-
-        {/* Project cards - mismo grid que la vista real */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-            <ProjectCardSkeleton />
-            <ProjectCardSkeleton />
-            <ProjectCardSkeleton />
-            <ProjectCardSkeleton />
-        </div>
+  <div className="min-h-screen px-8 font-mono">
+    <div className="flex flex-col items-center justify-between mb-10 mt-5">
+      <div className="flex flex-col items-center">
+        <SkeletonBlock className="h-3 w-16 rounded-md mb-1" />
+        <SkeletonBlock className="h-9 w-48 rounded-md" />
+        <SkeletonBlock className="h-3.5 w-56 rounded-md mt-1" />
+      </div>
     </div>
-)
 
-export default DashboardSkeleton
+    <div className="flex items-center justify-between mb-4 ml-6">
+      <SkeletonBlock className="h-3.5 w-28 rounded-md" />
+      <SkeletonBlock className="h-3.5 w-20 rounded-md" />
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+      <ProjectCardSkeleton />
+    </div>
+  </div>
+);
+
+export default DashboardSkeleton;

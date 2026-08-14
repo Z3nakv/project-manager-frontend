@@ -17,7 +17,7 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
   const taskId = queryParams.get("viewTask")!;
 
   return (
-    <div className="flex justify-between items-center px-2 py-1 rounded-xl bg-[#252d3d] border border-[#2d3348]">
+    <div className="flex justify-between items-center px-2 py-1 rounded-xl bg-surface-hover border border-border">
       <div className="flex items-center gap-10">
         <div
           className={`w-6 h-6 rounded-lg flex items-center justify-center text-md font-bold shrink-0 ${getColor(note._id)}`}
@@ -33,8 +33,8 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
         </div>
 
         <div className="flex flex-col ">
-          <p className="text-xs text-slate-300">{note.content}</p>
-          <p className="text-[10px] text-slate-500">
+          <p className="text-xs text-text-primary">{note.content}</p>
+          <p className="text-[10px] text-text-muted">
             {formatDate(note.createdAt)}
           </p>
         </div>

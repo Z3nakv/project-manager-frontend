@@ -10,7 +10,7 @@ const EditTaskData = () => {
 
   const { data: taskData, isError, error } = useGetTaskData({ projectId, taskId })
   
-  if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
+  if (isError) return <p className="text-error text-sm">{error.message}</p>;
   if (taskData) return <EditTaskModal taskData={taskData} taskId={taskId} />;
 };
 

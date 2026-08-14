@@ -22,9 +22,9 @@ const Breadcrumbs = () => {
 
   return (
     <nav aria-label="Breadcrumb" className="ml-15 mb-6">
-      <ol className="flex items-center gap-2 font-mono text-xs text-slate-500 flex-wrap">
+      <ol className="flex items-center gap-2 font-mono text-xs text-text-muted flex-wrap">
         <li>
-          <Link to="/dashboard" className="flex items-center hover:text-indigo-400 transition-colors">
+          <Link to="/dashboard" className="flex items-center hover:text-primary transition-colors">
             <IoMdHome className="h-3.5 w-3.5" />
           </Link>
         </li>
@@ -32,16 +32,16 @@ const Breadcrumbs = () => {
           const isLast = index === crumbs.length - 1;
           return (
             <Fragment key={crumb.pathname}>
-              <span className="text-slate-700">/</span>
+              <span className="text-text-muted">/</span>
               <li>
                 {isLast ? (
-                  <span className="text-slate-300 font-medium truncate max-w-50 inline-block align-bottom">
+                  <span className="text-text-primary font-medium truncate max-w-50 inline-block align-bottom">
                     {crumb.node}
                   </span>
                 ) : (
                   <Link
                     to={crumb.pathname}
-                    className="hover:text-indigo-400 transition-colors truncate max-w-40 inline-block align-bottom"
+                    className="hover:text-primary transition-colors truncate max-w-40 inline-block align-bottom"
                   >
                     {crumb.node}
                   </Link>

@@ -88,7 +88,7 @@ export function AITaskSuggestions({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-overlay backdrop-blur-sm" />
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -102,8 +102,8 @@ export function AITaskSuggestions({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-lg bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
-                <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-4">
+              <DialogPanel className="w-full max-w-lg bg-surface-elevated border border-border rounded-xl shadow-overlay p-8">
+                <div className="rounded-lg border border-border bg-surface-base p-4">
                   <QueryStateWrapper
                     isLoading={suggestionsQuery.isLoading}
                     isError={suggestionsQuery.isError}
@@ -115,22 +115,22 @@ export function AITaskSuggestions({
                       {suggestionsQuery.data?.map((task, i) => (
                         <li
                           key={i}
-                          className="flex gap-2 rounded-md border border-slate-800 bg-slate-800/40 p-2.5"
+                          className="flex gap-2 rounded-lg border border-border bg-input p-2.5"
                         >
                           <input
                             type="checkbox"
                             checked={selected.has(i)}
                             onChange={() => toggleSelected(i)}
-                            className="mt-1"
+                            className="mt-1 w-4 h-4 rounded accent-primary cursor-pointer"
                           />
-                          <div className="text-slate-400">
-                            <p className="text-sm font-medium text-slate-200">
+                          <div className="text-text-muted">
+                            <p className="text-sm font-medium text-text-primary">
                               {task.name}
                             </p>
-                            <p className="text-xs ">{task.description}</p>
+                            <p className="text-xs text-text-secondary">{task.description}</p>
                             {task.labels &&
                               task.labels.map((label) => (
-                                <div key={label.text} className="flex">
+                                <div key={label.text} className="flex text-xs text-text-muted">
                                   <p>Labels: </p>
                                   {"{"}
                                   <p>{label.text}</p>
@@ -140,7 +140,7 @@ export function AITaskSuggestions({
                                 </div>
                               ))}
                             {task.estimatedDays && (
-                              <div className="flex">
+                              <div className="flex text-xs text-text-muted">
                                 <p>Deadline:</p>
                                 <p>{task.estimatedDays}</p>
                               </div>
@@ -153,7 +153,7 @@ export function AITaskSuggestions({
                     <div className="mt-3 flex justify-end gap-2">
                       <button
                         onClick={handleClose}
-                        className="text-xs text-slate-400 hover:text-slate-300"
+                        className="text-xs text-text-muted hover:text-text-primary cursor-pointer px-3 py-1.5 rounded-lg hover:bg-surface-hover transition-colors"
                       >
                         Cancelar
                       </button>
@@ -162,7 +162,7 @@ export function AITaskSuggestions({
                         disabled={
                           selected.size === 0 || createTaskMutationIsPending
                         }
-                        className="inline-flex items-center gap-1.5 rounded-md bg-indigo-500 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-40"
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-primary hover:bg-primary-hover px-3.5 py-1.5 text-xs font-semibold text-text-on-primary disabled:opacity-40 cursor-pointer shadow-md transition-colors"
                       >
                         {createTaskMutationIsPending && (
                           <FiLoader className="h-3.5 w-3.5 animate-spin" />
@@ -188,7 +188,7 @@ function SuggestionsSkeleton() {
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-          className="h-14 rounded-md bg-slate-800/60 animate-pulse"
+          className="h-14 rounded-lg bg-bg-alt animate-pulse"
         />
       ))}
     </div>

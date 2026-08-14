@@ -24,7 +24,7 @@ const SearchBar = () => {
     <Popover className={'relative'}>
       
       <PopoverButton
-        className="text-slate-400 cursor-pointer  inline-flex items-center gap-x-1 rounded-lg hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150"
+        className="text-text-muted cursor-pointer  inline-flex items-center gap-x-1 rounded-lg hover:text-primary hover:-translate-y-1 transition-transform duration-150"
         aria-label="searchbar"
       >
         <FaSearch className="cursor-pointer w-6 h-6" />
@@ -43,7 +43,7 @@ const SearchBar = () => {
         <PopoverPanel className="absolute -bottom-5 left-10 z-10 w-72">
             <div className="relative max-w-screen-2xl mx-auto px-6 py-4 flex  justify-between items-center">
               <div className="relative w-full max-w-md md:m-auto mr-4">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
                   🔍
                 </span>
 
@@ -53,16 +53,16 @@ const SearchBar = () => {
                   value={search}
                   onChange={handleChange}
                   placeholder="Busca un proyecto..."
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-800
-      placeholder:text-gray-400
+                  className="h-11 w-full rounded-xl border border-border bg-input pl-10 pr-4 text-sm text-text-primary
+      placeholder:text-text-muted
       shadow-sm
       outline-none
       transition-all
       duration-200
-      hover:border-gray-300
-      focus:border-blue-500
+      hover:border-border-strong
+      focus:border-primary
       focus:ring-4
-      focus:ring-blue-500/10"
+      focus:ring-primary/10"
                 />
               </div>
             </div>

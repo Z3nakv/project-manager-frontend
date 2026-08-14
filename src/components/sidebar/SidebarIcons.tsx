@@ -42,10 +42,10 @@ const SidebarIcons = ({data}: SidebarIconsProps) => {
   return (
       <Link 
       to={`${location.pathname}${data.query}`}
-      className="flex gap-2 text-slate-400 font-mono hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150"
+      className="flex gap-2 text-text-muted font-mono hover:text-primary hover:-translate-y-1 transition-transform duration-150"
       >
         <data.icon 
-        className="h-5 w-5 cursor-pointer text-slate-400 hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150" />
+        className="h-5 w-5 cursor-pointer text-text-muted hover:text-primary hover:-translate-y-1 transition-transform duration-150" />
         <p className="hidden lg:block">{data.name}</p>
       </Link>
   );

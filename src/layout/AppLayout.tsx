@@ -11,13 +11,13 @@ const AppLayout = () => {
 
   if (isLoading) return "Cargando...";
   if (isError) return <Navigate to="/" />;
-  if (!user && !isFetching) return <Navigate to="/" />; // sin usuario Y sin fetch en curso
-  if (!user) return "Cargando..."; // sin usuario pero todavía resolviendo, no rebotes aún
+  if (!user && !isFetching) return <Navigate to="/" />; 
+  if (!user) return "Cargando...";
 
   if (user)
     return (
       <SocketProvider user={user}>
-        <div className="min-h-screen bg-[#151921]">
+        <div className="min-h-screen bg-bg text-text-primary">
           <SideBarMenu />
           <div className="flex flex-col min-h-screen pl-20 lg:pl-64 transition-[padding] duration-200">
             <main className="flex-1 max-w-screen-2xl w-full mx-auto py-5">
@@ -25,8 +25,8 @@ const AppLayout = () => {
               <Outlet />
             </main>
 
-            <footer className="border-t border-[#2d3348] py-5">
-              <p className="text-center text-xs text-slate-600">
+            <footer className="border-t border-border-subtle py-5">
+              <p className="text-center text-xs text-text-muted">
                 Todos los derechos reservados © {new Date().getFullYear()}
               </p>
             </footer>
@@ -36,7 +36,7 @@ const AppLayout = () => {
           pauseOnHover={false}
           pauseOnFocusLoss={false}
           toastClassName={() =>
-            "cursor-pointer relative bg-[#1e2330] border border-[#2d3348] text-slate-200 text-sm font-medium rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.4)] flex items-center gap-3 p-4 mb-2 overflow-hidden"
+            "cursor-pointer relative bg-surface-elevated border border-border text-text-primary text-sm font-medium rounded-xl shadow-lifted flex items-center gap-3 p-4 mb-2 overflow-hidden"
           }
           closeOnClick={true}
         />

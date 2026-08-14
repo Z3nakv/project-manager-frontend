@@ -15,12 +15,12 @@ type TaskFormProps = {
 };
 
 const inputBase =
-  "w-full bg-[#151921] border border-[#2d3348] text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-colors duration-150";
+  "w-full bg-input border border-border text-text-primary placeholder:text-text-muted text-sm rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors duration-150";
 
 const labelBase =
-  "block text-xs font-semibold uppercase tracking-widest text-slate-400";
+  "block text-xs font-semibold uppercase tracking-widest text-text-muted";
 
-const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
+const errorMsg = "text-xs text-error mt-1 flex items-center gap-1";
 
 const TaskForm = ({ register, errors, control, taskId }: TaskFormProps) => {
   const projectId = useProjectId();
@@ -35,7 +35,7 @@ const TaskForm = ({ register, errors, control, taskId }: TaskFormProps) => {
           id="name"
           type="text"
           placeholder="Ej. Diseñar pantalla de login"
-          className={`mt-2 ${inputBase} ${errors.name ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+          className={`mt-2 ${inputBase} ${errors.name ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
           {...register("name", {
             required: "El nombre de la tarea es obligatorio",
           })}
@@ -67,7 +67,7 @@ const TaskForm = ({ register, errors, control, taskId }: TaskFormProps) => {
           id="description"
           placeholder="Describe brevemente qué hay que hacer…"
           rows={4}
-          className={`mt-2 ${inputBase} resize-none ${errors.description ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+          className={`mt-2 ${inputBase} resize-none ${errors.description ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
           {...register("description", {
             required: "La descripción de la tarea es obligatoria",
           })}
@@ -94,13 +94,13 @@ const TaskForm = ({ register, errors, control, taskId }: TaskFormProps) => {
        <TaskAttachments projectId={projectId} taskId={taskId}/>
 
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+        <label className="text-xs font-semibold text-text-muted uppercase tracking-wide">
           Fecha límite
         </label>
         <input
           id="deadline"
           type="date"
-          className="w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150"
+          className="w-full px-3 py-2.5 rounded-lg text-sm text-text-primary bg-input border border-border focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors duration-150"
           {...register("deadline")}
         />
       </div>

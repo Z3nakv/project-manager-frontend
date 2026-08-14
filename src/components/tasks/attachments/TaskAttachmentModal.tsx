@@ -39,7 +39,7 @@ const TaskAttachmentModal = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+            <div className="fixed inset-0 bg-overlay backdrop-blur-sm" />
           </TransitionChild>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -53,13 +53,13 @@ const TaskAttachmentModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <DialogPanel className="w-full max-w-lg max-h-[80vh] mt-30 overflow-y-auto scrollbar-thumb-indigo-50 scrollbar-auto bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
+                <DialogPanel className="w-full max-w-lg max-h-[80vh] mt-30 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full bg-surface-elevated border border-border rounded-2xl shadow-overlay p-6">
                   <div className="flex items-start justify-between mb-6">
                     {attachment && (
                       <img
                         src={getCloudinaryUrl(attachment.publicId, 600, 450)}
                         alt={attachment.filename}
-                        className="rounded-lg w-full h-auto"
+                        className="rounded-lg w-full h-auto border border-border-subtle"
                       />
                     )}
                   </div>

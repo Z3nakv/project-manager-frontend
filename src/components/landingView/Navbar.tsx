@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import Logo from "../Logo";
 import Button from "./Button";
 
@@ -11,17 +10,15 @@ const links = [
 
 const Navbar = () => {
   return (
-    <nav className="flex items-center justify-between gap-3 px-6 lg:px-10 py-4 border-b border-[#1e2330] sticky top-0 z-50 bg-[#151921]">
-      <Link to="/dashboard" className="cursor-pointer" aria-label="Inicio">
-        <Logo />
-      </Link>
+    <nav className="flex items-center justify-between gap-3 px-6 lg:px-10 py-4 border-b border-border-subtle sticky top-0 z-50 bg-bg text-text-primary">
+      <Logo />
 
-      <ul className="hidden md:flex items-center gap-8 font-mono text-sm text-slate-400">
+      <ul className="hidden md:flex items-center gap-8 font-mono text-sm">
         {links.map((l) => (
           <li key={l.href}>
             <a
               href={l.href}
-              className="hover:text-indigo-300 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 focus-visible:rounded"
+              className="text-text-secondary hover:text-primary transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:rounded"
             >
               {l.label}
             </a>

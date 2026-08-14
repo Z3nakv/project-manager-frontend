@@ -1,7 +1,195 @@
 @import "tailwindcss";
 
+/* ============================================================
+   TreeWork — Sistema de tokens semánticos (Light / Dark)
+   Todos los colores de la app se resuelven desde aquí.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Background / base */
+  --bg: #eef1f6;
+  --bg-alt: #e2e8f0;
+
+  /* Surfaces */
+  --surface-base: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-hover: #f1f5f9;
+  --input: #f8fafc;
+
+  /* Felda / folder metaphor — alias mantenidos por compatibilidad */
+  --surface-1: #ffffff;
+  --surface-2: #f1f5f9;
+
+  /* Borders */
+  --border-subtle: #e2e8f0;
+  --border: #cbd5e1;
+  --border-strong: #94a3b8;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-on-primary: #ffffff;
+
+  /* Primary / brand */
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-subtle: #eef2ff;
+  --ring: #818cf8;
+
+  /* Legacy alias (gradientes landing) */
+  --accent: #4f46e5;
+  --accent-bg: #eef2ff;
+
+  /* Estados */
+  --success: #16a34a;
+  --success-subtle: #ecfdf5;
+  --warning: #d97706;
+  --warning-subtle: #fffbeb;
+  --error: #dc2626;
+  --error-hover: #b91c1c;
+  --error-subtle: #fef2f2;
+  --info: #2563eb;
+  --info-subtle: #eff6ff;
+
+  /* Status de tareas (colores de iconos) */
+  --status-pending: #6366f1;
+  --status-inprogress: #f59e0b;
+  --status-onhold: #ef4444;
+  --status-underreview: #0ea5e9;
+  --status-completed: #10b981;
+
+  /* Overlay / shadows */
+  --overlay: rgba(15, 23, 42, 0.55);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Background / base */
+  --bg: #0f1117;
+  --bg-alt: #0b0d12;
+
+  /* Surfaces */
+  --surface-base: #161925;
+  --surface-elevated: #1e2330;
+  --surface-hover: #252d3d;
+  --input: #1a1f2c;
+
+  --surface-1: #161925;
+  --surface-2: #1e2330;
+
+  /* Borders */
+  --border-subtle: #27272a;
+  --border: #2d3348;
+  --border-strong: #3d4663;
+
+  /* Text */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #7a87a0;
+  --text-on-primary: #ffffff;
+
+  /* Primary / brand */
+  --primary: #4f46e5;
+  --primary-hover: #6366f1;
+  --primary-subtle: rgba(99, 102, 241, 0.13);
+  --ring: #818cf8;
+
+  --accent: #818cf8;
+  --accent-bg: rgba(99, 102, 241, 0.1);
+
+  /* Estados */
+  --success: #34d399;
+  --success-subtle: rgba(16, 185, 129, 0.14);
+  --warning: #fbbf24;
+  --warning-subtle: rgba(245, 158, 11, 0.14);
+  --error: #f87171;
+  --error-hover: #fca5a5;
+  --error-subtle: rgba(239, 68, 68, 0.14);
+  --info: #60a5fa;
+  --info-subtle: rgba(59, 130, 246, 0.14);
+
+  --status-pending: #818cf8;
+  --status-inprogress: #fbbf24;
+  --status-onhold: #f87171;
+  --status-underreview: #38bdf8;
+  --status-completed: #34d399;
+
+  --overlay: rgba(0, 0, 0, 0.7);
+}
+
+/* Fondo global reactivo al tema (reemplaza el estilo inline del <body>) */
+html,
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+}
+
 @theme {
   --font-display: 'Space Grotesk', sans-serif;
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Background / base */
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+
+  /* Surfaces */
+  --color-sidebar: var(--bg);
+  --color-surface-base: var(--surface-base);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-hover: var(--surface-hover);
+  --color-input: var(--input);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+
+  /* Borders */
+  --color-border-subtle: var(--border-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  /* Text */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-on-primary: var(--text-on-primary);
+
+  /* Primary / brand */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-ring: var(--ring);
+  --color-accent: var(--accent);
+  --color-accent-bg: var(--accent-bg);
+
+  /* Estados */
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-error: var(--error);
+  --color-error-hover: var(--error-hover);
+  --color-error-subtle: var(--error-subtle);
+  --color-info: var(--info);
+  --color-info-subtle: var(--info-subtle);
+
+  /* Status icons */
+  --color-status-pending: var(--status-pending);
+  --color-status-inprogress: var(--status-inprogress);
+  --color-status-onhold: var(--status-onhold);
+  --color-status-underreview: var(--status-underreview);
+  --color-status-completed: var(--status-completed);
+
+  /* Overlay */
+  --color-overlay: var(--overlay);
+
+  /* Shadows */
+  --shadow-soft: 0 4px 14px rgb(0 0 0 / 0.07);
+  --shadow-lifted: 0 8px 24px rgb(0 0 0 / 0.14);
+  --shadow-overlay: 0 24px 48px rgb(0 0 0 / 0.35);
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

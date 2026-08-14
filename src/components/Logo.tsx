@@ -12,8 +12,8 @@ const Logo = () => {
       alt="Logo de Project Manager"
       className="flex items-center justify-center w-9 h-9 rounded-lg shadow-md shrink-0"
       />
-        <span className="lg:block hidden text-lg font-extrabold tracking-tight text-slate-100 whitespace-nowrap">
-          Tree <span className="text-indigo-400">Work</span>
+        <span className="lg:block hidden text-lg font-extrabold tracking-tight text-text-primary whitespace-nowrap">
+          Tree <span className="text-accent">Work</span>
         </span>
     </Link>
   );

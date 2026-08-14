@@ -68,7 +68,7 @@ const SelectTaskPropsModal = ({ onConfirm }: SelectTaskPropsModalProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-overlay backdrop-blur-sm" />
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -82,18 +82,18 @@ const SelectTaskPropsModal = ({ onConfirm }: SelectTaskPropsModalProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-lg bg-[#1e2330] border border-[#2d3348] rounded-xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
+              <DialogPanel className="w-full max-w-lg bg-surface-elevated border border-border rounded-xl shadow-overlay p-8">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-6">
                   <DialogTitle>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-1">
-                      Select the props for new tasks
+                    <p className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-1">
+                      Propiedades para nuevas tareas
                     </p>
                   </DialogTitle>
 
                   <button
                     onClick={handleClose}
-                    className="p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150"
+                    className="cursor-pointer p-1.5 rounded-lg text-text-muted hover:bg-surface-hover hover:text-text-primary transition-colors duration-150"
                   >
                     <XMarkIcon className="h-5 w-5" />
                   </button>
@@ -104,30 +104,30 @@ const SelectTaskPropsModal = ({ onConfirm }: SelectTaskPropsModalProps) => {
                     {Object.values(TASKPROPS).map((label) => 
                       <li
                         key={label}
-                        className="flex gap-2 rounded-md border border-slate-800 bg-slate-800/40 p-2.5"
+                        className="flex items-center gap-2.5 rounded-lg border border-border bg-input p-2.5"
                       >
                         <input
                           name={label}
                           type="checkbox"
                           checked={taskProps[label]}
                           onChange={handleTaskProps}
-                          className="mt-1"
+                          className="w-4 h-4 rounded accent-primary cursor-pointer"
                         />
                         <div>
-                          <p className="text-sm font-medium text-slate-200">
+                          <p className="text-sm font-medium text-text-primary">
                             {label}
                           </p>
                         </div>
                       </li>
                     )}
-                    <div className="text-white flex gap-2 rounded-md border border-slate-800 bg-slate-800/40 p-2.5">
-                      <label htmlFor="quantity">How many tasks do you want to create?</label>
+                    <div className="flex items-center justify-between gap-2 rounded-lg border border-border bg-input p-2.5 text-text-primary text-sm">
+                      <label htmlFor="quantity" className="text-sm text-text-secondary font-medium">¿Cuántas tareas deseas crear?</label>
                       <select 
                       name="quantity" 
                       id="quantity" 
                       onChange={handleSelectChange}
-                      className="w-full text-black">
-                        { Array.from({ length: 5 }).map((_,i) => (<option key={i} value={i+1}>{i+1}</option>))}
+                      className="bg-surface-base border border-border text-text-primary rounded-lg px-2.5 py-1 text-sm focus:outline-none focus:border-primary cursor-pointer">
+                        { Array.from({ length: 5 }).map((_,i) => (<option key={i} value={i+1} className="bg-surface-base text-text-primary">{i+1}</option>))}
                       </select>
                     </div>
                     
@@ -135,7 +135,7 @@ const SelectTaskPropsModal = ({ onConfirm }: SelectTaskPropsModalProps) => {
 
                   <button
                     type="submit"
-                    className="w-full mt-5 p-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg transition-colors"
+                    className="w-full mt-5 py-2.5 bg-primary hover:bg-primary-hover text-text-on-primary text-xs font-semibold rounded-xl transition-colors duration-150 shadow-md cursor-pointer"
                   >
                     Agregar
                   </button>

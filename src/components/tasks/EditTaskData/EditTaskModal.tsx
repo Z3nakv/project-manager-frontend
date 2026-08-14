@@ -7,6 +7,7 @@ import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useUpdateTaskMutation } from "../../../hooks/mutations/useTaskMutations";
 import type { TaskFormType, TaskProjectType } from "../../../types/task";
 import useProjectId from "../../../hooks/useProjectId";
+import DogEar from "../../DogEar";
 
 type EditTaskModalProps = {
   taskData: TaskProjectType;
@@ -39,7 +40,7 @@ const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
           enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100"
           leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-overlay backdrop-blur-sm" />
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -52,45 +53,37 @@ const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
               {/* Wrapper de carpeta/archivo */}
               <div className="relative pt-7 w-full max-w-lg m-auto mt-30">
                 {/* Pestaña tipo archivo — modo edición */}
-                <div className="absolute top-0 left-6 h-7 flex items-center gap-1.5 bg-[#0f1117] border border-zinc-800 border-b-0 rounded-t-md px-3.5">
-                  <PencilSquareIcon className="h-3.5 w-3.5 text-amber-400" />
-                  <span className="font-mono text-xs text-slate-400">editando.task</span>
+                <div className="absolute top-0 left-6 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
+                  <PencilSquareIcon className="h-3.5 w-3.5 text-warning" />
+                  <span className="font-mono text-xs text-text-muted">editando.task</span>
                 </div>
 
                 <button
                   onClick={handleClose}
-                  className="absolute top-1 right-0 cursor-pointer p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 z-10"
+                  className="absolute top-1 right-0 cursor-pointer p-1.5 rounded-lg text-text-muted hover:bg-surface-hover hover:text-text-primary transition-colors duration-150 z-10"
                 >
                   <XMarkIcon className="h-5 w-5" />
                 </button>
 
-                <DialogPanel className="relative max-h-[80vh] overflow-y-auto overflow-x-hidden scrollbar-thumb-indigo-50 scrollbar-auto bg-[#0f1117] border border-zinc-800 rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8">
-                  {/* Dog-ear */}
-                  <div
-                    className="absolute top-0 right-0 w-0 h-0"
-                    style={{
-                      borderWidth: "0 36px 36px 0",
-                      borderStyle: "solid",
-                      borderColor: "transparent transparent #252d3d transparent",
-                    }}
-                  />
+                <DialogPanel className="relative max-h-[80vh] overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full bg-surface-base border border-border rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-overlay p-8">
+                  <DogEar />
 
                   {/* Header */}
                   <div className="mb-6">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-1">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-1">
                       Tarea
                     </p>
-                    <DialogTitle as="h3" className="text-xl font-bold text-slate-100 pr-6">
+                    <DialogTitle as="h3" className="text-xl font-bold text-text-primary pr-6">
                       Editar Tarea
                     </DialogTitle>
-                    <p className="text-sm text-slate-400 mt-1">
+                    <p className="text-sm text-text-secondary mt-1">
                       Realiza cambios a{" "}
-                      <span className="text-indigo-400 font-medium">{taskData.name}</span>
+                      <span className="text-accent font-medium">{taskData.name}</span>
                     </p>
                   </div>
 
                   {/* Divider */}
-                  <div className="border-t border-zinc-800 mb-6" />
+                  <div className="border-t border-border-subtle mb-6" />
 
                   {/* Form */}
                   <form
@@ -102,7 +95,7 @@ const EditTaskModal = ({ taskData, taskId }: EditTaskModalProps) => {
 
                     <button
                       type="submit"
-                      className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold py-2.5 rounded-xl cursor-pointer transition-colors duration-150 shadow-md flex items-center justify-center gap-2"
+                      className="w-full bg-primary hover:bg-primary-hover text-text-on-primary text-sm font-semibold py-2.5 rounded-xl cursor-pointer transition-colors duration-150 shadow-md flex items-center justify-center gap-2"
                     >
                       <PencilSquareIcon className="h-4 w-4" />
                       Guardar Cambios

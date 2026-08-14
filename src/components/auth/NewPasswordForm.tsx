@@ -31,19 +31,19 @@ export default function NewPasswordForm({token} : NewPasswordFormProps) {
         <>
             <form
                 onSubmit={handleSubmit(handleNewPassword)}
-                className="space-y-8 p-10  bg-white mt-10"
+                className="space-y-8 p-10 bg-surface-base border border-border rounded-xl mt-10"
                 noValidate
             >
 
                 <div className="flex flex-col gap-5">
                     <label
-                        className="font-normal text-2xl"
+                        className="font-normal text-2xl text-text-primary"
                     >Password</label>
 
                     <input
                         type="password"
                         placeholder="Password de Registro"
-                        className="w-full p-3  border-gray-300 border"
+                        className="w-full p-3 border border-border rounded-lg bg-input text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                         {...register("password", {
                             required: "El Password es obligatorio",
                             minLength: {
@@ -59,14 +59,14 @@ export default function NewPasswordForm({token} : NewPasswordFormProps) {
 
                 <div className="flex flex-col gap-5">
                     <label
-                        className="font-normal text-2xl"
+                        className="font-normal text-2xl text-text-primary"
                     >Repetir Password</label>
 
                     <input
                         id="password_confirmation"
                         type="password"
                         placeholder="Repite Password de Registro"
-                        className="w-full p-3  border-gray-300 border"
+                        className="w-full p-3 border border-border rounded-lg bg-input text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                         {...register("password_confirmation", {
                             required: "Repetir Password es obligatorio",
                             validate: value => value === password || 'Los Passwords no son iguales'
@@ -81,7 +81,7 @@ export default function NewPasswordForm({token} : NewPasswordFormProps) {
                 <input
                     type="submit"
                     value='Establecer Password'
-                    className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full p-3  text-white font-black  text-xl cursor-pointer"
+                    className="bg-primary hover:bg-primary-hover w-full p-3 text-text-on-primary font-black text-xl cursor-pointer rounded-lg"
                 />
             </form>
         </>

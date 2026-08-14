@@ -24,9 +24,9 @@ const ProjectList = ({ projects, user }: ProjectListProps) => {
         </ul>
       ) : (
         <div className="flex flex-col items-center justify-center py-36 gap-5">
-          <div className="w-14 h-14 rounded-2xl bg-[#1e2330] border border-[#2d3348] flex items-center justify-center shadow-md">
+          <div className="w-14 h-14 rounded-2xl bg-surface-hover border border-border flex items-center justify-center shadow-md">
             <svg
-              className="w-7 h-7 text-indigo-400"
+              className="w-7 h-7 text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -40,14 +40,14 @@ const ProjectList = ({ projects, user }: ProjectListProps) => {
             </svg>
           </div>
           <div className="text-center">
-            <p className="text-slate-300 font-semibold">No hay proyectos aún</p>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-text-secondary font-semibold">No hay proyectos aún</p>
+            <p className="text-sm text-text-muted mt-1">
               Crea tu primer proyecto para comenzar
             </p>
           </div>
           <Link
             to="/projects/create-project"
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors duration-150 shadow-md"
+            className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-text-on-primary text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors duration-150 shadow-md"
           >
             <PlusIcon />
             Crear Proyecto

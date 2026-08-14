@@ -7,9 +7,9 @@ export const statusTranslations: { [key: string]: string } = {
 };
 
 export const statusColors: { [key: string]: string } = {
-  pending:     "bg-slate-500/20 text-slate-400 border-slate-500/30",
-  inProgress:  "bg-indigo-500/20 text-indigo-400 border-indigo-500/30",
-  onHold:      "bg-amber-500/20  text-amber-400  border-amber-500/30",
-  underReview: "bg-sky-500/20    text-sky-400    border-sky-500/30",
-  completed:   "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  pending:     "bg-surface-hover text-text-secondary border-border",
+  inProgress:  "bg-primary-subtle text-accent border-primary/30",
+  onHold:      "bg-warning-subtle text-warning border-warning/30",
+  underReview: "bg-info-subtle text-info border-info/30",
+  completed:   "bg-success-subtle text-success border-success/30",
 };

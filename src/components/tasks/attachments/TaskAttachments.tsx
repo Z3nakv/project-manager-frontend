@@ -19,8 +19,8 @@ export function TaskAttachments({ projectId, taskId }: { projectId: string; task
 
   return (
     <div className="space-y-3">
-      <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide flex items-center gap-1.5">
-        <PaperClipIcon className="h-3.5 w-3.5 text-slate-600" />
+      <label className="text-xs font-semibold text-text-muted uppercase tracking-wide flex items-center gap-1.5">
+        <PaperClipIcon className="h-3.5 w-3.5 text-text-muted" />
         Adjuntos
       </label>
 
@@ -30,7 +30,7 @@ export function TaskAttachments({ projectId, taskId }: { projectId: string; task
         type="button"
         onClick={handleUpload}
         disabled={!file || isPending}
-        className="w-full flex items-center justify-center gap-2 bg-[#161925] hover:bg-[#1c2130] disabled:opacity-40 disabled:cursor-not-allowed border border-zinc-800 text-slate-300 text-xs font-medium py-2 rounded-lg transition-colors duration-150 cursor-pointer"
+        className="w-full flex items-center justify-center gap-2 bg-surface-base hover:bg-surface-hover disabled:opacity-40 disabled:cursor-not-allowed border border-border text-text-secondary hover:text-text-primary text-xs font-medium py-2 rounded-lg transition-colors duration-150 cursor-pointer shadow-xs"
       >
         <ArrowUpTrayIcon className="h-3.5 w-3.5" />
         {isPending ? "Subiendo..." : "Subir imagen"}
@@ -39,16 +39,16 @@ export function TaskAttachments({ projectId, taskId }: { projectId: string; task
       {isLoading ? (
         <div className="grid grid-cols-4 gap-2">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="aspect-square rounded-lg bg-zinc-800 animate-pulse" />
+            <div key={i} className="aspect-square rounded-lg bg-bg-alt animate-pulse" />
           ))}
         </div>
       ) : attachments && attachments.length > 0 ? (
         <ul className="grid grid-cols-4 gap-2">
           {attachments.map((att) => (
-            <li key={att._id} className="relative aspect-square rounded-lg overflow-hidden border border-zinc-800">
+            <li key={att._id} className="relative aspect-square rounded-lg overflow-hidden border border-border">
               <img src={att.url} alt={att.filename} className="w-full h-full object-cover" />
               <div
-                className="absolute top-0 right-0 w-3.5 h-3.5 bg-[#0f1117]"
+                className="absolute top-0 right-0 w-3.5 h-3.5 bg-surface-hover"
                 style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
               />
             </li>

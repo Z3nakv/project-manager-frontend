@@ -35,7 +35,7 @@ const AssignMemberModal = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+                        <div className="fixed inset-0 bg-overlay backdrop-blur-sm" />
                     </TransitionChild>
     
                     <div className="fixed inset-0 overflow-y-auto">
@@ -49,21 +49,21 @@ const AssignMemberModal = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <DialogPanel className="w-full max-w-md bg-[#1e2330] border border-[#2d3348] rounded-2xl shadow-[0_24px_48px_rgba(0,0,0,0.5)] p-6">
+                                <DialogPanel className="w-full max-w-md bg-surface-elevated border border-border rounded-2xl shadow-overlay p-6">
     
                                     {/* Header */}
                                     <div className="flex items-start justify-between mb-6">
                                         <div>
-                                            <DialogTitle as="h3" className="text-lg font-bold text-slate-100">
+                                            <DialogTitle as="h3" className="text-lg font-bold text-text-primary">
                                                 Agregar Colaborador
                                             </DialogTitle>
-                                            <p className="text-sm text-slate-400 mt-1">
+                                            <p className="text-sm text-text-secondary mt-1">
                                                 Busca al integrante por su email
                                             </p>
                                         </div>
                                         <button
                                             onClick={handleClose}
-                                            className="p-1 rounded-lg text-slate-500 hover:text-slate-300 hover:bg-[#2d3348] transition-colors duration-150"
+                                            className="p-1 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-hover transition-colors duration-150 cursor-pointer"
                                         >
                                             <XMarkIcon className="h-5 w-5" />
                                         </button>

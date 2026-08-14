@@ -15,7 +15,7 @@ const testimonials: Testimonial[] = [
     name: "Adrián R.",
     role: "Project Manager",
     initials: "AR",
-    color: "bg-indigo-500/20 text-indigo-300",
+    color: "bg-primary-subtle text-primary",
   },
   {
     quote:
@@ -23,7 +23,7 @@ const testimonials: Testimonial[] = [
     name: "Jorge M.",
     role: "Colaborador",
     initials: "JM",
-    color: "bg-emerald-500/20 text-emerald-300",
+    color: "bg-success-subtle text-success",
   },
   {
     quote:
@@ -31,7 +31,7 @@ const testimonials: Testimonial[] = [
     name: "Laura P.",
     role: "Manager de producto",
     initials: "LP",
-    color: "bg-amber-500/20 text-amber-300",
+    color: "bg-warning-subtle text-warning",
   },
 ];
 
@@ -51,20 +51,20 @@ const TestimonialsSection = () => {
         {testimonials.map((t) => (
           <figure
             key={t.name}
-            className="bg-[#1e2330] border border-[#2d3348] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors duration-150 flex flex-col"
+            className="bg-surface-base text-text-primary border border-border hover:border-primary/40 rounded-2xl p-6 transition-colors duration-150 flex flex-col"
           >
-            <blockquote className="text-sm text-slate-300 leading-relaxed flex-1">
+            <blockquote className="text-sm text-text-secondary leading-relaxed flex-1">
               "{t.quote}"
             </blockquote>
-            <figcaption className="flex items-center gap-3 mt-6 pt-4 border-t border-[#2d3348]">
+            <figcaption className="flex items-center gap-3 mt-6 pt-4 border-t border-border-subtle">
               <span
                 className={`w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${t.color}`}
               >
                 {t.initials}
               </span>
               <div>
-                <p className="text-sm font-semibold text-slate-100">{t.name}</p>
-                <p className="text-xs text-slate-400 font-mono">{t.role}</p>
+                <p className="text-sm font-semibold text-text-primary">{t.name}</p>
+                <p className="text-xs text-text-muted font-mono">{t.role}</p>
               </div>
             </figcaption>
           </figure>

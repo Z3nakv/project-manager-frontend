@@ -14,14 +14,14 @@ const AssignTaskMembers = ({ AssignedMembers }: AssignTaskMembersProps) => {
               <img
                 key={user._id}
                 src={user.avatar ?? "/default-profile-picture-24.webp"}
-                className="w-6 h-6 rounded-full border-2 border-[#1e2330]"
+                className="w-6 h-6 rounded-full border-2 border-surface-elevated"
                 title={user.name}
               />
             );
           })
         : null}
       {team > 4 && (
-        <div className="flex justify-center items-center w-6 h-6 rounded-full text-white border-2 border-black bg-black">
+        <div className="flex justify-center items-center w-6 h-6 rounded-full text-text-secondary border-2 border-surface-elevated bg-surface-hover">
           <p className="text-[10px]">
             {`${team - 4}`}+
           </p>

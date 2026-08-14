@@ -16,7 +16,7 @@ export default function GoogleAuthButton({ onSuccessToken, disabled }: GoogleAut
     <button
       type="button"
       disabled={disabled}
-      className="mt-2 cursor-pointer bg-white w-full flex items-center justify-center gap-3 rounded-lg py-2.5 text-black"
+      className="mt-2 cursor-pointer bg-surface-hover w-full flex items-center justify-center gap-3 rounded-lg py-2.5 text-text-primary border border-border"
       onClick={() => login()}
     >
       <FaGoogle />

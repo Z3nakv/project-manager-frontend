@@ -27,11 +27,11 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
   return (
     <li
       ref={ref}
-      className={`font-mono relative bg-[#0f1117] border rounded-lg p-3 pt-2.5 hover:border-indigo-500/40 transition-colors cursor-pointer group
+      className={`font-mono relative bg-surface-elevated border rounded-lg p-3 pt-2.5 hover:border-primary/40 transition-colors cursor-pointer group
       ${
         isAssignedToMe
-          ? "border-indigo-500 hover:border-indigo-400"
-          : "border-zinc-800 hover:border-indigo-500/40"
+          ? "border-primary hover:border-primary"
+          : "border-border-subtle hover:border-primary/40"
       }`}
     >
       <DogEar />

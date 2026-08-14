@@ -29,14 +29,14 @@ const TaskModalMainBody = ( {taskData, taskId}: TaskModalMainBodyProps ) => {
       <TimeStamps taskData={taskData} />
 
       {/* Divider */}
-      <div className="border-t border-[#2d3348] mb-5" />
+      <div className="border-t border-border-subtle mb-5" />
 
       {/* Description */}
       <div className="mb-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">
+        <p className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-2">
           Descripción
         </p>
-        <p className="text-sm text-slate-300 leading-relaxed">
+        <p className="text-sm text-text-secondary leading-relaxed">
           {taskData.description}
         </p>
       </div>

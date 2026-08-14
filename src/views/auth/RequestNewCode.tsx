@@ -16,25 +16,25 @@ export default function RequestConfirmationCodeView() {
 
     const handleRequestCode = (formData: RequestConfirmationCodeForm) => mutate(formData)
 
-    const inputClass = "w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-600 bg-[#161925] border border-zinc-800 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150";
-    const labelBase = "text-xs font-semibold text-slate-500 uppercase tracking-wide";
-    const errorMsg = "text-xs text-red-400 mt-1 flex items-center gap-1";
+    const inputClass = "w-full px-3 py-2.5 rounded-lg text-sm text-text-primary placeholder:text-text-muted bg-input border border-border focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors duration-150";
+    const labelBase = "text-xs font-semibold text-text-muted uppercase tracking-wide";
+    const errorMsg = "text-xs text-error mt-1 flex items-center gap-1";
 
     return (
         <div className="relative pt-4 w-full max-w-sm">
             {/* Pestaña tipo archivo */}
-            <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-[#0f1117] border border-zinc-800 border-b-0 rounded-t-md px-3.5">
-                <FiMail className="h-3 w-3 text-indigo-400" />
-                <span className="font-mono text-xs text-slate-400">confirmar.auth</span>
+            <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
+                <FiMail className="h-3 w-3 text-accent" />
+                <span className="font-mono text-xs text-text-muted">confirmar.auth</span>
             </div>
 
-            <div className="relative bg-[#0f1117] border border-zinc-800 rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-[0_24px_48px_rgba(0,0,0,0.4)] p-8 overflow-hidden">
+            <div className="relative bg-surface-base border border-border rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-lifted p-8 overflow-hidden">
                 <DogEar />
 
                 {/* Header */}
                 <div className="mb-6">
-                    <h1 className="text-xl font-bold text-slate-100">Solicitar código de confirmación</h1>
-                    <p className="text-sm text-slate-400 mt-1">
+                    <h1 className="text-xl font-bold text-text-primary">Solicitar código de confirmación</h1>
+                    <p className="text-sm text-text-secondary mt-1">
                         Coloca tu email para recibir un nuevo código de confirmación.
                     </p>
                 </div>
@@ -53,7 +53,7 @@ export default function RequestConfirmationCodeView() {
                             id="email"
                             type="email"
                             placeholder="tucorreo@ejemplo.com"
-                            className={`${inputClass} ${errors.email ? "border-red-500/60 focus:border-red-500 focus:ring-red-500/30" : ""}`}
+                            className={`${inputClass} ${errors.email ? "border-error/60 focus:border-error focus:ring-error/30" : ""}`}
                             {...register("email", {
                                 required: "El email de registro es obligatorio",
                                 pattern: {
@@ -74,7 +74,7 @@ export default function RequestConfirmationCodeView() {
 
                     <button
                         type="submit"
-                        className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2"
+                        className="w-full py-2.5 bg-primary hover:bg-primary-hover text-text-on-primary text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-primary/20 flex items-center justify-center gap-2"
                     >
                         <FiMail className="h-4 w-4" />
                         Enviar código
@@ -83,15 +83,15 @@ export default function RequestConfirmationCodeView() {
 
                 {/* Footer */}
                 <div className="flex flex-col gap-2 mt-6">
-                    <p className="text-center text-sm text-slate-500">
+                    <p className="text-center text-sm text-text-muted">
                         ¿Ya tienes cuenta?{" "}
-                        <Link to="/auth/login" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors duration-150">
+                        <Link to="/auth/login" className="text-accent hover:text-ring font-medium transition-colors duration-150">
                             Iniciar sesión
                         </Link>
                     </p>
-                    <p className="text-center text-sm text-slate-500">
+                    <p className="text-center text-sm text-text-muted">
                         ¿Olvidaste tu password?{" "}
-                        <Link to="/auth/forgot-password" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors duration-150">
+                        <Link to="/auth/forgot-password" className="text-accent hover:text-ring font-medium transition-colors duration-150">
                             Restablecer
                         </Link>
                     </p>

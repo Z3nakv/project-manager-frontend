@@ -15,7 +15,7 @@ const LabelPicker = ({ selectedLabels, onChange }: LabelPickerProps) => {
 
   return (
     <div className="space-y-3">
-      <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+      <label className="text-xs font-semibold text-text-muted uppercase tracking-wide">
         Etiquetas
       </label>
 
@@ -62,21 +62,21 @@ const LabelPicker = ({ selectedLabels, onChange }: LabelPickerProps) => {
           value={customText}
           onChange={(e) => setCustomText(e.target.value)}
           placeholder="Etiqueta personalizada..."
-          className="flex-1 px-3 py-1.5 rounded-lg text-xs text-slate-200 placeholder-slate-500 bg-[#161925] border border-zinc-800 focus:outline-none focus:border-indigo-500 transition-colors duration-150"
+          className="flex-1 px-3 py-1.5 rounded-lg text-xs text-text-primary placeholder:text-text-muted bg-input border border-border focus:outline-none focus:border-primary transition-colors duration-150"
         />
         <select
           value={customColor}
           onChange={(e) => setCustomColor(e.target.value as typeof LABEL_COLORS[number])}
-          className="px-2 py-1.5 rounded-lg text-xs bg-[#161925] border border-zinc-800 text-slate-200 cursor-pointer focus:outline-none focus:border-indigo-500 transition-colors duration-150"
+          className="px-2 py-1.5 rounded-lg text-xs bg-input border border-border text-text-primary cursor-pointer focus:outline-none focus:border-primary transition-colors duration-150"
         >
           {LABEL_COLORS.map((color) => (
-            <option key={color} value={color} className="bg-[#0f1117]">{color}</option>
+            <option key={color} value={color} className="bg-surface-base text-text-primary">{color}</option>
           ))}
         </select>
         <button
           type="button"
           onClick={() => addCustomLabel({ customText, selectedLabels, onChange, setCustomText, customColor })}
-          className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg transition-colors duration-150 cursor-pointer"
+          className="px-3.5 py-1.5 bg-primary hover:bg-primary-hover text-text-on-primary text-xs font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-sm"
         >
           Agregar
         </button>

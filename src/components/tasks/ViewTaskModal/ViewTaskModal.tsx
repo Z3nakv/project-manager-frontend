@@ -27,7 +27,7 @@ const ViewTaskModal = () => {
     error,
   } = useGetTaskData({ projectId, taskId });
   if (!showModal || !taskId) return null;
-  if (isError) return <p className="text-red-400 text-sm">{error.message}</p>;
+  if (isError) return <p className="text-error text-sm">{error.message}</p>;
 
   if (taskData)
     return (
@@ -43,7 +43,7 @@ const ViewTaskModal = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+            <div className="fixed inset-0 bg-overlay backdrop-blur-sm" />
           </TransitionChild>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -60,9 +60,9 @@ const ViewTaskModal = () => {
                 {/* Wrapper de carpeta/archivo */}
                 <div className="relative pt-7 w-full max-w-sm md:max-w-3xl m-auto mt-30">
                   {/* Pestaña tipo archivo */}
-                  <div className="absolute top-0 left-6 h-7 flex items-center gap-1.5 bg-[#0f1117] border border-zinc-800 border-b-0 rounded-t-md px-3.5">
-                    <DocumentTextIcon className="h-3.5 w-3.5 text-indigo-400" />
-                    <span className="font-mono text-xs text-slate-400">
+                  <div className="absolute top-0 left-6 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
+                    <DocumentTextIcon className="h-3.5 w-3.5 text-accent" />
+                    <span className="font-mono text-xs text-text-muted">
                       tarea.task
                     </span>
                   </div>
@@ -70,17 +70,17 @@ const ViewTaskModal = () => {
                   {/* Botón cerrar, alineado a la misma altura que la pestaña */}
                   <button
                     onClick={handleClose}
-                    className="absolute top-1 right-0 cursor-pointer p-1.5 rounded-lg text-slate-400 hover:bg-[#2d3348] hover:text-slate-200 transition-colors duration-150 z-10"
+                    className="absolute top-1 right-0 cursor-pointer p-1.5 rounded-lg text-text-muted hover:bg-surface-hover hover:text-text-primary transition-colors duration-150 z-10"
                   >
                     <XMarkIcon className="h-5 w-5" />
                   </button>
 
                   <DialogPanel
                     className="relative md:grid md:grid-cols-2 md:gap-5
-                    max-h-[80vh] scrollbar-thumb-indigo-50 scrollbar-auto
-                    overflow-y-auto overflow-x-hidden bg-[#0f1117] border border-zinc-800
+                    max-h-[80vh] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full
+                    overflow-y-auto overflow-x-hidden bg-surface-base border border-border
                     rounded-tl-sm rounded-tr-2xl rounded-b-2xl
-                    shadow-[0_24px_48px_rgba(0,0,0,0.6)] p-8"
+                    shadow-overlay p-8"
                   >
                     <DogEar/>
 

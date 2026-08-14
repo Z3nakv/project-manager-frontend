@@ -30,14 +30,14 @@ export default function AddMemberForm() {
             <form onSubmit={handleSubmit(handleSearchUser)} className="space-y-4" noValidate>
 
                 <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide" htmlFor="email">
+                    <label className="text-xs font-semibold text-text-muted uppercase tracking-wide" htmlFor="email">
                         Email del usuario
                     </label>
                     <input
                         id="email"
                         type="email"
                         placeholder="tucorreo@ejemplo.com"
-                        className="w-full px-3 py-2.5 rounded-lg text-sm text-slate-200 placeholder-slate-600 bg-[#252d3d] border border-[#2d3348] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-150"
+                        className="w-full px-3 py-2.5 rounded-lg text-sm text-text-primary placeholder:text-text-muted bg-input border border-border focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-colors duration-150"
                         {...register("email", {
                             required: "El email es obligatorio",
                             pattern: { value: /\S+@\S+\.\S+/, message: "Email no válido" },
@@ -48,7 +48,7 @@ export default function AddMemberForm() {
 
                 <button
                     type="submit"
-                    className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition-colors duration-150 cursor-pointer shadow-md shadow-indigo-500/20"
+                    className="w-full py-2.5 bg-primary hover:bg-primary-hover text-text-on-primary text-sm font-semibold rounded-xl transition-colors duration-150 cursor-pointer shadow-md shadow-primary/20 disabled:opacity-50"
                     disabled={mutation.isPending}
                 >
                     Buscar usuario
@@ -59,11 +59,11 @@ export default function AddMemberForm() {
             <div>
                 {mutation.isPending && (
                     <div className="flex items-center justify-center py-6">
-                        <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                     </div>
                 )}
                 {mutation.error && (
-                    <p className="text-center text-sm text-red-400 py-4">{mutation.error.message}</p>
+                    <p className="text-center text-sm text-error py-4">{mutation.error.message}</p>
                 )}
                 {mutation.data && (
                     <SearchResult user={mutation.data} reset={resetData} />

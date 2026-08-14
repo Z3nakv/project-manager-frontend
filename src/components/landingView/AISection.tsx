@@ -26,7 +26,7 @@ const AISection = () => {
             title={
               <>
                 Deja que la IA{" "}
-                <span className="text-indigo-400">arranque tu sprint</span>
+                <span className="text-primary">arranque tu sprint</span>
               </>
             }
             subtitle="Describe el objetivo y deja que Gemini genere las tareas del sprint. Tú las apruebas, asignas y ejecutas."
@@ -38,10 +38,10 @@ const AISection = () => {
               "Ideal para arrancar proyectos nuevos sin página en blanco",
             ].map((item) => (
               <li key={item} className="flex items-start gap-3">
-                <span className="mt-0.5 w-5 h-5 rounded-md bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
+                <span className="mt-0.5 w-5 h-5 rounded-md bg-success-subtle text-success flex items-center justify-center shrink-0">
                   <HiMiniCheck className="h-3.5 w-3.5" aria-hidden="true" />
                 </span>
-                <span className="text-sm text-slate-300">{item}</span>
+                <span className="text-sm text-text-secondary">{item}</span>
               </li>
             ))}
           </ul>
@@ -54,23 +54,23 @@ const AISection = () => {
         </div>
 
         {/* Demo: chat / task generator */}
-        <div className="bg-[#151921] border border-[#2d3348] rounded-2xl shadow-[0_24px_48px_rgba(0,0,0,0.5)] overflow-hidden">
-          <div className="flex items-center gap-2 px-5 py-4 border-b border-[#2d3348]">
-            <HiMiniSparkles className="h-4 w-4 text-indigo-400" aria-hidden="true" />
-            <span className="text-xs font-semibold text-slate-300 font-mono uppercase tracking-wider">
+        <div className="bg-surface-base text-text-primary border border-border rounded-2xl shadow-lifted overflow-hidden">
+          <div className="flex items-center gap-2 px-5 py-4 border-b border-border-subtle">
+            <HiMiniSparkles className="h-4 w-4 text-primary" aria-hidden="true" />
+            <span className="text-xs font-semibold text-text-secondary font-mono uppercase tracking-wider">
               Generador de tareas con IA
             </span>
           </div>
 
           <div className="p-5 space-y-3">
             <div className="flex justify-end">
-              <p className="bg-indigo-600/20 border border-indigo-500/30 text-indigo-100 text-xs rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
+              <p className="bg-surface-elevated text-text-primary border border-primary/30 text-xs rounded-xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
                 Genera 5 tareas para empezar el proyecto "ecommerce"
               </p>
             </div>
 
             <div className="flex justify-start">
-              <p className="bg-[#1e2330] border border-[#2d3348] text-slate-300 text-xs rounded-xl rounded-bl-sm px-4 py-2.5 max-w-[90%]">
+              <p className="bg-surface-base text-text-primary border border-border text-xs rounded-xl rounded-bl-sm px-4 py-2.5 max-w-[90%]">
                 Aquí tienes una propuesta para tu sprint inicial:
               </p>
             </div>
@@ -79,10 +79,10 @@ const AISection = () => {
               {suggestions.map((s) => (
                 <li
                   key={s}
-                  className="flex items-center gap-2.5 bg-[#0f1117] border border-zinc-800 rounded-lg px-3 py-2.5"
+                  className="flex items-center gap-2.5 bg-surface-base text-text-primary border border-border-subtle rounded-lg px-3 py-2.5"
                 >
-                  <HiMiniCheck className="h-4 w-4 text-emerald-400 shrink-0" aria-hidden="true" />
-                  <span className="text-xs text-slate-200">{s}</span>
+                  <HiMiniCheck className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
+                  <span className="text-xs text-text-primary">{s}</span>
                 </li>
               ))}
             </ul>
@@ -91,10 +91,10 @@ const AISection = () => {
               aria-hidden="true"
               className="flex items-center gap-2 pt-2"
             >
-              <div className="flex-1 bg-[#0f1117] border border-zinc-800 rounded-lg px-3 py-2.5 text-xs text-slate-400">
+              <div className="flex-1 bg-surface-base text-text-primary border border-border-subtle rounded-lg px-3 py-2.5 text-xs">
                 ¿Genero el plan completo del sprint?
               </div>
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-primary text-text-on-primary flex items-center justify-center">
                 <HiMiniPaperAirplane className="h-4 w-4" />
               </div>
             </div>

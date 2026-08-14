@@ -47,7 +47,7 @@ const ProjectDetailsView = () => {
       skeleton={<ProjectDetailsSkeleton />}
     >
       {project && (
-        <div className="min-h-screen bg-[#151921]">
+        <div className="min-h-screen bg-bg text-text-primary">
           <ProjectDetailsViewHero projectName={project.projectName} description={project.description} />
           <div className="border-t border-[#2d3348] mt-6 mb-8 max-w-xs m-auto" />
 

@@ -20,7 +20,7 @@ const ViewTaskModalHeader = ({ taskData }: ViewTaskModalHeaderProps) => {
       </div>
       <DialogTitle
         as="h3"
-        className="text-xl font-bold text-slate-100 wrap-break-words pr-8"
+        className="text-xl font-bold text-text-primary wrap-break-words pr-8"
       >
         {taskData.name}
       </DialogTitle>

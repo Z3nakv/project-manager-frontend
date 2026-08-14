@@ -9,6 +9,7 @@ import NotificationCenter from "../NotificationCenter";
 import { useAuth } from "../../hooks/useAuth";
 import ProfileMenu from "../ProfileMenu";
 import SearchBar from "../SearchBar";
+import ThemeToggle from "../themeToggle/ThemeToggle";
 
 const icons = [
   {icon:FaUsers, query:'/team', name:"Team", id:"team"}, 
@@ -20,7 +21,7 @@ const icons = [
 const SideBarMenu = () => {
   const {data:user} = useAuth();
   if(user) return (
-    <div className="bg-[#151921] fixed left-0 top-0 z-200 h-dvh w-20 lg:w-58 py-5 pb-10 px-6 shadow-3xl transition-[width] duration-200">
+    <div className="border-r border-border-subtle bg-sidebar fixed left-0 top-0 z-200 h-dvh w-20 lg:w-58 py-5 pb-10 px-6 transition-[width] duration-200">
 
       <div className="h-full flex flex-col justify-between items-center">
         
@@ -32,6 +33,7 @@ const SideBarMenu = () => {
           {icons.map((data) => (
             <SidebarIcons data={data}  />
           ))}
+          <ThemeToggle/>
         </div>
 
         <ProfileMenu name={user.name} />

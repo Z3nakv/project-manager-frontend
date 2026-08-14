@@ -16,7 +16,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setDark(prev => !prev)}
-      className="cursor-pointer flex gap-2 text-text-secondary font-mono hover:text-[#7787af] hover:-translate-y-1 transition-transform duration-150"
+      className="cursor-pointer flex gap-2 text-text-secondary font-mono hover:text-primary hover:-translate-y-1 transition-transform duration-150"
     >
       {dark 
       ? <MdDarkMode 

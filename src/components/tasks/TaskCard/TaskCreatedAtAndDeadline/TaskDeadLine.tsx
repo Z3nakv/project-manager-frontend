@@ -11,7 +11,7 @@ const TaskDeadLine = ({ taskDeadline }: TaskDeadlineProps) => {
     <>
       {taskDeadline ? (
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-amber-50">
+          <div className="flex items-center gap-1.5 text-text-secondary">
             <ClockIcon className="h-5" />
             <span className="text-xs truncate">
               {formatDate(taskDeadline)}
@@ -19,7 +19,7 @@ const TaskDeadLine = ({ taskDeadline }: TaskDeadlineProps) => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center gap-1.5 text-amber-50">
+        <div className="flex items-center gap-1.5 text-text-secondary">
           <ClockIcon className="h-5" />
           <p className="text-xs font-black">--</p>
         </div>

@@ -20,11 +20,11 @@ export const initialStatusGroups: Record<TaskStatus, unknown[]> = {
 type StatusConfig = Record<string, { label: string; color: string; icon: IconType }>
 
 export const statusConfig: StatusConfig = {
-    pending: { label: "Pendiente", color: "#6366f1", icon: FaRegFolder },
-    inProgress: { label: "En progreso", color: "#f59e0b", icon: LuFolderPen },
-    onHold: { label: "En pausa", color: "#ef4444", icon: LuFolderClock },
-    underReview: { label: "En revisión", color: "#0ea5e9", icon: LuFolderSearch },
-    completed: { label: "Completado", color: "#10b981", icon: FaFolderOpen },
+    pending: { label: "Pendiente", color: "var(--status-pending)", icon: FaRegFolder },
+    inProgress: { label: "En progreso", color: "var(--status-inprogress)", icon: LuFolderPen },
+    onHold: { label: "En pausa", color: "var(--status-onhold)", icon: LuFolderClock },
+    underReview: { label: "En revisión", color: "var(--status-underreview)", icon: LuFolderSearch },
+    completed: { label: "Completado", color: "var(--status-completed)", icon: FaFolderOpen },
 }
 
 export const taskReducer =<T extends { _id: string; status: TaskStatus }>(tasks : T[]): StatusGroups<T>  => {

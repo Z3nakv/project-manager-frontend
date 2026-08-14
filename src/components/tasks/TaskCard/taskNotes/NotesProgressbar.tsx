@@ -12,7 +12,7 @@ const NotesProgressbar = ({ taskNotes }: NotesProgressbarProps) => {
     <progress
       value={completedNotes}
       max={taskNotes.length}
-      className="w-full h-2 rounded-full overflow-hidden [&::-webkit-progress-bar]:bg-[#2d3348] [&::-webkit-progress-value]:bg-indigo-600 [&::-moz-progress-bar]:bg-indigo-600"
+      className="w-full h-2 rounded-full overflow-hidden [&::-webkit-progress-bar]:bg-border [&::-webkit-progress-value]:bg-primary [&::-moz-progress-bar]:bg-primary"
     />
   );
 };

@@ -6,7 +6,7 @@ type FieldErrorProps = {
 export default function FieldError({ message }: FieldErrorProps) {
   if (!message) return null;
   return (
-    <p className="text-xs text-red-400 mt-1 flex items-center gap-1">
+    <p className="text-xs text-error mt-1 flex items-center gap-1">
       <svg className="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
         <path
           fillRule="evenodd"

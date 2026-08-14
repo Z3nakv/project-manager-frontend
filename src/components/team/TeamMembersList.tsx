@@ -27,13 +27,13 @@ const TeamMembersList = ({teamMembers, handleRemoveUserFromProject} : TeamMember
         </ul>
       ) : (
         <div className="flex flex-col items-center justify-center py-16 gap-3 px-4 text-center">
-          <div className="w-12 h-12 rounded-2xl bg-[#252d3d] border border-[#2d3348] flex items-center justify-center">
-            <UserGroupIcon className="h-6 w-6 text-slate-600" />
+          <div className="w-12 h-12 rounded-2xl bg-surface-hover border border-border flex items-center justify-center">
+            <UserGroupIcon className="h-6 w-6 text-text-muted" />
           </div>
-          <p className="text-slate-400 text-sm font-medium">
+          <p className="text-text-secondary text-sm font-medium">
             No hay miembros en este equipo
           </p>
-          <p className="text-slate-600 text-xs">
+          <p className="text-text-muted text-xs">
             Agrega colaboradores para comenzar
           </p>
         </div>

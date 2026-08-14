@@ -89,15 +89,15 @@ export default function ImageUploader({
           className={`
             flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed
             p-8 cursor-pointer transition-colors
-            ${isDragging ? "border-indigo-500 bg-indigo-500/10" : "border-zinc-800 bg-[#0f1117]"}
-            ${disabled ? "opacity-50 cursor-not-allowed" : "hover:border-indigo-500/60"}
+            ${isDragging ? "border-primary bg-primary-subtle" : "border-border bg-input"}
+            ${disabled ? "opacity-50 cursor-not-allowed" : "hover:border-primary/60"}
           `}
         >
-          <MdAddPhotoAlternate className="h-10 w-10 text-zinc-600" />
-          <p className="text-sm text-slate-400">
-            <span className="text-indigo-400 font-medium">Haz clic para subir</span> o arrastra una imagen
+          <MdAddPhotoAlternate className="h-10 w-10 text-text-muted" />
+          <p className="text-sm text-text-secondary">
+            <span className="text-accent font-medium">Haz clic para subir</span> o arrastra una imagen
           </p>
-          <p className="text-xs text-slate-600">PNG, JPG hasta {maxSizeMB}MB</p>
+          <p className="text-xs text-text-muted">PNG, JPG hasta {maxSizeMB}MB</p>
 
           <input
             ref={inputRef}
@@ -109,7 +109,7 @@ export default function ImageUploader({
           />
         </div>
       ) : (
-        <div className="relative rounded-lg overflow-hidden border border-zinc-800">
+        <div className="relative rounded-lg overflow-hidden border border-border">
           <img src={preview} alt="Preview" className="w-full max-h-64 object-cover" />
 
           {/* Dog-ear */}
@@ -118,14 +118,14 @@ export default function ImageUploader({
             style={{
               borderWidth: "0 24px 24px 0",
               borderStyle: "solid",
-              borderColor: "transparent rgba(0,0,0,0.6) transparent transparent",
+              borderColor: "transparent var(--surface-hover) transparent transparent",
             }}
           />
 
           <button
             type="button"
             onClick={handleRemove}
-            className="absolute top-2 right-2 rounded-full bg-black/70 p-1.5 text-white hover:bg-black/90 transition-colors cursor-pointer"
+            className="absolute top-2 right-2 rounded-full bg-surface-elevated/90 border border-border p-1.5 text-text-primary hover:bg-surface-hover transition-colors cursor-pointer shadow-md"
             aria-label="Quitar imagen"
           >
             <XMarkIcon className="h-4 w-4" />
@@ -133,7 +133,7 @@ export default function ImageUploader({
         </div>
       )}
 
-      {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
+      {error && <p className="mt-2 text-sm text-error">{error}</p>}
     </div>
   );
 }

@@ -20,9 +20,9 @@ const NotesPanel = ({ notes }: NotesPanelProps) => {
       <div className="mt-3">
         {notes?.length ? (
           <>
-            <p className="font-bold text-base text-slate-300 mb-3">
+            <p className="font-bold text-base text-text-primary mb-3">
               Notas:{" "}
-              <span className="text-slate-500 font-normal text-sm">
+              <span className="text-text-muted font-normal text-sm">
                 ({notes.length})
               </span>
             </p>
@@ -36,14 +36,14 @@ const NotesPanel = ({ notes }: NotesPanelProps) => {
             {notes.length > VISIBLE_NOTES && (
               <button
                 onClick={() => setShowAll(prev => !prev)}
-                className="mt-3 w-full py-2 text-xs text-indigo-400 hover:text-indigo-300 border border-[#2d3348] hover:border-indigo-500/30 rounded-lg transition-colors cursor-pointer"
+                className="mt-3 w-full py-2 text-xs text-primary hover:text-primary-hover border border-border hover:border-primary/30 rounded-lg transition-colors cursor-pointer"
               >
                 {showAll ? 'Ver menos ↑' : `Ver ${notes.length - VISIBLE_NOTES} notas más ↓`}
               </button>
             )}
           </>
         ) : (
-          <p className="text-slate-500 text-center text-sm py-6 border border-dashed border-[#2d3348] rounded-xl">
+          <p className="text-text-muted text-center text-sm py-6 border border-dashed border-border rounded-xl">
             No hay notas
           </p>
         )}

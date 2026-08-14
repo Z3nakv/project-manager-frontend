@@ -76,21 +76,21 @@ const TaskList = () => {
               >
                 <div className="relative mt-2 flex justify-end items-center gap-2 font-mono text-sm">
 
-                  <div className="absolute left-0 flex gap-2 items-center bg-[#161925] border border-indigo-500/30 border-b-0 rounded-t-lg px-4 pt-1.5 pb-1">
+                  <div className="absolute left-0 flex gap-2 items-center bg-surface-base border border-border-subtle border-b-0 rounded-t-lg px-4 pt-1.5 pb-1">
                     <config.icon style={{ color: config.color }} className={"text-lg"} />
-                    <h3 className="font-semibold text-slate-300">
+                    <h3 className="font-semibold text-text-secondary">
                       {config.label}
                     </h3>
                   </div>
 
-                  <span className="text-slate-500">
+                  <span className="text-text-muted">
                     {tasks.length} tarea{tasks.length !== 1 ? "s" : ""}
                   </span>
                 </div>
 
                 <DropTask status={status} >
 
-                <ul className="bg-[#161925] border border-indigo-500/30 rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2.5 min-h-30">
+                <ul className="bg-surface-base border border-border rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2.5 min-h-30">
                   {tasks.map((task) => (
                     <TaskCard
                       key={task._id}
@@ -101,7 +101,7 @@ const TaskList = () => {
                   ))}
 
                   {tasks.length === 0 && (
-                    <li className="text-center text-slate-600 text-xs py-6 border border-dashed border-[#2d3348] rounded-xl">
+                    <li className="text-center text-text-muted text-xs py-6 border border-dashed border-border rounded-xl">
                       Sin tareas
                     </li>
                   )}
