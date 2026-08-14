@@ -5,7 +5,7 @@ export const userSchema = object({
     email: string(),
     _id: string(),
     avatar: url().optional(),
-    isEphemeralDemo: boolean()
+    isEphemeralDemo: boolean().optional()
 })
 
 
