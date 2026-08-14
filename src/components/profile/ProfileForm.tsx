@@ -33,14 +33,14 @@ export default function ProfileForm({ data }: ProfileFormProps) {
 
   return (
     <div className="min-h-full flex items-center justify-center py-10">
-      <div className="relative pt-4 w-full max-w-2xl mr-10">
+      <div className="relative pt-4 w-full max-w-sm">
         {/* Pestaña tipo archivo */}
         <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
           <FiUser className="h-3 w-3 text-accent" />
           <span className="font-mono text-xs text-text-muted">perfil.usr</span>
         </div>
 
-        <div className="relative bg-surface-base border border-border rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-lifted p-8 overflow-hidden">
+        <div className="m-auto relative bg-surface-base border border-border rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-lifted p-8 overflow-hidden">
           <DogEar />
 
           {/* Header */}

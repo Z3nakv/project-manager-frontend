@@ -4,7 +4,6 @@ import { IoIosLock } from "react-icons/io";
 import {
   useAuthenticateUserMutation,
   useGoogleAuthMutation,
-  /* useDemoLoginMutation, */
 } from "../../hooks/mutations/useAuthMutation";
 import type { UserLoginForm } from "../../types/auth";
 import FormInput from "../../components/ui/FormInput";
@@ -13,8 +12,6 @@ import DogEar from "../../components/DogEar";
 
 export default function LoginView() {
   const { authenticateWithGoogle, isPending } = useGoogleAuthMutation();
- /*  const { mutate: loginDemo, isPending: isDemoPending } = useDemoLoginMutation(); */
-
   const initialValues: UserLoginForm = { email: "", password: "" };
 
   const {
