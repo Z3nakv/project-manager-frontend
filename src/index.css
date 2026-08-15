@@ -190,6 +190,8 @@ body {
   --shadow-soft: 0 4px 14px rgb(0 0 0 / 0.07);
   --shadow-lifted: 0 8px 24px rgb(0 0 0 / 0.14);
   --shadow-overlay: 0 24px 48px rgb(0 0 0 / 0.35);
+
+  --breakpoint-3xl:1820px;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

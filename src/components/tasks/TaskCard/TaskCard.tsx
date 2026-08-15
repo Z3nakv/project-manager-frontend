@@ -27,7 +27,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
   return (
     <li
       ref={ref}
-      className={`font-mono relative bg-surface-elevated border rounded-lg p-3 pt-2.5 hover:border-primary/40 transition-colors cursor-pointer group
+      className={`w-full box-border font-mono relative bg-surface-elevated border rounded-lg p-3 pt-2.5 hover:border-primary/40 transition-colors cursor-pointer group
       ${
         isAssignedToMe
           ? "border-primary hover:border-primary"

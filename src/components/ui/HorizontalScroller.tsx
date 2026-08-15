@@ -35,7 +35,7 @@ const HorizontalScroller = ({ children, className }: HorizontalScrollerProps) =>
             {/* Contenedor scrolleable */}
             <div
                 ref={scrollRef}
-                className={`overflow-x-auto -mx-6 px-6 @container
+                className={`overflow-x-auto w-full max-w-full px-6 3xl:p-0 @container
                     [&::-webkit-scrollbar]:h-1.5
                     [&::-webkit-scrollbar-track]:bg-transparent
                     [&::-webkit-scrollbar-thumb]:bg-border

@@ -7,7 +7,7 @@ type ProjectDetailsViewHeroProps = {
 const ProjectDetailsViewHero = ({ projectName, description } : ProjectDetailsViewHeroProps) => {
   return (
     <>
-        <div className="flex gap-5 justify-around md:justify-normal">
+        <div className="flex gap-5 px-10 justify-around md:justify-normal">
 
             <div className="md:flex md:w-full md:justify-around md:items-center">
               <div className="md:flex-col">

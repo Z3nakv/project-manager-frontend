@@ -72,7 +72,7 @@ const TaskList = () => {
               <div
                 key={status}
                 data-scroll-column
-                className="w-[85cqw] sm:w-72 2xl:w-auto 2xl:flex-1 2xl:min-w-72 flex flex-col shrink-0 snap-center"
+                className="w-[85cqw] sm:w-72 2xl:w-auto 2xl:flex-1 2xl:min-w-72 flex flex-col shrink-0 min-w-0 snap-center"
               >
                 <div className="relative mt-2 flex justify-end items-center gap-2 font-mono text-sm">
 
@@ -90,7 +90,7 @@ const TaskList = () => {
 
                 <DropTask status={status} >
 
-                <ul className="bg-surface-base border border-border rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2.5 min-h-30">
+                <ul className="bg-surface-base border border-border rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2 min-h-30 w-full max-w-full overflow-hidden box-border">
                   {tasks.map((task) => (
                     <TaskCard
                       key={task._id}
@@ -112,7 +112,7 @@ const TaskList = () => {
           })}
 
           {/* Spacer derecho */}
-          <div className="w-[7.5cqw] sm:w-0 shrink-0" aria-hidden="true" data-scroll-spacer="end"/>
+          <div className="w-[1.5cqw] 3xl:w-0 shrink-0" aria-hidden="true" data-scroll-spacer="end"/>
         </div>
       </DragDropProvider>
     </HorizontalScroller>

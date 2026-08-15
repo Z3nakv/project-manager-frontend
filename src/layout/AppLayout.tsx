@@ -19,7 +19,7 @@ const AppLayout = () => {
       <SocketProvider user={user}>
         <div className="min-h-screen bg-bg text-text-primary">
           <SideBarMenu />
-          <div className="flex flex-col min-h-screen pl-20 lg:pl-64 transition-[padding] duration-200">
+          <div className="flex flex-col min-h-screen pl-20 lg:pl-58 transition-[padding] duration-200">
             <main className="flex-1 max-w-screen-2xl w-full mx-auto py-5">
               <Breadcrumbs />
               <Outlet />
