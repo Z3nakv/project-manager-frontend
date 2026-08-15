@@ -3,7 +3,6 @@ import ProfileForm from "../../components/profile/ProfileForm";
 
 const ProfileView = () => {
   const { data, isLoading } = useAuth();
-  console.log(data);
   
   if (isLoading) return (
     <div className="flex items-center justify-center py-20">

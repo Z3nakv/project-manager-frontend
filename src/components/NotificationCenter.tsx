@@ -93,11 +93,15 @@ const NotificationCenter = () => {
                       <div
                         className={`w-12 h-12 rounded-lg flex items-center justify-center text-md font-bold shrink-0 ${getColor(n._id)}`}
                       >
-                        {n.triggeredBy.name
+                        {
+                          n.triggeredBy ?
+                        n.triggeredBy.name
                           .split(" ")
                           .map((w) => w[0])
                           .join("")
-                          .toUpperCase()}
+                          .toUpperCase()
+                          : <p>?</p>
+                          }
                       </div>
                       <div>
                         <p className="text-xs text-text-secondary leading-snug">
