@@ -10,7 +10,7 @@ vi.mock('../../lib/http', () => ({
   httpDelete: vi.fn(),
 }));
 
-const mockUser = { _id: 'user-1', name: 'Adrian', avatar: 'https://image.com/avatar.png' };
+const mockUser = { _id: 'user-1', name: 'Adrian', avatarUrl: 'https://image.com/avatar.png' };
 const mockedHttpGet = vi.mocked(httpGet);
 const mockedHttpPost = vi.mocked(httpPost);
 const mockedHttpPut = vi.mocked(httpPut);

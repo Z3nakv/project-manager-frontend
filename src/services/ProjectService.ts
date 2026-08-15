@@ -10,7 +10,9 @@ import {
 
 export const getAllProjects = async () => {
   const url = "/projects";
-  const projects = await httpGet<unknown>(url);
+  const projects = await httpGet<unknown>(url);  
+  console.log(projects);
+  
   return parseOrThrow(dashboardProjectsArraySchema, projects, "getAllProjects");
 };
 

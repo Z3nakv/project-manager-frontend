@@ -36,7 +36,7 @@ export const projectTaskSchema = object({
     notes: array(noteSchema.pick({_id:true, completed:true, content:true})).optional(),
     createdAt: string(),
     deadline: string().optional().nullable(),
-    assignedTo: array(userSchema.pick({_id:true, name:true, avatar:true})).min(0).optional(),
+    assignedTo: array(userSchema.pick({_id:true, name:true, avatarUrl:true})).min(0).optional(),
 })
 
 export const taskProjectSchema = projectTaskSchema.pick({

@@ -31,7 +31,7 @@ const SideBarMenu = () => {
           <SearchBar />
           <NotificationCenter />
           {icons.map((data) => (
-            <SidebarIcons data={data}  />
+            <SidebarIcons data={data} key={data.id}  />
           ))}
           <ThemeToggle/>
         </div>

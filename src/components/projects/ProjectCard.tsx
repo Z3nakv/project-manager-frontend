@@ -17,7 +17,14 @@ export type ProjectCardProps = {
 
 const ProjectCard = ({ project, user }: ProjectCardProps) => {
   const userIsManager = isManager(project.manager._id, user._id);
-  const team = [...project.team, project.manager];
+  const team = useMemo(() => {
+  const teamMap = new Map(
+    [...project.team, project.manager]
+      .filter(Boolean)
+      .map((user) => [user._id, user])
+  );
+  return Array.from(teamMap.values());
+}, [project.team, project.manager]);
 
   const deadline = useMemo(() => {
     const tasksWithDeadline = project.tasks.filter(
@@ -38,7 +45,7 @@ const ProjectCard = ({ project, user }: ProjectCardProps) => {
     () => taskReducer(project.tasks),
     [project.tasks],
   );
-
+  
   return (
     <div className="relative pt-4">
       {/* Pestaña de la carpeta */}
@@ -118,7 +125,7 @@ const ProjectCard = ({ project, user }: ProjectCardProps) => {
             })}
           </ul>
 
-          {team.length > 0 && <AssignTaskMembers AssignedMembers={team} />}
+          {team.length > 0 && <AssignTaskMembers assignedMembers={team} />}
         </div>
       </li>
     </div>

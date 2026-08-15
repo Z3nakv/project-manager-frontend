@@ -4,7 +4,7 @@ export const userSchema = object({
     name: string(),
     email: string(),
     _id: string(),
-    avatar: url().optional(),
+    avatarUrl: url().nullable().optional(),
     isEphemeralDemo: boolean().optional()
 })
 

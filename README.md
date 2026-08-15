@@ -1,6 +1,6 @@
 # TreeWork Frontend
 
-TreeWork es el frontend de una plataforma de gestión de proyectos tipo Kanban para equipos que necesitan planificar trabajo, mover tareas entre estados y colaborar en tiempo real sin fricción. La interfaz combina una metáfora visual de carpetas/archivos con un tablero funcional, autenticación segura y un sistema de demo live para evaluar el producto sin crear una cuenta real.
+TreeWork es el frontend de una plataforma de gestiï¿½n de proyectos tipo Kanban para equipos que necesitan planificar trabajo, mover tareas entre estados y colaborar en tiempo real sin fricciï¿½n. La interfaz combina una metï¿½fora visual de carpetas/archivos con un tablero funcional, autenticaciï¿½n segura y un sistema de demo live para evaluar el producto sin crear una cuenta real.
 
 <!-- Reemplazar por una captura real del dashboard/tablero -->
 <!-- <img src="./docs/treework-dashboard.png" alt="TreeWork dashboard" width="1200" /> -->
@@ -16,59 +16,59 @@ TreeWork es el frontend de una plataforma de gestión de proyectos tipo Kanban pa
 ![Socket.io](https://img.shields.io/badge/Socket.io-Client-010101?logo=socket.io&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-Testing-6E9F18?logo=vitest&logoColor=white)
 
-## Características
+## Caracterï¿½sticas
 
-- Autenticación con JWT en memoria y refresh token en cookie `httpOnly`, con reintento automático en `401` mediante interceptor de Axios.
-- Login nativo con email/password y Google OAuth, con flujo de confirmación y recuperación de contraseña.
-- Tablero Kanban con columnas tipo carpeta y tareas tipo archivo (`dog-ear`), con tipografía monoespaciada para metadata técnica.
-- DnD real usando `@dnd-kit/react` para mover tareas entre estados sin romper la lógica de negocio ni el estado del servidor.
-- Demostración sin registro con usuario efímero y datos precargados, además de onboarding guiado con `driver.js` para explicar la UX del tablero.
-- Idempotencia en mutaciones críticas: las tareas creadas llevan `Idempotency-Key`, lo que elimina duplicados por doble click o reintentos de red.
-- Tiempo real con Socket.io para notificaciones, cambios de proyecto, tareas y sincronización colaborativa.
-- Breadcrumbs dinámicos generados desde `handle.crumb` y `useMatches()` de React Router para mantener contextos claros dentro del flujo del producto.
-- Soporte de Light/Dark Mode con variables CSS y tokens semánticos definidos en `src/index.css`.
-- Carga diferida por ruta con `lazy()` y skeletons específicos para evitar parpadeos de UI y mantener una experiencia estable.
+- Autenticaciï¿½n con JWT en memoria y refresh token en cookie `httpOnly`, con reintento automï¿½tico en `401` mediante interceptor de Axios.
+- Login nativo con email/password y Google OAuth, con flujo de confirmaciï¿½n y recuperaciï¿½n de contraseï¿½a.
+- Tablero Kanban con columnas tipo carpeta y tareas tipo archivo (`dog-ear`), con tipografï¿½a monoespaciada para metadata tï¿½cnica.
+- DnD real usando `@dnd-kit/react` para mover tareas entre estados sin romper la lï¿½gica de negocio ni el estado del servidor.
+- Demostraciï¿½n sin registro con usuario efï¿½mero y datos precargados.
+- Idempotencia en mutaciones crï¿½ticas: las tareas creadas llevan `Idempotency-Key`, lo que elimina duplicados por doble click o reintentos de red.
+- Tiempo real con Socket.io para notificaciones, cambios de proyecto, tareas y sincronizaciï¿½n colaborativa.
+- Breadcrumbs dinï¿½micos generados desde `handle.crumb` y `useMatches()` de React Router para mantener contextos claros dentro del flujo del producto.
+- Soporte de Light/Dark Mode con variables CSS y tokens semï¿½nticos definidos en `src/index.css`.
+- Carga diferida por ruta con `lazy()` y skeletons especï¿½ficos para evitar parpadeos de UI y mantener una experiencia estable.
 
-## Stack técnico
+## Stack tï¿½cnico
 
-| Categoría | Tecnología | Uso en el proyecto |
+| Categorï¿½a | Tecnologï¿½a | Uso en el proyecto |
 | --- | --- | --- |
 | Core | React 19 | UI principal del frontend |
 | Core | TypeScript | Tipado fuerte del dominio y validaciones |
 | Core | Vite 8 | Bundling, dev server y build |
-| Core | Tailwind CSS v4 | Sistema visual y tokens semánticos |
-| Estado / Datos | TanStack Query | Cache, queries, invalidación y sincronización de servidor |
+| Core | Tailwind CSS v4 | Sistema visual y tokens semï¿½nticos |
+| Estado / Datos | TanStack Query | Cache, queries, invalidaciï¿½n y sincronizaciï¿½n de servidor |
 | Ruteo | React Router v7 | Routing protegido, lazy routes, breadcrumbs |
-| Formularios | React Hook Form + Zod | Formularios y validación de inputs |
-| HTTP | Axios | Cliente HTTP con interceptores y refresh automático |
-| Realtime | Socket.io-client | Notificaciones y sincronización colaborativa |
+| Formularios | React Hook Form + Zod | Formularios y validaciï¿½n de inputs |
+| HTTP | Axios | Cliente HTTP con interceptores y refresh automï¿½tico |
+| Realtime | Socket.io-client | Notificaciones y sincronizaciï¿½n colaborativa |
 | UI | Headless UI | Accesibilidad y componentes base |
 | UI | `@dnd-kit/react` | Drag and drop del tablero |
-| UI / UX | `react-icons`, `react-toastify`, `driver.js` | Iconografía, toasts y onboarding |
+| UI / UX | `react-icons`, `react-toastify` | Iconografï¿½a, toasts y onboarding |
 | Markdown | `react-markdown` | Render de contenido markdown |
 | Auth | `@react-oauth/google` | Login con Google |
 | Testing | Vitest + React Testing Library + jsdom | Test de servicios, hooks y componentes |
-| Deploy | Render (Static Site + rewrite proxy) | Publicación del frontend y proxy hacia el backend |
+| Deploy | Render (Static Site + rewrite proxy) | Publicaciï¿½n del frontend y proxy hacia el backend |
 
-## Decisiones técnicas destacadas
+## Decisiones tï¿½cnicas destacadas
 
 ### 1) Refresh token en cookie `httpOnly` en lugar de `localStorage`
 
-El acceso se guarda en memoria en un módulo auxiliar (`src/utils/auth.ts`), mientras que el refresh token viaja en cookie `httpOnly`. La razón no es estética: es una decisión de seguridad. El access token se usa en cada request autenticada, pero no persiste en el navegador; el refresh vive en una cookie no accesible desde JavaScript, lo que reduce exposición ante XSS. El interceptor de Axios (`src/lib/axios.ts`) detecta `401`, llama a `/auth/refresh-token` y reintenta la request original con el nuevo access token.
+El acceso se guarda en memoria en un mï¿½dulo auxiliar (`src/utils/auth.ts`), mientras que el refresh token viaja en cookie `httpOnly`. La razï¿½n no es estï¿½tica: es una decisiï¿½n de seguridad. El access token se usa en cada request autenticada, pero no persiste en el navegador; el refresh vive en una cookie no accesible desde JavaScript, lo que reduce exposiciï¿½n ante XSS. El interceptor de Axios (`src/lib/axios.ts`) detecta `401`, llama a `/auth/refresh-token` y reintenta la request original con el nuevo access token.
 
-### 2) Idempotencia en creación de tareas
+### 2) Idempotencia en creaciï¿½n de tareas
 
-Las mutaciones críticas usan `Idempotency-Key`. En el cliente, el interceptor agrega una UUID para requests mutantes; en la creación de tareas, además, el modal de nueva tarea genera una clave y la reutiliza durante la operación (`src/components/tasks/AddTaskModal.tsx`, `src/services/taskServices.ts`). Esto evita duplicados cuando el usuario hace doble click, el backend responde lento o la red retraza la operación. Es una decisión de UX y de integridad de datos, no solo de convención.
+Las mutaciones crï¿½ticas usan `Idempotency-Key`. En el cliente, el interceptor agrega una UUID para requests mutantes; en la creaciï¿½n de tareas, ademï¿½s, el modal de nueva tarea genera una clave y la reutiliza durante la operaciï¿½n (`src/components/tasks/AddTaskModal.tsx`, `src/services/taskServices.ts`). Esto evita duplicados cuando el usuario hace doble click, el backend responde lento o la red retraza la operaciï¿½n. Es una decisiï¿½n de UX y de integridad de datos, no solo de convenciï¿½n.
 
-### 3) Cookies cross-domain en producción
+### 3) Cookies cross-domain en producciï¿½n
 
-El frontend y el backend se publican en dominios distintos en Render. Eso rompe el modelo de cookies de sesión si no se controla el origen. La solución fue mantener `withCredentials: true` en Axios y configurar el frontend con un proxy de rewrites para que `/api/*` llegue al backend bajo el mismo dominio visible del navegador. Así se preserva la cookie de refresh y el flujo de autenticación no se rompe en entorno productivo.
+El frontend y el backend se publican en dominios distintos en Render. Eso rompe el modelo de cookies de sesiï¿½n si no se controla el origen. La soluciï¿½n fue mantener `withCredentials: true` en Axios y configurar el frontend con un proxy de rewrites para que `/api/*` llegue al backend bajo el mismo dominio visible del navegador. Asï¿½ se preserva la cookie de refresh y el flujo de autenticaciï¿½n no se rompe en entorno productivo.
 
-### 4) Cuentas demo efímeras
+### 4) Cuentas demo efï¿½meras
 
-El botón “Ver demo” dispara una creación de cuenta temporal con datos precargados y se guía al usuario con un tour (`driver.js`) para explicar el flujo principal del producto. La idea es permitir evaluar el producto sin registrar un usuario real ni cargar un dataset manual. La cuenta demo se crea y limpia automáticamente en el backend, reduciendo fricción para demo, evaluación y pruebas de producto.
+El botï¿½n ï¿½Ver demoï¿½ dispara una creaciï¿½n de cuenta temporal con datos precargados. La idea es permitir evaluar el producto sin registrar un usuario real ni cargar un dataset manual. La cuenta demo se crea y limpia automï¿½ticamente en el backend, reduciendo fricciï¿½n para demo, evaluaciï¿½n y pruebas de producto.
 
-## Cómo correr el proyecto localmente
+## Cï¿½mo correr el proyecto localmente
 
 ### Requisitos
 
@@ -91,7 +91,7 @@ npm install
 
 ### 3) Configurar variables de entorno
 
-Crea un archivo `.env.local` en la raíz de `frontend`:
+Crea un archivo `.env.local` en la raï¿½z de `frontend`:
 
 ```env
 VITE_API_URL=http://localhost:5000/api
@@ -102,7 +102,7 @@ VITE_CLOUDINARY_CLOUD_NAME=tu-cloud-name
 Notas:
 - `VITE_API_URL` debe apuntar al backend API del proyecto.
 - `VITE_GOOGLE_CLIENT_ID` es necesario si se quiere usar OAuth de Google.
-- `VITE_CLOUDINARY_CLOUD_NAME` se usa en flujos de carga de imágenes/adjuntos según la implementación del backend y del frontend.
+- `VITE_CLOUDINARY_CLOUD_NAME` se usa en flujos de carga de imï¿½genes/adjuntos segï¿½n la implementaciï¿½n del backend y del frontend.
 
 ### 4) Levantar el frontend
 
@@ -112,7 +112,7 @@ npm run dev
 
 Abrir la URL mostrada por Vite, normalmente `http://localhost:5173`.
 
-### 5) Build de producción
+### 5) Build de producciï¿½n
 
 ```bash
 npm run build
@@ -132,7 +132,7 @@ El proyecto usa `Vitest` + `React Testing Library` para validar servicios, hooks
 npm run test -- --run
 ```
 
-También se puede usar el modo interactivo:
+Tambiï¿½n se puede usar el modo interactivo:
 
 ```bash
 npm run test
@@ -143,28 +143,28 @@ npm run test
 ```text
 frontend/
 +-- src/
-¦   +-- components/        # UI reutilizable: cards, forms, modales, la demo tour
-¦   +-- hooks/             # queries, mutations y hooks de dominio
-¦   +-- layout/            # AppLayout, AuthLayout, ProfileLayout
-¦   +-- lib/               # axios, http helpers, socket client, parsers
-¦   +-- services/          # Facade HTTP y contratos de API
-¦   +-- socket/            # Provider y listeners de eventos en tiempo real
-¦   +-- types/             # tipos TS y schemas Zod
-¦   +-- utils/             # tokens de auth, helpers y utilidades compartidas
-¦   +-- views/             # vistas de rutas públicas y privadas
-¦   +-- constants/         # configuración y constantes del dominio
-¦   +-- test/              # helpers y utilidades de test
-¦   +-- index.css          # tokens de color, dark mode y Tailwind v4
-¦   +-- main.tsx           # bootstrap de la app
-¦   +-- router.tsx         # configuración de rutas con lazy loading y crumbs
-¦   +-- ...
+ï¿½   +-- components/        # UI reutilizable: cards, forms, modales, la demo tour
+ï¿½   +-- hooks/             # queries, mutations y hooks de dominio
+ï¿½   +-- layout/            # AppLayout, AuthLayout, ProfileLayout
+ï¿½   +-- lib/               # axios, http helpers, socket client, parsers
+ï¿½   +-- services/          # Facade HTTP y contratos de API
+ï¿½   +-- socket/            # Provider y listeners de eventos en tiempo real
+ï¿½   +-- types/             # tipos TS y schemas Zod
+ï¿½   +-- utils/             # tokens de auth, helpers y utilidades compartidas
+ï¿½   +-- views/             # vistas de rutas pï¿½blicas y privadas
+ï¿½   +-- constants/         # configuraciï¿½n y constantes del dominio
+ï¿½   +-- test/              # helpers y utilidades de test
+ï¿½   +-- index.css          # tokens de color, dark mode y Tailwind v4
+ï¿½   +-- main.tsx           # bootstrap de la app
+ï¿½   +-- router.tsx         # configuraciï¿½n de rutas con lazy loading y crumbs
+ï¿½   +-- ...
 +-- .env.local             # variables de entorno locales
 +-- package.json           # scripts y dependencias del frontend
-+-- vite.config.ts         # configuración de Vite
-+-- tsconfig*.json         # configuración de TypeScript
++-- vite.config.ts         # configuraciï¿½n de Vite
++-- tsconfig*.json         # configuraciï¿½n de TypeScript
 +-- index.html             # entrada HTML del app
-+-- README.md              # documentación del frontend
-+-- public/                # assets estáticos
++-- README.md              # documentaciï¿½n del frontend
++-- public/                # assets estï¿½ticos
 ```
 
 ## Demo en vivo
@@ -176,10 +176,10 @@ frontend/
 
 ## Contacto / autor
 
-Desarrollado por Adrián Rivera.
+Desarrollado por Adriï¿½n Rivera.
 
-Para consultas técnicas, revisión de código o colaboración, contactar desde la cuenta de GitHub/LinkedIn del repositorio principal del proyecto.
+Para consultas tï¿½cnicas, revisiï¿½n de cï¿½digo o colaboraciï¿½n, contactar desde la cuenta de GitHub/LinkedIn del repositorio principal del proyecto.
 
 ---
 
-TreeWork Frontend demuestra un enfoque técnico serio para un tablero colaborativo: autenticación robusta, sincronización temporal real, validación fuerte de contratos y una UX de producto que busca reducir fricción sin sacrificar control operacional.
+TreeWork Frontend demuestra un enfoque tï¿½cnico serio para un tablero colaborativo: autenticaciï¿½n robusta, sincronizaciï¿½n temporal real, validaciï¿½n fuerte de contratos y una UX de producto que busca reducir fricciï¿½n sin sacrificar control operacional.

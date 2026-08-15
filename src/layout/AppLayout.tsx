@@ -5,12 +5,9 @@ import SocketProvider from "../socket/SocketProvider";
 import "react-toastify/dist/ReactToastify.css";
 import SideBarMenu from "../components/sidebar/SideBarMenu";
 import Breadcrumbs from "../components/breadcrumbs/Breadcrumbs";
-import DemoTour from "../components/DemoTour";
-import { useState } from "react";
 
 const AppLayout = () => {
   const { data: user, isError, isLoading, isFetching } = useAuth();
-  const [tourShown, setTourShown] = useState(false);
 
   if (isLoading) return <div className="w-full h-dvh bg-[#0f1117]">Cargando...</div>;
   if (isError) return <Navigate to="/" />;
@@ -35,10 +32,6 @@ const AppLayout = () => {
             </footer>
           </div>
         </div>
-
-        {user.isEphemeralDemo && !tourShown && (
-          <DemoTour onComplete={() => setTourShown(true)} />
-        )}
 
         <ToastContainer
           pauseOnHover={false}

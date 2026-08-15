@@ -8,8 +8,8 @@ export const projectSchema = object({
     projectName: string(),
     clientName: string(),
     description: string(),
-    manager: userSchema.pick({_id:true, name:true, avatar:true}),
-    team: array(userSchema.pick({_id:true, name:true, avatar:true})),
+    manager: userSchema.pick({_id:true, name:true, avatarUrl:true}),
+    team: array(userSchema.pick({_id:true, name:true, avatarUrl:true})),
     tasks: array(projectTaskSchema)
 });
 

@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useRef } from "react";
 import { FiUser } from "react-icons/fi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { updateProfile } from "../../services/profileService";
+import { updateProfile, updateAvatar } from "../../services/profileService";
 import type { User } from "../../types/user";
 import type { UserProfileForm } from "../../types/profile";
 import DogEar from "../DogEar";
@@ -13,7 +14,7 @@ type ProfileFormProps = {
 
 export default function ProfileForm({ data }: ProfileFormProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<UserProfileForm>({ defaultValues: data });
-
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -25,7 +26,35 @@ export default function ProfileForm({ data }: ProfileFormProps) {
     onError: (error) => toast.error(error.message),
   });
 
+  const { mutate: mutateAvatar, isPending: isUploadingAvatar } = useMutation({
+    mutationFn: updateAvatar,
+    onSuccess: () => {
+      toast.success("Foto de perfil actualizada");
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+    onError: (error) => toast.error(error.message),
+  });
+
   const handleEditProfile = (formData: UserProfileForm) => mutate(formData);
+
+  const handleAvatarClick = () => fileInputRef.current?.click();
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("El archivo debe ser una imagen");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("La imagen no debe superar 5MB");
+      return;
+    }
+
+    mutateAvatar(file);
+    e.target.value = ""; // permite re-seleccionar el mismo archivo después
+  };
 
   const inputClass = "w-full px-3 py-2.5 rounded-lg text-sm text-text-primary placeholder:text-text-muted bg-input border border-border focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-colors duration-150";
   const labelBase = "text-xs font-semibold text-text-muted uppercase tracking-wide";
@@ -34,7 +63,6 @@ export default function ProfileForm({ data }: ProfileFormProps) {
   return (
     <div className="min-h-full flex items-center justify-center py-10">
       <div className="relative pt-4 w-full max-w-sm">
-        {/* Pestaña tipo archivo */}
         <div className="absolute z-100 top-0 left-5 h-7 flex items-center gap-1.5 bg-bg border border-border-subtle border-b-0 rounded-t-md px-3.5">
           <FiUser className="h-3 w-3 text-accent" />
           <span className="font-mono text-xs text-text-muted">perfil.usr</span>
@@ -43,7 +71,6 @@ export default function ProfileForm({ data }: ProfileFormProps) {
         <div className="m-auto relative bg-surface-base border border-border rounded-tl-sm rounded-tr-2xl rounded-b-2xl shadow-lifted p-8 overflow-hidden">
           <DogEar />
 
-          {/* Header */}
           <div className="mb-6">
             <p className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-1">
               Cuenta
@@ -56,24 +83,51 @@ export default function ProfileForm({ data }: ProfileFormProps) {
 
           {/* Avatar */}
           <div className="flex items-center gap-4 mb-6 pb-6 border-b border-border-subtle">
-            <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 shrink-0">
-              <span className="text-text-on-primary font-bold text-xl">
-                {data.name?.charAt(0).toUpperCase()}
-              </span>
-            </div>
+            <button
+              type="button"
+              onClick={handleAvatarClick}
+              disabled={isUploadingAvatar}
+              className="relative w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 shrink-0 cursor-pointer overflow-hidden group disabled:cursor-wait"
+            >
+              {data.avatarUrl ? (
+                <img
+                  src={data.avatarUrl}
+                  alt={data.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-text-on-primary font-bold text-xl">
+                  {data.name?.charAt(0).toUpperCase()}
+                </span>
+              )}
+
+              {/* Overlay al hover */}
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center">
+                {isUploadingAvatar ? (
+                  <span className="text-white text-[10px] font-mono">...</span>
+                ) : (
+                  <FiUser className="h-4 w-4 text-white" />
+                )}
+              </div>
+            </button>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleAvatarChange}
+            />
+
             <div>
               <p className="text-text-primary font-semibold">{data.name}</p>
               <p className="text-text-muted text-sm">{data.email}</p>
             </div>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit(handleEditProfile)} className="space-y-5" noValidate>
-
             <div className="flex flex-col gap-1.5">
-              <label className={labelBase} htmlFor="name">
-                Nombre
-              </label>
+              <label className={labelBase} htmlFor="name">Nombre</label>
               <input
                 id="name"
                 type="text"
@@ -92,9 +146,7 @@ export default function ProfileForm({ data }: ProfileFormProps) {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className={labelBase} htmlFor="email">
-                Email
-              </label>
+              <label className={labelBase} htmlFor="email">Email</label>
               <input
                 id="email"
                 type="email"
@@ -124,7 +176,6 @@ export default function ProfileForm({ data }: ProfileFormProps) {
                 Guardar cambios
               </button>
             </div>
-
           </form>
         </div>
       </div>

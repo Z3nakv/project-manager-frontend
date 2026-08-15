@@ -15,3 +15,13 @@ export const changePassword = async (formData: UpdateCurrentPasswordForm) => {
     const data = await httpPost<MessageResponse>(url, formData);
     return data.message;
 };
+
+export const updateAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  const data = await httpPost("/auth/profile/avatar", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return data;
+};

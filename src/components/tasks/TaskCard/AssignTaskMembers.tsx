@@ -1,19 +1,21 @@
 import type { projectTask } from "../../../types/task";
 
 type AssignTaskMembersProps = {
-  AssignedMembers: projectTask['assignedTo'];
+  assignedMembers: projectTask['assignedTo'];
 };
-const AssignTaskMembers = ({ AssignedMembers }: AssignTaskMembersProps) => {
-  const team = AssignedMembers ? AssignedMembers.length : 0 ;  
+const AssignTaskMembers = ({ assignedMembers }: AssignTaskMembersProps) => {
+  
+  const team = assignedMembers ? assignedMembers.length : 0 ;  
+  
   return (
     <div className="flex -space-x-2 justify-end">
       {team
-        ? AssignedMembers?.map((user, i) => {
+        ? assignedMembers?.map((user, i) => {
             if (i + 1 === 4) return;
             return (
               <img
                 key={user._id}
-                src={user.avatar ?? "/default-profile-picture-24.webp"}
+                src={user.avatarUrl ?? "/default-profile-picture-24.webp"}
                 className="w-6 h-6 rounded-full border-2 border-surface-elevated"
                 title={user.name}
               />

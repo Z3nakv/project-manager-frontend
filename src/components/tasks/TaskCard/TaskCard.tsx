@@ -52,7 +52,7 @@ const TaskCard = ({ task, canEdit, isMobile }: TaskCardProps) => {
       
       <div className="flex justify-between">
         <TaskNotes taskNotes={task.notes} />
-        <AssignTaskMembers AssignedMembers={task.assignedTo!} />
+        <AssignTaskMembers assignedMembers={task.assignedTo!} />
       </div>
     </li>
   );
