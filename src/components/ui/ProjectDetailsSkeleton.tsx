@@ -4,7 +4,7 @@ const SkeletonBlock = ({ className = "" }: { className?: string }) => (
 );
 
 const TaskCardSkeleton = () => (
-  <li className="bg-surface-base border border-border rounded-lg p-3 pt-2.5 space-y-2.5">
+  <li className="list-none bg-surface-base border border-border rounded-lg p-3 pt-2.5 space-y-2.5">
     <div className="flex justify-between items-start gap-2">
       <SkeletonBlock className="h-4 w-32 rounded-md" />
       <SkeletonBlock className="h-5 w-5 rounded-md shrink-0" />
