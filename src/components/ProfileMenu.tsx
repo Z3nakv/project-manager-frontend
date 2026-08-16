@@ -21,7 +21,6 @@ export default function ProfileMenu({name} : NavMenuProps) {
     await logoutUser();
   } catch (error) {
     console.error("Error al cerrar sesión:", error);
-    // igual continuamos con la limpieza local, aunque falle la llamada
   } finally {
     setAccessToken(null); 
     queryClient.clear();
