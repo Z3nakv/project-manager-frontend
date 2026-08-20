@@ -64,4 +64,6 @@ Thumbs.db
 # Vite
 *.local
 
-AGENTS.md
+# Build/analysis reports
+stats.html
+*.report.html
