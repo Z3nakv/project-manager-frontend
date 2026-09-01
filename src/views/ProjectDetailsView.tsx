@@ -6,7 +6,7 @@ import { QueryStateWrapper } from "../components/ui/QueryStateWrapper";
 import ProjectDetailsViewHero from "../components/projects/ProjectDetailsViewHero";
 import ProjectDetailsSkeleton from "../components/ui/ProjectDetailsSkeleton";
 import useProjectId from "../hooks/useProjectId";
-import { useGetProjectById } from "../hooks/queries/useProjectQueries";
+import { useGetProjectHeaderById } from "../hooks/queries/useProjectQueries";
 
 const EditTaskData = lazy(() => import("../components/tasks/EditTaskData/EditTaskData"));
 const ViewTaskModal = lazy(() => import("../components/tasks/ViewTaskModal/ViewTaskModal"));
@@ -34,7 +34,7 @@ const ProjectDetailsView = () => {
     });
   };
 
-  const { data: project, isError, isLoading, error, refetch } = useGetProjectById(projectId);
+  const { data: project, isError, isLoading, error, refetch } = useGetProjectHeaderById(projectId);
   const { isForbidden } = useForbidden();
   if (isError) return <Navigate to={"/404"} />;
   
