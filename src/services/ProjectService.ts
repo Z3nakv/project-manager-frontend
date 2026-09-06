@@ -60,6 +60,6 @@ export const getProjectHeaderById  = async ({projectId}:getProjectByIdProps) => 
 
 export const getTaskList = async ({projectId}:getProjectByIdProps) => {
   const url = `/projects/${projectId}/tasks`;
-  const project = await httpGet<unknown>(url);
+  const project = await httpGet<unknown>(url);  
   return parseOrThrow(taskListSchema, project, "getTaskList");
 }
