@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { httpGet, httpPost, httpPut, httpDelete } from '../../lib/http';
-import { createProject, deleteProject, getAllProjects, getEditProjectById, getProjectById, updateProject } from '../ProjectService';
+import { createProject, deleteProject, getAllProjects, getEditProjectById, getProjectHeaderById, getTaskList, updateProject } from '../ProjectService';
 
 vi.mock('../../lib/http', () => ({
   httpGet: vi.fn(),
@@ -47,46 +47,91 @@ describe('projectService', () => {
     });
   });
 
-  describe('getProjectById', () => {
-    it('debe devolver el proyecto completo validado, con tasks anidadas', async () => {
-      const mockProject = {
-        _id: 'proj-1',
-        projectName: 'Proyecto A',
-        clientName: 'Cliente A',
-        description: 'Desc A',
-        manager: mockUser,
-        team: [mockUser],
-        tasks: [
-          {
-            _id: 'task-1',
-            name: 'Tarea',
-            description: 'Desc',
-            status: 'pending',
-            createdAt: '2026-07-27T00:00:00.000Z',
-          },
-        ],
-      };
-      mockedHttpGet.mockResolvedValue(mockProject);
-      const result = await getProjectById({ projectId: 'proj-1' });
-      expect(mockedHttpGet).toHaveBeenCalledWith('/projects/proj-1');
-      expect(result).toEqual(mockProject);
+  describe('getProjectHeaderById', () => {
+  it('debe devolver el header del proyecto validado', async () => {
+    const mockProjectHeader = {
+      projectName: 'Proyecto A',
+      clientName: 'Cliente A',
+      description: 'Desc A',
+    };
+    mockedHttpGet.mockResolvedValue(mockProjectHeader);
+
+    const result = await getProjectHeaderById({ projectId: 'proj-1' });
+
+    expect(mockedHttpGet).toHaveBeenCalledWith('/projects/proj-1');
+    expect(result).toEqual(mockProjectHeader);
+  });
+
+  it('debe lanzar error si falta un campo requerido', async () => {
+    mockedHttpGet.mockResolvedValue({
+      projectName: 'Proyecto A',
+      clientName: 'Cliente A',
+      // sin description
     });
 
-    it('debe lanzar error si falta el manager', async () => {
-      vi.mocked(mockedHttpGet).mockResolvedValue({
-        _id: 'proj-1',
-        projectName: 'Proyecto',
-        clientName: 'Cliente',
-        description: 'Desc',
-        team: [],
-        tasks: [],
-        // sin manager
-      });
+    await expect(getProjectHeaderById({ projectId: 'proj-1' })).rejects.toThrow(
+      'Los datos de "getProjectHeaderById" no tienen el formato esperado.'
+    );
+  });
+  });
 
-      await expect(getProjectById({ projectId: 'proj-1' })).rejects.toThrow(
-        'Los datos de "getProjectById" no tienen el formato esperado.'
-      );
+  describe('getTaskList', () => {
+  it('debe devolver manager y tasks validados', async () => {
+    const mockData = {
+      manager: {
+        _id: 'user-1',
+        name: 'Manager Uno',
+        avatarUrl: null,
+      },
+      tasks: [
+        {
+          _id: 'task-1',
+          name: 'Tarea',
+          description: 'Desc',
+          status: 'pending',
+          createdAt: '2026-07-27T00:00:00.000Z',
+          deadline: null,
+        },
+      ],
+    };
+    mockedHttpGet.mockResolvedValue(mockData);
+
+    const result = await getTaskList({ projectId: 'proj-1' });
+
+    expect(mockedHttpGet).toHaveBeenCalledWith('/projects/proj-1/tasks');
+    expect(result).toEqual(mockData);
+  });
+
+  it('debe lanzar error si falta el manager', async () => {
+    mockedHttpGet.mockResolvedValue({
+      tasks: [],
+      // sin manager
     });
+
+    await expect(getTaskList({ projectId: 'proj-1' })).rejects.toThrow(
+      'Los datos de "getTaskList" no tienen el formato esperado.'
+    );
+  });
+
+  it('debe lanzar error si una task tiene un status inválido', async () => {
+    mockedHttpGet.mockResolvedValue({
+      manager: { _id: 'user-1', name: 'Manager Uno' },
+      tasks: [
+        {
+          _id: 'task-1',
+          name: 'Tarea',
+          description: 'Desc',
+          status: 'invalid-status', // no está en el enum
+          createdAt: '2026-07-27T00:00:00.000Z',
+          deadline: null,
+        },
+      ],
+    });
+
+    await expect(getTaskList({ projectId: 'proj-1' })).rejects.toThrow(
+      'Los datos de "getTaskList" no tienen el formato esperado.'
+    );
+  });
   });
 
   describe('getEditProjectById', () => {
