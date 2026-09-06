@@ -1,21 +1,21 @@
 import { useMemo, useState } from "react";
 import type { User } from "../../../types/user";
 import { useAssignTaskMutation } from "../../../hooks/mutations/useAssignTaskMutation";
+import { useGetProjectTeam } from "../../../hooks/queries/useTeamMembersQueries";
 
 type AssignTaskMembersProps = {
-    projectTeam: User[];
     taskTeam: User['_id'][];
     taskId: string;
     projectId: string;
 }
 
 export default function AssignMembersForm({
-    projectTeam,
     taskTeam,
     taskId,
     projectId,
 }: AssignTaskMembersProps) {
     const [selectedIds, setSelectedIds] = useState<string[]>(taskTeam);
+    const { data: projectTeam } = useGetProjectTeam({projectId});
     const mutation = useAssignTaskMutation({projectId, taskId});
 
     const hasChanges = useMemo(() => {
@@ -42,7 +42,7 @@ export default function AssignMembersForm({
     return (
         <div className="space-y-5">
             <div className="space-y-2">
-                {projectTeam.map(member => (
+                {projectTeam?.map(member => (
                     <label
                         key={member._id}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-input border border-border cursor-pointer hover:border-border-strong hover:bg-surface-hover transition-colors duration-150"

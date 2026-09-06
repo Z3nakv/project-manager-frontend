@@ -12,8 +12,8 @@ const ProjectCardSkeleton = () => (
         <SkeletonBlock className="h-5 w-5 rounded-md" />
       </div>
 
-      <SkeletonBlock className="h-[15px] w-2/3 rounded-md mb-1.5" />
-      <SkeletonBlock className="h-[11px] w-1/2 rounded-md mb-2" />
+      <SkeletonBlock className="h-2.75 w-2/3 rounded-md mb-1.5" />
+      <SkeletonBlock className="h-2.75 w-1/2 rounded-md mb-2" />
       <SkeletonBlock className="h-3 w-full rounded-md mb-1" />
       <SkeletonBlock className="h-3 w-5/6 rounded-md mb-3" />
 

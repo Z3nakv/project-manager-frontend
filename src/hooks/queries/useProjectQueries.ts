@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getEditProjectById, getProjectById } from "../../services/ProjectService";
+import { getEditProjectById, getProjectHeaderById, getTaskList } from "../../services/ProjectService";
 
 export const useGetEditProjectByIdQuery = (projectId : string) => {
   return useQuery({
@@ -10,10 +10,18 @@ export const useGetEditProjectByIdQuery = (projectId : string) => {
   });
 }
 
-export const useGetProjectById = (projectId: string) => {
+export const useGetProjectHeaderById = (projectId: string) => {
   return useQuery({
       queryKey: ["project", projectId],
-      queryFn: () => getProjectById({ projectId }),
+      queryFn: () => getProjectHeaderById({ projectId }),
+      retry: false
+    });
+}
+
+export const useGetTaskList = (projectId: string) => {
+  return useQuery({
+      queryKey: ["projectTasks", projectId],
+      queryFn: () => getTaskList({ projectId }),
       retry: false
     });
 }

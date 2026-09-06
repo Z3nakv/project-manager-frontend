@@ -11,18 +11,19 @@ import type { TaskProjectType, TaskStatus } from "../../../types/task";
 import type { ProjectItemSchemaDetailsType } from "../../../types/project";
 import { useCallback, useMemo } from "react";
 import useProjectId from "../../../hooks/useProjectId";
-import { useGetProjectById } from "../../../hooks/queries/useProjectQueries";
+import { useGetTaskList } from "../../../hooks/queries/useProjectQueries";
 import { useAuth } from "../../../hooks/useAuth";
+import TaskListSkeleton from "../../TaskListSkeleton";
 
 const TaskList = () => {
   const projectId = useProjectId();
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
   const { data: user} = useAuth();
-  const { data: project } = useGetProjectById(projectId);
+  const { data: project, isLoading } = useGetTaskList(projectId);
   const { mutate } = useUpdateTaskStatusMutation({ projectId });
   const getTaskName = useCallback((task: TaskProjectType) => task.name, []);
-  const { filteredItems } = useSearch(project!.tasks, getTaskName);
+  const { filteredItems } = useSearch(project?.tasks ?? [], getTaskName);
   const canEdit = useMemo(() => project?.manager._id.toString() === user?._id.toString(), [project, user]);
   
   const handleDragEnd = (e: DragEndEvent) => {
@@ -34,7 +35,7 @@ const TaskList = () => {
     if (status && taskId) {
       mutate({ projectId, taskId, status });
       queryClient.setQueryData(
-        ["project", projectId],
+        ["projectTasks", projectId],
         (prevData: ProjectItemSchemaDetailsType) => {
           const updatedTasks = prevData.tasks.map((task) => {
             if (task._id === taskId) {
@@ -56,7 +57,7 @@ const TaskList = () => {
   };
 
   const groupedTasks = taskReducer(filteredItems);
-
+  if(isLoading) return <TaskListSkeleton />
   return (
   <div>
     <HorizontalScroller className="snap-x snap-mandatory">

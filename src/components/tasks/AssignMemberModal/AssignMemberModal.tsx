@@ -3,23 +3,21 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useLocation, useNavigate } from "react-router";
 import { Fragment } from "react/jsx-runtime"
 import AssignMembersForm from "./AssignMembersForm";
-import { useQueryClient } from "@tanstack/react-query";
-import type { ProjectItemSchemaDetailsType } from "../../../types/project";
 import useProjectId from "../../../hooks/useProjectId";
+import { useGetTaskList } from "../../../hooks/queries/useProjectQueries";
 
 const AssignMemberModal = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const projectId = useProjectId();
-    const queryClient = useQueryClient();
-    const project = queryClient.getQueryData<ProjectItemSchemaDetailsType>(['project', projectId])!;
+    const { data: project } = useGetTaskList(projectId);
+    if(!project?.tasks) return null;
     const taskId = new URLSearchParams(location.search).get("viewAssignMember")!;
     const show = !!taskId;
     const handleClose = () => navigate(location.pathname, { replace: true });
-    const task = project.tasks.find(task => task._id === taskId)!;
-    if (!task) return null;
-    const taskTeam = task.assignedTo!.map(task => task._id) ?? [];
-    const projectTeam = project.team;
+    const task = project.tasks.find(task => task._id === taskId);
+    if (!task?.assignedTo) return null;
+    const taskTeam = task.assignedTo.map(task => task._id) ?? [];
 
   return (
     <Transition appear show={show} as={Fragment}>
@@ -69,7 +67,7 @@ const AssignMemberModal = () => {
                                         </button>
                                     </div>
     
-                                    <AssignMembersForm projectTeam ={projectTeam} taskTeam={taskTeam} taskId={taskId} projectId={projectId} />
+                                    <AssignMembersForm taskTeam={taskTeam} taskId={taskId} projectId={projectId} />
     
                                 </DialogPanel>
                             </TransitionChild>

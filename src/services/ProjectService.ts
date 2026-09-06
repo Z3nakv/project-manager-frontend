@@ -3,7 +3,8 @@ import { parseOrThrow } from "../lib/parseOrThrow";
 import {
   dashboardProjectsArraySchema,
   editProjectSchema,
-  projectSchema,
+  projectHeaderSchema,
+  taskListSchema,
   type ProjectFormDataType,
   type ProjectItemType,
 } from "../types/project";
@@ -16,12 +17,6 @@ export const getAllProjects = async () => {
 
 type getProjectByIdProps = {
   projectId: ProjectItemType["_id"];
-};
-
-export const getProjectById = async ({projectId}: getProjectByIdProps) => {
-  const url = `/projects/${projectId}`;
-  const project = await httpGet<unknown>(url);
-  return parseOrThrow(projectSchema, project, "getProjectById");
 };
 
 export const getEditProjectById = async ({projectId}: getProjectByIdProps) => {
@@ -56,3 +51,15 @@ export const deleteProject = async (projectId: ProjectItemType["_id"]) => {
   const data = await httpDelete<MessageResponse>(url);
   return data.message;
 };
+
+export const getProjectHeaderById  = async ({projectId}:getProjectByIdProps) => {
+  const url = `/projects/${projectId}`;
+  const project = await httpGet<unknown>(url);
+  return parseOrThrow(projectHeaderSchema, project, "getProjectHeaderById");
+}
+
+export const getTaskList = async ({projectId}:getProjectByIdProps) => {
+  const url = `/projects/${projectId}/tasks`;
+  const project = await httpGet<unknown>(url);
+  return parseOrThrow(taskListSchema, project, "getTaskList");
+}

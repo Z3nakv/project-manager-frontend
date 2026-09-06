@@ -13,6 +13,17 @@ export const projectSchema = object({
     tasks: array(projectTaskSchema)
 });
 
+export const projectHeaderSchema = projectSchema.pick({
+  projectName: true,
+  clientName: true,
+  description: true
+})
+
+export const taskListSchema = projectSchema.pick({
+  manager: true,
+  tasks: true
+})
+
 export const dashboardProjectSchema = projectSchema.pick({
     _id: true,
     projectName: true,
