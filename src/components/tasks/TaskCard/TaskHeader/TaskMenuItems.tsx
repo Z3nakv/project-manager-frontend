@@ -48,7 +48,7 @@ const TaskMenuItems = ({ canEdit, taskId }: TaskMenuItemsProps) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <MenuItems className="absolute right-0 top-8 z-10 min-w-40 rounded-xl overflow-hidden border border-border bg-surface-elevated shadow-lifted focus:outline-none">
+          <MenuItems className="absolute right-0 top-8 z-100 min-w-40 rounded-xl overflow-hidden border border-border bg-surface-elevated shadow-lifted focus:outline-none">
             
             <MenuItem>
               <button

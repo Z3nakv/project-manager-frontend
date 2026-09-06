@@ -49,6 +49,14 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
+      
+      - name: Debug env vars
+        run: |
+          echo "--- Variables de entorno relevantes ---"
+          echo "VITE_API_URL=$VITE_API_URL"
+          echo "E2E_API_URL=$E2E_API_URL"
+          echo "--- Archivos .env presentes en el checkout ---"
+          find . -maxdepth 2 -iname ".env*" 2>/dev/null || echo "no se encontraron archivos .env"
 
       - name: Run E2E tests
         run: npx playwright test

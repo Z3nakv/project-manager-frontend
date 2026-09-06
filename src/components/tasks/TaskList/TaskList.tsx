@@ -91,7 +91,7 @@ const TaskList = () => {
 
                 <DropTask status={status} >
 
-                <ul className="bg-surface-base border border-border rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2 min-h-30 w-full max-w-full overflow-hidden box-border">
+                <ul className="bg-surface-base border border-border rounded-b-lg rounded-tr-lg p-3 flex flex-col gap-2 min-h-30 w-full max-w-full box-border">
                   {tasks.map((task) => (
                     <TaskCard
                       key={task._id}

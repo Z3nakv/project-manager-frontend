@@ -3,6 +3,12 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+const apiUrl =
+  process.env.E2E_API_URL ||
+  process.env.VITE_API_URL ||
+  "http://localhost:5000/api";
+
 export default defineConfig({
   testDir: './e2e',
   /* Run tests in files in parallel */
@@ -41,9 +47,7 @@ export default defineConfig({
   url: 'http://localhost:5173',
   reuseExistingServer: !process.env.CI,
   env: {
-    VITE_API_URL: process.env.CI
-      ? 'https://tree-work-backend.onrender.com/api'
-      : process.env.VITE_API_URL ?? '',
+    VITE_API_URL: apiUrl,
   },
 },
 });

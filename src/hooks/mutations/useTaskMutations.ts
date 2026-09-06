@@ -37,6 +37,7 @@ export const useCreateTaskMutation = ({
     onSuccess: (data: TaskMutationSuccessData) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
       if (reset) reset();
       navigate(location.pathname, { replace: true });
       onSuccessCallback?.();
