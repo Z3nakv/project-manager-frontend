@@ -67,3 +67,10 @@ Thumbs.db
 # Build/analysis reports
 stats.html
 *.report.html
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
