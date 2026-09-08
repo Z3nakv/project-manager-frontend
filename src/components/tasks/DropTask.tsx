@@ -11,6 +11,7 @@ const DropTask = ({ status, children }: DropTaskProps) => {
   return (
     <div
       ref={ref}
+      data-testid={`column-${status}`}
     >
       {children}
     </div>
