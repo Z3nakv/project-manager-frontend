@@ -50,7 +50,7 @@ export const useRemoveUserFromProjectMutation = ({ projectId } : useRemoveUserFr
       toast.success(data?.message);
       queryClient.invalidateQueries({queryKey:['projects']});
       queryClient.invalidateQueries({ queryKey: ["projectTeam", projectId] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
     },
     onError: (error) => toast.error(error.message),
   });

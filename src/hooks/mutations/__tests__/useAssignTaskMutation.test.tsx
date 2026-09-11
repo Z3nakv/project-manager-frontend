@@ -57,7 +57,7 @@ describe('useAssignTaskMutation', () => {
 
     await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Tarea asignada correctamente'));
 
-    expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['project', 'proj-1'] });
+    expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['projectTasks', 'proj-1'] });
     expect(assignTask).toHaveBeenCalledWith({
       projectId: 'proj-1',
       taskId: 'task-1',

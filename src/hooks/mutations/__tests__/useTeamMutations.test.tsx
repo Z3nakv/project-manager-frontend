@@ -137,7 +137,7 @@ describe('useTeamMutations', () => {
 
       expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['projects'] });
       expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['projectTeam', 'proj-1'] });
-      expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['project', 'proj-1'] });
+      expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['projectTasks', 'proj-1'] });
     });
 
     it('debe mostrar toast de error si falla la eliminación', async () => {

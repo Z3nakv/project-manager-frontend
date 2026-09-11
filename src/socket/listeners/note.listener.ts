@@ -20,7 +20,7 @@ export function registerNoteListener(
             queryKey: ["notifications"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["project", payload.projectId]
+          queryKey: ["projectTasks", payload.projectId]
         })
     }
 
@@ -32,7 +32,7 @@ export function registerNoteListener(
             queryKey: ["notifications"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["project", payload.projectId]
+          queryKey: ["projectTasks", payload.projectId]
         });
     }
 

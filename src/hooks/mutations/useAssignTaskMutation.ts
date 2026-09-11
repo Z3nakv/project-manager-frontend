@@ -25,7 +25,7 @@ export const useAssignTaskMutation = ({
     mutationFn: (userIds: assignTaskType) =>
       assignTask({ projectId, taskId, userIds }),
     onSuccess: (data: AssignTaskMutationResponse) => {
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
       toast.success(data.message);
     },
     onError: (error) => toast.error(error.message),

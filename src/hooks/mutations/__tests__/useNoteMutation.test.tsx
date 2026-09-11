@@ -67,7 +67,7 @@ describe("useNoteMutations", () => {
       );
       expect(mockResetField).toHaveBeenCalledWith("content");
       expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: ["project", "proj-1"],
+        queryKey: ["projectTasks", "proj-1"],
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: ["task", "proj-1","task-1"],
@@ -133,7 +133,7 @@ describe("useNoteMutations", () => {
         queryKey: ["task", "proj-1", "task-1"],
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: ["project", "proj-1"],
+        queryKey: ["projectTasks", "proj-1"],
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: ["notifications"],

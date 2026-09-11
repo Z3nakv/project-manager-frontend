@@ -36,7 +36,6 @@ export const useCreateTaskMutation = ({
     mutationFn: createTask,
     onSuccess: (data: TaskMutationSuccessData) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
       if (reset) reset();
       navigate(location.pathname, { replace: true });
@@ -64,7 +63,7 @@ export const useUpdateTaskMutation = ({
     onSuccess: (data) => {
       toast.success(data.message);
       queryClient.invalidateQueries({ queryKey: ["task", taskId] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
       navigate(location.pathname, { replace: true });
     },
     onError: (error) => toast.error(error.message),
@@ -87,7 +86,7 @@ export const useUpdateTaskStatusMutation = ({
     },
     onSuccess: (data) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
     },
   });
   return { mutate };
@@ -105,7 +104,7 @@ export const useDeleteTaskMutation = ({
     mutationFn: deleteTask,
     onSuccess: (data) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
     },
     onError: (error) => toast.error(error.message),
   });

@@ -10,14 +10,14 @@ export function registerTaskListeners (
     const onTaskCreated = (data : {message:string, projectId:string}) => {
     toast.info(data.message);
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectId],
+      queryKey: ["projectTasks", data.projectId],
     });
 
   };
 
   const onTaskUpdated = (data : {message:string, projectId: string}) => {
     toast.info(data.message);
-    queryClient.invalidateQueries({queryKey: ["project", data.projectId]});
+    queryClient.invalidateQueries({queryKey: ["projectTasks", data.projectId]});
   };
 
   const onTaskDeleted = (data : {message:string, projectId: string}) => {
@@ -25,7 +25,7 @@ export function registerTaskListeners (
     toast.info(data.message);
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectId],
+      queryKey: ["projectTasks", data.projectId],
     });
 
   };
@@ -35,7 +35,7 @@ export function registerTaskListeners (
     toast.info(data.message);
 
     queryClient.invalidateQueries({
-      queryKey: ["project", data.projectId],
+      queryKey: ["projectTasks", data.projectId],
     });
 
     queryClient.invalidateQueries({
@@ -47,7 +47,7 @@ export function registerTaskListeners (
   const onTaskAssigned = (data: {message: string, projectId: string}) => {
     toast.info(data.message);
     queryClient.invalidateQueries({queryKey: ["notifications"]});
-    queryClient.invalidateQueries({queryKey: ["project", data.projectId]});
+    queryClient.invalidateQueries({queryKey: ["projectTasks", data.projectId]});
   }
 
   socket.on(

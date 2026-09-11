@@ -21,7 +21,7 @@ export const useCreateNoteMutation = ({
     mutationFn: createNote,
     onSuccess: (data) => {
       toast.success(data);
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
       queryClient.invalidateQueries({ queryKey: ["task", projectId, taskId] });
       resetField("content");
     },
@@ -51,7 +51,7 @@ export const useDeleteNoteMutation = ({
       isSubmitting.current = false;
       toast.success(data);
       queryClient.invalidateQueries({ queryKey: ["task", projectId, taskId] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: (error) => {
@@ -89,7 +89,7 @@ export const useUpdateNoteStatusMutation = ({
       isSubmitting.current = false;
       toast.success(data);
       queryClient.invalidateQueries({ queryKey: ["task", projectId, taskId] });
-      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["projectTasks", projectId] });
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: (error) => {
